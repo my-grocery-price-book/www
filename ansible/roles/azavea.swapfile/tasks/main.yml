@@ -1,0 +1,19 @@
+---
+- name: Create swapfile
+  command: fallocate -l {{ swapfile_size }} {{ swapfile_path }} creates={{ swapfile_path }}
+  register: create_swapfile
+
+- name: Set swapfile permissions
+  file: path={{ swapfile_path }} mode=600
+
+- name: Set up swapfile
+  command: mkswap {{ swapfile_path }}
+  register: setup_swapfile
+  when: create_swapfile.changed
+
+- name: Enable swapfile
+  command: swapon {{ swapfile_path }}
+  when: setup_swapfile.changed
+
+- name: Add swapfile to fstab
+  mount: src={{ swapfile_path }} name=none fstype=swap opts=sw dump=0 passno=0 state=present

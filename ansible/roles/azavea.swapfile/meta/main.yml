@@ -1,0 +1,14 @@
+---
+galaxy_info:
+    author: Michael Maurizi
+    description: An Ansible role for creating a swapfile
+    company: Azavea Inc.
+    license: Apache
+    min_ansible_version: 1.2
+    platforms:
+    - name: Ubuntu
+      versions:
+      - trusty
+    categories:
+    - development
+dependencies: []

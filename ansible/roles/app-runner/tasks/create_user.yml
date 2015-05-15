@@ -1,0 +1,15 @@
+- name: create app users
+  user: name={{ item.app_user }} shell=/bin/bash createhome=yes
+  with_items: app_domains
+
+- name: Set up authorized_keys for the app users
+  authorized_key: user={{ item.app_user }} key="{{ app_key }}"
+  with_items: app_domains
+
+- name: create shared directory
+  file: path=/home/{{item.app_user}}/shared state=directory mode=775 owner={{ item.app_user }} group={{ item.app_user }}
+  with_items: app_domains
+
+- name: update puma.rb
+  template: src=_home_/shared/puma.rb.j2 dest=/home/{{item.app_user}}/shared/puma.rb mode=644 owner={{ item.app_user }} group={{ item.app_user }}
+  with_items: app_domains

@@ -1,0 +1,3 @@
+newrelic_sysmond:
+  enabled: true
+  license_key: "ccbcd9f51bdf2071e167a7684b5455e118e89b2d"

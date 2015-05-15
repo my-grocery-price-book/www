@@ -1,0 +1,28 @@
+- name: add brightbox ruby repo
+  apt_repository: repo='ppa:brightbox/ruby-ng'
+
+- name: update apt cache
+  apt: update_cache=yes
+
+- name: Install ruby2.2 and ruby-switch
+  apt: name={{item}} state=present
+  with_items:
+    - ruby2.2
+    - ruby2.2-dev
+    - ruby-switch
+
+- name: switch to ruby2.2
+  command: ruby-switch --set ruby2.2
+
+- name: Install Bundler
+  gem: name=bundler state=present user_install=no
+
+- name: installing gem dependencies
+  apt: name={{item}} state=present
+  with_items:
+    - build-essential
+    - sqlite3
+    - libsqlite3-dev
+    - libssl-dev
+    - g++
+    - git

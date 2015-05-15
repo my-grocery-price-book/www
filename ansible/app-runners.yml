@@ -1,0 +1,5 @@
+- hosts: app-runner
+  remote_user: "{{remote_user}}"
+  sudo: yes
+  roles:
+    - app-runner
