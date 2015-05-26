@@ -10,7 +10,7 @@ one:
   quanity: 1
   total_price: 9.99
 
-two:
+grant_purchase_item:
   purchase_id: 2
   product_brand_name: MyString
   generic_name: MyString

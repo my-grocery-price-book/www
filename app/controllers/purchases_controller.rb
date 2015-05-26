@@ -4,7 +4,7 @@ class PurchasesController < ApplicationController
 
   # GET /purchases
   def index
-    @purchases = Purchase.all
+    @purchases = Purchase.for_shopper(current_shopper)
   end
 
   # GET /purchases/1
@@ -23,6 +23,7 @@ class PurchasesController < ApplicationController
   # POST /purchases
   def create
     @purchase = Purchase.new(purchase_params)
+    @purchase.shopper = current_shopper
 
     if @purchase.save
       redirect_to purchase_items_path(@purchase), notice: 'Purchase was successfully created.'
@@ -49,7 +50,7 @@ class PurchasesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_purchase
-      @purchase = Purchase.find(params[:id])
+      @purchase = Purchase.for_shopper(current_shopper).find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

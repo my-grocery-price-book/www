@@ -6,8 +6,9 @@ one:
   store: MyString
   location: MyString
 
-two:
+grant_purchase:
   id: 2
   purchased_on: 2015-05-15
   store: MyString
   location: MyString
+  shopper: grant

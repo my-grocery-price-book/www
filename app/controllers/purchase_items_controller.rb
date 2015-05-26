@@ -50,7 +50,7 @@ class PurchaseItemsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_purchase
-      @purchase = Purchase.find(params[:purchase_id])
+      @purchase = Purchase.for_shopper(current_shopper).find(params[:purchase_id])
     end
 
     def set_purchase_item

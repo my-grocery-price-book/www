@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PurchaseItemsControllerTest < ActionController::TestCase
   setup do
-    @purchase_item = purchase_items(:one)
+    @purchase_item = purchase_items(:grant_purchase_item)
     sign_in :shopper, shoppers(:grant)
   end
 
