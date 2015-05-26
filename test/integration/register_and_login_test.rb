@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'integration_helper'
 
-class BlogTest < ActionDispatch::IntegrationTest
+class RegisterAndLoginTest < ActionDispatch::IntegrationTest
   test 'register' do
     visit '/purchases'
     click_link 'Sign up'

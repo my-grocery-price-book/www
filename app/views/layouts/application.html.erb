@@ -44,9 +44,14 @@
 
 <div class="container">
 
-  <p id='notice' class="notice"><%= notice %></p>
-
-  <p id='alert' class="alert"><%= alert %></p>
+  <% if notice or alert %>
+    <div class="row">
+      <div class="col-md-12">
+        <p id='notice' class="notice"><%= notice %></p>
+        <p id='alert' class="alert"><%= alert %></p>
+      </div>
+    </div>
+  <% end %>
 
   <%= yield %>
 

@@ -26,7 +26,7 @@ class PurchaseItemsControllerTest < ActionController::TestCase
                                      quanity: @purchase_item.quanity, total_price: @purchase_item.total_price }
     end
 
-    assert_redirected_to purchase_item_path(assigns(:purchase),assigns(:purchase_item))
+    assert_redirected_to purchase_items_path(assigns(:purchase))
   end
 
   test "should show purchase_item" do

@@ -22,7 +22,7 @@ class PurchasesControllerTest < ActionController::TestCase
       post :create, purchase: { location: @purchase.location, purchased_on: @purchase.purchased_on, store: @purchase.store }
     end
 
-    assert_redirected_to purchase_path(assigns(:purchase))
+    assert_redirected_to purchase_items_path(assigns(:purchase))
   end
 
   test "should show purchase" do

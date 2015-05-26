@@ -5,7 +5,6 @@
     <table class="table table-striped">
       <thead>
       <tr>
-        <th>Purchase</th>
         <th>Product brand name</th>
         <th>Generic name</th>
         <th>Package type</th>
@@ -13,7 +12,7 @@
         <th>Package unit</th>
         <th>Quanity</th>
         <th>Total price</th>
-        <th colspan="3"></th>
+        <th></th>
       </tr>
       </thead>
 
@@ -27,9 +26,11 @@
           <td><%= purchase_item.package_unit %></td>
           <td><%= purchase_item.quanity %></td>
           <td><%= purchase_item.total_price %></td>
-          <td><%= link_to 'Show', purchase_item_path(@purchase, purchase_item) %></td>
-          <td><%= link_to 'Edit', edit_purchase_item_path(@purchase, purchase_item) %></td>
-          <td><%= link_to 'Destroy', delete_purchase_item_path(@purchase, purchase_item) %></td>
+          <td>
+            <%= link_to 'Show', purchase_item_path(@purchase, purchase_item), class: 'btn btn-default'  %>
+            <%= link_to 'Edit', edit_purchase_item_path(@purchase, purchase_item), class: 'btn btn-default'  %>
+            <%= link_to 'Destroy', delete_purchase_item_path(@purchase, purchase_item), class: 'btn btn-default'  %>
+          </td>
         </tr>
       <% end %>
       </tbody>

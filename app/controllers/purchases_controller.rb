@@ -25,7 +25,7 @@ class PurchasesController < ApplicationController
     @purchase = Purchase.new(purchase_params)
 
     if @purchase.save
-      redirect_to @purchase, notice: 'Purchase was successfully created.'
+      redirect_to purchase_items_path(@purchase), notice: 'Purchase was successfully created.'
     else
       render :new
     end
