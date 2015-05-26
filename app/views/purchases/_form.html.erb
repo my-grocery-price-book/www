@@ -4,26 +4,24 @@
       <h2><%= pluralize(@purchase.errors.count, "error") %> prohibited this purchase from being saved:</h2>
 
       <ul>
-      <% @purchase.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% @purchase.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :purchased_on %><br>
     <%= f.date_select :purchased_on %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :store %><br>
     <%= f.text_field :store %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :location %><br>
     <%= f.text_field :location %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.submit nil, class: 'btn btn-default' %>
 <% end %>

@@ -1,42 +1,41 @@
-  <% if @purchase_item.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@purchase_item.errors.count, "error") %> prohibited this purchase_item from being saved:</h2>
+<% if @purchase_item.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@purchase_item.errors.count, "error") %> prohibited this purchase_item from being saved:</h2>
 
-      <ul>
+    <ul>
       <% @purchase_item.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div class="field">
-    <%= f.label :product_brand_name %><br>
-    <%= f.text_field :product_brand_name %>
+    </ul>
   </div>
-  <div class="field">
-    <%= f.label :generic_name %><br>
-    <%= f.text_field :generic_name %>
-  </div>
-  <div class="field">
-    <%= f.label :package_type %><br>
-    <%= f.text_field :package_type %>
-  </div>
-  <div class="field">
-    <%= f.label :package_size %><br>
-    <%= f.text_field :package_size %>
-  </div>
-  <div class="field">
-    <%= f.label :package_unit %><br>
-    <%= f.text_field :package_unit %>
-  </div>
-  <div class="field">
-    <%= f.label :quanity %><br>
-    <%= f.number_field :quanity %>
-  </div>
-  <div class="field">
-    <%= f.label :total_price %><br>
-    <%= f.text_field :total_price %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<% end %>
+<div class="form-group">
+  <%= f.label :product_brand_name %><br>
+  <%= f.text_field :product_brand_name %>
+</div>
+<div class="form-group">
+  <%= f.label :generic_name %><br>
+  <%= f.text_field :generic_name %>
+</div>
+<div class="form-group">
+  <%= f.label :package_type %><br>
+  <%= f.text_field :package_type %>
+</div>
+<div class="form-group">
+  <%= f.label :package_size %><br>
+  <%= f.text_field :package_size %>
+</div>
+<div class="form-group">
+  <%= f.label :package_unit %><br>
+  <%= f.text_field :package_unit %>
+</div>
+<div class="form-group">
+  <%= f.label :quanity %><br>
+  <%= f.number_field :quanity %>
+</div>
+<div class="form-group">
+  <%= f.label :total_price %><br>
+  <%= f.text_field :total_price %>
+</div>
+<%= f.submit nil, class: 'btn btn-default' %>
+

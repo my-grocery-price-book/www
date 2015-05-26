@@ -1,30 +1,34 @@
-<h1>Listing Purchases</h1>
+<div class="row">
+  <div class="col-md-12">
+    <h1>Listing Purchases</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Purchased on</th>
-      <th>Store</th>
-      <th>Location</th>
-      <th colspan="4"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @purchases.each do |purchase| %>
+    <table class="table table-striped">
+      <thead>
       <tr>
-        <td><%= purchase.purchased_on %></td>
-        <td><%= purchase.store %></td>
-        <td><%= purchase.location %></td>
-        <td><%= link_to 'Show', purchase %></td>
-        <td><%= link_to 'Items', purchase_items_path(purchase) %></td>
-        <td><%= link_to 'Edit', edit_purchase_path(purchase) %></td>
-        <td><%= link_to 'Destroy', delete_purchase_path(purchase) %></td>
+        <th>Purchased on</th>
+        <th>Store</th>
+        <th>Location</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      </thead>
 
-<br>
+      <tbody>
+      <% @purchases.each do |purchase| %>
+        <tr>
+          <td><%= purchase.purchased_on %></td>
+          <td><%= purchase.store %></td>
+          <td><%= purchase.location %></td>
+          <td><%= link_to 'Show', purchase, class: 'btn btn-default' %>
+          <%= link_to 'Items', purchase_items_path(purchase), class: 'btn btn-default' %>
+          <%= link_to 'Edit', edit_purchase_path(purchase), class: 'btn btn-default' %>
+          <%= link_to 'Destroy', delete_purchase_path(purchase), class: 'btn btn-default' %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
 
-<%= link_to 'New Purchase', new_purchase_path %>
+    <br>
+
+    <%= link_to 'New Purchase', new_purchase_path, class: 'btn btn-default' %>
+  </div>
+</div>
