@@ -1,4 +1,5 @@
 class PurchaseItemsController < ApplicationController
+  before_action :authenticate_shopper!
   before_action :set_purchase
   before_action :set_purchase_item, only: [:show, :edit, :update, :delete, :destroy]
 

@@ -3,6 +3,7 @@ require 'test_helper'
 class PurchasesControllerTest < ActionController::TestCase
   setup do
     @purchase = purchases(:one)
+    sign_in :shopper, shoppers(:grant)
   end
 
   test "should get index" do

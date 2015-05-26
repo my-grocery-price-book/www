@@ -7,6 +7,8 @@ gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 
 gem 'therubyracer', platforms: :ruby # See https://github.com/rails/execjs#readme for more supported runtimes
 
+gem 'devise' # handle authenticaton, register , forgot password, etc
+
 group :development do
   # gem 'capistrano-rails' # Use Capistrano for deployment
 end

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  root 'purchases#index'
+  devise_for :shoppers
+  root to: 'purchases#index'
   resources :purchases do
     member do
       get 'delete'

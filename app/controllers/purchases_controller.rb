@@ -1,4 +1,5 @@
 class PurchasesController < ApplicationController
+  before_action :authenticate_shopper!
   before_action :set_purchase, only: [:show, :edit, :update, :delete, :destroy]
 
   # GET /purchases
