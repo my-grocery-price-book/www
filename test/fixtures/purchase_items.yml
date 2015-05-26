@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  purchase_id: 1
+  product_brand_name: MyString
+  generic_name: MyString
+  package_type: MyString
+  package_size: 9.99
+  package_unit: MyString
+  quanity: 1
+  total_price: 9.99
+
+two:
+  purchase_id: 2
+  product_brand_name: MyString
+  generic_name: MyString
+  package_type: MyString
+  package_size: 9.99
+  package_unit: MyString
+  quanity: 1
+  total_price: 9.99

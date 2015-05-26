@@ -3,3 +3,8 @@
   sudo: yes
   roles:
     - app-runner
+- hosts: developer
+  remote_user: "{{remote_user}}"
+  sudo: yes
+  roles:
+    - developer

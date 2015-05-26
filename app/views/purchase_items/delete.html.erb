@@ -1,0 +1,9 @@
+<h1>Destroy Purchase Item</h1>
+
+<%= form_for(@purchase_item, url: purchase_item_path(@purchase, @purchase_item), method: :delete) do |f| %>
+  Are you sure?
+  <button>Destroy</button>
+<% end %>
+
+<%= link_to 'Show', purchase_item_path(@purchase, @purchase_item) %> |
+<%= link_to 'Back', purchase_items_path(@purchase) %>

@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150515135324) do
+ActiveRecord::Schema.define(version: 20150517163242) do
+
+  create_table "purchase_items", force: :cascade do |t|
+    t.integer  "purchase_id",        null: false
+    t.string   "product_brand_name", null: false
+    t.string   "generic_name",       null: false
+    t.string   "package_type",       null: false
+    t.decimal  "package_size",       null: false
+    t.string   "package_unit",       null: false
+    t.decimal  "quanity",            null: false
+    t.decimal  "total_price",        null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "purchase_items", ["purchase_id"], name: "index_purchase_items_on_purchase_id"
 
   create_table "purchases", force: :cascade do |t|
     t.date     "purchased_on"

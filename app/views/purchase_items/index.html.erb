@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Items for <%= @purchase.store %> on <%= @purchase.purchased_on %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Purchase</th>
+      <th>Product brand name</th>
+      <th>Generic name</th>
+      <th>Package type</th>
+      <th>Package size</th>
+      <th>Package unit</th>
+      <th>Quanity</th>
+      <th>Total price</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @purchase_items.each do |purchase_item| %>
+      <tr>
+        <td><%= purchase_item.product_brand_name %></td>
+        <td><%= purchase_item.generic_name %></td>
+        <td><%= purchase_item.package_type %></td>
+        <td><%= purchase_item.package_size %></td>
+        <td><%= purchase_item.package_unit %></td>
+        <td><%= purchase_item.quanity %></td>
+        <td><%= purchase_item.total_price %></td>
+        <td><%= link_to 'Show', purchase_item_path(@purchase, purchase_item) %></td>
+        <td><%= link_to 'Edit', edit_purchase_item_path(@purchase, purchase_item) %></td>
+        <td><%= link_to 'Destroy', delete_purchase_item_path(@purchase, purchase_item) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Purchase item', new_purchase_item_path %>
