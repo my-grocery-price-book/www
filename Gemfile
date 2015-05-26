@@ -20,3 +20,7 @@ group :development, :test do
   gem 'spring-commands-testunit'
 end
 
+group :test do
+  gem 'capybara'
+end
+
