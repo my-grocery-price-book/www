@@ -19,15 +19,15 @@
 </div>
 <div class="form-group">
   <%= f.label :package_type %><br>
-  <%= f.text_field :package_type %>
+  <%= f.select :package_type, ['Can','Packet','Box','Bag','Other'] %>
 </div>
 <div class="form-group">
   <%= f.label :package_size %><br>
-  <%= f.text_field :package_size %>
+  <%= f.number_field :package_size %>
 </div>
 <div class="form-group">
   <%= f.label :package_unit %><br>
-  <%= f.text_field :package_unit %>
+  <%= f.select :package_unit, ['ml','Liters','grams','Kilograms'] %>
 </div>
 <div class="form-group">
   <%= f.label :quanity %><br>
