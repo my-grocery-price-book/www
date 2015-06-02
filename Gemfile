@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.2.1'
+gem 'comfortable_mexican_sofa', '~> 1.12.0'
+gem 'will_paginate'
 gem 'sqlite3'
 
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
@@ -8,6 +10,8 @@ gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 gem 'therubyracer', platforms: :ruby # See https://github.com/rails/execjs#readme for more supported runtimes
 
 gem 'devise' # handle authenticaton, register , forgot password, etc
+
+gem 'puma'
 
 group :development do
   # gem 'capistrano-rails' # Use Capistrano for deployment
