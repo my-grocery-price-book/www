@@ -3,3 +3,5 @@ app_key: ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA24/jS/94wfUHVfEvq1ZtIHntAy13Dc/7h/B
 app_port: 3001
 app_db_password: enterTHEdragon
 app_secret_key_base: f8bc90ebae2a4fa9d6726b907c04d3dd9971ace45a4f44be4a0a112350c6ce58c0fcd161a93b31e6fddcd1d7dd3438455b13fac0418c3ca3b52b07e8bfc36c94
+app_cms_user: bruceLEE
+app_cms_password: enterTHEdragon
