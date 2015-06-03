@@ -13,3 +13,4 @@
 [vagrant:children]
 app-runner
 db-server
+web

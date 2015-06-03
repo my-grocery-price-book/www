@@ -1,12 +1,10 @@
 - name: ensure github.com is a known host
-  sudo: no
   known_hosts:
     key: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
     host: "github.com"
 
 - name: bundle install
   command:  bundle install --clean --jobs 2 --path vendor/bundle
-  sudo: no
   args:
     chdir: ~/project
 
@@ -17,6 +15,5 @@
 
 - name: rake db:setup
   command: bundle exec rake db:setup
-  sudo: no
   args:
     chdir: ~/project

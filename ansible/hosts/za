@@ -1,0 +1,13 @@
+[app-runner]
+41.79.78.90 remote_user=ubuntu
+
+[db-server]
+41.79.78.90 remote_user=ubuntu
+
+[web]
+41.79.78.90 remote_user=ubuntu
+
+[za:children]
+app-runner
+db-server
+web

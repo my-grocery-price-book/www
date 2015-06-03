@@ -1,9 +1,3 @@
-- hosts: app-runner
-  remote_user: "{{remote_user}}"
-  sudo: yes
-  roles:
-    - db-server
-    - app-runner
 - hosts: db-server
   remote_user: "{{remote_user}}"
   sudo: yes
@@ -14,8 +8,13 @@
   sudo: yes
   roles:
     - web
-- hosts: developer
+- hosts: app-runner
   remote_user: "{{remote_user}}"
   sudo: yes
+  roles:
+    - app-runner
+- hosts: developer
+  remote_user: "{{remote_user}}"
+  sudo: no
   roles:
     - developer

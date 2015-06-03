@@ -18,3 +18,5 @@ vendor/bundle
 /tmp
 
 .vagrant
+public/system/*
+ansible/vault_pass.txt

@@ -7,8 +7,11 @@
 - name: create shared directory
   file: path=/home/gc_user/shared state=directory mode=775 owner=gc_user group=gc_user
 
-- name: create shared/config directory
-  file: path=/home/gc_user/shared/config state=directory mode=775 owner=gc_user group=gc_user
+- name: create shared directories
+  file: path=/home/gc_user/shared/{{item}} state=directory mode=775 owner=gc_user group=gc_user
+  with_items:
+    - config
+    - log
 
 - name: update puma.rb
   template: src=home/gc_user/shared/puma.rb.j2 dest=/home/gc_user/shared/puma.rb mode=644 owner=gc_user group=gc_user
