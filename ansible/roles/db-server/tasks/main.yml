@@ -1,0 +1,18 @@
+---
+- name: update apt cache
+  apt: update_cache=yes cache_valid_time=86400
+
+- name: install postgres
+  apt: name={{ item }} state=present
+  with_items:
+    - postgresql
+    - postgresql-contrib
+    - python-psycopg2
+
+- name: Ensure PostgreSQL is running
+  service: name=postgresql state=started
+
+- name: create gc_user on postgres
+  postgresql_user: name=gc_user password={{app_db_password}} role_attr_flags=CREATEDB,NOSUPERUSER
+  sudo: yes
+  sudo_user: postgres

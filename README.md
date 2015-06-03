@@ -3,18 +3,23 @@
  * vagrant (at least 1.7.2)
  * anisible (at least 1.9.0)
 
-# Development Setup with Vagrant
+# Setup with Vagrant
+
 ```
-  vagrant up
-  ssh-add .vagrant/machines/default/virtualbox/private_key
-  cd ansible && ansible-playbook site.yml
+  bin/setup.sh
+```
+
+# Development
+
+```
   vagrant ssh
   cd project
   bundle install --path vendor/bundle
+  # make changes :)
 ```
 
-
 # Deployment
+
 ```
   vagrant ssh
   cd /vagrant

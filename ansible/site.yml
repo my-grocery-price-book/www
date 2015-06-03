@@ -1,3 +1,4 @@
 ---
-- include: app-runners.yml
-- include: shared.yml
+- include: app.yml
+- include: machine.yml
+- include: monitoring.yml

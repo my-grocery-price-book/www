@@ -1,0 +1,6 @@
+- hosts: all
+  remote_user: "{{remote_user}}"
+  sudo: yes
+  roles:
+    - papertrail
+    - laggyluke.newrelic-sysmond

@@ -10,6 +10,11 @@
   args:
     chdir: ~/project
 
+- name: create development pg user
+  postgresql_user: name=developmentuser password=enter123 role_attr_flags=CREATEDB,NOSUPERUSER
+  sudo: yes
+  sudo_user: postgres
+
 - name: rake db:setup
   command: bundle exec rake db:setup
   sudo: no
