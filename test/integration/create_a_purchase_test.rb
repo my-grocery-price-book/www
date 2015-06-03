@@ -16,6 +16,7 @@ class CreatePurchaseTest < ActionDispatch::IntegrationTest
     click_link 'New Purchase item'
     fill_in 'Product brand name', with: 'Coke Lite'
     fill_in 'Generic name', with: 'Soda'
+    select 'Drinks', from: 'Category'
     select 'Can', from: 'Package type'
     fill_in 'Package size', with: '340'
     select 'ml', from: 'Package unit'

@@ -18,6 +18,10 @@
   <%= f.text_field :generic_name %>
 </div>
 <div class="form-group">
+  <%= f.label :category %><br>
+  <%= f.select :category, ['Bakery','Fresh','Frozen','Ready Meals', 'Food Cupboard', 'Snacks and Sweets', 'Drinks', 'Household', 'Pets','Baby','Health and Beauty', 'Other'] %>
+</div>
+<div class="form-group">
   <%= f.label :package_type %><br>
   <%= f.select :package_type, ['Can','Packet','Box','Bag','Other'] %>
 </div>
