@@ -1,5 +1,8 @@
 require 'test_helper'
 
+Comfy::Cms::Site.create(:identifier => 'main-site', :hostname => 'example.com')
+ComfortableMexicanSofa::Fixture::Importer.new('main-site', 'main-site', :force).import!
+
 class ActionDispatch::IntegrationTest
   include Capybara::DSL # Make the Capybara DSL available in all integration tests
 

@@ -8,7 +8,7 @@ class RegisterAndLoginTest < ActionDispatch::IntegrationTest
     fill_in 'Password', with: '123asd!@#'
     fill_in 'Password confirmation', with: '123asd!@#'
     click_button 'Sign up'
-    assert page.has_content?('Log in')
+    assert page.has_content?('This is the home page')
   end
 
   test 'login' do
