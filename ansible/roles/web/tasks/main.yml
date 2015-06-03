@@ -1,0 +1,12 @@
+- name: Download and install the Ngnix Public Signing Key
+  apt_key: url=http://nginx.org/keys/nginx_signing.key state=present
+
+- name: add ngnix repository
+  apt_repository: repo='deb http://nginx.org/packages/ubuntu/ trusty nginx' state=present update_cache=yes
+
+- name: install ngnix
+  apt: name=nginx state=present
+
+- name: create apps.conf
+  template: src=etc/nginx/conf.d/default.conf.j2 dest=/etc/nginx/conf.d/default.conf mode=644 owner=root
+  notify: restarting ngnix

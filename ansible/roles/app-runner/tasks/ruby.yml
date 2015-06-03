@@ -1,8 +1,5 @@
 - name: add brightbox ruby repo
-  apt_repository: repo='ppa:brightbox/ruby-ng'
-
-- name: update apt cache
-  apt: update_cache=yes
+  apt_repository: repo='ppa:brightbox/ruby-ng' update_cache=yes
 
 - name: Install ruby2.2 and ruby-switch
   apt: name={{item}} state=present

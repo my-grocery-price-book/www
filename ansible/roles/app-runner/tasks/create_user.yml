@@ -1,15 +1,20 @@
-- name: create app users
-  user: name={{ item.app_user }} shell=/bin/bash createhome=yes
-  with_items: app_domains
+- name: create app user
+  user: name=gc_user shell=/bin/bash createhome=yes
 
 - name: Set up authorized_keys for the app users
-  authorized_key: user={{ item.app_user }} key="{{ app_key }}"
-  with_items: app_domains
+  authorized_key: user=gc_user key="{{ app_key }}"
 
 - name: create shared directory
-  file: path=/home/{{item.app_user}}/shared state=directory mode=775 owner={{ item.app_user }} group={{ item.app_user }}
-  with_items: app_domains
+  file: path=/home/gc_user/shared state=directory mode=775 owner=gc_user group=gc_user
+
+- name: create shared/config directory
+  file: path=/home/gc_user/shared/config state=directory mode=775 owner=gc_user group=gc_user
 
 - name: update puma.rb
-  template: src=_home_/shared/puma.rb.j2 dest=/home/{{item.app_user}}/shared/puma.rb mode=644 owner={{ item.app_user }} group={{ item.app_user }}
-  with_items: app_domains
+  template: src=home/gc_user/shared/puma.rb.j2 dest=/home/gc_user/shared/puma.rb mode=644 owner=gc_user group=gc_user
+
+- name: update database.yml
+  template: src=home/gc_user/shared/config/database.yml.j2 dest=/home/gc_user/shared/config/database.yml mode=644 owner=gc_user group=gc_user
+
+- name: update secrets.yml
+  template: src=home/gc_user/shared/config/secrets.yml.j2 dest=/home/gc_user/shared/config/secrets.yml mode=644 owner=gc_user group=gc_user

@@ -16,11 +16,13 @@
   cd project
   bundle install --path vendor/bundle
   # make changes :)
+  bin/rails s -b 0.0.0.0 # visit http://192.168.30.15:3000
 ```
 
 # Deployment
 
 ```
   vagrant ssh
-  cd /vagrant
+  cd project
+  bin/cap vagrant deploy
 ```

@@ -12,7 +12,12 @@
 - name: Ensure PostgreSQL is running
   service: name=postgresql state=started
 
+- name: create my_grocery_cocktail on database
+  postgresql_db: name=my_grocery_cocktail encoding='UTF-8'
+  sudo: yes
+  sudo_user: postgres
+
 - name: create gc_user on postgres
-  postgresql_user: name=gc_user password={{app_db_password}} role_attr_flags=CREATEDB,NOSUPERUSER
+  postgresql_user: db=my_grocery_cocktail name=gc_user password={{app_db_password}} role_attr_flags=CREATEDB,NOSUPERUSER
   sudo: yes
   sudo_user: postgres

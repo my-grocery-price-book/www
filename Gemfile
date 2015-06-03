@@ -14,7 +14,10 @@ gem 'devise' # handle authenticaton, register , forgot password, etc
 gem 'puma'
 
 group :development do
-  # gem 'capistrano-rails' # Use Capistrano for deployment
+  gem 'capistrano', '~> 3.3'
+  gem 'capistrano3-puma'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails' # Use Capistrano for deployment
 end
 
 group :development, :test do
