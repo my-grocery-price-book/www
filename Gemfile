@@ -13,6 +13,8 @@ gem 'devise' # handle authenticaton, register , forgot password, etc
 
 gem 'puma'
 
+gem 'rollbar' # for error collecting
+
 group :development do
   gem 'capistrano', '~> 3.3'
   gem 'capistrano3-puma'
