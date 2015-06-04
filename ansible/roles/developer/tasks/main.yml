@@ -3,6 +3,17 @@
     key: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
     host: "github.com"
 
+- name: installing mailcatcher gem dependencies
+  apt: name={{item}} state=present
+  sudo: yes
+  with_items:
+    - sqlite3
+    - libsqlite3-dev
+
+- name: Install mailcatcher gem
+  gem: name=mailcatcher state=present user_install=no
+  sudo: yes
+
 - name: bundle install
   command:  bundle install --clean --jobs 2 --path vendor/bundle
   args:
