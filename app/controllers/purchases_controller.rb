@@ -7,10 +7,6 @@ class PurchasesController < ApplicationController
     @purchases = Purchase.for_shopper(current_shopper)
   end
 
-  # GET /purchases/1
-  def show
-  end
-
   # GET /purchases/new
   def new
     @purchase = Purchase.new

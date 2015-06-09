@@ -18,10 +18,11 @@
           <td><%= purchase.purchased_on %></td>
           <td><%= purchase.store %></td>
           <td><%= purchase.location %></td>
-          <td><%= link_to 'Show', purchase, class: 'btn btn-default' %>
-          <%= link_to 'Items', purchase_items_path(purchase), class: 'btn btn-default' %>
-          <%= link_to 'Edit', edit_purchase_path(purchase), class: 'btn btn-default' %>
-          <%= link_to 'Destroy', delete_purchase_path(purchase), class: 'btn btn-default' %></td>
+          <td>
+            <%= link_to 'Items', purchase_items_path(purchase), class: 'btn btn-default' %>
+            <%= link_to 'Edit', edit_purchase_path(purchase), class: 'btn btn-default' %>
+            <%= link_to 'Destroy', delete_purchase_path(purchase), class: 'btn btn-default' %>
+          </td>
         </tr>
       <% end %>
       </tbody>

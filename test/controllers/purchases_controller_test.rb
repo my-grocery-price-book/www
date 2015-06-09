@@ -25,11 +25,6 @@ class PurchasesControllerTest < ActionController::TestCase
     assert_redirected_to purchase_items_path(assigns(:purchase))
   end
 
-  test "should show purchase" do
-    get :show, id: @purchase
-    assert_response :success
-  end
-
   test "should get edit" do
     get :edit, id: @purchase
     assert_response :success

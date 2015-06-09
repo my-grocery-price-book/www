@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   comfy_route :cms_admin, :path => '/_admin_'
 
   devise_for :shoppers
-  resources :purchases do
+  resources :purchases, except: [:show] do
     member do
       get 'delete'
     end
