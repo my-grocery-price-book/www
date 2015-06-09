@@ -24,7 +24,7 @@
   sudo: yes
   sudo_user: postgres
 
-- name: rake db:setup
-  command: bundle exec rake db:setup
+- name: rake db:setup db:seed
+  command: bundle exec rake db:setup db:seed
   args:
     chdir: ~/project

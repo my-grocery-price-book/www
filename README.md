@@ -15,6 +15,7 @@
   vagrant ssh
   cd project
   bundle install --path vendor/bundle
+  mailcatcher --http-ip 0.0.0.0 # visit http://192.168.30.15:1080/
   # make changes :)
   bin/rails s -b 0.0.0.0 # visit http://192.168.30.15:3000
 ```
