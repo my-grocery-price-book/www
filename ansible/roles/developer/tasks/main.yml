@@ -24,7 +24,12 @@
   sudo: yes
   sudo_user: postgres
 
-- name: rake db:setup db:seed
-  command: bundle exec rake db:setup db:seed
+- name: rake db:create db:migrate db:seed
+  command: bundle exec rake db:create db:migrate db:seed
+  args:
+    chdir: ~/project
+
+- name: rake db:create RAILS_ENV=test
+  command: bundle exec rake db:create RAILS_ENV=test
   args:
     chdir: ~/project
