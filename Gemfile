@@ -14,6 +14,7 @@ gem 'devise' # handle authenticaton, register , forgot password, etc
 gem 'puma'
 
 gem 'rollbar' # for error collecting
+gem 'newrelic_rpm' # app peformance tracking
 
 group :development do
   gem 'capistrano', '~> 3.3'

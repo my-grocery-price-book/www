@@ -58,6 +58,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Use VBoxManage to customize the VM. For example to change memory:
     v.memory = 512 * 2
+    v.customize ["modifyvm", :id, "--ioapic", "on"]
     host = RbConfig::CONFIG['host_os']
     # Give all cpu cores on the host
     if host =~ /darwin/

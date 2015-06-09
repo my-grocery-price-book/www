@@ -7,3 +7,5 @@ app_cms_user: bruceLEE
 app_cms_password: enterTHEdragon
 smtp_user_name: postmaster@sandbox28e39cf850e14277a387019aaedbd088.mailgun.org
 smtp_password: 9a256e6719dba127ff568fc9332b3e2f
+newrelic_agent_enabled: false
+newrelic_license_key: blah

@@ -19,12 +19,21 @@
   bin/rails s -b 0.0.0.0 # visit http://192.168.30.15:3000
 ```
 
-# Deployment
+# Vagrant Provision and Deployment
+
+provisioning
+
+```
+  cd ansible
+  ansible-playbook -vv site.yml
+```
+
+deploying
 
 ```
   vagrant ssh
   cd project
-  bin/cap vagrant deploy
+  bin/cap za deploy
 ```
 
 # ZA Provisioning and Deployment

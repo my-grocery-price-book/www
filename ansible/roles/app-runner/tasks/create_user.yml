@@ -21,3 +21,6 @@
 
 - name: update secrets.yml
   template: src=home/gc_user/shared/config/secrets.yml.j2 dest=/home/gc_user/shared/config/secrets.yml mode=644 owner=gc_user group=gc_user
+
+- name: update newrelic.yml
+  template: src=home/gc_user/shared/config/newrelic.yml.j2 dest=/home/gc_user/shared/config/newrelic.yml mode=644 owner=gc_user group=gc_user
