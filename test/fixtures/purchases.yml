@@ -12,3 +12,14 @@ grant_purchase:
   store: MyString
   location: MyString
   shopper: grant
+
+test_total_cost:
+  id: 3
+  purchased_on: 2015-05-15
+  store: MyString
+  location: MyString
+
+test_total_cost_no_items:
+  purchased_on: 2015-05-15
+  store: MyString
+  location: MyString

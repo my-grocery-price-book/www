@@ -5,4 +5,8 @@ class Purchase < ActiveRecord::Base
   def self.for_shopper(shopper)
     where(shopper_id: shopper)
   end
+
+  def total_cost
+    items.sum(:total_price)
+  end
 end

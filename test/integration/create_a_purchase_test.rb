@@ -25,5 +25,22 @@ class CreatePurchaseTest < ActionDispatch::IntegrationTest
     click_button 'Create Purchase item'
     assert page.has_css?('.notice', text: 'Purchase item was successfully created.')
     assert page.has_content?('Coke Lite')
+
+    # create a second item
+    click_link 'New Purchase item'
+    fill_in 'Product brand name', with: 'Woolworths White Sugar'
+    fill_in 'Generic name', with: 'White Sugar'
+    select 'Food Cupboard', from: 'Category'
+    select 'Can', from: 'Package type'
+    fill_in 'Package size', with: '500'
+    select 'Kilograms', from: 'Package unit'
+    fill_in 'Quanity', with: '2'
+    fill_in 'Total price', with: '18.95'
+    click_button 'Create Purchase item'
+    assert page.has_css?('.notice', text: 'Purchase item was successfully created.')
+    assert page.has_content?('Woolworths White Sugar')
+
+    # page should have purchase total
+    assert page.has_content?('29.94')
   end
 end
