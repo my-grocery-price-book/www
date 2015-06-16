@@ -80,13 +80,14 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'my-grocery-price-book.co.za' }
 
   config.action_mailer.delivery_method = :smtp
-  # SMTP settings for gmail
+  # SMTP settings for mailgun
   config.action_mailer.smtp_settings = {
-    :address              => '209.61.151.224',
+    :address              => 'smtp.mailgun.org',
     :port                 => 587,
+    :domain               => "my-grocery-price-book.co.za",
     :user_name            => Rails.application.secrets.smtp_user_name,
     :password             => Rails.application.secrets.smtp_password,
-    :authentication       => "plain",
+    :authentication       => 'plain',
     :enable_starttls_auto => true
   }
 end
