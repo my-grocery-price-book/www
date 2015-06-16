@@ -82,7 +82,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
-    :address              => "smtp.mailgun.org",
+    :address              => '209.61.151.224',
     :port                 => 587,
     :user_name            => Rails.application.secrets.smtp_user_name,
     :password             => Rails.application.secrets.smtp_password,
