@@ -73,8 +73,9 @@ Rails.application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   require 'syslogger'
-  LOGGER = Syslogger.new('grocery_api', Syslog::LOG_PID, Syslog::LOG_LOCAL0) unless defined?(LOGGER)
-  LOGGER.level = Logger::INFO
+  logger = Syslogger.new('my-grocery-pricebook', Syslog::LOG_PID, Syslog::LOG_LOCAL0) unless defined?(LOGGER)
+  logger.level = Logger::INFO
+  config.logger = logger
   # config.log_formatter = ::Logger::Formatter.new
 
   # Do not dump schema after migrations.
