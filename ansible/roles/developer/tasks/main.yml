@@ -24,6 +24,12 @@
   sudo: yes
   sudo_user: postgres
 
+- name: create database.yml
+  command:  cp config/example/database.yml config/database.yml
+  args:
+    chdir: ~/project
+    creates: ~/project/config/database.yml
+
 - name: rake db:create db:migrate db:seed
   command: bundle exec rake db:create db:migrate db:seed
   args:
