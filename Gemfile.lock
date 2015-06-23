@@ -239,7 +239,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  annotate (~> 2.6.6)
+  annotate (~> 2.6)
   capistrano (~> 3.3)
   capistrano-bundler
   capistrano-rails
