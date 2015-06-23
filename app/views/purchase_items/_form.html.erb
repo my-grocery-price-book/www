@@ -14,16 +14,8 @@
   <%= f.text_field :product_brand_name %>
 </div>
 <div class="form-group">
-  <%= f.label :generic_name %><br>
-  <%= f.text_field :generic_name %>
-</div>
-<div class="form-group">
   <%= f.label :category %><br>
   <%= f.select :category, ['Bakery','Fresh','Frozen','Ready Meals', 'Food Cupboard', 'Snacks and Sweets', 'Drinks', 'Household', 'Pets','Baby','Health and Beauty', 'Other'], include_blank: true %>
-</div>
-<div class="form-group">
-  <%= f.label :package_type %><br>
-  <%= f.select :package_type, ['Can','Packet','Box','Bag','Other'], include_blank: true %>
 </div>
 <div class="form-group">
   <%= f.label :package_size %><br>
@@ -31,7 +23,7 @@
 </div>
 <div class="form-group">
   <%= f.label :package_unit %><br>
-  <%= f.select :package_unit, ['ml','Liters','grams','Kilograms'] %>
+  <%= f.text_field :package_unit %>
 </div>
 <div class="form-group">
   <%= f.label :quanity %><br>
