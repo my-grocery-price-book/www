@@ -20,8 +20,8 @@ class PurchaseItemsControllerTest < ActionController::TestCase
   test "should create purchase_item" do
     assert_difference('PurchaseItem.count') do
       post :create, purchase_id: @purchase_item.purchase_id,
-                    purchase_item: { generic_name: @purchase_item.generic_name, package_size: @purchase_item.package_size,
-                                     package_type: @purchase_item.package_type, package_unit: @purchase_item.package_unit,
+                    purchase_item: { package_size: @purchase_item.package_size,
+                                     package_unit: @purchase_item.package_unit,
                                      product_brand_name: @purchase_item.product_brand_name,
                                      quanity: @purchase_item.quanity, total_price: @purchase_item.total_price }
     end
@@ -42,8 +42,8 @@ class PurchaseItemsControllerTest < ActionController::TestCase
   test "should update purchase_item" do
     patch :update,  id: @purchase_item,
                     purchase_id: @purchase_item.purchase_id,
-                    purchase_item: { generic_name: @purchase_item.generic_name, package_size: @purchase_item.package_size,
-                                     package_type: @purchase_item.package_type, package_unit: @purchase_item.package_unit,
+                    purchase_item: { package_size: @purchase_item.package_size,
+                                     package_unit: @purchase_item.package_unit,
                                      product_brand_name: @purchase_item.product_brand_name,
                                      quanity: @purchase_item.quanity, total_price: @purchase_item.total_price }
    assert_redirected_to purchase_item_path(assigns(:purchase),assigns(:purchase_item))

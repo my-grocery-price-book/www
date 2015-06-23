@@ -21,8 +21,6 @@
 one:
   purchase_id: 1
   product_brand_name: MyString
-  generic_name: MyString
-  package_type: MyString
   package_size: 9.99
   package_unit: MyString
   quanity: 1
@@ -31,8 +29,6 @@ one:
 grant_purchase_item:
   purchase_id: 2
   product_brand_name: MyString
-  generic_name: MyString
-  package_type: MyString
   package_size: 9.99
   package_unit: MyString
   quanity: 1
@@ -41,8 +37,6 @@ grant_purchase_item:
 total_cost_purchase_item_1:
   purchase_id: 3
   product_brand_name: MyString
-  generic_name: MyString
-  package_type: MyString
   package_size: 10.99
   package_unit: MyString
   quanity: 1
@@ -51,8 +45,6 @@ total_cost_purchase_item_1:
 total_cost_purchase_item_2:
   purchase_id: 3
   product_brand_name: MyString
-  generic_name: MyString
-  package_type: MyString
   package_size: 10.99
   package_unit: MyString
   quanity: 1
