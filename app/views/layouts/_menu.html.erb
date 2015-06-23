@@ -17,7 +17,7 @@
         <li>
         <% if shopper_signed_in? %>
           <%= form_tag(destroy_shopper_session_path, method: :delete, class: 'form-inline') do |f| %>
-            <button>Logout</button>
+            <button class='logout'>Logout</button>
           <% end %>
         <% else %>
           <a href="<%= new_shopper_session_path %>">Login</a>
