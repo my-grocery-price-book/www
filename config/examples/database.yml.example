@@ -4,13 +4,12 @@ default: &default
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
-  host: localhost
+  username:
+  password:
 
 development:
   <<: *default
   database: my_grocery_cocktail_development
-  username: developmentuser
-  password: enter123
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -18,8 +17,6 @@ development:
 test:
   <<: *default
   database: my_grocery_cocktail_test
-  username: developmentuser
-  password: enter123
 
 production:
   <<: *default

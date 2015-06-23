@@ -17,6 +17,8 @@ gem 'rollbar' # for error collecting
 gem 'newrelic_rpm' # app peformance tracking
 gem 'syslogger' # log to syslog
 
+gem 'annotate', '~> 2.6.6'
+
 group :development do
   gem 'capistrano', '~> 3.3'
   gem 'capistrano3-puma'

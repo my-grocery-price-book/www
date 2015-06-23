@@ -6,8 +6,6 @@
       <thead>
       <tr>
         <th>Product brand name</th>
-        <th>Generic name</th>
-        <th>Package type</th>
         <th>Package size</th>
         <th>Package unit</th>
         <th>Quanity</th>
@@ -20,8 +18,6 @@
       <% @purchase_items.each do |purchase_item| %>
         <tr>
           <td><%= purchase_item.product_brand_name %></td>
-          <td><%= purchase_item.generic_name %></td>
-          <td><%= purchase_item.package_type %></td>
           <td><%= purchase_item.package_size %></td>
           <td><%= purchase_item.package_unit %></td>
           <td><%= purchase_item.quanity %></td>

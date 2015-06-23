@@ -20,3 +20,9 @@ vendor/bundle
 .vagrant
 public/system/*
 ansible/vault_pass.txt
+
+# Ignore config look at config examples
+config/*.yml
+
+.DS_Store
+.ruby-version

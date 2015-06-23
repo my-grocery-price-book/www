@@ -17,3 +17,7 @@
 body {
   padding-top: 50px;
 }
+
+.btn-default {
+  margin-bottom: 10px;
+}
