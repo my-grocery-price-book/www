@@ -12,7 +12,7 @@
   command: ruby-switch --set ruby2.2
 
 - name: Install Bundler
-  gem: name=bundler state=present user_install=no
+  gem: name=bundler user_install=no state=latest
 
 - name: installing gem dependencies
   apt: name={{item}} state=present
