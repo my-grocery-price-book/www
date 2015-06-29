@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :regular_lists
+
+  get 'regular_lists/:id/delete' => 'regular_lists#delete', as: :delete_regular_lists
+
   comfy_route :cms_admin, :path => '/_admin_'
 
   devise_for :shoppers

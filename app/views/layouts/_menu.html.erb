@@ -13,6 +13,7 @@
       <ul class="nav navbar-nav">
         <% if shopper_signed_in? %>
         <li><a href="<%= purchases_path %>">Purchases</a></li>
+        <li><a href="<%= regular_lists_path %>">Regular</a></li>
         <% end %>
         <li>
         <% if shopper_signed_in? %>

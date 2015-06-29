@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>Regular Shopping Items</h1>
+
+    <table class='table table-striped'>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Category</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @regular_lists.each do |regular_list| %>
+          <tr>
+            <td><%= regular_list.name %></td>
+            <td><%= regular_list.category %></td>
+            <td>
+              <%= link_to 'Edit', edit_regular_list_path(regular_list), class: 'btn btn-default'%>
+              <%= link_to 'Remove', delete_regular_lists_path(regular_list), class: 'btn btn-default'%>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+
+    <%= link_to 'New Regular Item', new_regular_list_path, class: 'btn btn-default' %>
+  </div>
+</div>
+
