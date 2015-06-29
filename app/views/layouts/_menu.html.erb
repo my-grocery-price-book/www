@@ -13,7 +13,8 @@
       <ul class="nav navbar-nav">
         <% if shopper_signed_in? %>
         <li><a href="<%= purchases_path %>">Purchases</a></li>
-        <% end %>
+        <li><a href="<%= profile_path %>">Profile</a></li>
+      <% end %>
         <li>
         <% if shopper_signed_in? %>
           <%= form_tag(destroy_shopper_session_path, method: :delete, class: 'form-inline') do |f| %>

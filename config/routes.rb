@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   comfy_route :cms_admin, :path => '/_admin_'
+  resource :profile, except: [:new, :create, :destroy]
 
   devise_for :shoppers
   resources :purchases, except: [:show] do
