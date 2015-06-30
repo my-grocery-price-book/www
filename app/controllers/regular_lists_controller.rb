@@ -28,7 +28,7 @@ class RegularListsController < ApplicationController
     @regular_list = RegularList.new(regular_list_params)
 
     if @regular_list.save
-      redirect_to @regular_list, notice: 'Regular list was successfully created.'
+      redirect_to @regular_list, notice: 'Regular item was successfully created.'
     else
       render :new
     end
@@ -37,7 +37,7 @@ class RegularListsController < ApplicationController
   # PATCH/PUT /regular_lists/1
   def update
     if @regular_list.update(regular_list_params)
-      redirect_to @regular_list, notice: 'Regular list was successfully updated.'
+      redirect_to @regular_list, notice: 'Regular item was successfully updated.'
     else
       render :edit
     end
@@ -46,7 +46,7 @@ class RegularListsController < ApplicationController
   # DELETE /regular_lists/1
   def destroy
     @regular_list.destroy
-    redirect_to regular_lists_url, notice: 'Regular list was successfully destroyed.'
+    redirect_to regular_lists_url, notice: 'Regular item was successfully destroyed.'
   end
 
   private
