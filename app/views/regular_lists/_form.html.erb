@@ -2,7 +2,6 @@
   <% if @regular_list.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@regular_list.errors.count, "error") %> prohibited this regular_list from being saved:</h2>
-
       <ul>
       <% @regular_list.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -10,7 +9,6 @@
       </ul>
     </div>
   <% end %>
-
   <div class="form-group">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
@@ -18,8 +16,6 @@
   <div class="form-group">
     <%= f.label :category %><br>
   <%= f.select :category, ['Bakery','Fresh','Frozen','Ready Meals', 'Food Cupboard', 'Snacks and Sweets', 'Drinks', 'Household', 'Pets','Baby','Health and Beauty', 'Other'], include_blank: true %>
-
   </div>
-    <%= f.submit nil, class: 'btn btn-default' %>
-
+  <%= f.submit 'Create Regular Item', class: 'btn btn-default' %>
 <% end %>
