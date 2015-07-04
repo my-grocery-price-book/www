@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: regular_lists
+# Table name: regular_items
 #
 #  id         :integer          not null, primary key
 #  name       :string
@@ -9,7 +9,7 @@
 #  updated_at :datetime         not null
 #
 
-class RegularList < ActiveRecord::Base
+class RegularItem < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
 

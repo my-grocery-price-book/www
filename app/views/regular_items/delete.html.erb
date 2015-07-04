@@ -2,11 +2,11 @@
   <div class="col-md-12">
     <h1>Remove Regular Item</h1>
 
-    <%= form_for(@regular_list, method: :delete) do |f| %>
+    <%= form_for(@regular_item, method: :delete) do |f| %>
       Are you sure?
       <button class="btn btn-default">Remove</button>
     <% end %>
 
-    <%= link_to 'Back', regular_lists_path, class: 'btn btn-default'%>
+    <%= link_to 'Back', regular_items_path, class: 'btn btn-default'%>
   </div>
 </div>

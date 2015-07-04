@@ -2,7 +2,7 @@ require 'integration_helper'
 
 class CreateARegularItemTest < ActionDispatch::IntegrationTest
   test 'create a new regular item' do
-    visit '/regular_lists'
+    visit '/regular_items'
     sign_in_shopper
     assert page.has_content?('Regular Shopping Items')
     click_link 'New Regular Item'

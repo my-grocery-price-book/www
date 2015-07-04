@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: regular_lists
+# Table name: regular_items
 #
 #  id         :integer          not null, primary key
 #  name       :string
@@ -11,7 +11,7 @@
 
 require 'test_helper'
 
-class RegularListTest < ActiveSupport::TestCase
+class RegularItemTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
