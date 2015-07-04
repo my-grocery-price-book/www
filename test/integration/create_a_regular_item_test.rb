@@ -4,7 +4,7 @@ class CreateARegularItemTest < ActionDispatch::IntegrationTest
   test 'create a new regular item' do
     visit '/regular_lists'
     sign_in_shopper
-    assert page.has_content('Regular Shopping Items')
+    assert page.has_content?('Regular Shopping Items')
     click_link 'New Regular Item'
     fill_in 'Name', with: 'Bread'
     select 'Bakery', from: 'Category'
