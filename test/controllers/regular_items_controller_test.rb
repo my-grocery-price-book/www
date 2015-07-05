@@ -20,6 +20,7 @@ class RegularItemsControllerTest < ActionController::TestCase
   test "should create regular_item" do
     assert_difference('RegularItem.count') do
       post :create, regular_item: { category: @regular_item.category, name: @regular_item.name }
+      assert_empty assigns(:regular_item).errors
     end
 
     assert_redirected_to regular_item_path(assigns(:regular_item))
@@ -37,6 +38,7 @@ class RegularItemsControllerTest < ActionController::TestCase
 
   test "should update regular_item" do
     patch :update, id: @regular_item, regular_item: { category: @regular_item.category, name: @regular_item.name }
+    assert_empty assigns(:regular_item).errors
     assert_redirected_to regular_item_path(assigns(:regular_item))
   end
 
