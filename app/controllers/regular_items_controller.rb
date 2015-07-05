@@ -1,9 +1,10 @@
 class RegularItemsController < ApplicationController
+  before_action :authenticate_shopper!
   before_action :set_regular_item, only: [:show, :edit, :update, :destroy, :delete]
 
   # GET /regular_items
   def index
-    @regular_items = RegularItem.all
+    @regular_items = RegularItem.for_shopper(current_shopper)
   end
 
   # GET /regular_items/1
@@ -26,9 +27,10 @@ class RegularItemsController < ApplicationController
   # POST /regular_items
   def create
     @regular_item = RegularItem.new(regular_item_params)
+    @regular_item.shopper = current_shopper
 
     if @regular_item.save
-      redirect_to @regular_item, notice: 'Regular item was successfully created.'
+      redirect_to regular_items_path(@regular_item), notice: 'Regular item was successfully created.'
     else
       render :new
     end

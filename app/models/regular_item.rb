@@ -7,10 +7,16 @@
 #  category   :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  shopper_id :integer
 #
 
 class RegularItem < ActiveRecord::Base
+  belongs_to :shopper
 
   validates :name, presence: true, uniqueness: true
+
+  def self.for_shopper(shopper)
+    where(shopper_id: shopper)
+  end
 
 end

@@ -7,6 +7,7 @@
 #  category   :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  shopper_id :integer
 #
 
 require 'test_helper'

@@ -9,7 +9,7 @@ class CreateARegularItemTest < ActionDispatch::IntegrationTest
     fill_in 'Name', with: 'Bread'
     select 'Bakery', from: 'Category'
     click_button 'Create Regular Item'
-    assert page.css?('.notice', text: 'Regular Item was successfully created.')
+    assert page.has_css?('.notice', text: 'Regular item was successfully created.')
     assert page.has_content?('Bread')
   end
 end

@@ -2,13 +2,14 @@ require 'test_helper'
 
 class RegularItemsControllerTest < ActionController::TestCase
   setup do
-    @regular_item = regular_items(:one)
+    @regular_item = regular_items(:grant_regular_item)
+    sign_in :shopper, shoppers(:grant)
   end
 
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:regular_items)
+    assert_equal assigns(:regular_items), [regular_items(:grant_regular_item)]
   end
 
   test "should get new" do

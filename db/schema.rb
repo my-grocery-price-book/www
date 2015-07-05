@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150704110603) do
+ActiveRecord::Schema.define(version: 20150704125425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,7 +165,10 @@ ActiveRecord::Schema.define(version: 20150704110603) do
     t.string   "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "shopper_id"
   end
+
+  add_index "regular_items", ["shopper_id"], name: "index_regular_items_on_shopper_id", using: :btree
 
   create_table "shoppers", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -192,4 +195,5 @@ ActiveRecord::Schema.define(version: 20150704110603) do
 
   add_foreign_key "purchase_items", "purchases"
   add_foreign_key "purchases", "shoppers"
+  add_foreign_key "regular_items", "shoppers"
 end

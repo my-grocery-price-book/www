@@ -7,6 +7,7 @@
 #  category   :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  shopper_id :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
@@ -18,3 +19,10 @@ one:
 two:
   name: MyString
   category: MyString
+
+grant_regular_item:
+  name: MyString
+  category: MyString
+  shopper: grant
+
+
