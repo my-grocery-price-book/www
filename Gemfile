@@ -34,6 +34,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'shoulda-context'
   gem 'simplecov', require: false
 end
 
