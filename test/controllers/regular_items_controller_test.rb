@@ -18,13 +18,12 @@ class RegularItemsControllerTest < ActionController::TestCase
   end
 
   test "should create regular_item" do
-    regular_item = regular_items(:grant_regular_item_2)
     assert_difference('RegularItem.count') do
       post :create, regular_item: { category: 'Food', name: 'Banana' }
       assert_empty assigns(:regular_item).errors
     end
 
-    assert_redirected_to regular_item_path(assigns(:regular_item))
+    assert_redirected_to regular_items_path
   end
 
   test "should show regular_item" do

@@ -30,7 +30,7 @@ class RegularItemsController < ApplicationController
     @regular_item.shopper = current_shopper
 
     if @regular_item.save
-      redirect_to regular_items_path(@regular_item), notice: 'Regular item was successfully created.'
+      redirect_to regular_items_path, notice: 'Regular item was successfully created.'
     else
       render :new
     end
