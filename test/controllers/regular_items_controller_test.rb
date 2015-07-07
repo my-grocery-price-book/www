@@ -20,7 +20,7 @@ class RegularItemsControllerTest < ActionController::TestCase
   test "should create regular_item" do
     regular_item = regular_items(:grant_regular_item_2)
     assert_difference('RegularItem.count') do
-      post :create, regular_item: { category: regular_item.category, name: regular_item.name }
+      post :create, regular_item: { category: 'Food', name: 'Banana' }
       assert_empty assigns(:regular_item).errors
     end
 
