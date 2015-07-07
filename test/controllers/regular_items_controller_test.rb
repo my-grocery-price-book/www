@@ -9,7 +9,7 @@ class RegularItemsControllerTest < ActionController::TestCase
   test "should get index" do
     get :index
     assert_response :success
-    assert_equal assigns(:regular_items), [regular_items(:grant_regular_item)]
+    assert_equal assigns(:regular_items), regular_items(:grant_regular_item, :grant_regular_item_2)
   end
 
   test "should get new" do
@@ -18,8 +18,9 @@ class RegularItemsControllerTest < ActionController::TestCase
   end
 
   test "should create regular_item" do
+    regular_item = regular_items(:grant_regular_item_2)
     assert_difference('RegularItem.count') do
-      post :create, regular_item: { category: @regular_item.category, name: @regular_item.name }
+      post :create, regular_item: { category: regular_item.category, name: regular_item.name }
       assert_empty assigns(:regular_item).errors
     end
 
