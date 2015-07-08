@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.1'
-gem 'comfortable_mexican_sofa', '~> 1.12.0'
+gem 'rails', '~> 4.2.1'
+gem 'comfortable_mexican_sofa', '~> 1.12'
 gem 'will_paginate'
 gem 'pg'
 
