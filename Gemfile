@@ -8,6 +8,8 @@ gem 'pg'
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 
 gem 'therubyracer', platforms: :ruby # See https://github.com/rails/execjs#readme for more supported runtimes
+gem 'opal-rails', '0.8.0.rc1'
+gem 'opal-jquery', github: 'opal/opal-jquery'
 
 gem 'devise' # handle authenticaton, register , forgot password, etc
 

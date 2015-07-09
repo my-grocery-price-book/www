@@ -10,8 +10,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/black-tie/jquery-ui.css">
 
-
-  <%= stylesheet_link_tag comfy_cms_render_css_path(@cms_site.id, @cms_layout.identifier) if @cms_site %>
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= csrf_meta_tags %>
 </head>
@@ -39,6 +37,8 @@
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <%= javascript_include_tag 'application' %>
-<%= javascript_include_tag comfy_cms_render_js_path(@cms_site.id, @cms_layout.identifier) if @cms_site %>
+<script>
+  Opal.GroceryApiService.$instance("http://<%= current_shopper.try(:current_public_api) %>");
+</script>
 </body>
 </html>
