@@ -12,16 +12,27 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label :purchased_on %><br>
-    <%= f.date_select :purchased_on %>
+    <label for="purchase_purchased_on">Purchased on</label><br>
+    <input type="date"
+           name="purchase[purchased_on]"
+           id="purchased_on"
+           value="<%= @purchase.purchased_on %>">
   </div>
   <div class="form-group">
-    <%= f.label :store %><br>
-    <%= f.text_field :store %>
+    <label for="purchase_store">Store</label><br>
+    <input data-autocomplete-stores
+           type="text"
+           name="purchase[store]"
+           id="purchase_store"
+           value="<%= @purchase.store %>">
   </div>
   <div class="form-group">
-    <%= f.label :location %><br>
-    <%= f.text_field :location %>
+    <label for="purchase_location">Location</label><br>
+    <input data-autocomplete-locations
+           type="text"
+           name="purchase[location]"
+           id="purchase_location"
+           value="<%= @purchase.location %>">
   </div>
   <%= f.submit nil, class: 'btn btn-default' %>
 <% end %>

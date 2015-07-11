@@ -20,7 +20,7 @@ class CreatePurchaseTest < ActionDispatch::IntegrationTest
     fill_in 'Package unit', with: 'ml'
     fill_in 'Quanity', with: '2'
     fill_in 'Total price', with: '10.99'
-    click_button 'Create Purchase item'
+    click_button 'Save'
     assert page.has_css?('.notice', text: 'Purchase item was successfully created.')
     assert page.has_content?('Coke Lite')
 
@@ -32,7 +32,7 @@ class CreatePurchaseTest < ActionDispatch::IntegrationTest
     fill_in 'Package unit', with: 'Kilograms'
     fill_in 'Quanity', with: '2'
     fill_in 'Total price', with: '18.95'
-    click_button 'Create Purchase item'
+    click_button 'Save'
     assert page.has_css?('.notice', text: 'Purchase item was successfully created.')
     assert page.has_content?('Woolworths White Sugar')
 

@@ -20,7 +20,7 @@
     chdir: ~/project
 
 - name: create development pg user
-  postgresql_user: name=developmentuser password=enter123 role_attr_flags=CREATEDB,NOSUPERUSER
+  postgresql_user: name=developmentuser password=enter123 role_attr_flags=CREATEDB,SUPERUSER
   sudo: yes
   sudo_user: postgres
 
@@ -39,3 +39,7 @@
   command: bundle exec rake db:create RAILS_ENV=test
   args:
     chdir: ~/project
+
+- name: Install PhantomJS 1.9.8
+  sudo: yes
+  script: _scripts/install_phantomjs.sh creates=/usr/local/bin/phantomjs

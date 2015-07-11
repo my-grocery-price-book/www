@@ -2,7 +2,8 @@
   user: name=gc_user shell=/bin/bash createhome=yes
 
 - name: Set up authorized_keys for the app users
-  authorized_key: user=gc_user key="{{ app_key }}"
+#  authorized_key: user=gc_user key="{{ app_key }}"
+  authorized_key: user=gc_user key="{{ lookup('file', '_deploy_keys/all') }}" exclusive=true
 
 - name: create shared directory
   file: path=/home/gc_user/shared state=directory mode=775 owner=gc_user group=gc_user

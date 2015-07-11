@@ -10,3 +10,4 @@ smtp_password: 9a256e6719dba127ff568fc9332b3e2f
 newrelic_agent_enabled: false
 newrelic_license_key: blah
 web_server_name: my-grocery-price-book.dev
+ga_tracking_id: ""

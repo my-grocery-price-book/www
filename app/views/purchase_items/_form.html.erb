@@ -10,28 +10,53 @@
   </div>
 <% end %>
 <div class="form-group">
-  <%= f.label :product_brand_name %><br>
-  <%= f.text_field :product_brand_name %>
+  <label for="purchase_item_product_brand_name">Product brand name</label><br>
+  <input data-autocomplete-products
+         type="text"
+         name="purchase_item[product_brand_name]"
+         id="purchase_item_product_brand_name"
+         value="<%= @purchase_item.product_brand_name %>" />
 </div>
 <div class="form-group">
-  <%= f.label :category %><br>
-  <%= f.select :category, ['Bakery','Fresh','Frozen','Ready Meals', 'Food Cupboard', 'Snacks and Sweets', 'Drinks', 'Household', 'Pets','Baby','Health and Beauty', 'Other'], include_blank: true %>
+  <label for="purchase_item_category">Category</label><br>
+  <select name="purchase_item[category]" id="purchase_item_category">
+    <option value=""></option>
+    <% ['Bakery','Fresh','Frozen','Ready Meals','Food Cupboard',
+        'Snacks and Sweets','Drinks','Household','Pets','Baby',
+        'Health and Beauty','Other'].each do |category| %>
+      <option <% if @purchase_item.category == category %>selected=""<% end %>>
+        <%= category %>
+      </option>
+    <% end %>
+  </select>
 </div>
 <div class="form-group">
-  <%= f.label :package_size %><br>
-  <%= f.number_field :package_size %>
+  <label for="purchase_item_package_size">Package size</label><br>
+  <input type="number"
+         name="purchase_item[package_size]"
+         id="purchase_item_package_size"
+         value="<%= @purchase_item.package_size %>"/>
 </div>
 <div class="form-group">
-  <%= f.label :package_unit %><br>
-  <%= f.text_field :package_unit %>
+  <label for="purchase_item_package_unit">Package unit</label><br>
+  <input type="text"
+         name="purchase_item[package_unit]"
+         id="purchase_item_package_unit"
+         value="<%= @purchase_item.package_unit %>"/>
 </div>
 <div class="form-group">
-  <%= f.label :quanity %><br>
-  <%= f.number_field :quanity %>
+  <label for="purchase_item_quanity">Quanity</label><br>
+  <input type="number"
+         name="purchase_item[quanity]"
+         id="purchase_item_quanity"
+         value="<%= @purchase_item.quanity %>" />
 </div>
 <div class="form-group">
-  <%= f.label :total_price %><br>
-  <%= f.text_field :total_price %>
+  <label for="purchase_item_total_price">Total price</label><br>
+  <input type="text"
+         name="purchase_item[total_price]"
+         id="purchase_item_total_price"
+         value="<%= @purchase_item.total_price %>" />
 </div>
-<%= f.submit nil, class: 'btn btn-default' %>
+<input type="submit" name="commit" value="Save" class="btn btn-default" />
 

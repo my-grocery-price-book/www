@@ -2,3 +2,4 @@
 - include: app.yml
 - include: machine.yml
 - include: monitoring.yml
+- include: developer.yml
