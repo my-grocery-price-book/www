@@ -1,4 +1,10 @@
-class PublicApi < Struct.new(:code, :name,:url)
+require 'yaml'
+
+class PublicApi < Struct.new(:code, :name, :domain)
+  def url
+    "http://#{domain}"
+  end
+
   def self.find_by_code(code)
     all.find{|api| api.code == code}
   end
@@ -8,16 +14,14 @@ class PublicApi < Struct.new(:code, :name,:url)
   end
 
   def self.all
-    [
-      ['za-ec','Eastern Cape', 'za-ec.public-grocery-price-book-api.co.za'],
-      ['za-fs','Free State', 'za-fs.public-grocery-price-book-api.co.za'],
-      ['za-gt','Gauteng','za-gt.public-grocery-price-book-api.co.za'],
-      ['za-nl','KwaZulu-Natal', 'za-nl.public-grocery-price-book-api.co.za'],
-      ['za-lp','Limpopo', 'za-lp.public-grocery-price-book-api.co.za'],
-      ['za-mp','Mpumalanga', 'za-mp.public-grocery-price-book-api.co.za'],
-      ['za-nc','Northern Cape', 'za-nc.public-grocery-price-book-api.co.za'],
-      ['za-nw','North West', 'za-nw.public-grocery-price-book-api.co.za'],
-      ['za-wc','Western Cape', 'za-wc.public-grocery-price-book-api.co.za']
-    ].map{|code,name,url| new(code,name,url) }
+    @@all
+  end
+
+  def self.load(config_filename = File.join(Rails.root,'config/public_apis.yml'))
+    @@all = YAML.load_file(config_filename).map do |api_info|
+      new(api_info['code'],api_info['name'],api_info['domain'])
+    end
   end
 end
+
+PublicApi.load

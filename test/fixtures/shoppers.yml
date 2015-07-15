@@ -30,7 +30,7 @@
 grant:
   email: "grant@example.com"
   confirmed_at: 2015-05-26
-  current_public_api: za-wc
+  current_public_api: "1"
 
 no_current_public_api:
   email: "concetta@example.com"
