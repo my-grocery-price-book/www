@@ -27,10 +27,10 @@ class ProfilesControllerTest < ActionController::TestCase
       assert_equal assigns[:shopper], shoppers(:grant)
     end
 
-    should "assign current_public_api_options when signed in" do
+    should "assign public_apis when signed in" do
       sign_in :shopper, shoppers(:grant)
       get :edit
-      assert assigns[:current_public_api_options].kind_of?(Array)
+      assert_equal(PublicApi.all,assigns[:public_apis])
     end
 
     should "redirect new_shopper_session when signed out" do

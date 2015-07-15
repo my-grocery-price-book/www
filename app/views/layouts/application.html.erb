@@ -37,7 +37,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <%= javascript_include_tag 'application' %>
 <script>
-  Opal.GroceryApiService.$instance("http://<%= current_shopper.try(:current_public_api) %>");
+  Opal.GroceryApiService.$instance("http://<%= current_public_api.url %>");
 </script>
 
 <%= render 'layouts/ga' %>
