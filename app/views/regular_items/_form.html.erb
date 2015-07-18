@@ -1,10 +1,9 @@
 <%= form_for(@regular_item) do |f| %>
   <% if @regular_item.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@regular_item.errors.count, "error") %> prohibited this regular_item from being saved:</h2>
       <ul>
       <% @regular_item.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <%= message %>
       <% end %>
       </ul>
     </div>
