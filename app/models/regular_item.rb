@@ -13,7 +13,8 @@
 class RegularItem < ActiveRecord::Base
   belongs_to :shopper
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true
+  validates_uniqueness_of :name, :scope => :shopper_id
 
   def self.for_shopper(shopper)
     where(shopper_id: shopper)

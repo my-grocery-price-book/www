@@ -13,7 +13,15 @@
 require 'test_helper'
 
 class RegularItemTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test 'must have a name' do
+    regular_item = RegularItem.new
+    assert_not regular_item.save
+  end
+
+  test 'name must be unique per shopper' do
+    shopper = Shopper.create
+    RegularItem.create(:shopper => shopper, :name => 'Potatoes')
+    regular_item = RegularItem.new(:shopper => shopper, :name => 'Potatoes')
+    assert_not regular_item.save
+  end
 end
