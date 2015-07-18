@@ -17,5 +17,9 @@
     <%= f.label :category %><br>
   <%= f.select :category, ['Bakery','Fresh','Frozen','Ready Meals', 'Food Cupboard', 'Snacks and Sweets', 'Drinks', 'Household', 'Pets','Baby','Health and Beauty', 'Other'], include_blank: true %>
   </div>
-  <%= f.submit 'Create Regular Item', class: 'btn btn-default' %>
+  <% if @regular_item.new_record? %>
+    <%= f.submit 'Create Regular Item', class: 'btn btn-default' %>
+  <% else %>
+    <%= f.submit 'Edit Regular Item', class: 'btn btn-default' %>
+  <% end %>
 <% end %>
