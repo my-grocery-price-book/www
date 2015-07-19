@@ -29,7 +29,7 @@ set :log_level, :info
 set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml', 'config/newrelic.yml')
 
 # Default value for linked_dirs is []
-set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/assets')
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -51,4 +51,19 @@ namespace :deploy do
     end
   end
 
+  desc 'Precompile assets locally and then rsync to deploy server'
+  task :compile_assets do
+    on roles(:web) do
+      rsync_host = host.to_s
+      rsync_user = (fetch(:user) || 'gc_user').to_s
+      rsync_path = "#{shared_path}/public/assets/"
+      run_locally do
+        execute 'bundle exec rake assets:precompile'
+        execute "rsync -av --delete ./public/assets/ #{rsync_user}@#{rsync_host}:#{rsync_path}"
+      end
+    end
+  end
 end
+
+after 'deploy:updated', 'deploy:compile_assets'
+
