@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150703104544) do
+ActiveRecord::Schema.define(version: 20150704125425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,16 +160,19 @@ ActiveRecord::Schema.define(version: 20150703104544) do
 
   add_index "purchases", ["shopper_id"], name: "index_purchases_on_shopper_id", using: :btree
 
-  create_table "regular_lists", force: :cascade do |t|
+  create_table "regular_items", force: :cascade do |t|
     t.string   "name"
     t.string   "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "shopper_id"
   end
 
+  add_index "regular_items", ["shopper_id"], name: "index_regular_items_on_shopper_id", using: :btree
+
   create_table "shoppers", force: :cascade do |t|
-    t.string   "email",                  default: "",                                          null: false
-    t.string   "encrypted_password",     default: "",                                          null: false
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -193,4 +196,5 @@ ActiveRecord::Schema.define(version: 20150703104544) do
 
   add_foreign_key "purchase_items", "purchases"
   add_foreign_key "purchases", "shoppers"
+  add_foreign_key "regular_items", "shoppers"
 end

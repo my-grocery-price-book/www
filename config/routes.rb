@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :regular_items
+
+  get 'regular_items/:id/delete' => 'regular_items#delete', as: :delete_regular_items
+
   comfy_route :cms_admin, :path => '/_admin_'
   resource :profile, except: [:new, :create, :destroy]
 

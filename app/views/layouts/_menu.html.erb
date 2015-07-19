@@ -12,9 +12,10 @@
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <% if shopper_signed_in? %>
-        <li><a href="<%= purchases_path %>">Purchases</a></li>
-        <li><a href="<%= profile_path %>">Profile</a></li>
-      <% end %>
+          <li><a href="<%= purchases_path %>">Purchases</a></li>
+          <li><a href="<%= regular_items_path %>">Regular</a></li>
+          <li><a href="<%= profile_path %>">Profile</a></li>
+        <% end %>
         <li>
         <% if shopper_signed_in? %>
           <%= form_tag(destroy_shopper_session_path, method: :delete, class: 'form-inline') do |f| %>

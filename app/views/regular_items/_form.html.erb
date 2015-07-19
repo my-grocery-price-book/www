@@ -1,0 +1,24 @@
+<%= form_for(@regular_item) do |f| %>
+  <% if @regular_item.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+      <% @regular_item.errors.full_messages.each do |message| %>
+        <%= message %>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="form-group">
+    <%= f.label :category %><br>
+  <%= f.select :category, ['Bakery','Fresh','Frozen','Ready Meals', 'Food Cupboard', 'Snacks and Sweets', 'Drinks', 'Household', 'Pets','Baby','Health and Beauty', 'Other'], include_blank: true %>
+  </div>
+  <% if @regular_item.new_record? %>
+    <%= f.submit 'Create Regular Item', class: 'btn btn-default' %>
+  <% else %>
+    <%= f.submit 'Edit Regular Item', class: 'btn btn-default' %>
+  <% end %>
+<% end %>
