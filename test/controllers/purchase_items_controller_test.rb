@@ -27,7 +27,7 @@ class PurchaseItemsControllerTest < ActionController::TestCase
         post :create, purchase_id: @purchase_item.purchase_id,
                       purchase_item: { package_size: @purchase_item.package_size,
                                        package_unit: @purchase_item.package_unit,
-                                       product_brand_name: @purchase_item.product_brand_name,
+                                       product_brand_name: 'Woolworths Bread',
                                        quanity: @purchase_item.quanity, total_price: @purchase_item.total_price }
       end
 
