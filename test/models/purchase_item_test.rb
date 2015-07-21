@@ -63,5 +63,27 @@ class PurchaseItemTest < ActiveSupport::TestCase
         assert_empty purchase_item.errors[:package_size]
       end
     end
+
+    context 'quanity' do
+      should 'not be valid if not an integer ' do
+        purchase_item = PurchaseItem.create(quanity: "one")
+        assert_not_empty purchase_item.errors[:quanity]
+      end
+
+      should 'not be valid if 0' do
+        purchase_item = PurchaseItem.create(quanity: 0)
+        assert_not_empty purchase_item.errors[:quanity]
+      end
+
+      should 'be valid if left empty' do
+        purchase_item = PurchaseItem.create
+        assert_empty purchase_item.errors[:quanity]
+      end
+
+      should 'be valid if greater than 0' do
+        purchase_item = PurchaseItem.create(quanity: 9.99)
+        assert_empty purchase_item.errors[:quanity]
+      end
+    end
   end
 end
