@@ -58,7 +58,7 @@ class PurchaseItemTest < ActiveSupport::TestCase
         assert_empty purchase_item.errors[:package_size]
       end
 
-      should 'be valid if a float' do
+      should 'be valid if greater than 0' do
         purchase_item = PurchaseItem.create(package_size: 9.99)
         assert_empty purchase_item.errors[:package_size]
       end
