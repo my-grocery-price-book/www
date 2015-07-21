@@ -27,6 +27,7 @@ one:
 grant_purchase_item:
   purchase_id: 2
   product_brand_name: MyString
+  regular_name: MyString
   package_size: 9.99
   package_unit: MyString
   quanity: 1
