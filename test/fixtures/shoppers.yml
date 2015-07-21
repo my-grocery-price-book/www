@@ -30,3 +30,7 @@
 grant:
   email: "grant@example.com"
   confirmed_at: 2015-05-26
+
+concetta:
+  email: "concetta@example.com"
+  confirmed_at: 2015-07-19
