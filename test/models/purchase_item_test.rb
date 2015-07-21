@@ -85,5 +85,27 @@ class PurchaseItemTest < ActiveSupport::TestCase
         assert_empty purchase_item.errors[:quanity]
       end
     end
+
+    context 'total_price' do
+      should 'not be valid if not an integer ' do
+        purchase_item = PurchaseItem.create(total_price: "one")
+        assert_not_empty purchase_item.errors[:total_price]
+      end
+
+      should 'not be valid if 0' do
+        purchase_item = PurchaseItem.create(total_price: 0)
+        assert_not_empty purchase_item.errors[:total_price]
+      end
+
+      should 'be valid if left empty' do
+        purchase_item = PurchaseItem.create
+        assert_empty purchase_item.errors[:total_price]
+      end
+
+      should 'be valid if greater than 0' do
+        purchase_item = PurchaseItem.create(total_price: 9.99)
+        assert_empty purchase_item.errors[:total_price]
+      end
+    end
   end
 end
