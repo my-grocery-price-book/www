@@ -116,6 +116,11 @@ GEM
     docile (1.1.5)
     erubis (2.7.0)
     execjs (2.5.2)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
     haml (4.0.6)
@@ -281,6 +286,7 @@ DEPENDENCIES
   capybara
   comfortable_mexican_sofa (~> 1.12)
   devise
+  factory_girl_rails
   newrelic_rpm
   opal-jquery!
   opal-rails (= 0.8.0.rc1)
