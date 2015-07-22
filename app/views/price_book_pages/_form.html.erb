@@ -16,9 +16,9 @@
     <%= f.label :category %><br>
   <%= f.select :category, ['Bakery','Fresh','Frozen','Ready Meals', 'Food Cupboard', 'Snacks and Sweets', 'Drinks', 'Household', 'Pets','Baby','Health and Beauty', 'Other'], include_blank: true %>
   </div>
-  <% if @price_book_page.new_record? %>
-    <%= f.submit 'Create Regular Item', class: 'btn btn-default' %>
-  <% else %>
-    <%= f.submit 'Update Regular Item', class: 'btn btn-default' %>
-  <% end %>
+  <div class="form-group">
+    <%= f.label :unit %><br>
+    <%= f.text_field :unit %>
+  </div>
+  <%= f.submit nil, class: 'btn btn-default' %>
 <% end %>

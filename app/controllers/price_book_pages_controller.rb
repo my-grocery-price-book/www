@@ -30,7 +30,7 @@ class PriceBookPagesController < ApplicationController
     @price_book_page.shopper = current_shopper
 
     if @price_book_page.save
-      redirect_to price_book_pages_path, notice: 'Regular item was successfully created.'
+      redirect_to price_book_pages_path, notice: 'Page was successfully created.'
     else
       render :new
     end
@@ -39,7 +39,7 @@ class PriceBookPagesController < ApplicationController
   # PATCH/PUT /price_book_pages/1
   def update
     if @price_book_page.update(price_book_page_params)
-      redirect_to @price_book_page, notice: 'Regular item was successfully updated.'
+      redirect_to @price_book_page, notice: 'Page was successfully updated.'
     else
       render :edit
     end
@@ -48,7 +48,7 @@ class PriceBookPagesController < ApplicationController
   # DELETE /price_book_pages/1
   def destroy
     @price_book_page.destroy
-    redirect_to price_book_pages_url, notice: 'Regular item was successfully removed.'
+    redirect_to price_book_pages_url, notice: 'Page was successfully removed.'
   end
 
   private
@@ -59,6 +59,6 @@ class PriceBookPagesController < ApplicationController
 
     # Only allow a trusted parameter "white item" through.
     def price_book_page_params
-      params.require(:price_book_page).permit(:name, :category)
+      params.require(:price_book_page).permit(:name, :category, :unit)
     end
 end

@@ -13,7 +13,7 @@
 class PriceBookPage < ActiveRecord::Base
   belongs_to :shopper
 
-  validates :name, :category, presence: true
+  validates :name, :category, :unit, presence: true
   validates_uniqueness_of :name, :scope => :shopper_id
 
   def self.for_shopper(shopper)

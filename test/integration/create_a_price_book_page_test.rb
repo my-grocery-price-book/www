@@ -5,11 +5,13 @@ class CreateAPriceBookPageTest < ActionDispatch::IntegrationTest
     visit '/price_book_pages'
     sign_in_shopper
     assert page.has_content?('Price Book')
-    click_link 'New Regular Item'
+    click_link 'New Price Book Page'
     fill_in 'Name', with: 'Bread'
     select 'Bakery', from: 'Category'
-    click_button 'Create Regular Item'
-    assert page.has_css?('.notice', text: 'Regular item was successfully created.')
+    fill_in 'Unit', with: 'Grams'
+    click_button 'Create'
+    page.save_page
+    assert page.has_css?('.notice', text: 'Page was successfully created.')
     assert page.has_content?('Bread')
   end
 end
