@@ -28,6 +28,7 @@ class CreatePurchaseTest < ActionDispatch::IntegrationTest
     # create a second item
     click_link 'New Purchase item'
     fill_in 'Product brand name', with: 'Woolworths White Sugar'
+    fill_in 'Regular name', with: 'Sugar'
     select 'Food Cupboard', from: 'Category'
     fill_in 'Package size', with: '500'
     fill_in 'Package unit', with: 'Kilograms'
@@ -39,5 +40,9 @@ class CreatePurchaseTest < ActionDispatch::IntegrationTest
 
     # page should have purchase total
     assert page.has_content?('29.94')
+
+    click_link 'Regular'
+    assert page.has_content?('Sugar')
+    assert page.has_content?('Soda')
   end
 end

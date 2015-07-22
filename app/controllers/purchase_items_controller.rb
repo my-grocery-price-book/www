@@ -26,6 +26,7 @@ class PurchaseItemsController < ApplicationController
     @purchase_item = @purchase.new_item(purchase_item_params)
 
     if @purchase.save_item(@purchase_item)
+      RegularItem.update_product_for_shopper!(current_shopper,purchase_item_params)
       redirect_to purchase_items_path(@purchase), notice: 'Purchase item was successfully created.'
     else
       render :new
