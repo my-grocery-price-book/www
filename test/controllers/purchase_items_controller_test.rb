@@ -2,13 +2,15 @@ require 'test_helper'
 
 class PurchaseItemsControllerTest < ActionController::TestCase
   setup do
-    @purchase_item = purchase_items(:grant_purchase_item)
-    sign_in :shopper, shoppers(:grant)
+    @shopper = create(:shopper)
+    @purchase = create(:purchase, shopper: @shopper)
+    @purchase_item = create(:purchase_item, purchase_id: @purchase.id)
+    sign_in :shopper, @shopper
   end
 
   context 'GET index' do
     should 'be succesful' do
-      get :index, purchase_id: @purchase_item.purchase_id
+      get :index, purchase_id: @purchase
       assert_response :success
       assert_not_nil assigns(:purchase_items)
     end
@@ -16,7 +18,7 @@ class PurchaseItemsControllerTest < ActionController::TestCase
 
   context 'GET index' do
     should 'be success' do
-      get :new, purchase_id: @purchase_item.purchase_id
+      get :new, purchase_id: @purchase
       assert_response :success
     end
   end
@@ -34,7 +36,7 @@ class PurchaseItemsControllerTest < ActionController::TestCase
 
     should 'create purchase_item' do
       assert_difference('PurchaseItem.count') do
-        post :create, purchase_id: @purchase_item.purchase_id, purchase_item: @item_params
+        post :create, purchase_id: @purchase, purchase_item: @item_params
       end
     end
 
@@ -53,14 +55,14 @@ class PurchaseItemsControllerTest < ActionController::TestCase
 
   context 'GET show' do
     should 'show purchase_item' do
-      get :show, id: @purchase_item, purchase_id: @purchase_item.purchase_id
+      get :show, id: @purchase_item, purchase_id: @purchase
       assert_response :success
     end
   end
 
   context 'GET edit' do
     should 'be success' do
-      get :edit, id: @purchase_item, purchase_id: @purchase_item.purchase_id
+      get :edit, id: @purchase_item, purchase_id: @purchase
       assert_response :success
     end
   end
@@ -68,7 +70,7 @@ class PurchaseItemsControllerTest < ActionController::TestCase
   context 'PATCH update' do
     should 'update purchase_item' do
       patch :update,  id: @purchase_item,
-                      purchase_id: @purchase_item.purchase_id,
+                      purchase_id: @purchase,
                       purchase_item: { package_size: @purchase_item.package_size,
                                        package_unit: @purchase_item.package_unit,
                                        product_brand_name: @purchase_item.product_brand_name,
@@ -80,7 +82,7 @@ class PurchaseItemsControllerTest < ActionController::TestCase
   context 'DELETE destroy' do
     should 'destroy purchase_item' do
       assert_difference('PurchaseItem.count', -1) do
-        delete :destroy, id: @purchase_item, purchase_id: @purchase_item.purchase_id
+        delete :destroy, id: @purchase_item, purchase_id: @purchase
       end
 
       assert_redirected_to purchase_items_path(assigns(:purchase))
@@ -89,7 +91,7 @@ class PurchaseItemsControllerTest < ActionController::TestCase
 
   context 'GET delete' do
     should 'be success' do
-      get :delete, id: @purchase_item, purchase_id: @purchase_item.purchase_id
+      get :delete, id: @purchase_item, purchase_id: @purchase
       assert_response :success
       assert_not_nil assigns(:purchase_item)
     end
