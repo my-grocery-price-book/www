@@ -15,4 +15,9 @@
 #
 
 class PurchaseItem < ActiveRecord::Base
+  validates_uniqueness_of :product_brand_name, scope: :purchase_id
+
+  validates_numericality_of :package_size, greater_than: 0, allow_nil: true
+  validates_numericality_of :quanity, greater_than: 0, allow_nil: true
+  validates_numericality_of :total_price, greater_than: 0, allow_nil: true
 end

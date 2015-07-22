@@ -48,7 +48,7 @@ class RegularItemsController < ApplicationController
   # DELETE /regular_items/1
   def destroy
     @regular_item.destroy
-    redirect_to regular_items_url, notice: 'Regular item was successfully destroyed.'
+    redirect_to regular_items_url, notice: 'Regular item was successfully removed.'
   end
 
   private
