@@ -2,15 +2,16 @@ require 'test_helper'
 
 class PurchasesControllerTest < ActionController::TestCase
   setup do
-    @purchase = purchases(:grant_purchase)
-    sign_in :shopper, shoppers(:grant)
+    @shopper = create(:shopper)
+    @purchase = create(:purchase, shopper: @shopper)
+    sign_in :shopper, @shopper
   end
 
   context 'GET index' do
     should 'be success' do
       get :index
       assert_response :success
-      assert_equal assigns(:purchases), [purchases(:grant_purchase)]
+      assert_equal assigns(:purchases), [@purchase]
     end
   end
 

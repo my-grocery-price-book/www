@@ -1,7 +1,6 @@
 FactoryGirl.lint
 
-# MiniTest
-class MiniTest::Unit::TestCase
+class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
 end
 
@@ -9,3 +8,5 @@ end
 class MiniTest::Spec
   include FactoryGirl::Syntax::Methods
 end
+
+

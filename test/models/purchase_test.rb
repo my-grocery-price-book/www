@@ -16,12 +16,14 @@ require 'test_helper'
 class PurchaseTest < ActiveSupport::TestCase
   context 'total_cost' do
     should 'be correct' do
-      purchase = purchases(:test_total_cost)
+      purchase = create(:purchase)
+      create(:purchase_item, purchase_id: purchase.id, total_price: 10.00)
+      create(:purchase_item, purchase_id: purchase.id, total_price: 9.98)
       assert_in_delta 19.98, purchase.total_cost
     end
 
     should 'be correct for no items' do
-      purchase = purchases(:test_total_cost_no_items)
+      purchase = create(:purchase)
       assert_in_delta 0, purchase.total_cost
     end
   end
