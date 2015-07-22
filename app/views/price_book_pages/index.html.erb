@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>Price Book</h1>
+
+    <table class='table table-striped'>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Category</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @price_book_pages.each do |price_book_page| %>
+          <tr>
+            <td><%= price_book_page.name %></td>
+            <td><%= price_book_page.category %></td>
+            <td>
+              <%= link_to 'Edit', edit_price_book_page_path(price_book_page), class: 'btn btn-default'%>
+              <%= link_to 'Remove', delete_price_book_page_path(price_book_page), class: 'btn btn-default'%>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+
+    <%= link_to 'New Regular Item', new_price_book_page_path, class: 'btn btn-default' %>
+  </div>
+</div>
+

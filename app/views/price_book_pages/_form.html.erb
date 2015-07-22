@@ -1,8 +1,8 @@
-<%= form_for(@regular_item) do |f| %>
-  <% if @regular_item.errors.any? %>
+<%= form_for(@price_book_page) do |f| %>
+  <% if @price_book_page.errors.any? %>
     <div id="error_explanation">
       <ul>
-      <% @regular_item.errors.full_messages.each do |message| %>
+      <% @price_book_page.errors.full_messages.each do |message| %>
         <%= message %>
       <% end %>
       </ul>
@@ -16,7 +16,7 @@
     <%= f.label :category %><br>
   <%= f.select :category, ['Bakery','Fresh','Frozen','Ready Meals', 'Food Cupboard', 'Snacks and Sweets', 'Drinks', 'Household', 'Pets','Baby','Health and Beauty', 'Other'], include_blank: true %>
   </div>
-  <% if @regular_item.new_record? %>
+  <% if @price_book_page.new_record? %>
     <%= f.submit 'Create Regular Item', class: 'btn btn-default' %>
   <% else %>
     <%= f.submit 'Update Regular Item', class: 'btn btn-default' %>

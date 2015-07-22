@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
-  resources :regular_items
-
-  get 'regular_items/:id/delete' => 'regular_items#delete', as: :delete_regular_items
-
   comfy_route :cms_admin, :path => '/_admin_'
+
+  resources :price_book_pages do
+    member do
+      get 'delete'
+    end
+  end
+
   resource :profile, except: [:new, :create, :destroy]
 
   devise_for :shoppers

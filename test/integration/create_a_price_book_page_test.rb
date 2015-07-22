@@ -1,10 +1,10 @@
 require 'integration_helper'
 
-class CreateARegularItemTest < ActionDispatch::IntegrationTest
+class CreateAPriceBookPageTest < ActionDispatch::IntegrationTest
   test 'create a new regular item' do
-    visit '/regular_items'
+    visit '/price_book_pages'
     sign_in_shopper
-    assert page.has_content?('Regular Shopping Items')
+    assert page.has_content?('Price Book')
     click_link 'New Regular Item'
     fill_in 'Name', with: 'Bread'
     select 'Bakery', from: 'Category'

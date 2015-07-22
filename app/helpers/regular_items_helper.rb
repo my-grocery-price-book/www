@@ -1,2 +1,0 @@
-module RegularItemsHelper
-end

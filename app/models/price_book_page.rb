@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: regular_items
+# Table name: price_book_pages
 #
 #  id         :integer          not null, primary key
 #  name       :string
@@ -10,7 +10,7 @@
 #  shopper_id :integer
 #
 
-class RegularItem < ActiveRecord::Base
+class PriceBookPage < ActiveRecord::Base
   belongs_to :shopper
 
   validates :name, :category, presence: true
