@@ -1,6 +1,7 @@
 ENV['RAILS_ENV'] ||= 'test'
 require 'rubygems'
 require 'bundler/setup'
+require 'minitest/spec'
 require 'simplecov'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
