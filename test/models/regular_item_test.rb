@@ -49,3 +49,68 @@ class RegularItemTest < ActiveSupport::TestCase
     end
   end
 end
+
+describe RegularItem do
+  describe 'class methods' do
+
+    describe 'update_product_for_shopper!' do
+      before do
+        @shopper = create(:shopper)
+      end
+
+      it 'creates a new item with product correct info' do
+        RegularItem.update_product_for_shopper!(
+          @shopper,
+          product_brand_name: 'Coke Lite',
+          regular_name: 'Soda',
+          category: 'Drinks'
+        )
+        last_attributes = RegularItem.last.attributes.except('id', 'created_at', 'updated_at')
+        last_attributes.must_equal('name' => 'Soda',
+                                   'category' => 'Drinks',
+                                   'product_names' => ['Coke Lite'],
+                                   'shopper_id' => @shopper.id)
+      end
+
+      it 'adds the product_name to existing item' do
+        current_item = create(:regular_item,
+                              shopper: @shopper,
+                              name: 'Soda',
+                              category: 'Drinks',
+                              product_names: ['Coke Lite'])
+        RegularItem.update_product_for_shopper!(
+          @shopper,
+          product_brand_name: 'Fanta',
+          regular_name: 'Soda',
+          category: 'Drinks'
+        )
+        current_item.reload
+        last_attributes = current_item.attributes.except('id', 'created_at', 'updated_at')
+        last_attributes.must_equal('name' => 'Soda',
+                                   'category' => 'Drinks',
+                                   'product_names' => ['Coke Lite', 'Fanta'],
+                                   'shopper_id' => @shopper.id)
+      end
+
+      it 'ignore product_name already on item' do
+        current_item = create(:regular_item,
+                              shopper: @shopper,
+                              name: 'Soda',
+                              category: 'Drinks',
+                              product_names: ['Coke Lite'])
+        RegularItem.update_product_for_shopper!(
+          @shopper,
+          product_brand_name: 'Coke Lite',
+          regular_name: 'Soda',
+          category: 'Drinks'
+        )
+        current_item.reload
+        last_attributes = current_item.attributes.except('id', 'created_at', 'updated_at')
+        last_attributes.must_equal('name' => 'Soda',
+                                   'category' => 'Drinks',
+                                   'product_names' => ['Coke Lite'],
+                                   'shopper_id' => @shopper.id)
+      end
+    end
+  end
+end

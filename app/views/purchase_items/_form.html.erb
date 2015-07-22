@@ -18,6 +18,13 @@
          value="<%= @purchase_item.product_brand_name %>" />
 </div>
 <div class="form-group">
+  <label for="purchase_item_regular_name">Regular name</label><br>
+  <input type="text"
+         name="purchase_item[regular_name]"
+         id="purchase_item_regular_name"
+         value="<%= @purchase_item.regular_name %>" />
+</div>
+<div class="form-group">
   <label for="purchase_item_category">Category</label><br>
   <select name="purchase_item[category]" id="purchase_item_category">
     <option value=""></option>
