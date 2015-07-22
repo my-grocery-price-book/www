@@ -32,12 +32,13 @@ group :development, :test do
 
   gem 'spring', require: false # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring-commands-testunit', require: false
-  gem 'factory_girl_rails', require: false
+  gem 'factory_girl_rails'
 end
 
 group :test do
   gem 'capybara'
   gem 'shoulda-context'
   gem 'simplecov', require: false
+  gem 'database_cleaner', require: false
 end
 
