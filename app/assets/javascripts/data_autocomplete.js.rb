@@ -18,4 +18,13 @@ Document.ready? do
       Element['[data-autocomplete-products]'].autocomplete({source: product_brand_names}.to_n)
     end
   end
+
+  if Element['[data-autocomplete-price-book-pages]'].length > 0
+    HTTP.get("/price_book_pages.json") do |response|
+      names = response.json.map{|item| item[:name] }
+      if response.ok?
+        Element['[data-autocomplete-price-book-pages]'].autocomplete({source: names}.to_n)
+      end
+    end
+  end
 end

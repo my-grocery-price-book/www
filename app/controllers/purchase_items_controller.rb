@@ -1,7 +1,7 @@
 class PurchaseItemsController < ApplicationController
   before_action :authenticate_shopper!
   before_action :set_purchase
-  before_action :set_purchase_item, only: [:show, :edit, :update, :delete, :destroy]
+  before_action :set_purchase_item, only: [:show, :edit, :update, :delete]
 
   # GET /purchase_items
   def index
@@ -14,7 +14,7 @@ class PurchaseItemsController < ApplicationController
 
   # GET /purchase_items/new
   def new
-    @purchase_item = @purchase.items.new
+    @purchase_item = @purchase.new_item
   end
 
   # GET /purchase_items/1/edit
@@ -23,9 +23,10 @@ class PurchaseItemsController < ApplicationController
 
   # POST /purchase_items
   def create
-    @purchase_item = @purchase.items.new(purchase_item_params)
+    @purchase_item = @purchase.new_item(purchase_item_params)
 
-    if @purchase_item.save
+    if @purchase.save_item(@purchase_item)
+      PriceBookPage.update_product_for_shopper!(current_shopper,purchase_item_params)
       redirect_to purchase_items_path(@purchase), notice: 'Purchase item was successfully created.'
     else
       render :new
@@ -34,7 +35,7 @@ class PurchaseItemsController < ApplicationController
 
   # PATCH/PUT /purchase_items/1
   def update
-    if @purchase_item.update(purchase_item_params)
+    if @purchase.update_item(@purchase_item,purchase_item_params)
       redirect_to purchase_item_path(@purchase,@purchase_item), notice: 'Purchase item was successfully updated.'
     else
       render :edit
@@ -43,22 +44,22 @@ class PurchaseItemsController < ApplicationController
 
   # DELETE /purchase_items/1
   def destroy
-    @purchase_item.destroy
+    @purchase.destroy_item_by_id(params[:id])
     redirect_to purchase_items_path(@purchase), notice: 'Purchase item was successfully destroyed.'
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_purchase
-      @purchase = Purchase.for_shopper(current_shopper).find(params[:purchase_id])
+      @purchase = Purchase.find_for_shopper(current_shopper, params[:purchase_id])
     end
 
     def set_purchase_item
-      @purchase_item = @purchase.items.find(params[:id])
+      @purchase_item = @purchase.find_item(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def purchase_item_params
-      params.require(:purchase_item).permit(:purchase_id, :product_brand_name, :generic_name, :package_type, :package_size, :package_unit, :quanity, :total_price)
+      params.require(:purchase_item).permit(:purchase_id, :product_brand_name, :regular_name, :category, :package_size, :package_unit, :quanity, :total_price)
     end
 end

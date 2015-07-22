@@ -1,5 +1,5 @@
-class RenamePriceBookPagesToPriceBookPages < ActiveRecord::Migration
+class RenameRegularItemsToPriceBookPages < ActiveRecord::Migration
   def change
-    rename_table 'price_book_pages', 'price_book_pages'
+    rename_table 'regular_items', 'price_book_pages'
   end
 end

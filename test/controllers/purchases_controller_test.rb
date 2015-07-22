@@ -42,7 +42,7 @@ class PurchasesControllerTest < ActionController::TestCase
   context 'PATCH update' do
     should 'update purchase' do
       patch :update, id: @purchase, purchase: { location: @purchase.location, purchased_on: @purchase.purchased_on, store: @purchase.store }
-      assert_redirected_to purchase_path(assigns(:purchase))
+      assert_redirected_to purchase_items_path(assigns(:purchase))
     end
   end
 

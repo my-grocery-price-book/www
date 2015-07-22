@@ -3,6 +3,7 @@ require 'rubygems'
 require 'bundler/setup'
 require 'minitest/spec'
 require 'simplecov'
+require 'minitest/spec'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'

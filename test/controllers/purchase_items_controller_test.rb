@@ -24,15 +24,31 @@ class PurchaseItemsControllerTest < ActionController::TestCase
   end
 
   context 'POST create' do
+    setup do
+      @item_params = { 'product_brand_name' => 'Coke Like',
+                       'package_size' => '500.0',
+                       'package_unit' => 'ml',
+                       'quanity' => '1.0',
+                       'total_price' => '38.99',
+                       'category' => 'Drinks',
+                       'regular_name' => 'Soda' }
+    end
+
     should 'create purchase_item' do
       assert_difference('PurchaseItem.count') do
-        post :create, purchase_id: @purchase,
-                      purchase_item: { package_size: @purchase_item.package_size,
-                                       package_unit: @purchase_item.package_unit,
-                                       product_brand_name: 'Woolworths Bread',
-                                       quanity: @purchase_item.quanity, total_price: @purchase_item.total_price }
+        post :create, purchase_id: @purchase, purchase_item: @item_params
       end
+    end
 
+    should 'permit correct params' do
+      post :create, purchase_id: @purchase_item.purchase_id, purchase_item: @item_params
+      item_attributes = assigns(:purchase_item).attributes.except('id', 'purchase_id', 'created_at', 'updated_at')
+      item_attributes.each { |key,value| item_attributes[key] = value.to_s }
+      assert_equal(@item_params,item_attributes)
+    end
+
+    should 'redirect to purchase_items_path' do
+      post :create, purchase_id: @purchase_item.purchase_id, purchase_item: @item_params
       assert_redirected_to purchase_items_path(assigns(:purchase))
     end
   end

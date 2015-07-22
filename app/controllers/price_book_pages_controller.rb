@@ -5,6 +5,7 @@ class PriceBookPagesController < ApplicationController
   # GET /price_book_pages
   def index
     @price_book_pages = PriceBookPage.for_shopper(current_shopper)
+    @price_book_pages = @price_book_pages.where('name ILIKE ?',"%#{params[:term]}%")
   end
 
   # GET /price_book_pages/1
