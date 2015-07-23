@@ -31,7 +31,7 @@ class PurchasesController < ApplicationController
   # PATCH/PUT /purchases/1
   def update
     if @purchase.update(purchase_params)
-      redirect_to @purchase, notice: 'Purchase was successfully updated.'
+      redirect_to purchase_items_path(@purchase), notice: 'Purchase was successfully updated.'
     else
       render :edit
     end

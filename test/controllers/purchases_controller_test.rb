@@ -2,15 +2,16 @@ require 'test_helper'
 
 class PurchasesControllerTest < ActionController::TestCase
   setup do
-    @purchase = purchases(:grant_purchase)
-    sign_in :shopper, shoppers(:grant)
+    @shopper = create(:shopper)
+    @purchase = create(:purchase, shopper: @shopper)
+    sign_in :shopper, @shopper
   end
 
   context 'GET index' do
     should 'be success' do
       get :index
       assert_response :success
-      assert_equal assigns(:purchases), [purchases(:grant_purchase)]
+      assert_equal assigns(:purchases), [@purchase]
     end
   end
 
@@ -41,7 +42,7 @@ class PurchasesControllerTest < ActionController::TestCase
   context 'PATCH update' do
     should 'update purchase' do
       patch :update, id: @purchase, purchase: { location: @purchase.location, purchased_on: @purchase.purchased_on, store: @purchase.store }
-      assert_redirected_to purchase_path(assigns(:purchase))
+      assert_redirected_to purchase_items_path(assigns(:purchase))
     end
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150704125425) do
+ActiveRecord::Schema.define(version: 20150722191719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,6 +135,18 @@ ActiveRecord::Schema.define(version: 20150704125425) do
   add_index "comfy_cms_snippets", ["site_id", "identifier"], name: "index_comfy_cms_snippets_on_site_id_and_identifier", unique: true, using: :btree
   add_index "comfy_cms_snippets", ["site_id", "position"], name: "index_comfy_cms_snippets_on_site_id_and_position", using: :btree
 
+  create_table "price_book_pages", force: :cascade do |t|
+    t.string   "name"
+    t.string   "category"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "shopper_id"
+    t.text     "product_names", default: [],              array: true
+    t.string   "unit"
+  end
+
+  add_index "price_book_pages", ["shopper_id"], name: "index_price_book_pages_on_shopper_id", using: :btree
+
   create_table "purchase_items", force: :cascade do |t|
     t.integer  "purchase_id"
     t.string   "product_brand_name"
@@ -145,6 +157,7 @@ ActiveRecord::Schema.define(version: 20150704125425) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.string   "category"
+    t.string   "regular_name"
   end
 
   add_index "purchase_items", ["purchase_id"], name: "index_purchase_items_on_purchase_id", using: :btree
@@ -159,16 +172,6 @@ ActiveRecord::Schema.define(version: 20150704125425) do
   end
 
   add_index "purchases", ["shopper_id"], name: "index_purchases_on_shopper_id", using: :btree
-
-  create_table "regular_items", force: :cascade do |t|
-    t.string   "name"
-    t.string   "category"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "shopper_id"
-  end
-
-  add_index "regular_items", ["shopper_id"], name: "index_regular_items_on_shopper_id", using: :btree
 
   create_table "shoppers", force: :cascade do |t|
     t.string   "email",                  default: "",                                          null: false
@@ -194,7 +197,6 @@ ActiveRecord::Schema.define(version: 20150704125425) do
   add_index "shoppers", ["email"], name: "index_shoppers_on_email", unique: true, using: :btree
   add_index "shoppers", ["reset_password_token"], name: "index_shoppers_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "purchase_items", "purchases"
+  add_foreign_key "price_book_pages", "shoppers"
   add_foreign_key "purchases", "shoppers"
-  add_foreign_key "regular_items", "shoppers"
 end

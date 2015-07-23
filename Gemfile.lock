@@ -48,7 +48,7 @@ GEM
     annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
-    arel (6.0.0)
+    arel (6.0.2)
     autoprefixer-rails (5.2.1)
       execjs
       json
@@ -106,6 +106,7 @@ GEM
       rails (>= 4.0.0, < 5)
       rails-i18n (>= 4.0.0)
       sass-rails (>= 4.0.3)
+    database_cleaner (1.4.1)
     devise (3.5.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -116,6 +117,11 @@ GEM
     docile (1.1.5)
     erubis (2.7.0)
     execjs (2.5.2)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
     haml (4.0.6)
@@ -280,7 +286,9 @@ DEPENDENCIES
   capistrano3-puma
   capybara
   comfortable_mexican_sofa (~> 1.12)
+  database_cleaner
   devise
+  factory_girl_rails
   newrelic_rpm
   opal-jquery!
   opal-rails (= 0.8.0.rc1)

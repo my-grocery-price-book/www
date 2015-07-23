@@ -17,6 +17,7 @@ coverage/*
 
 .vagrant
 public/system/*
+public/assets/*
 ansible/vault_pass.txt
 
 # Ignore config look at config examples

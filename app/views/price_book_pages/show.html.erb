@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-md-12">
+    <p>
+      <strong>Name:</strong>
+      <%= @price_book_page.name %>
+    </p>
+
+    <p>
+      <strong>Category:</strong>
+      <%= @price_book_page.category %>
+    </p>
+
+    <%= link_to 'Edit', edit_price_book_page_path(@price_book_page), class: 'btn btn-default' %>
+    <%= link_to 'Back', price_book_pages_path, class: 'btn btn-default' %>
+  </div>
+</div>

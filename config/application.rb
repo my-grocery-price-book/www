@@ -33,5 +33,7 @@ module Project
     config.opal.arity_check         = false
     config.opal.const_missing       = true
     config.opal.dynamic_require_severity = :ignore
+
+    config.assets.initialize_on_precompile = false
   end
 end
