@@ -12,8 +12,9 @@
   <% end %>
 
   <div class="form-group">
-    <label for="purchase_purchased_on">Purchased on</label><br>
+    <label for="purchased_on">Purchased on</label><br>
     <input type="date"
+           class="form-control"
            name="purchase[purchased_on]"
            id="purchased_on"
            value="<%= @purchase.purchased_on %>">
@@ -22,6 +23,7 @@
     <label for="purchase_store">Store</label><br>
     <input data-autocomplete-stores
            type="text"
+           class="form-control"
            name="purchase[store]"
            id="purchase_store"
            value="<%= @purchase.store %>">
@@ -30,6 +32,7 @@
     <label for="purchase_location">Location</label><br>
     <input data-autocomplete-locations
            type="text"
+           class="form-control"
            name="purchase[location]"
            id="purchase_location"
            value="<%= @purchase.location %>">
