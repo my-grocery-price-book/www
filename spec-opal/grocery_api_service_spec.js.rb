@@ -2,61 +2,69 @@ require 'spec_helper'
 require 'grocery_api_service'
 
 describe GroceryApiService do
-  subject {GroceryApiService.new('http://za-fs.public-grocery-price-book-api.co.za/')}
+  let(:http_mock) {HTTPMock.new}
+  subject {GroceryApiService.new('http://www.example.com',http_mock)}
 
   describe 'product_brand_names' do
-    async 'loads product_brand_names' do
+    it 'loads product_brand_names' do
+      http_mock.set_ok_response('http://www.example.com/product_brand_names',['result'])
       subject.product_brand_names do |product_brand_names|
-        run_async {
-          expect(product_brand_names).to_not be_empty
-        }
+        expect(product_brand_names).to eq(['result'])
       end
     end
 
-    async 'product_brand_names returns nil on failure' do
-      subject.host_url = nil
+    it 'returns nil on failure' do
+      http_mock.set_failed_response('http://www.example.com/product_brand_names')
       subject.product_brand_names do |product_brand_names|
-        run_async {
-          expect(product_brand_names).to be_nil
-        }
+        expect(product_brand_names).to be_nil
       end
     end
   end
 
   describe 'location_names' do
-    async 'loads location_names' do
+    it 'loads location_names' do
+      http_mock.set_ok_response('http://www.example.com/location_names', ['1'])
       subject.location_names do |location_names|
-        run_async {
-          expect(location_names).to_not be_empty
-        }
+        expect(location_names).to eq(['1'])
       end
     end
 
-    async 'location_names returns nil on failure' do
-      subject.host_url = nil
+    it 'returns nil on failure' do
+      http_mock.set_failed_response('http://www.example.com/location_names')
       subject.location_names do |location_names|
-        run_async {
           expect(location_names).to be_nil
-        }
       end
     end
   end
 
   describe 'store_names' do
-    async 'loads store_names' do
+    it 'loads store_names' do
+      http_mock.set_ok_response('http://www.example.com/store_names', ['2'])
       subject.store_names do |store_names|
-        run_async {
-          expect(store_names).to_not be_empty
-        }
+        expect(store_names).to eq(['2'])
       end
     end
 
-    async 'store_names returns nil on failure' do
-      subject.host_url = nil
+    it 'returns nil on failure' do
+      http_mock.set_failed_response('http://www.example.com/store_names')
       subject.store_names do |store_names|
-        run_async {
-          expect(store_names).to be_nil
-        }
+        expect(store_names).to be_nil
+      end
+    end
+  end
+
+  describe 'product_summaries' do
+    it 'loads products' do
+      http_mock.set_ok_response('http://www.example.com/products?q=1', ['q'])
+      subject.product_summaries('q=1') do |products|
+        expect(products).to eq(['q'])
+      end
+    end
+
+    it 'returns nil on failure' do
+      http_mock.set_failed_response('http://www.example.com/products?q=1')
+      subject.product_summaries('q=1') do |products|
+        expect(products).to be_nil
       end
     end
   end
