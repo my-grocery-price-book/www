@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     member do
       get 'delete'
     end
-    resources :items, controller: 'purchase_items' do
+    resources :items, controller: 'purchase_items', only: [:create, :update, :destroy] do
       member do
         get 'delete'
       end

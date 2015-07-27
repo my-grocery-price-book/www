@@ -16,7 +16,6 @@
         <th>Purchased on</th>
         <th>Store</th>
         <th>Location</th>
-        <th>Total Cost</th>
         <th></th>
       </tr>
       </thead>
@@ -27,9 +26,7 @@
           <td><%= purchase.purchased_on %></td>
           <td><%= purchase.store %></td>
           <td><%= purchase.location %></td>
-          <td><%= purchase.total_cost %></td>
           <td>
-            <%= link_to 'Items', purchase_items_path(purchase), class: 'btn btn-default' %>
             <%= link_to 'Edit', edit_purchase_path(purchase), class: 'btn btn-default' %>
             <%= link_to 'Destroy', delete_purchase_path(purchase), class: 'btn btn-default' %>
           </td>

@@ -1,44 +1,45 @@
 <div class="row">
   <div class="col-md-12">
     <h1>Editing Purchase</h1>
+    <form action="<%= purchase_items_path(@purchase) %>" method="post">
+      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+      <button class='btn btn-default'>Add item</button>
+      <%= link_to 'Destroy', delete_purchase_path(@purchase), class: 'btn btn-default' %>
+      <%= link_to 'Back', purchases_path, class: 'btn btn-default' %>
+    </form>
+  </div>
+</div>
 
-    <%= form_for(@purchase, html: { class: 'form-inline' } ) do |f| %>
-      <% if @purchase.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@purchase.errors.count, "error") %> prohibited this purchase from being saved:</h2>
-
-          <ul>
-            <% @purchase.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for(@purchase, html: { class: 'form-inline' } ) do %>
       <div class="form-group">
-        <label for="purchased_on">Purchased on</label><br>
+        <label class="sr-only" for="purchased_on">Purchased on</label>
         <input type="date"
                class="form-control"
                name="purchase[purchased_on]"
                id="purchased_on"
+               placeholder="Purchased on"
                value="<%= @purchase.purchased_on %>">
       </div>
       <div class="form-group">
-        <label for="purchase_store">Store</label><br>
+        <label class="sr-only" for="purchase_store">Store</label>
         <input data-autocomplete-stores
                type="text"
                class="form-control"
                name="purchase[store]"
                id="purchase_store"
+               placeholder="Store"
                value="<%= @purchase.store %>">
       </div>
       <div class="form-group">
-        <label for="purchase_location">Location</label><br>
+        <label class="sr-only" for="purchase_location">Location</label>
         <input data-autocomplete-locations
                type="text"
                class="form-control"
                name="purchase[location]"
                id="purchase_location"
+               placeholder="Location"
                value="<%= @purchase.location %>">
       </div>
       <button type="submit" class="btn btn-default">Update</button>
@@ -48,7 +49,18 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= link_to 'Items', purchase_items_path(@purchase), class: 'btn btn-default'  %> |
-    <%= link_to 'Back', purchases_path, class: 'btn btn-default' %>
+    <h2>Items</h2>
+    <% @items.each_with_index do |item, i| %>
+      <%= form_for(item,
+                   url: purchase_item_path(@purchase, item),
+                   html: { class: 'form-inline form-group-sm',
+                           id: "item_#{i}" } ) do %>
+        <%= render 'purchase_items/form', item: item %>
+        <a href="<%= delete_purchase_item_path(@purchase, item) %>"
+           class="btn btn-default">
+          Delete
+        </a>
+      <% end %>
+    <% end %>
   </div>
 </div>

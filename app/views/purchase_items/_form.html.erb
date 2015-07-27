@@ -1,76 +1,70 @@
-<% if @purchase_item.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@purchase_item.errors.count, "error") %> prohibited this purchase_item from being saved:</h2>
-
-    <ul>
-      <% @purchase_item.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
 <div class="form-group">
-  <label for="purchase_item_product_brand_name">Product brand name</label><br>
+  <label class="sr-only" for="purchase_item_product_brand_name">Product brand name</label>
   <input data-autocomplete-products
          type="text"
          class="form-control"
          name="purchase_item[product_brand_name]"
          id="purchase_item_product_brand_name"
-         value="<%= @purchase_item.product_brand_name %>" />
+         placeholder="Product name"
+         value="<%= item.product_brand_name %>" />
 </div>
 <div class="form-group">
-  <label for="purchase_item_regular_name">Price Book Page</label><br>
+  <label class="sr-only" for="purchase_item_regular_name">Price Book Page</label>
   <input type="text"
          class="form-control"
          name="purchase_item[regular_name]"
          id="purchase_item_regular_name"
+         placeholder="Price Book Page"
          data-autocomplete-price-book-pages
-         value="<%= @purchase_item.regular_name %>" />
+         value="<%= item.regular_name %>" />
 </div>
 <div class="form-group">
-  <label for="purchase_item_category">Category</label><br>
+  <label class="sr-only" for="purchase_item_category">Category</label>
   <select name="purchase_item[category]" id="purchase_item_category">
-    <option value=""></option>
+    <option value="">-- Select Category --</option>
     <% ['Bakery','Fresh','Frozen','Ready Meals','Food Cupboard',
         'Snacks and Sweets','Drinks','Household','Pets','Baby',
         'Health and Beauty','Other'].each do |category| %>
-      <option <% if @purchase_item.category == category %>selected=""<% end %>>
+      <option <% if item.category == category %>selected=""<% end %>>
         <%= category %>
       </option>
     <% end %>
   </select>
 </div>
 <div class="form-group">
-  <label for="purchase_item_package_unit">Package unit</label><br>
+  <label class="sr-only" for="purchase_item_package_unit">Package unit</label>
   <input type="text"
          class="form-control"
          name="purchase_item[package_unit]"
          id="purchase_item_package_unit"
-         value="<%= @purchase_item.package_unit %>"/>
+         placeholder="Package unit"
+         value="<%= item.package_unit %>"/>
 </div>
 <div class="form-group">
-  <label for="purchase_item_package_size">Package size</label><br>
+  <label class="sr-only" for="purchase_item_package_size">Package size</label>
   <input type="text"
          class="form-control"
          name="purchase_item[package_size]"
          id="purchase_item_package_size"
-         value="<%= @purchase_item.package_size %>"/>
+         placeholder="Package size"
+         value="<%= item.package_size %>"/>
 </div>
 <div class="form-group">
-  <label for="purchase_item_quanity">Quanity</label><br>
+  <label class="sr-only" for="purchase_item_quanity">Quanity</label>
   <input type="number"
          class="form-control"
          name="purchase_item[quanity]"
          id="purchase_item_quanity"
-         value="<%= @purchase_item.quanity %>" />
+         placeholder="Quanity"
+         value="<%= item.quanity %>" />
 </div>
 <div class="form-group">
-  <label for="purchase_item_total_price">Total price</label><br>
+  <label class="sr-only" for="purchase_item_total_price">Total price</label>
   <input type="text"
          class="form-control"
          name="purchase_item[total_price]"
          id="purchase_item_total_price"
-         value="<%= @purchase_item.total_price %>" />
+         placeholder="Total price"
+         value="<%= item.total_price %>" />
 </div>
-<input type="submit" name="commit" value="Save" class="btn btn-default" />
-
+<button type="submit" class="btn btn-default">Save</button>

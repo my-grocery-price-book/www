@@ -3,49 +3,26 @@ class PurchaseItemsController < ApplicationController
   before_action :set_purchase
   before_action :set_purchase_item, only: [:show, :edit, :update, :delete]
 
-  # GET /purchase_items
-  def index
-    @purchase_items = @purchase.items
-  end
-
-  # GET /purchase_items/1
-  def show
-  end
-
-  # GET /purchase_items/new
-  def new
-    @purchase_item = @purchase.new_item
-  end
-
-  # GET /purchase_items/1/edit
-  def edit
-  end
-
   # POST /purchase_items
   def create
-    @purchase_item = @purchase.new_item(purchase_item_params)
-
-    if @purchase.save_item(@purchase_item)
-      PriceBookPage.update_product_for_shopper!(current_shopper,purchase_item_params)
-      redirect_to purchase_items_path(@purchase), notice: 'Purchase item was successfully created.'
-    else
-      render :new
-    end
+    @purchase.create_item!
+    redirect_to edit_purchase_path(@purchase), notice: 'Purchase item was successfully added.'
   end
 
   # PATCH/PUT /purchase_items/1
   def update
     if @purchase.update_item(@purchase_item,purchase_item_params)
-      redirect_to purchase_item_path(@purchase,@purchase_item), notice: 'Purchase item was successfully updated.'
+      PriceBookPage.update_product_for_shopper!(current_shopper,purchase_item_params)
+      redirect_to edit_purchase_path(@purchase), notice: 'Purchase item was successfully updated.'
     else
-      render :edit
+      redirect_to edit_purchase_path(@purchase), alert: 'Purchase item failed update.'
     end
   end
 
   # DELETE /purchase_items/1
   def destroy
     @purchase.destroy_item_by_id(params[:id])
-    redirect_to purchase_items_path(@purchase), notice: 'Purchase item was successfully destroyed.'
+    redirect_to edit_purchase_path(@purchase), notice: 'Purchase item was successfully destroyed.'
   end
 
   private

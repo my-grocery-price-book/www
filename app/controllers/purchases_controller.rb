@@ -9,6 +9,7 @@ class PurchasesController < ApplicationController
 
   # GET /purchases/1/edit
   def edit
+    @items = @purchase.items
   end
 
   # POST /purchases
