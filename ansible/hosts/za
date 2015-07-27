@@ -13,4 +13,6 @@ db-server
 web
 
 [za-public:children]
-za:children
+app-runner
+db-server
+web
