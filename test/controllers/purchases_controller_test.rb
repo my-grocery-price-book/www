@@ -15,20 +15,13 @@ class PurchasesControllerTest < ActionController::TestCase
     end
   end
 
-  context 'GET new' do
-    should 'be success' do
-      get :new
-      assert_response :success
-    end
-  end
-
   context 'POST create' do
     should 'create purchase' do
       assert_difference('Purchase.count') do
-        post :create, purchase: { location: @purchase.location, purchased_on: @purchase.purchased_on, store: @purchase.store }
+        post :create
       end
 
-      assert_redirected_to purchase_items_path(assigns(:purchase))
+      assert_redirected_to edit_purchase_path(assigns(:purchase))
     end
   end
 
@@ -42,7 +35,7 @@ class PurchasesControllerTest < ActionController::TestCase
   context 'PATCH update' do
     should 'update purchase' do
       patch :update, id: @purchase, purchase: { location: @purchase.location, purchased_on: @purchase.purchased_on, store: @purchase.store }
-      assert_redirected_to purchase_items_path(assigns(:purchase))
+      assert_redirected_to edit_purchase_path(assigns(:purchase))
     end
   end
 

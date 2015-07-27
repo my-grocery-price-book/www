@@ -5,12 +5,14 @@ class CreatePurchaseTest < ActionDispatch::IntegrationTest
     visit '/purchases'
     sign_in_shopper
     assert page.has_content?('Listing Purchases')
-    click_link 'New Purchase'
+    click_button 'New Purchases'
+    assert page.has_css?('.notice', text: 'Purchase was successfully created.')
     fill_in 'Store', with: 'Woolworths'
     fill_in 'Location', with: 'Canal Walk'
-    click_button 'Create Purchase'
-    assert page.has_css?('.notice', text: 'Purchase was successfully created.')
-    assert page.has_content?('Woolworths')
+    click_button 'Update'
+    assert page.has_css?('.notice', text: 'Purchase was successfully updated.')
+    assert page.has_field?('Store', with: 'Woolworths')
+    click_link 'Items'
 
     # create a item
     click_link 'New Purchase item'

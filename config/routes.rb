@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resource :profile, except: [:new, :create, :destroy]
 
   devise_for :shoppers
-  resources :purchases, except: [:show] do
+  resources :purchases, except: [:new, :show] do
     member do
       get 'delete'
     end

@@ -23,6 +23,10 @@ class Purchase < ActiveRecord::Base
     for_shopper(shopper).find(id)
   end
 
+  def self.create_for_shopper!(shopper)
+    for_shopper(shopper).create!
+  end
+
   def total_cost
     items.sum(:total_price)
   end
