@@ -25,3 +25,6 @@
 
 - name: update newrelic.yml
   template: src=home/gc_user/shared/config/newrelic.yml.j2 dest=/home/gc_user/shared/config/newrelic.yml mode=644 owner=gc_user group=gc_user
+
+- name: update public_apis.yml
+  template: src=home/gc_user/shared/config/public_apis.yml.j2 dest=/home/gc_user/shared/config/public_apis.yml mode=644 owner=gc_user group=gc_user

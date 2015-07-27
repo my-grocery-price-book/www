@@ -1,0 +1,6 @@
+<tr>
+  <td><%= product %> (<%= package_unit %>)</td>
+  <td><%= cheapest_last_week %></td>
+  <td><%= cheapest_last_month %></td>
+  <td><%= cheapest_last_year %></td>
+</tr>

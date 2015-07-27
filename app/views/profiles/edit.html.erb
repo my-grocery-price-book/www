@@ -2,8 +2,19 @@
 
 <%= form_for(@shopper, url: profile_path) do |f| %>
   <div class="form-group">
-    <%= f.label :current_public_api %><br>
-    <%= f.select :current_public_api, @current_public_api_options %>
+    <label for="shopper_current_public_api">
+      Current public api
+    </label><br>
+    <select name="shopper[current_public_api]"
+            id="shopper_current_public_api">
+      <% @public_apis.each do |api| %>
+        <option value="<%= api.code %>"
+                <% if @shopper.current_public_api == api.code %>selected<% end %>
+        >
+          <%= api.name %>
+        </option>
+      <% end %>
+    </select>
   </div>
   <%= f.submit 'Update', class: 'btn btn-default' %>
 <% end %>

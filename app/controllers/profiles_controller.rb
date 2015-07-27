@@ -6,17 +6,7 @@ class ProfilesController < ApplicationController
 
   def edit
     @shopper = current_shopper
-    @current_public_api_options = [
-      ['Eastern Cape', 'za-ec.public-grocery-price-book-api.co.za'],
-      ['Free State', 'za-fs.public-grocery-price-book-api.co.za'],
-      ['Gauteng','za-gt.public-grocery-price-book-api.co.za'],
-      ['KwaZulu-Natal', 'za-nl.public-grocery-price-book-api.co.za'],
-      ['Limpopo', 'za-lp.public-grocery-price-book-api.co.za'],
-      ['Mpumalanga', 'za-mp.public-grocery-price-book-api.co.za'],
-      ['Northern Cape', 'za-nc.public-grocery-price-book-api.co.za'],
-      ['North West', 'za-nw.public-grocery-price-book-api.co.za'],
-      ['Western Cape', 'za-wc.public-grocery-price-book-api.co.za']
-    ]
+    @public_apis = PublicApi.all
   end
 
   def update

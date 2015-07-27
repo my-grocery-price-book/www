@@ -1,0 +1,11 @@
+- code: "r"
+  name: Red
+  domain: red.vagrant
+
+- code: "g"
+  name: Green
+  domain: green.vagrant
+
+- code: "b"
+  name: Blue
+  domain: blue.vagrant
