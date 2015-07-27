@@ -6,7 +6,7 @@ class PriceCheckTest < ActionDispatch::IntegrationTest
     select 'Red', from: 'Current public api'
     click_button 'Set'
 
-    assert page.has_content?('Search')
+    assert page.has_content?('Price Check')
   end
 
   test 'Search for items when logged in' do
@@ -16,6 +16,6 @@ class PriceCheckTest < ActionDispatch::IntegrationTest
     assert page.has_content?('Red')
 
     click_link 'Price Check'
-    assert page.has_content?('Search')
+    assert page.has_content?('Price Check')
   end
 end
