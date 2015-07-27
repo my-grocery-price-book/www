@@ -10,25 +10,25 @@ public_apis:
     domain: za-ec.public-grocery-price-book-api.co.za
   - code: "2-fs"
     name: Free State
-    domain: green.vagrant
+    domain: za-fs.public-grocery-price-book-api.co.za
   - code: "3-gt"
     name: Gauteng
-    domain: blue.vagrant
+    domain: za-gt.public-grocery-price-book-api.co.za
   - code: "4-nl"
     name: KwaZulu-Natal
-    domain: blue.vagrant
+    domain: za-nl.public-grocery-price-book-api.co.za
   - code: "5-lp"
     name: Limpopo
-    domain: blue.vagrant
+    domain: za-lp.public-grocery-price-book-api.co.za
   - code: "6-mp"
     name: Mpumalanga
-    domain: blue.vagrant
+    domain: za-mp.public-grocery-price-book-api.co.za
   - code: "7-nc"
     name: Northern Cape
-    domain: blue.vagrant
+    domain: za-nc.public-grocery-price-book-api.co.za
   - code: "8-nw"
     name: North West
-    domain: blue.vagrant
+    domain: za-nw.public-grocery-price-book-api.co.za
   - code: "9-wc"
     name: Western Cape
-    domain: blue.vagrant
+    domain: za-wc.public-grocery-price-book-api.co.za
