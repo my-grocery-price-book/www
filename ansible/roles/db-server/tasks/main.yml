@@ -21,3 +21,5 @@
   postgresql_user: db=my_grocery_cocktail name=gc_user password={{app_db_password}} role_attr_flags=CREATEDB,NOSUPERUSER
   sudo: yes
   sudo_user: postgres
+
+- include: setup_backups.yml

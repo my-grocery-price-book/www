@@ -1,0 +1,11 @@
+- name: pg_backup.config
+  copy: src=var/lib/postgresql/pg_backup.config dest=/var/lib/postgresql/pg_backup.config mode=644 owner=postgres group=postgres
+
+- name: pg_backup_rotated.sh
+  copy: src=var/lib/postgresql/pg_backup_rotated.sh dest=/var/lib/postgresql/pg_backup_rotated.sh mode=744 owner=postgres group=postgres
+
+- name: add backup task to cron
+  cron: name="backup postgresql" minute="59" hour="23" job="cd /var/lib/postgresql && ./pg_backup_rotated.sh"
+  sudo: yes
+  sudo_user: postgres
+
