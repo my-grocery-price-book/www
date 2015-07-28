@@ -23,20 +23,18 @@ class Purchase < ActiveRecord::Base
     for_shopper(shopper).find(id)
   end
 
-  def total_cost
-    items.sum(:total_price)
+  def self.create_for_shopper!(shopper)
+    purchase = for_shopper(shopper).create!
+    purchase.create_item!
+    purchase
   end
 
-  def new_item(item_params = {})
-    items.new(item_params)
+  def create_item!
+    items.create!
   end
 
   def find_item(id)
     items.find(id)
-  end
-
-  def save_item(item)
-    item.save
   end
 
   def update_item(item, params)

@@ -1,14 +1,21 @@
 <div class="row">
   <div class="col-md-12">
     <h1>Listing Purchases</h1>
+    <form action="<%= purchases_path %>" method="post">
+      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+      <button class='btn btn-default'>New Purchases</button>
+    </form>
+  </div>
+</div>
 
+<div class="row">
+  <div class="col-md-12">
     <table class="table table-striped">
       <thead>
       <tr>
         <th>Purchased on</th>
         <th>Store</th>
         <th>Location</th>
-        <th>Total Cost</th>
         <th></th>
       </tr>
       </thead>
@@ -19,9 +26,7 @@
           <td><%= purchase.purchased_on %></td>
           <td><%= purchase.store %></td>
           <td><%= purchase.location %></td>
-          <td><%= purchase.total_cost %></td>
           <td>
-            <%= link_to 'Items', purchase_items_path(purchase), class: 'btn btn-default' %>
             <%= link_to 'Edit', edit_purchase_path(purchase), class: 'btn btn-default' %>
             <%= link_to 'Destroy', delete_purchase_path(purchase), class: 'btn btn-default' %>
           </td>
@@ -29,9 +34,5 @@
       <% end %>
       </tbody>
     </table>
-
-    <br>
-
-    <%= link_to 'New Purchase', new_purchase_path, class: 'btn btn-default' %>
   </div>
 </div>

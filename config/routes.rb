@@ -14,11 +14,11 @@ Rails.application.routes.draw do
   get 'select_area' => 'price_check#select_area'
 
   devise_for :shoppers
-  resources :purchases, except: [:show] do
+  resources :purchases, except: [:new, :show] do
     member do
       get 'delete'
     end
-    resources :items, controller: 'purchase_items' do
+    resources :items, controller: 'purchase_items', only: [:create, :update, :destroy] do
       member do
         get 'delete'
       end
