@@ -19,7 +19,7 @@ class CreatePurchaseTest < ActionDispatch::IntegrationTest
     select 'Drinks', from: 'Category'
     fill_in 'Package size', with: '340'
     fill_in 'Package unit', with: 'ml'
-    fill_in 'Quanity', with: '2'
+    fill_in 'Quantity', with: '2'
     fill_in 'Total price', with: '10.99'
     click_button 'Save'
     assert page.has_css?('.notice', text: 'Purchase item was successfully created.')
@@ -32,7 +32,7 @@ class CreatePurchaseTest < ActionDispatch::IntegrationTest
     select 'Food Cupboard', from: 'Category'
     fill_in 'Package size', with: '500'
     fill_in 'Package unit', with: 'Kilograms'
-    fill_in 'Quanity', with: '2'
+    fill_in 'Quantity', with: '2'
     fill_in 'Total price', with: '18.95'
     click_button 'Save'
     assert page.has_css?('.notice', text: 'Purchase item was successfully created.')

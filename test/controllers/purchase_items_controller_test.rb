@@ -28,7 +28,7 @@ class PurchaseItemsControllerTest < ActionController::TestCase
       @item_params = { 'product_brand_name' => 'Coke Like',
                        'package_size' => '500.0',
                        'package_unit' => 'ml',
-                       'quanity' => '1.0',
+                       'quantity' => '1.0',
                        'total_price' => '38.99',
                        'category' => 'Drinks',
                        'regular_name' => 'Soda' }
@@ -74,7 +74,7 @@ class PurchaseItemsControllerTest < ActionController::TestCase
                       purchase_item: { package_size: @purchase_item.package_size,
                                        package_unit: @purchase_item.package_unit,
                                        product_brand_name: @purchase_item.product_brand_name,
-                                       quanity: @purchase_item.quanity, total_price: @purchase_item.total_price }
+                                       quantity: @purchase_item.quantity, total_price: @purchase_item.total_price }
      assert_redirected_to purchase_item_path(assigns(:purchase),assigns(:purchase_item))
     end
   end

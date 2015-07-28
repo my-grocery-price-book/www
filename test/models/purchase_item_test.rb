@@ -7,7 +7,7 @@
 #  product_brand_name :string
 #  package_size       :decimal(, )
 #  package_unit       :string
-#  quanity            :decimal(, )
+#  quantity            :decimal(, )
 #  total_price        :decimal(, )
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
@@ -60,25 +60,25 @@ class PurchaseItemTest < ActiveSupport::TestCase
       end
     end
 
-    context 'quanity' do
+    context 'quantity' do
       should 'not be valid if not an integer ' do
-        purchase_item = PurchaseItem.create(quanity: "one")
-        assert_not_empty purchase_item.errors[:quanity]
+        purchase_item = PurchaseItem.create(quantity: "one")
+        assert_not_empty purchase_item.errors[:quantity]
       end
 
       should 'not be valid if 0' do
-        purchase_item = PurchaseItem.create(quanity: 0)
-        assert_not_empty purchase_item.errors[:quanity]
+        purchase_item = PurchaseItem.create(quantity: 0)
+        assert_not_empty purchase_item.errors[:quantity]
       end
 
       should 'be valid if left empty' do
         purchase_item = PurchaseItem.create
-        assert_empty purchase_item.errors[:quanity]
+        assert_empty purchase_item.errors[:quantity]
       end
 
       should 'be valid if greater than 0' do
-        purchase_item = PurchaseItem.create(quanity: 9.99)
-        assert_empty purchase_item.errors[:quanity]
+        purchase_item = PurchaseItem.create(quantity: 9.99)
+        assert_empty purchase_item.errors[:quantity]
       end
     end
 
