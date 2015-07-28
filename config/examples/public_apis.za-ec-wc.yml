@@ -1,0 +1,7 @@
+- code: "ec"
+  name: Eastern Cape
+  domain: za-ec.public-grocery-price-book-api.co.za
+
+- code: "wc"
+  name: Western Cape
+  domain: za-wc.public-grocery-price-book-api.co.za

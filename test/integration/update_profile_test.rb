@@ -7,9 +7,9 @@ class UpdateProfileTest < ActionDispatch::IntegrationTest
     assert page.has_content?('Profile')
     click_link 'Edit'
 
-    select 'North West', from: 'Current public api'
+    select 'Red', from: 'Current public api'
     click_button 'Update'
     assert page.has_css?('.notice', text: 'Update successful')
-    assert page.has_content?('za-nw.public-grocery-price-book-api.co.za')
+    assert page.has_content?('Red')
   end
 end

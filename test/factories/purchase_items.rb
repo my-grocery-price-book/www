@@ -3,7 +3,7 @@ FactoryGirl.define do
     sequence(:purchase_id)
     sequence(:product_brand_name) { |n| "item #{n}" }
     package_size 1
-    quanity 1
+    quantity 1
     total_price 1
   end
 end

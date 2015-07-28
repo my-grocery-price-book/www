@@ -6,7 +6,13 @@
 # Setup with Vagrant
 
 ```
-  bin/setup.sh
+  bin/vagrant_setup.sh
+```
+
+# Setup without Vagrant
+
+```
+  ./local_run.sh
 ```
 
 # Development

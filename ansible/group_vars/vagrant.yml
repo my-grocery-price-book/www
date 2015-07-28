@@ -11,3 +11,13 @@ newrelic_agent_enabled: false
 newrelic_license_key: blah
 web_server_name: my-grocery-price-book.dev
 ga_tracking_id: ""
+public_apis:
+  - code: 1
+    name: Red
+    domain: red.vagrant
+  - code: 2
+    name: Green
+    domain: green.vagrant
+  - code: 3
+    name: Blue
+    domain: blue.vagrant

@@ -15,7 +15,7 @@
   sudo: yes
 
 - name: bundle install
-  command:  bundle install --clean --jobs 2 --path vendor/bundle
+  command:  bundle install --jobs 2 --path vendor/bundle
   args:
     chdir: ~/project
 

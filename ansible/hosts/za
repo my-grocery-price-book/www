@@ -11,3 +11,8 @@
 app-runner
 db-server
 web
+
+[za-public:children]
+app-runner
+db-server
+web
