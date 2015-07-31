@@ -18,6 +18,7 @@
   command:  bundle install --jobs 2 --path vendor/bundle
   args:
     chdir: ~/project
+    creates: ~/project/vendor/bundle
 
 - name: create development pg user
   postgresql_user: name=developmentuser password=enter123 role_attr_flags=CREATEDB,SUPERUSER
@@ -43,3 +44,21 @@
 - name: Install PhantomJS 1.9.8
   sudo: yes
   script: _scripts/install_phantomjs.sh creates=/usr/local/bin/phantomjs
+
+- name: installing aws eb dependencies
+  apt: name={{item}} state=present
+  sudo: yes
+  with_items:
+    - python
+
+- name: download get-pip.py
+  get_url: url=https://bootstrap.pypa.io/get-pip.py dest=~/get-pip.py
+  sudo: yes
+
+- name: install pip
+  command: python ~/get-pip.py
+  sudo: yes
+
+- name: install awsebcli
+  pip: name=awsebcli state=latest
+  sudo: yes

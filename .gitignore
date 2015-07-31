@@ -25,3 +25,8 @@ config/*.yml
 
 .DS_Store
 .ruby-version
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
