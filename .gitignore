@@ -21,9 +21,9 @@ public/assets/*
 ansible/vault_pass.txt
 
 # Ignore config look at config examples
-config/*.yml
+config/database.yml
+config/public_apis/dev.yml
 
-.DS_Store
 .ruby-version
 
 # Elastic Beanstalk Files

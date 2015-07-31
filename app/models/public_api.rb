@@ -17,7 +17,8 @@ class PublicApi < Struct.new(:code, :name, :domain)
     @@all
   end
 
-  def self.load(config_filename = File.join(Rails.root,'config/public_apis.yml'))
+  def self.load(config_filename = nil)
+    config_filename ||= File.join(Rails.root,(ENV['PUBLIC_API_CONFIG'] || 'config/public_apis/za.yml'))
     @@all = YAML.load_file(config_filename).map do |api_info|
       new(api_info['code'],api_info['name'],api_info['domain'])
     end
