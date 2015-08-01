@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
 
+group :development, :test do
+  gem 'dotenv-rails' # load before other gems
+end
+
 gem 'rails', '~> 4.2.1'
 gem 'comfortable_mexican_sofa', '~> 1.12'
 gem 'will_paginate'

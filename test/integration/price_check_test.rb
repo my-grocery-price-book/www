@@ -11,7 +11,7 @@ class PriceCheckTest < ActionDispatch::IntegrationTest
 
   test 'Search for items when logged in' do
     visit '/profile'
-    sign_in_shopper(current_public_api: '1')
+    sign_in_shopper(current_public_api: PublicApi.first_code)
     assert page.has_content?('Profile')
     assert page.has_content?('Red')
 

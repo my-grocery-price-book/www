@@ -108,6 +108,10 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     docile (1.1.5)
+    dotenv (2.0.2)
+    dotenv-rails (2.0.2)
+      dotenv (= 2.0.2)
+      railties (~> 4.0)
     erubis (2.7.0)
     execjs (2.5.2)
     factory_girl (4.5.0)
@@ -281,6 +285,7 @@ DEPENDENCIES
   comfortable_mexican_sofa (~> 1.12)
   database_cleaner
   devise
+  dotenv-rails
   factory_girl_rails
   newrelic_rpm
   opal-rails (= 0.8.0)
@@ -299,4 +304,4 @@ DEPENDENCIES
   will_paginate
 
 BUNDLED WITH
-   1.10.5
+   1.10.6

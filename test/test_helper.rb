@@ -21,5 +21,3 @@ end
 class ActionDispatch::IntegrationTest
   include Capybara::DSL # Make the Capybara DSL available in all integration tests
 end
-
-PublicApi.load(File.dirname(__FILE__) + '/config/public_apis.yml')

@@ -2,8 +2,8 @@ require 'test_helper'
 
 describe PublicApi do
   describe 'first_code' do
-    it 'gives Red code of 1' do
-      PublicApi.first_code.must_equal '1'
+    it 'gives Red code of r' do
+      PublicApi.first_code.must_equal 'r'
     end
   end
 
