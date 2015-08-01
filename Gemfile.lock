@@ -222,7 +222,7 @@ GEM
     ref (2.0.0)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
-    rollbar (2.0.2)
+    rollbar (2.1.0)
     ruby_parser (3.7.0)
       sexp_processor (~> 4.1)
     sass (3.4.16)
