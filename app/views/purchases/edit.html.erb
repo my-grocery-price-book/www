@@ -1,19 +1,6 @@
 <div class="row">
   <div class="col-md-12">
     <h1>Editing Purchase</h1>
-    <form action="<%= purchase_items_path(@purchase) %>" method="post">
-      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-      <button class='btn btn-default'>Add item</button>
-      <a href="<%= delete_purchase_path(@purchase) %>"
-         class='btn btn-default'>Destroy</a>
-      <a href="<%= purchases_path %>"
-         class='btn btn-default'>Back</a>
-    </form>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-12">
     <%= form_for(@purchase, html: { class: 'form-inline' } ) do %>
       <div class="form-group">
         <label class="sr-only" for="purchased_on">Purchased on</label>
@@ -45,6 +32,8 @@
                value="<%= @purchase.location %>">
       </div>
       <button type="submit" class="btn btn-default">Update</button>
+      <a href="<%= purchases_path %>"
+         class='btn btn-default'>Back</a>
     <% end %>
   </div>
 </div>
@@ -52,6 +41,10 @@
 <div class="row">
   <div class="col-md-12">
     <h2>Items</h2>
+    <form action="<%= purchase_items_path(@purchase) %>" method="post">
+      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+      <button class='btn btn-default'>Add item</button>
+    </form>
     <% @items.each_with_index do |item, i| %>
       <%= form_for(item,
                    url: purchase_item_path(@purchase, item),
