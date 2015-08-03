@@ -17,11 +17,15 @@ describe Purchase do
   let(:shopper) {create(:shopper)}
 
   describe '.create_for_shopper!' do
-
     it 'creates a purchase and item' do
       Purchase.create_for_shopper!(shopper)
       purchase = Purchase.for_shopper(shopper).first
       purchase.items.size.must_equal 1
+    end
+
+    it 'set purchased_on to Date.current' do
+      purchase = Purchase.create_for_shopper!(shopper)
+      purchase.purchased_on.must_equal Date.current
     end
   end
 

@@ -24,7 +24,7 @@ class Purchase < ActiveRecord::Base
   end
 
   def self.create_for_shopper!(shopper)
-    purchase = for_shopper(shopper).create!
+    purchase = for_shopper(shopper).create!(purchased_on: Date.current)
     purchase.create_item!
     purchase
   end
