@@ -38,6 +38,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    addressable (2.3.8)
     annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
@@ -99,6 +100,8 @@ GEM
       rails (>= 4.0.0, < 5)
       rails-i18n (>= 4.0.0)
       sass-rails (>= 4.0.3)
+    crack (0.4.2)
+      safe_yaml (~> 1.0.0)
     database_cleaner (1.4.1)
     devise (3.5.1)
       bcrypt (~> 3.0)
@@ -119,6 +122,8 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
     haml (4.0.6)
@@ -153,6 +158,7 @@ GEM
     mimemagic (0.3.0)
     mini_portile (0.6.2)
     minitest (5.7.0)
+    multipart-post (2.0.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
@@ -225,6 +231,7 @@ GEM
     rollbar (2.1.0)
     ruby_parser (3.7.0)
       sexp_processor (~> 4.1)
+    safe_yaml (1.0.4)
     sass (3.4.16)
     sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -268,6 +275,9 @@ GEM
       json (>= 1.8.0)
     warden (1.2.3)
       rack (>= 1.0)
+    webmock (1.21.0)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
     will_paginate (3.0.7)
     xpath (2.0.0)
       nokogiri (~> 1.3)
@@ -287,6 +297,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   factory_girl_rails
+  faraday
   newrelic_rpm
   opal-rails (= 0.8.0)
   pg
@@ -301,6 +312,7 @@ DEPENDENCIES
   syslogger
   therubyracer
   uglifier (>= 1.3.0)
+  webmock
   will_paginate
 
 BUNDLED WITH

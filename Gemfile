@@ -22,6 +22,8 @@ gem 'rollbar' # for error collecting
 gem 'newrelic_rpm' # app peformance tracking
 gem 'syslogger', require: false # log to syslog
 
+gem 'faraday'
+
 group :development do
   gem 'annotate', '~> 2.6', require: false
   gem 'capistrano', '~> 3.3', require: false
@@ -39,6 +41,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'webmock', require: false
   gem 'capybara'
   gem 'shoulda-context'
   gem 'simplecov', require: false
