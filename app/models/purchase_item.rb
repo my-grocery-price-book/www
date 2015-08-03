@@ -7,11 +7,12 @@
 #  product_brand_name :string
 #  package_size       :decimal(, )
 #  package_unit       :string
-#  quantity            :decimal(, )
+#  quantity           :decimal(, )
 #  total_price        :decimal(, )
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  category           :string
+#  regular_name       :string
 #
 
 class PurchaseItem < ActiveRecord::Base

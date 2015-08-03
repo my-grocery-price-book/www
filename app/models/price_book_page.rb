@@ -2,12 +2,14 @@
 #
 # Table name: price_book_pages
 #
-#  id         :integer          not null, primary key
-#  name       :string
-#  category   :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  shopper_id :integer
+#  id            :integer          not null, primary key
+#  name          :string
+#  category      :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  shopper_id    :integer
+#  product_names :text             default([]), is an Array
+#  unit          :string
 #
 
 class PriceBookPage < ActiveRecord::Base
