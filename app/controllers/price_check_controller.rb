@@ -1,10 +1,7 @@
 class PriceCheckController < ApplicationController
+  before_action :check_public_api_is_selected, only: [:index]
+
   def index
-    unless current_public_api_selected?
-      redirect_to_path = select_area_path
-      redirect_to_path = edit_profile_path if shopper_signed_in?
-      redirect_to(redirect_to_path, notice: 'Select Area')
-    end
   end
 
   def select_area

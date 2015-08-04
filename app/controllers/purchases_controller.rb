@@ -1,6 +1,7 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_shopper!
-  before_action :set_purchase, only: [:show, :edit, :update, :delete, :destroy]
+  before_action :check_public_api_is_selected, only: [:complete]
+  before_action :set_purchase, only: [:show, :edit, :update, :delete, :destroy, :complete]
 
   # GET /purchases
   def index
@@ -25,6 +26,17 @@ class PurchasesController < ApplicationController
     else
       render :edit
     end
+  end
+
+  # PATCH/PUT /purchase_items/1/complete
+  def complete
+    @purchase.mark_as_completed(
+      api_url: current_public_api.url,
+      api_key: ShopperApiKey.api_key(shopper: current_shopper,
+                                     api_url: current_public_api.url),
+      current_time: Time.current
+    )
+    redirect_to edit_purchase_path(@purchase), notice: 'Sending prices to price book'
   end
 
   # DELETE /purchases/1

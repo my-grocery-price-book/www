@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :purchases, except: [:new, :show] do
     member do
       get 'delete'
+      patch 'complete'
     end
     resources :items, controller: 'purchase_items', only: [:create, :update, :destroy] do
       member do

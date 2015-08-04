@@ -9,6 +9,7 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  shopper_id   :integer
+#  completed_at :datetime
 #
 
 require 'test_helper'
