@@ -9,6 +9,7 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  shopper_id   :integer
+#  completed_at :datetime
 #
 
 class Purchase < ActiveRecord::Base
@@ -43,5 +44,18 @@ class Purchase < ActiveRecord::Base
 
   def destroy_item_by_id(item_id)
     items.find(item_id).destroy
+  end
+
+
+  def mark_as_completed(api_url:, api_key:, current_time:)
+    update_column(:completed_at, current_time)
+    items.each do |item|
+      Purchases::SendItemToApiJob.perform_later(api_url: api_url,
+                                                api_key: api_key,
+                                                item: item,
+                                                date_on: purchased_on.to_s,
+                                                store: store,
+                                                location: location)
+    end
   end
 end
