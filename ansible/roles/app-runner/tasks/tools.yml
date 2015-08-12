@@ -1,0 +1,21 @@
+- name: installing postgresql-client
+  apt: name=postgresql-client state=present
+
+- name: installing mailcatcher gem dependencies
+  apt: name={{item}} state=present
+  sudo: yes
+  with_items:
+    - sqlite3
+    - libsqlite3-dev
+
+- name: Install mailcatcher gem
+  gem: name=mailcatcher state=present user_install=no
+  sudo: yes
+
+- name: Install brakeman gem
+  gem: name=brakeman state=present user_install=no
+  sudo: yes
+
+- name: Install PhantomJS 1.9.8
+  sudo: yes
+  script: _scripts/install_phantomjs.sh creates=/usr/local/bin/phantomjs

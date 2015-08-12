@@ -4,15 +4,8 @@
     host: "github.com"
 
 - include: ruby.yml
-- include: mailcatcher.yml
+- include: tools.yml
 - include: aws_eb.yml
-
-- name: Install PhantomJS 1.9.8
-  sudo: yes
-  script: _scripts/install_phantomjs.sh creates=/usr/local/bin/phantomjs
-
-- name: installing postgresql-client
-  apt: name=postgresql-client state=present
 
 - name: bundle install
   command:  bundle install --jobs 4 --retry 2 --path vendor/bundle
