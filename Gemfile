@@ -26,10 +26,6 @@ gem 'faraday'
 
 group :development do
   gem 'annotate', '~> 2.6', require: false
-  gem 'capistrano', '~> 3.3', require: false
-  gem 'capistrano3-puma', require: false
-  gem 'capistrano-bundler', require: false
-  gem 'capistrano-rails', require: false # Use Capistrano for deployment
 end
 
 group :development, :test do

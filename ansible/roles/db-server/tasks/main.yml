@@ -12,14 +12,20 @@
 - name: Ensure PostgreSQL is running
   service: name=postgresql state=started
 
-- name: create my_grocery_cocktail on database
-  postgresql_db: name=my_grocery_cocktail encoding='UTF-8'
+- name: wait for PostgreSQL to be running
+  wait_for: port=5432 delay=2
+
+- name: create ansible_ssh_user on postgres
+  postgresql_user: name={{ansible_ssh_user}} role_attr_flags=CREATEDB,NOSUPERUSER
   sudo: yes
   sudo_user: postgres
 
-- name: create gc_user on postgres
-  postgresql_user: db=my_grocery_cocktail name=gc_user password={{app_db_password}} role_attr_flags=CREATEDB,NOSUPERUSER
+- name: add app ip addresses to pg_hba.conf
+  lineinfile: dest=/etc/postgresql/9.3/main/pg_hba.conf line="host all all 192.168.30.15/24 trust"
   sudo: yes
   sudo_user: postgres
+  notify: restarting postgresql
 
-- include: setup_backups.yml
+- name: update postgresql.conf
+  copy: src=etc/postgresql/9.3/main/postgresql.conf dest=/etc/postgresql/9.3/main/postgresql.conf owner=postgres group=postgres mode=0644
+  notify: restarting postgresql

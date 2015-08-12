@@ -174,6 +174,14 @@ ActiveRecord::Schema.define(version: 20150804070800) do
 
   add_index "purchases", ["shopper_id"], name: "index_purchases_on_shopper_id", using: :btree
 
+  create_table "shopper_api_keys", force: :cascade do |t|
+    t.integer  "shopper_id", null: false
+    t.string   "api_key",    null: false
+    t.string   "api_url",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "shoppers", force: :cascade do |t|
     t.string   "email",                  default: "",                                          null: false
     t.string   "encrypted_password",     default: "",                                          null: false

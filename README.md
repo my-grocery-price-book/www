@@ -6,7 +6,10 @@
  * anisible (at least 1.9.0)
 
 ```
-  bin/vagrant_setup.sh
+  vagrant up
+  vagrant ssh
+  cd project
+  ./run.sh
 ```
 
 # Setup without Vagrant
@@ -18,7 +21,8 @@
  * Imagemagick
  
 ```
-  ./local_run.sh
+  bin/setup.sh
+  ./run.sh
 ```
 
 # Development
@@ -47,12 +51,6 @@ provisioning
   ansible-playbook -vv site.yml
 ```
 
-deploying
-
-```
-  bin/cap vagrant deploy
-```
-
 # ZA Provisioning and Deployment
 
 provisioning: Your key needs to be added to the servers and you need the vault_pass.txt
@@ -60,10 +58,4 @@ provisioning: Your key needs to be added to the servers and you need the vault_p
 ```
   cd ansible
   ansible-playbook -vv site.yml -i hosts/za --vault-password-file vault_pass.txt
-```
-
-deploying
-
-```
-  bin/cap za deploy
 ```

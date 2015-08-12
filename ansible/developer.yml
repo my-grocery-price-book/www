@@ -1,5 +1,0 @@
-- hosts: developer
-  remote_user: "{{remote_user}}"
-  sudo: no
-  roles:
-    - developer

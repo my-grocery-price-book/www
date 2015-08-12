@@ -1,3 +1,0 @@
-- name: restart newrelic-sysmond
-  sudo: true
-  action: service name=newrelic-sysmond state=restarted
