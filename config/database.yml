@@ -1,0 +1,24 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  host: <%= ENV['RDS_HOSTNAME'] %>
+  database: <%= ENV['RDS_DB_NAME'] %>
+<% if ENV['RDS_USERNAME'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+<% end %>
+<% if ENV['RDS_PASSWORD'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+<% end %>
+<% if ENV['RDS_PORT'] %>
+  port: <%= ENV['RDS_PORT'] %>
+<% end %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default

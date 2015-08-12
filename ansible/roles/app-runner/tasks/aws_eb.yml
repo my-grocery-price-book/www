@@ -1,0 +1,17 @@
+- name: installing aws eb dependencies
+  apt: name={{item}} state=present
+  sudo: yes
+  with_items:
+    - python
+
+- name: download get-pip.py
+  get_url: url=https://bootstrap.pypa.io/get-pip.py dest=~/get-pip.py
+  sudo: yes
+
+- name: install pip
+  command: python ~/get-pip.py
+  sudo: yes
+
+- name: install awsebcli
+  pip: name=awsebcli state=latest
+  sudo: yes

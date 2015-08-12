@@ -20,6 +20,7 @@
     - build-essential
     - libpq-dev
     - libssl-dev
+    - postgresql-client
     - g++
     - git
     - imagemagick

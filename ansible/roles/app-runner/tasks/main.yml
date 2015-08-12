@@ -1,5 +1,29 @@
----
+- name: ensure github.com is a known host
+  known_hosts:
+    key: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
+    host: "github.com"
+
 - include: ruby.yml
-- include: create_user.yml
+- include: mailcatcher.yml
+- include: aws_eb.yml
 
+- name: Install PhantomJS 1.9.8
+  sudo: yes
+  script: _scripts/install_phantomjs.sh creates=/usr/local/bin/phantomjs
 
+- name: installing postgresql-client
+  apt: name=postgresql-client state=present
+
+- name: bundle install
+  command:  bundle install --jobs 4 --retry 2 --path vendor/bundle
+  sudo: no
+  args:
+    chdir: ~/project
+    creates: ~/project/vendor/bundle
+
+- name: create .env
+  command:  cp config/examples/.env.vagrant .env
+  sudo: no
+  args:
+    chdir: ~/project
+    creates: ~/project/.env
