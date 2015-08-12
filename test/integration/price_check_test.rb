@@ -3,7 +3,7 @@ require 'integration_helper'
 class PriceCheckTest < ActionDispatch::IntegrationTest
   test 'Search for items when not logged in' do
     visit '/price_check'
-    select 'Red', from: 'Current public api'
+    select 'South Africa - Western Cape', from: 'Current public api'
     click_button 'Set'
 
     assert page.has_content?('Price Check')
@@ -13,7 +13,7 @@ class PriceCheckTest < ActionDispatch::IntegrationTest
     visit '/profile'
     sign_in_shopper(current_public_api: PublicApi.first_code)
     assert page.has_content?('Profile')
-    assert page.has_content?('Red')
+    assert page.has_content?('South Africa - Eastern Cape')
 
     click_link 'Price Check'
     assert page.has_content?('Price Check')

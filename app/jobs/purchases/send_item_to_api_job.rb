@@ -3,9 +3,9 @@ require 'faraday'
 class Purchases::SendItemToApiJob < ActiveJob::Base
   queue_as :default
 
-  def perform(api_url:, api_key:, date_on:, store:, location:, item:)
-    connection = create_faraday_connection(api_url)
-    connection.post '/entries',
+  def perform(api_root:, api_region_code:, api_key:, date_on:, store:, location:, item:)
+    connection = create_faraday_connection(api_root)
+    connection.post "/#{api_region_code}/entries",
                     api_key: api_key,
                     product_brand_name: item.product_brand_name,
                     generic_name: item.regular_name,

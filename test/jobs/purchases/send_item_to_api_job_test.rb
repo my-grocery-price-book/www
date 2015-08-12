@@ -4,16 +4,25 @@ describe Purchases::SendItemToApiJob do
   subject {Purchases::SendItemToApiJob}
 
   def perform_now(options = {})
-    options.reverse_merge!(api_url: 'http://za-wc.example.com/',
+    options.reverse_merge!(api_root: 'http://api.example.com/',
+                           api_region_code: 'ZA-EC',
                            api_key: 'my_key',
                            date_on: Date.current,
                            store: 'Woolworths',
                            location: 'CanalWalk',
                            item: PurchaseItem.new)
 
-    stub_request(:post, 'http://za-wc.example.com/entries')
+    stub_request(:post, 'http://api.example.com/ZA-EC/entries')
 
     subject.perform_now(options)
+  end
+
+  it 'performs post with correct region code' do
+    stub_request(:post, 'http://api.example.com/OTHER/entries')
+
+    perform_now(api_region_code: 'OTHER')
+
+    assert_requested(:post, 'http://api.example.com/OTHER/entries', :times => 1)
   end
 
   it 'performs post with product_brand_name' do
@@ -21,7 +30,7 @@ describe Purchases::SendItemToApiJob do
 
     perform_now(item: p)
 
-    assert_requested(:post, 'http://za-wc.example.com/entries',
+    assert_requested(:post, 'http://api.example.com/ZA-EC/entries',
                      :times => 1) { |req| req.body.include?('product_brand_name=Coke+Lite') }
   end
 
@@ -30,7 +39,7 @@ describe Purchases::SendItemToApiJob do
 
     perform_now(item: p)
 
-    assert_requested(:post, 'http://za-wc.example.com/entries',
+    assert_requested(:post, 'http://api.example.com/ZA-EC/entries',
                      :times => 1) { |req| req.body.include?('generic_name=Soda') }
   end
 
@@ -39,7 +48,7 @@ describe Purchases::SendItemToApiJob do
 
     perform_now(item: p)
 
-    assert_requested(:post, 'http://za-wc.example.com/entries',
+    assert_requested(:post, 'http://api.example.com/ZA-EC/entries',
                      :times => 1) { |req| req.body.include?('category=Drinks') }
   end
 
@@ -48,7 +57,7 @@ describe Purchases::SendItemToApiJob do
 
     perform_now(item: p)
 
-    assert_requested(:post, 'http://za-wc.example.com/entries',
+    assert_requested(:post, 'http://api.example.com/ZA-EC/entries',
                      :times => 1) { |req| req.body.include?('package_size=340') }
   end
 
@@ -57,7 +66,7 @@ describe Purchases::SendItemToApiJob do
 
     perform_now(item: p)
 
-    assert_requested(:post, 'http://za-wc.example.com/entries',
+    assert_requested(:post, 'http://api.example.com/ZA-EC/entries',
                      :times => 1) { |req| req.body.include?('package_unit=ml') }
   end
 
@@ -66,7 +75,7 @@ describe Purchases::SendItemToApiJob do
 
     perform_now(item: p)
 
-    assert_requested(:post, 'http://za-wc.example.com/entries',
+    assert_requested(:post, 'http://api.example.com/ZA-EC/entries',
                      :times => 1) { |req| req.body.include?('quantity=1') }
   end
 
@@ -75,28 +84,28 @@ describe Purchases::SendItemToApiJob do
 
     perform_now(item: p)
 
-    assert_requested(:post, 'http://za-wc.example.com/entries',
+    assert_requested(:post, 'http://api.example.com/ZA-EC/entries',
                      :times => 1) { |req| req.body.include?('total_price=15.55') }
   end
 
   it 'performs post with date_on' do
     perform_now(date_on: Date.current)
 
-    assert_requested(:post, 'http://za-wc.example.com/entries',
+    assert_requested(:post, 'http://api.example.com/ZA-EC/entries',
                      :times => 1) { |req| req.body.include?("date_on=#{Date.current}") }
   end
 
   it 'performs post with store' do
     perform_now(store: 'OK')
 
-    assert_requested(:post, 'http://za-wc.example.com/entries',
+    assert_requested(:post, 'http://api.example.com/ZA-EC/entries',
                      :times => 1) { |req| req.body.include?('store=OK') }
   end
 
   it 'performs post with location' do
     perform_now(location: 'Goodwood')
 
-    assert_requested(:post, 'http://za-wc.example.com/entries',
+    assert_requested(:post, 'http://api.example.com/ZA-EC/entries',
                      :times => 1) { |req| req.body.include?('location=Goodwood') }
   end
 end

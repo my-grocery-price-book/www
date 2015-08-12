@@ -47,10 +47,11 @@ class Purchase < ActiveRecord::Base
   end
 
 
-  def mark_as_completed(api_url:, api_key:, current_time:)
+  def mark_as_completed(api_root:, api_region_code:, api_key:, current_time:)
     update_column(:completed_at, current_time)
     items.each do |item|
-      Purchases::SendItemToApiJob.perform_later(api_url: api_url,
+      Purchases::SendItemToApiJob.perform_later(api_root: api_root,
+                                                api_region_code: api_region_code,
                                                 api_key: api_key,
                                                 item: item,
                                                 date_on: purchased_on.to_s,

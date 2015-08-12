@@ -31,9 +31,10 @@ class PurchasesController < ApplicationController
   # PATCH/PUT /purchase_items/1/complete
   def complete
     @purchase.mark_as_completed(
-      api_url: current_public_api.url,
+      api_root: current_public_api.url_root,
+      api_region_code: current_public_api.code,
       api_key: ShopperApiKey.api_key(shopper: current_shopper,
-                                     api_url: current_public_api.url),
+                                     api_root: current_public_api.url_root),
       current_time: Time.current
     )
     redirect_to edit_purchase_path(@purchase), notice: 'Sending prices to price book'

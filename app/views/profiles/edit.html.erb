@@ -7,15 +7,16 @@
     </label><br>
     <select name="shopper[current_public_api]"
             id="shopper_current_public_api">
-      <% @public_apis.each do |api| %>
-        <option value="<%= api.code %>"
-                <% if @shopper.current_public_api == api.code %>selected<% end %>
-        >
-          <%= api.name %>
-        </option>
-      <% end %>
+      <option></option>
+      <%= options_from_collection_for_select(@public_apis, 'code', 'name', @shopper.current_public_api) %>
     </select>
   </div>
   <%= f.submit 'Update', class: 'btn btn-default' %>
 <% end %>
+
+<script>
+  $(function() {
+    $( "#shopper_current_public_api" ).combobox();
+  });
+</script>
 

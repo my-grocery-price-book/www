@@ -2,21 +2,20 @@ require 'test_helper'
 
 describe PublicApi do
   describe 'first_code' do
-    it 'gives Red code of r' do
-      PublicApi.first_code.must_equal 'r'
+    it 'gives first country code' do
+      PublicApi.first_code.must_equal 'ZA-EC'
     end
   end
 
   describe 'all' do
-    it 'loads all' do
-      all = PublicApi.all.map{|public_api| [public_api.name, public_api.url] }
-      all.must_equal(
-        [
-          ['Red', 'http://red.vagrant'],
-          ['Green', 'http://green.vagrant'],
-          ['Blue','http://blue.vagrant']
-        ]
-      )
+    it 'loads all regions' do
+      all = PublicApi.all
+      all.size.must_equal(315)
+    end
+
+    it 'loads South Africa, United States, United Kingdom, Australia' do
+      all = PublicApi.all
+      all.map(&:country_name).uniq.must_equal(['South Africa', 'United States', 'United Kingdom', 'Australia'])
     end
   end
 end

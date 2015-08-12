@@ -41,11 +41,12 @@ class PurchasesControllerTest < ActionController::TestCase
 
   context 'PATCH complete' do
     setup do
+      api = PublicApi.find_by_code(@shopper.current_public_api)
       create(:shopper_api_key,
              shopper_id: @shopper.id,
-             api_url: PublicApi.find_by_code(@shopper.current_public_api).url,
+             api_root: api.url_root,
              api_key: 'test')
-      stub_request(:post, "http://red.vagrant/entries")
+      stub_request(:post, "https://api.example.com/#{api.code}/entries")
     end
 
     should 'redirect to profile if no current_public_api' do

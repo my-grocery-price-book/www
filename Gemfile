@@ -22,7 +22,8 @@ gem 'rollbar' # for error collecting
 gem 'newrelic_rpm' # app peformance tracking
 gem 'syslogger', require: false # log to syslog
 
-gem 'faraday'
+gem 'faraday' # for making http request
+gem 'carmen', require: false # for country and region information
 
 group :development do
   gem 'annotate', '~> 2.6', require: false

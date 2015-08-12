@@ -1,8 +1,9 @@
 require 'yaml'
+require 'carmen'
 
-class PublicApi < Struct.new(:code, :name, :domain)
+class PublicApi < Struct.new(:code, :name, :url_root, :country_name)
   def url
-    "http://#{domain}"
+    "#{url_root}/#{code}"
   end
 
   def self.find_by_code(code)
@@ -14,9 +15,14 @@ class PublicApi < Struct.new(:code, :name, :domain)
   end
 
   def self.all
-    config_filename ||= File.join(Rails.root,ENV['PUBLIC_API_CONFIG'])
-    @@all ||= YAML.load_file(config_filename).map do |api_info|
-      new(api_info['code'],api_info['name'],api_info['domain'])
+    all = []
+    ['South Africa', 'United States', 'United Kingdom', 'Australia'].each do |country_name|
+      country = Carmen::Country.named(country_name)
+      country.subregions.each do |region|
+        code = "#{country.alpha_2_code}-#{region.code}"
+        all << new(code, "#{country.name} - #{region.name}", ENV['PUBLIC_API_DOMAIN'], country.name)
+      end
     end
+    all
   end
 end
