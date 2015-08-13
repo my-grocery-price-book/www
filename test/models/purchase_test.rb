@@ -51,34 +51,37 @@ describe Purchase do
 
     it 'sets completed_at on purchase' do
       mark_as_completed(current_time: @current_time,
-                        api_url: 'http://example.com',
+                        api_root: 'http://example.com',
+                        api_region_code: 'za-wc',
                         api_key: 'a')
 
       @purchase.completed_at.to_s.must_equal(@current_time.to_s)
     end
 
     it 'exports one purchase item' do
-      stub_request(:post, 'http://example.com/entries')
+      stub_request(:post, 'http://example.com/za-wc/entries')
       create(:purchase_item, purchase_id: @purchase.id)
 
       mark_as_completed(current_time: @current_time,
-                        api_url: 'http://example.com',
+                        api_root: 'http://example.com',
+                        api_region_code: 'za-wc',
                         api_key: 'a')
 
       # make sure Purchases::SendItemToApiJob gets called
-      assert_requested :post, 'http://example.com/entries', :times => 1
+      assert_requested :post, 'http://example.com/za-wc/entries', :times => 1
     end
 
     it 'exports multiple purchase item' do
       3.times { create(:purchase_item, purchase_id: @purchase.id) }
-      stub_request(:post, 'http://za.example.com/entries')
+      stub_request(:post, 'http://example.com/za-wc/entries')
 
       mark_as_completed(current_time: @current_time,
-                        api_url: 'http://za.example.com',
+                        api_root: 'http://example.com',
+                        api_region_code: 'za-wc',
                         api_key: 'a')
 
       # make sure Purchases::SendItemToApiJob gets called
-      assert_requested :post, 'http://za.example.com/entries', :times => 3
+      assert_requested :post, 'http://example.com/za-wc/entries', :times => 3
     end
   end
 end
