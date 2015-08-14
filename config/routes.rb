@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  comfy_route :cms_admin, :path => '/_admin_'
+  comfy_route :cms_admin, path: '/_admin_'
 
   resources :price_book_pages do
     member do
@@ -27,5 +27,5 @@ Rails.application.routes.draw do
   end
 
   # Make sure this routeset is defined last
-  comfy_route :cms, :path => '/', :sitemap => false
+  comfy_route :cms, path: '/', sitemap: false
 end

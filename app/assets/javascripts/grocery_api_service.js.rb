@@ -9,15 +9,15 @@ class GroceryApiService
   end
 
   def store_names(&block)
-    get('store_names',&block)
+    get('store_names', &block)
   end
 
   def location_names(&block)
-    get('location_names',&block)
+    get('location_names', &block)
   end
 
   def product_brand_names(&block)
-    get('product_brand_names',&block)
+    get('product_brand_names', &block)
   end
 
   def product_brand_names_url
@@ -25,7 +25,7 @@ class GroceryApiService
   end
 
   def product_summaries(query_string, &block)
-    get("products?#{query_string}",&block)
+    get("products?#{query_string}", &block)
   end
 
   private
@@ -40,4 +40,3 @@ class GroceryApiService
     end
   end
 end
-

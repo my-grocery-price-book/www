@@ -2,19 +2,16 @@ require 'rollbar/rails'
 Rollbar.configure do |config|
   # Without configuration, Rollbar is enabled in all environments.
   # To disable in specific environments, set config.enabled=false.
-  
+
   config.access_token = ENV['ROLLBAR_ACCESS_TOKEN']
 
   # Here we'll disable unless 'production':
-  unless Rails.env.production?
-    config.enabled = false
-  end
-  
+  config.enabled = false unless Rails.env.production?
 
   # By default, Rollbar will try to call the `current_user` controller method
   # to fetch the logged-in user object, and then call that object's `id`,
   # `username`, and `email` methods to fetch those properties. To customize:
-  config.person_method = "current_shopper"
+  config.person_method = 'current_shopper'
   # config.person_id_method = "my_id"
   # config.person_username_method = "my_username"
   # config.person_email_method = "my_email"

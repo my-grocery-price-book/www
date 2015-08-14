@@ -11,9 +11,9 @@ class ShopperApiKey < ActiveRecord::Base
 
   def self.create_faraday_connection(url)
     Faraday.new(url: url) do |faraday|
-      faraday.request  :url_encoded             # form-encode POST params
+      faraday.request :url_encoded             # form-encode POST params
       faraday.response :logger, Rails.logger
-      faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+      faraday.adapter Faraday.default_adapter  # make requests with Net::HTTP
     end
   end
 end

@@ -34,7 +34,10 @@ class PurchasesControllerTest < ActionController::TestCase
 
   context 'PATCH update' do
     should 'update purchase' do
-      patch :update, id: @purchase, purchase: { location: @purchase.location, purchased_on: @purchase.purchased_on, store: @purchase.store }
+      patch :update, id: @purchase,
+                     purchase: { location: @purchase.location,
+                                 purchased_on: @purchase.purchased_on,
+                                 store: @purchase.store }
       assert_redirected_to edit_purchase_path(assigns(:purchase))
     end
   end
@@ -50,7 +53,7 @@ class PurchasesControllerTest < ActionController::TestCase
     end
 
     should 'redirect to profile if no current_public_api' do
-      @shopper.update_column(:current_public_api,'')
+      @shopper.update_column(:current_public_api, '')
       patch :complete, id: @purchase
       assert_redirected_to edit_profile_path
     end

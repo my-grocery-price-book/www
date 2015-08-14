@@ -1,7 +1,7 @@
 require 'test_helper'
 
 describe Purchases::SendItemToApiJob do
-  subject {Purchases::SendItemToApiJob}
+  subject { Purchases::SendItemToApiJob }
 
   def perform_now(options = {})
     options.reverse_merge!(api_root: 'http://api.example.com/',
@@ -22,7 +22,7 @@ describe Purchases::SendItemToApiJob do
 
     perform_now(api_region_code: 'OTHER')
 
-    assert_requested(:post, 'http://api.example.com/OTHER/entries', :times => 1)
+    assert_requested(:post, 'http://api.example.com/OTHER/entries', times: 1)
   end
 
   it 'performs post with product_brand_name' do
@@ -31,7 +31,7 @@ describe Purchases::SendItemToApiJob do
     perform_now(item: p)
 
     assert_requested(:post, 'http://api.example.com/ZA-EC/entries',
-                     :times => 1) { |req| req.body.include?('product_brand_name=Coke+Lite') }
+                     times: 1) { |req| req.body.include?('product_brand_name=Coke+Lite') }
   end
 
   it 'performs post with generic_name' do
@@ -40,7 +40,7 @@ describe Purchases::SendItemToApiJob do
     perform_now(item: p)
 
     assert_requested(:post, 'http://api.example.com/ZA-EC/entries',
-                     :times => 1) { |req| req.body.include?('generic_name=Soda') }
+                     times: 1) { |req| req.body.include?('generic_name=Soda') }
   end
 
   it 'performs post with category' do
@@ -49,7 +49,7 @@ describe Purchases::SendItemToApiJob do
     perform_now(item: p)
 
     assert_requested(:post, 'http://api.example.com/ZA-EC/entries',
-                     :times => 1) { |req| req.body.include?('category=Drinks') }
+                     times: 1) { |req| req.body.include?('category=Drinks') }
   end
 
   it 'performs post with package_size' do
@@ -58,7 +58,7 @@ describe Purchases::SendItemToApiJob do
     perform_now(item: p)
 
     assert_requested(:post, 'http://api.example.com/ZA-EC/entries',
-                     :times => 1) { |req| req.body.include?('package_size=340') }
+                     times: 1) { |req| req.body.include?('package_size=340') }
   end
 
   it 'performs post with package_size' do
@@ -67,7 +67,7 @@ describe Purchases::SendItemToApiJob do
     perform_now(item: p)
 
     assert_requested(:post, 'http://api.example.com/ZA-EC/entries',
-                     :times => 1) { |req| req.body.include?('package_unit=ml') }
+                     times: 1) { |req| req.body.include?('package_unit=ml') }
   end
 
   it 'performs post with quantity' do
@@ -76,7 +76,7 @@ describe Purchases::SendItemToApiJob do
     perform_now(item: p)
 
     assert_requested(:post, 'http://api.example.com/ZA-EC/entries',
-                     :times => 1) { |req| req.body.include?('quantity=1') }
+                     times: 1) { |req| req.body.include?('quantity=1') }
   end
 
   it 'performs post with total_price' do
@@ -85,27 +85,27 @@ describe Purchases::SendItemToApiJob do
     perform_now(item: p)
 
     assert_requested(:post, 'http://api.example.com/ZA-EC/entries',
-                     :times => 1) { |req| req.body.include?('total_price=15.55') }
+                     times: 1) { |req| req.body.include?('total_price=15.55') }
   end
 
   it 'performs post with date_on' do
     perform_now(date_on: Date.current)
 
     assert_requested(:post, 'http://api.example.com/ZA-EC/entries',
-                     :times => 1) { |req| req.body.include?("date_on=#{Date.current}") }
+                     times: 1) { |req| req.body.include?("date_on=#{Date.current}") }
   end
 
   it 'performs post with store' do
     perform_now(store: 'OK')
 
     assert_requested(:post, 'http://api.example.com/ZA-EC/entries',
-                     :times => 1) { |req| req.body.include?('store=OK') }
+                     times: 1) { |req| req.body.include?('store=OK') }
   end
 
   it 'performs post with location' do
     perform_now(location: 'Goodwood')
 
     assert_requested(:post, 'http://api.example.com/ZA-EC/entries',
-                     :times => 1) { |req| req.body.include?('location=Goodwood') }
+                     times: 1) { |req| req.body.include?('location=Goodwood') }
   end
 end

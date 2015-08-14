@@ -5,7 +5,7 @@ describe ShopperApiKey do
     it 'returns an existing key when only one shopper_api_key exists' do
       shopper = create(:shopper)
       create(:shopper_api_key, shopper_id: shopper.id,
-             api_key: 'hello_api', api_root: 'http://za-wc.example.com/')
+                               api_key: 'hello_api', api_root: 'http://za-wc.example.com/')
 
       api_key = ShopperApiKey.api_key(shopper: shopper, api_root: 'http://za-wc.example.com/')
 
@@ -15,11 +15,11 @@ describe ShopperApiKey do
     it 'returns an existing key when multiple shopper_api_key exists' do
       shopper = create(:shopper)
       create(:shopper_api_key, shopper_id: create(:shopper).id,
-             api_key: 'before_key', api_root: 'http://za-wc.example.com/')
+                               api_key: 'before_key', api_root: 'http://za-wc.example.com/')
       create(:shopper_api_key, shopper_id: shopper.id,
-             api_key: 'correct_key', api_root: 'http://za-wc.example.com/')
+                               api_key: 'correct_key', api_root: 'http://za-wc.example.com/')
       create(:shopper_api_key, shopper_id: create(:shopper).id,
-             api_key: 'other_key', api_root: 'http://za-ec.example.com/')
+                               api_key: 'other_key', api_root: 'http://za-ec.example.com/')
 
       api_key = ShopperApiKey.api_key(shopper: shopper, api_root: 'http://za-wc.example.com/')
 
@@ -30,10 +30,9 @@ describe ShopperApiKey do
       response_body = '{ "api_key": "my_new_key"}'
 
       shopper = create(:shopper, email: 'test@example.com')
-      stub_request(:post, 'http://za-wc.example.com/users').
-        with(body: {'email'=> shopper.email }).
-        to_return(:status => 200, :body => response_body)
-
+      stub_request(:post, 'http://za-wc.example.com/users')
+        .with(body: { 'email' => shopper.email })
+        .to_return(status: 200, body: response_body)
 
       api_key = ShopperApiKey.api_key(shopper: shopper, api_root: 'http://za-wc.example.com/')
 
@@ -47,10 +46,9 @@ describe ShopperApiKey do
       response_body = '{ "api_key": "my_new_key"}'
 
       shopper = create(:shopper, email: 'test@example.com')
-      stub_request(:post, 'http://za-wc.example.com/users').
-        with(body: {'email'=> shopper.email }).
-        to_return(:status => 200, :body => response_body)
-
+      stub_request(:post, 'http://za-wc.example.com/users')
+        .with(body: { 'email' => shopper.email })
+        .to_return(status: 200, body: response_body)
 
       ShopperApiKey.api_key(shopper: shopper, api_root: 'http://za-wc.example.com/')
 
@@ -60,4 +58,3 @@ describe ShopperApiKey do
     end
   end
 end
-

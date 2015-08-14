@@ -12,7 +12,10 @@ class RegisterAndLoginTest < ActionDispatch::IntegrationTest
   end
 
   test 'login' do
-    Shopper.create!(email: 'test@example.com', password_confirmation: 'pass123!!', password: 'pass123!!', confirmed_at: Time.current)
+    Shopper.create!(email: 'test@example.com',
+                    password_confirmation: 'pass123!!',
+                    password: 'pass123!!',
+                    confirmed_at: Time.current)
     visit '/purchases'
     fill_in 'Email', with: 'test@example.com'
     fill_in 'Password', with: 'pass123!!'

@@ -5,7 +5,7 @@ class PriceBookPagesController < ApplicationController
   # GET /price_book_pages
   def index
     @price_book_pages = PriceBookPage.for_shopper(current_shopper)
-    @price_book_pages = @price_book_pages.where('name ILIKE ?',"%#{params[:term]}%")
+    @price_book_pages = @price_book_pages.where('name ILIKE ?', "%#{params[:term]}%")
   end
 
   # GET /price_book_pages/1
@@ -53,13 +53,14 @@ class PriceBookPagesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_price_book_page
-      @price_book_page = PriceBookPage.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white item" through.
-    def price_book_page_params
-      params.require(:price_book_page).permit(:name, :category, :unit)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_price_book_page
+    @price_book_page = PriceBookPage.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white item" through.
+  def price_book_page_params
+    params.require(:price_book_page).permit(:name, :category, :unit)
+  end
 end

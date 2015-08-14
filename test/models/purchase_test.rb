@@ -15,7 +15,7 @@
 require 'test_helper'
 
 describe Purchase do
-  let(:shopper) {create(:shopper)}
+  let(:shopper) { create(:shopper) }
 
   describe '.create_for_shopper!' do
     it 'creates a purchase and item' do
@@ -68,7 +68,7 @@ describe Purchase do
                         api_key: 'a')
 
       # make sure Purchases::SendItemToApiJob gets called
-      assert_requested :post, 'http://example.com/za-wc/entries', :times => 1
+      assert_requested :post, 'http://example.com/za-wc/entries', times: 1
     end
 
     it 'exports multiple purchase item' do
@@ -81,7 +81,7 @@ describe Purchase do
                         api_key: 'a')
 
       # make sure Purchases::SendItemToApiJob gets called
-      assert_requested :post, 'http://example.com/za-wc/entries', :times => 3
+      assert_requested :post, 'http://example.com/za-wc/entries', times: 3
     end
   end
 end

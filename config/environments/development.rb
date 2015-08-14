@@ -43,5 +43,5 @@ Rails.application.configure do
 
   # run 'mailcatcher --http-ip 0.0.0.0', then  visit http://192.168.30.15:1080/
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { :address => 'localhost', :port => 1025 }
+  config.action_mailer.smtp_settings = { address: 'localhost', port: 1025 }
 end

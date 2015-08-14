@@ -5,34 +5,36 @@ require 'templates/price_check/search_form_and_results'
 require 'templates/price_check/_search_result'
 
 describe PriceCheckView do
-  let(:http_mock) {HTTPMock.new}
-  let(:main_element) {Element.new('div')}
+  let(:http_mock) { HTTPMock.new }
+  let(:main_element) { Element.new('div') }
 
   it 'renders' do
-    http_mock.set_ok_response('/products?term=',
-      [
-        {
-          product: 'Eggs',
-          package_unit: 'Eggs',
-          cheapest_last_week: {price_per_package_unit: 0.11},
-          cheapest_last_month: {price_per_package_unit: 0.12},
-          cheapest_last_year: {price_per_package_unit: 0.13}
-        }
-      ]
-    )
+    http_mock.ok_response('/products?term=',
+                          [
+                            {
+                              product: 'Eggs',
+                              package_unit: 'Eggs',
+                              cheapest_last_week: { price_per_package_unit: 0.11 },
+                              cheapest_last_month: { price_per_package_unit: 0.12 },
+                              cheapest_last_year: { price_per_package_unit: 0.13 }
+                            }
+                          ]
+                         )
     Element['body'].append(main_element)
 
-    PriceCheckView.new(main_element, GroceryApiService.new('',http_mock))
+    PriceCheckView.new(main_element, GroceryApiService.new('', http_mock))
 
     Element['form'].trigger('submit')
 
     result = Element['[data-price-check-result]'].to_s
-    expect(result).to include("<tbody data-price-check-result=\"\"><tr>\n  <td>Eggs (Eggs)</td>\n  <td>0.11</td>\n  <td>0.12</td>\n  <td>0.13</td>\n</tr>\n</tbody>")
+    expected_body = "<tbody data-price-check-result=\"\"><tr>\n  <td>Eggs (Eggs)</td>\n  <td>0.11</td>\n  "
+    expected_body += "<td>0.12</td>\n  <td>0.13</td>\n</tr>\n</tbody>"
+    expect(result).to include(expected_body)
   end
 end
 
 describe PriceCheckView::ProductPresenter do
-  subject {PriceCheckView::ProductPresenter}
+  subject { PriceCheckView::ProductPresenter }
 
   describe 'product' do
     it 'returns product' do

@@ -33,15 +33,15 @@ class PurchaseItemsControllerTest < ActionController::TestCase
     end
 
     should 'update purchase_item' do
-      patch :update,  id: @purchase_item, purchase_id: @purchase, purchase_item: @item_params
+      patch :update, id: @purchase_item, purchase_id: @purchase, purchase_item: @item_params
       assert_redirected_to edit_purchase_path(assigns(:purchase))
     end
 
     should 'permit correct params' do
       patch :update,  id: @purchase_item, purchase_id: @purchase, purchase_item: @item_params
       item_attributes = assigns(:purchase_item).attributes.except('id', 'purchase_id', 'created_at', 'updated_at')
-      item_attributes.each { |key,value| item_attributes[key] = value.to_s }
-      assert_equal(@item_params,item_attributes)
+      item_attributes.each { |key, value| item_attributes[key] = value.to_s }
+      assert_equal(@item_params, item_attributes)
     end
   end
 

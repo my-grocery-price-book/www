@@ -4,7 +4,7 @@ lock '3.4.0'
 set :application, 'my-grocery-price-book'
 set :repo_url, 'git@bitbucket.org:grantspeelman/grocery-cocktail.git'
 
-set :ssh_options,  forward_agent: true
+set :ssh_options, forward_agent: true
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -26,10 +26,14 @@ set :log_level, :info
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml', 'config/newrelic.yml', 'config/public_apis.yml')
+set :linked_files, fetch(:linked_files, []).push(
+  'config/database.yml', 'config/secrets.yml', 'config/newrelic.yml', 'config/public_apis.yml'
+)
 
 # Default value for linked_dirs is []
-set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/assets')
+set :linked_dirs, fetch(:linked_dirs, []).push(
+  'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/assets'
+)
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -41,7 +45,6 @@ set :rack_env, 'production'
 set :rails_env, 'production'
 
 namespace :deploy do
-
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
@@ -66,4 +69,3 @@ namespace :deploy do
 end
 
 after 'deploy:updated', 'deploy:compile_assets'
-

@@ -9,7 +9,7 @@
 require 'template'
 
 class PriceCheckView
-  def initialize(parent = Element,api_service = GroceryApiService.instance)
+  def initialize(parent = Element, api_service = GroceryApiService.instance)
     @api_service = api_service
     @parent = parent
     render_form
@@ -22,7 +22,7 @@ class PriceCheckView
     @form = @parent.find('[data-price-check-control]')
     @result = @parent.find('[data-price-check-result]')
 
-    @form.find('input').autocomplete({source: "#{@api_service.product_brand_names_url}"}.to_n)
+    @form.find('input').autocomplete({ source: "#{@api_service.product_brand_names_url}" }.to_n)
   end
 
   def setup

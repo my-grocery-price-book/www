@@ -41,7 +41,7 @@ class PurchaseItemTest < ActiveSupport::TestCase
 
     context 'package_size' do
       should 'not be valid if not an integer ' do
-        purchase_item = PurchaseItem.create(package_size: "one")
+        purchase_item = PurchaseItem.create(package_size: 'one')
         assert_not_empty purchase_item.errors[:package_size]
       end
 
@@ -63,7 +63,7 @@ class PurchaseItemTest < ActiveSupport::TestCase
 
     context 'quantity' do
       should 'not be valid if not an integer ' do
-        purchase_item = PurchaseItem.create(quantity: "one")
+        purchase_item = PurchaseItem.create(quantity: 'one')
         assert_not_empty purchase_item.errors[:quantity]
       end
 
@@ -85,7 +85,7 @@ class PurchaseItemTest < ActiveSupport::TestCase
 
     context 'total_price' do
       should 'not be valid if not an integer ' do
-        purchase_item = PurchaseItem.create(total_price: "one")
+        purchase_item = PurchaseItem.create(total_price: 'one')
         assert_not_empty purchase_item.errors[:total_price]
       end
 

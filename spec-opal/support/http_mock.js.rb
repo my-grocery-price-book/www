@@ -1,6 +1,5 @@
 class HTTPMock
-  class Response < Struct.new(:ok?, :json)
-  end
+  Response = Struct.new(:ok?, :json)
 
   attr_reader :responses
 
@@ -8,12 +7,12 @@ class HTTPMock
     @responses = {}
   end
 
-  def set_ok_response(url, result)
-    @responses[url] = Response.new(true,result)
+  def ok_response(url, result)
+    @responses[url] = Response.new(true, result)
   end
 
-  def set_failed_response(url)
-    @responses[url] = Response.new(false,nil)
+  def failed_response(url)
+    @responses[url] = Response.new(false, nil)
   end
 
   def get(url)

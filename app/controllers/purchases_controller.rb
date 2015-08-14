@@ -47,13 +47,14 @@ class PurchasesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_purchase
-      @purchase = Purchase.find_for_shopper(current_shopper,params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def purchase_params
-      params.require(:purchase).permit(:purchased_on, :store, :location)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_purchase
+    @purchase = Purchase.find_for_shopper(current_shopper, params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def purchase_params
+    params.require(:purchase).permit(:purchased_on, :store, :location)
+  end
 end

@@ -1,13 +1,14 @@
 require 'yaml'
 require 'carmen'
 
-class PublicApi < Struct.new(:code, :name, :url_root, :country_name)
+PublicApi = Struct.new(:code, :name, :url_root, :country_name)
+class PublicApi
   def url
     "#{url_root}/#{code}"
   end
 
   def self.find_by_code(code)
-    all.find{|api| api.code == code}
+    all.find { |api| api.code == code }
   end
 
   def self.first_code

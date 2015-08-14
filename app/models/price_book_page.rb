@@ -26,13 +26,13 @@ class PriceBookPage < ActiveRecord::Base
   public
 
   validates :name, :category, :unit, presence: true
-  validates_uniqueness_of :name, :scope => [:shopper_id, :unit]
+  validates_uniqueness_of :name, scope: [:shopper_id, :unit]
 
   def self.for_shopper(shopper)
     where(shopper_id: shopper)
   end
 
-  def self.update_product_for_shopper!(shopper,info)
+  def self.update_product_for_shopper!(shopper, info)
     item = for_shopper(shopper).find_or_initialize_by(
       category: info[:category],
       name: info[:regular_name],

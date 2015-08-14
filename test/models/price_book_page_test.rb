@@ -60,7 +60,7 @@ describe PriceBookPage do
   end
 
   describe 'Class Methods' do
-    subject {PriceBookPage}
+    subject { PriceBookPage }
 
     describe 'update_product_for_shopper!' do
       before do
@@ -118,7 +118,7 @@ describe PriceBookPage do
           product_brand_name: 'Coke Lite',
           regular_name: 'Soda',
           category: 'Drinks',
-          package_unit: 'ml',
+          package_unit: 'ml'
         )
         current_item.reload
         last_attributes = current_item.attributes.except('id', 'created_at', 'updated_at')

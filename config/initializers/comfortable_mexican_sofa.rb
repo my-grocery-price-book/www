@@ -59,7 +59,7 @@ ComfortableMexicanSofa.configure do |config|
 
   # Locale definitions. If you want to define your own locale merge
   # {:locale => 'Locale Title'} with this.
-  #   config.locales = {:en => 'English', :es => 'Español'}
+  #   config.locales = {:en => 'English', :es => 'Espanol'}
 
   # Admin interface will respect the locale of the site being managed. However you can
   # force it to English by setting this to `:en`
@@ -91,7 +91,6 @@ ComfortableMexicanSofa.configure do |config|
   # Reveal partials that can be overwritten in the admin area.
   # Default is false.
   #   config.reveal_cms_partials = false
-
 end
 
 # Default credentials for ComfortableMexicanSofa::AccessControl::AdminAuthentication

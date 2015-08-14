@@ -20,7 +20,7 @@ class Purchase < ActiveRecord::Base
     where(shopper_id: shopper)
   end
 
-  def self.find_for_shopper(shopper,id)
+  def self.find_for_shopper(shopper, id)
     for_shopper(shopper).find(id)
   end
 
@@ -45,7 +45,6 @@ class Purchase < ActiveRecord::Base
   def destroy_item_by_id(item_id)
     items.find(item_id).destroy
   end
-
 
   def mark_as_completed(api_root:, api_region_code:, api_key:, current_time:)
     update_column(:completed_at, current_time)
