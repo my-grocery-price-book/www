@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby ENV['RUBY_VERSION'] if ENV['RUBY_VERSION']
 
 group :development, :test do
   gem 'dotenv-rails' # load before other gems

@@ -6,6 +6,7 @@
 - include: ruby.yml
 - include: tools.yml
 - include: aws_eb.yml
+- include: heroku.yml
 
 - name: bundle install
   command:  bundle install --jobs 4 --retry 2 --path vendor/bundle
