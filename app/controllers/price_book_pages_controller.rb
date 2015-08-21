@@ -49,7 +49,7 @@ class PriceBookPagesController < ApplicationController
   # DELETE /price_book_pages/1
   def destroy
     @price_book_page.destroy
-    redirect_to price_book_pages_url, notice: 'Page was successfully removed.'
+    redirect_to price_book_pages_url, notice: 'Page was successfully deleted.'
   end
 
   private

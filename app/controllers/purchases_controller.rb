@@ -43,7 +43,7 @@ class PurchasesController < ApplicationController
   # DELETE /purchases/1
   def destroy
     @purchase.destroy
-    redirect_to purchases_url, notice: 'Purchase was successfully destroyed.'
+    redirect_to purchases_url, notice: 'Purchase was successfully deleted.'
   end
 
   private
