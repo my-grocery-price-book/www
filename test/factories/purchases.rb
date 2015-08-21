@@ -14,6 +14,7 @@
 
 FactoryGirl.define do
   factory :purchase do
+    sequence(:purchased_on) { |n| (Date.new(2000,12,31) + n.days).to_s }
     shopper
   end
 end
