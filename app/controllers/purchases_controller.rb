@@ -5,7 +5,7 @@ class PurchasesController < ApplicationController
 
   # GET /purchases
   def index
-    @purchases = Purchase.for_shopper(current_shopper)
+    @purchases = Purchase.for_shopper(current_shopper).order('purchased_on DESC')
   end
 
   # GET /purchases/1/edit
