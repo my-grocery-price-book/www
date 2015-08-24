@@ -1,3 +1,5 @@
+[![Build Status](https://semaphoreci.com/api/v1/projects/67958332-c971-4c22-a221-bea8fe11f2a9/519780/badge.svg)](https://semaphoreci.com/my-grocery-price-book/my-grocery-price-book-co-za)      
+
 # Setup with Vagrant
 
 ## REQUIREMENTS
