@@ -84,4 +84,18 @@ describe Purchase do
       assert_requested :post, 'http://example.com/za-wc/entries', times: 3
     end
   end
+
+  describe 'Validation' do
+    it 'must have a shopper' do
+      purchase = create(:purchase)
+      purchase.update_attributes(shopper_id: nil)
+      purchase.errors[:shopper_id].wont_be_empty
+    end
+
+    it 'must have a purchase date' do
+      purchase = create(:purchase)
+      purchase.update_attributes(purchased_on: nil)
+      purchase.errors[:purchased_on].wont_be_empty
+    end
+  end
 end

@@ -22,7 +22,7 @@ class PurchaseItemsController < ApplicationController
   # DELETE /purchase_items/1
   def destroy
     @purchase.destroy_item_by_id(params[:id])
-    redirect_to edit_purchase_path(@purchase), notice: 'Purchase item was successfully destroyed.'
+    redirect_to edit_purchase_path(@purchase), notice: 'Purchase item was successfully deleted.'
   end
 
   private

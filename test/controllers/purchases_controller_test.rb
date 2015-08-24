@@ -13,6 +13,12 @@ class PurchasesControllerTest < ActionController::TestCase
       assert_response :success
       assert_equal assigns(:purchases), [@purchase]
     end
+
+    should 'be ordered by purchased_on in descending order' do
+      purchase_2 = create(:purchase, shopper: @shopper)
+      get :index
+      assert_equal assigns(:purchases), [purchase_2, @purchase]
+    end
   end
 
   context 'POST create' do

@@ -5,7 +5,7 @@ class PurchasesController < ApplicationController
 
   # GET /purchases
   def index
-    @purchases = Purchase.for_shopper(current_shopper)
+    @purchases = Purchase.for_shopper(current_shopper).order('purchased_on DESC')
   end
 
   # GET /purchases/1/edit
@@ -43,7 +43,7 @@ class PurchasesController < ApplicationController
   # DELETE /purchases/1
   def destroy
     @purchase.destroy
-    redirect_to purchases_url, notice: 'Purchase was successfully destroyed.'
+    redirect_to purchases_url, notice: 'Purchase was successfully deleted.'
   end
 
   private
