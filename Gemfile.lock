@@ -129,6 +129,8 @@ GEM
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
     i18n (0.7.0)
+    intercom-rails (0.2.28)
+      activesupport (> 3.0)
     jquery-rails (4.0.4)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
@@ -276,6 +278,7 @@ DEPENDENCIES
   dotenv-rails
   factory_girl_rails
   faraday
+  intercom-rails
   newrelic_rpm
   opal-rails (= 0.8.0)
   pg
