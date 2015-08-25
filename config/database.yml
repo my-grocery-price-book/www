@@ -19,6 +19,7 @@ development:
 
 test:
   <<: *default
+  database: <%= ENV['TEST_RDS_DB_NAME'] || ENV['RDS_DB_NAME'] %>
 
 production:
   <<: *default
