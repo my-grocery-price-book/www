@@ -13,10 +13,10 @@
 #
 
 class PriceBook::Page < ActiveRecord::Base
-  validates :name, :category, :unit, presence: true
+  validates :name, :category, :unit, :price_book_id, presence: true
   validates_uniqueness_of :name, scope: [:price_book_id, :unit]
 
-  before_validation :uniq_product_names
+  before_save :uniq_product_names
 
   protected
 

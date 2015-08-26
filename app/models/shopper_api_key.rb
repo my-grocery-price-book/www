@@ -9,6 +9,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+require 'faraday'
 
 class ShopperApiKey < ActiveRecord::Base
   def self.api_key(shopper:, api_root:)

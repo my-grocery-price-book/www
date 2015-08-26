@@ -1,7 +1,7 @@
 class PriceBookPagesController < ApplicationController
   before_action :authenticate_shopper!
   before_action :load_price_book
-  before_action :set_price_book_page, only: [:show, :edit, :delete]
+  before_action :set_price_book_page, only: [:show, :edit, :update, :destroy, :delete]
 
   # GET /price_book_pages
   def index
@@ -14,7 +14,7 @@ class PriceBookPagesController < ApplicationController
 
   # GET /price_book_pages/new
   def new
-    @price_book_page = @price_book.new_page
+    @price_book_page = @price_book.pages.new
   end
 
   # GET /price_book_pages/1/delete
@@ -27,19 +27,26 @@ class PriceBookPagesController < ApplicationController
 
   # POST /price_book_pages
   def create
-    @price_book.add_page!(price_book_page_params)
-    redirect_to price_book_pages_path, notice: 'Page was successfully created.'
+    @price_book_page = @price_book.pages.new(price_book_page_params)
+    if @price_book_page.save
+      redirect_to price_book_pages_path, notice: 'Page was successfully created.'
+    else
+      render :new
+    end
   end
 
   # PATCH/PUT /price_book_pages/1
   def update
-    @price_book.update_page!(params[:id],price_book_page_params)
-    redirect_to price_book_pages_path, notice: 'Page was successfully updated.'
+    if @price_book_page.update(price_book_page_params)
+      redirect_to price_book_pages_path, notice: 'Page was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   # DELETE /price_book_pages/1
   def destroy
-    @price_book.destroy_page(params[:id])
+    @price_book_page.destroy
     redirect_to price_book_pages_path, notice: 'Page was successfully deleted.'
   end
 
