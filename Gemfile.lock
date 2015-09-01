@@ -279,6 +279,7 @@ DEPENDENCIES
   factory_girl_rails
   faraday
   intercom-rails
+  json
   newrelic_rpm
   opal-rails (= 0.8.0)
   pg
