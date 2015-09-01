@@ -1,7 +1,7 @@
 IntercomRails.config do |config|
   # == Intercom app_id
   #
-  config.app_id = ENV["INTERCOM_APP_ID"]
+  config.app_id = ENV['INTERCOM_APP_ID']
 
   # == Intercom secret key
   # This is required to enable secure mode, you can find it on your Setup
@@ -18,13 +18,13 @@ IntercomRails.config do |config|
   # == Enabled Environments
   # Which environments is auto inclusion of the Javascript enabled for
   #
-  config.enabled_environments = ["development", "production"]
+  config.enabled_environments = %w(development production)
 
   # == Current user method/variable
   # The method/variable that contains the logged in user in your controllers.
   # If it is `current_user` or `@user`, then you can ignore this
   #
-  config.user.current = Proc.new { current_shopper }
+  config.user.current = proc { current_shopper }
 
   # == Include for logged out Users
   # If set to true, include the Intercom messenger on all pages, regardless of whether
@@ -34,7 +34,7 @@ IntercomRails.config do |config|
   # == User model class
   # The class which defines your user model
   #
-  config.user.model = Proc.new { Shopper }
+  config.user.model = proc { Shopper }
 
   # == Exclude users
   # A Proc that given a user returns true if the user should be excluded
@@ -86,7 +86,9 @@ IntercomRails.config do |config|
   # has a plan, it will set the 'total value' of that plan appropriately.
   #
   # config.company.monthly_spend = Proc.new { |current_company| current_company.plan.price }
-  # config.company.monthly_spend = Proc.new { |current_company| (current_company.plan.price - current_company.subscription.discount) }
+  # config.company.monthly_spend = Proc.new { |current_company|
+  # (current_company.plan.price - current_company.subscription.discount)
+  # }
 
   # == Custom Style
   # By default, Intercom will add a button that opens the messenger to

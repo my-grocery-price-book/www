@@ -26,7 +26,7 @@ class PurchaseItemsControllerTest < ActionController::TestCase
       @item_params = { 'product_brand_name' => 'Coke Like',
                        'package_size' => '500.0',
                        'package_unit' => 'ml',
-                       'quantity' => '1.0',
+                       'quantity' => '1',
                        'total_price' => '38.99',
                        'category' => 'Drinks',
                        'regular_name' => 'Soda' }

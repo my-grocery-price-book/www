@@ -36,7 +36,6 @@ class PriceBook < ActiveRecord::Base
   end
 
   def find_page!(page_id)
-    pages.where("CONCAT(LOWER(category),'_',LOWER(unit),'_',LOWER(name)) = ?",page_id).first!
+    pages.where("CONCAT(LOWER(category),'_',LOWER(unit),'_',LOWER(name)) = ?", page_id).first!
   end
-
 end

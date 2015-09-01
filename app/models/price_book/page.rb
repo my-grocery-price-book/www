@@ -27,7 +27,7 @@ class PriceBook::Page < ActiveRecord::Base
   public
 
   def info
-    {name: name, category: category, unit: unit}
+    { name: name, category: category, unit: unit }
   end
 
   def to_param

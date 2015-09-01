@@ -1,11 +1,12 @@
 require 'test_helper'
 
 describe PriceBook::Page do
-  let(:price_book){PriceBook.create!(shopper: create(:shopper))}
+  let(:price_book) { PriceBook.create!(shopper: create(:shopper)) }
 
   describe 'Validation' do
     it 'can create a new page' do
-      PriceBook::Page.create(name: 'Soda', category: 'Drinks', unit: 'Liters', price_book_id: price_book.id).must_be :persisted?
+      page = PriceBook::Page.create(name: 'Soda', category: 'Drinks', unit: 'Liters', price_book_id: price_book.id)
+      page.must_be :persisted?
     end
 
     it 'requires name' do
@@ -32,12 +33,13 @@ describe PriceBook::Page do
 
     it 'allows a same name in another unit and book' do
       PriceBook::Page.create(name: 'Soda', category: 'Drinks', unit: 'Liters', price_book_id: price_book.id)
-      PriceBook::Page.create(name: 'Soda', category: 'Drinks', unit: 'Cans', price_book_id: price_book.id).must_be :persisted?
+      page = PriceBook::Page.create(name: 'Soda', category: 'Drinks', unit: 'Cans', price_book_id: price_book.id)
+      page.must_be :persisted?
     end
   end
 
   describe 'creating' do
-    subject {PriceBook::Page.new(name: 'Soda', category: 'Drinks', unit: 'Liters', price_book_id: price_book.id)}
+    subject { PriceBook::Page.new(name: 'Soda', category: 'Drinks', unit: 'Liters', price_book_id: price_book.id) }
 
     it 'saves unique product_names' do
       subject.product_names = ['Coke Lite', 'Fanta', 'Coke Lite']
@@ -47,7 +49,7 @@ describe PriceBook::Page do
   end
 
   describe 'updating' do
-    subject {PriceBook::Page.create!(name: 'Soda', category: 'Drinks', unit: 'Liters', price_book_id: price_book.id)}
+    subject { PriceBook::Page.create!(name: 'Soda', category: 'Drinks', unit: 'Liters', price_book_id: price_book.id) }
 
     it 'saves unique product_names' do
       subject.update(product_names: ['Sasko Bread', 'Woolworths Bread', 'Woolworths Bread'])

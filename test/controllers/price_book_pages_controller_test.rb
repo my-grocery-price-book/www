@@ -36,8 +36,8 @@ class PriceBookPagesControllerTest < ActionController::TestCase
   context 'GET show' do
     setup do
       @price_book_page = create(:price_book_page, price_book_id: @price_book.id, category: 'Fresh', unit: 'grams')
-      stub_request(:get, 'https://api.example.com/ZA-EC/entries?category=Fresh&package_unit=grams').
-        to_return(:status => 200, :body => '[]')
+      stub_request(:get, 'https://api.example.com/ZA-EC/entries?category=Fresh&package_unit=grams')
+        .to_return(status: 200, body: '[]')
     end
 
     should 'show price_book_page' do
@@ -47,7 +47,7 @@ class PriceBookPagesControllerTest < ActionController::TestCase
 
     should 'assign prices' do
       get :show, id: @price_book_page.to_param
-      assert_instance_of(PriceEntriesService,assigns[:prices])
+      assert_instance_of(PriceEntriesService, assigns[:prices])
     end
   end
 
@@ -61,9 +61,9 @@ class PriceBookPagesControllerTest < ActionController::TestCase
   context 'PATCH update' do
     should 'update price_book_page' do
       patch :update, id: @price_book_page,
-                     price_book_page: {unit: 'U1', category: 'C1', name: 'N1' }
+                     price_book_page: { unit: 'U1', category: 'C1', name: 'N1' }
       @price_book_page.reload
-      assert_equal({unit: 'U1', category: 'C1', name: 'N1'},@price_book_page.info)
+      assert_equal({ unit: 'U1', category: 'C1', name: 'N1' }, @price_book_page.info)
       assert_redirected_to price_book_pages_path
     end
   end
