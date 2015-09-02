@@ -21,7 +21,7 @@ class GroceryApiService
   end
 
   def product_brand_names_url
-    "#{@host_url}/product_brand_names.json"
+    "#{@host_url}/product_brand_names"
   end
 
   def product_summaries(query_string, &block)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150812211210) do
+ActiveRecord::Schema.define(version: 20150901184909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,19 +140,27 @@ ActiveRecord::Schema.define(version: 20150812211210) do
     t.string   "category"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.integer  "shopper_id"
     t.text     "product_names", default: [],              array: true
     t.string   "unit"
+    t.integer  "price_book_id"
   end
 
-  add_index "price_book_pages", ["shopper_id"], name: "index_price_book_pages_on_shopper_id", using: :btree
+  add_index "price_book_pages", ["price_book_id"], name: "index_price_book_pages_on_price_book_id", using: :btree
+
+  create_table "price_books", force: :cascade do |t|
+    t.integer  "shopper_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "price_books", ["shopper_id"], name: "index_price_books_on_shopper_id", using: :btree
 
   create_table "purchase_items", force: :cascade do |t|
     t.integer  "purchase_id"
     t.string   "product_brand_name"
     t.decimal  "package_size"
     t.string   "package_unit"
-    t.decimal  "quantity"
+    t.integer  "quantity"
     t.decimal  "total_price"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
@@ -206,6 +214,7 @@ ActiveRecord::Schema.define(version: 20150812211210) do
   add_index "shoppers", ["email"], name: "index_shoppers_on_email", unique: true, using: :btree
   add_index "shoppers", ["reset_password_token"], name: "index_shoppers_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "price_book_pages", "shoppers"
+  add_foreign_key "price_book_pages", "price_books"
+  add_foreign_key "price_books", "shoppers"
   add_foreign_key "purchases", "shoppers"
 end

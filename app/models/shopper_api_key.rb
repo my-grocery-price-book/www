@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: shopper_api_keys
+#
+#  id         :integer          not null, primary key
+#  shopper_id :integer          not null
+#  api_key    :string           not null
+#  api_root   :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+require 'faraday'
+
 class ShopperApiKey < ActiveRecord::Base
   def self.api_key(shopper:, api_root:)
     shooper_api_key = find_by(shopper_id: shopper.id, api_root: api_root)

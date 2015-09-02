@@ -7,16 +7,16 @@
 #  category      :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  shopper_id    :integer
 #  product_names :text             default([]), is an Array
 #  unit          :string
+#  price_book_id :integer
 #
 
 FactoryGirl.define do
-  factory :price_book_page do
-    sequence(:name) { |n| "item #{n}" }
-    category 'Items'
-    unit 'items'
-    shopper
+  factory :price_book_page, class: 'PriceBook::Page' do
+    sequence(:name) { |n| "item#{n}" }
+    category 'Fresh'
+    unit 'grams'
+    price_book_id { create(:price_book).id }
   end
 end

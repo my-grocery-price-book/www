@@ -1,16 +1,33 @@
 <div class="row">
   <div class="col-md-12">
-    <p>
-      <strong>Name:</strong>
-      <%= @price_book_page.name %>
-    </p>
-
-    <p>
-      <strong>Category:</strong>
-      <%= @price_book_page.category %>
-    </p>
-
+    <h1><%= @price_book_page.category %>: <%= @price_book_page.name %></h1>
     <%= link_to 'Edit', edit_price_book_page_path(@price_book_page), class: 'btn btn-default' %>
     <%= link_to 'Back', price_book_pages_path, class: 'btn btn-default' %>
+
+    <table class='table table-striped'>
+      <thead>
+      <tr>
+        <th>Date</th>
+        <th>Store</th>
+        <th>Location</th>
+        <th>Product</th>
+        <th>Package size</th>
+        <th>Price per <%= @price_book_page.unit %></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @prices.each do |price| %>
+        <tr>
+          <td><%= price.date_on %></td>
+          <td><%= price.store %></td>
+          <td><%= price.location %></td>
+          <td><%= price.product_name %></td>
+          <td><%= price.package_size %></td>
+          <td><%= price.price_per_package_unit %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
