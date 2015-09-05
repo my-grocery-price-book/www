@@ -16,6 +16,7 @@ gem 'therubyracer', platforms: :ruby # See https://github.com/rails/execjs#readm
 gem 'opal-rails', '0.8.0'
 
 gem 'devise' # handle authenticaton, register , forgot password, etc
+gem 'intercom-rails' # monitor shoppers
 
 gem 'puma', require: false
 
@@ -25,7 +26,7 @@ gem 'syslogger', require: false # log to syslog
 
 gem 'faraday', require: false # for making http request
 gem 'carmen', require: false # for country and region information
-gem 'intercom-rails'
+gem 'json', require: false
 
 group :development do
   gem 'annotate', '~> 2.6', require: false

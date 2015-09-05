@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: shopper_api_keys
+#
+#  id         :integer          not null, primary key
+#  shopper_id :integer          not null
+#  api_key    :string           not null
+#  api_root   :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require 'test_helper'
 
 describe ShopperApiKey do
