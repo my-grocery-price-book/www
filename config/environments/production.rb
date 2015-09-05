@@ -89,8 +89,8 @@ Rails.application.configure do
     address: 'smtp.mailgun.org',
     port: 587,
     domain: 'my-grocery-price-book.co.za',
-    user_name: Rails.application.secrets.smtp_user_name,
-    password: Rails.application.secrets.smtp_password,
+    user_name: ENV['SMTP_USER_NAME'],
+    password: ENV['SMTP_PASSWORD'],
     authentication: 'plain',
     enable_starttls_auto: true
   }
