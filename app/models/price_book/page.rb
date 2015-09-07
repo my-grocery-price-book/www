@@ -13,7 +13,9 @@
 #
 
 class PriceBook::Page < ActiveRecord::Base
-  validates :name, :category, :unit, :price_book_id, presence: true
+  validates :name, :category, :unit, presence: true
+  # on update only allows build pages for an unsaved PriceBook
+  validates :price_book_id, presence: true, on: :update
   validates_uniqueness_of :name, scope: [:price_book_id, :unit]
 
   before_save :uniq_product_names

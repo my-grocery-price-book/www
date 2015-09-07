@@ -21,8 +21,10 @@ describe PriceBook::Page do
       PriceBook::Page.create.errors[:unit].wont_be_empty
     end
 
-    it 'requires price_book_id' do
-      PriceBook::Page.create.errors[:price_book_id].wont_be_empty
+    it 'requires price_book_id when updating' do
+      page = PriceBook::Page.create!(name: 'Soda', category: 'Drinks', unit: 'Liters')
+      page.valid?
+      page.errors[:price_book_id].wont_be_empty
     end
 
     it 'require a uniq name per unit and book' do

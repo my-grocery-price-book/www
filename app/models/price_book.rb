@@ -14,7 +14,50 @@ class PriceBook < ActiveRecord::Base
   belongs_to :shopper
 
   def self.for_shopper(shopper)
-    find_or_create_by(shopper_id: shopper.id)
+    book = find_by(shopper_id: shopper.id)
+    return book if book
+    new(shopper: shopper).tap do |new_book|
+      new_book.extend(ForShopperDefaultPages)
+      new_book.build_default_pages
+      new_book.save
+    end
+  end
+
+  # used and tested through Pricebook#for_shopper
+  module ForShopperDefaultPages
+    def build_default_pages
+      build_default_fresh_pages
+      build_bakery_pages
+      build_food_cupboard_pages
+      build_drinks_pages
+    end
+
+    private
+
+    def build_food_cupboard_pages
+      pages.new(name: 'Flour', category: 'Food Cupboard', unit: 'grams')
+      pages.new(name: 'Maize', category: 'Food Cupboard', unit: 'grams')
+      pages.new(name: 'Rice', category: 'Food Cupboard', unit: 'grams')
+      pages.new(name: 'Sugar', category: 'Food Cupboard', unit: 'grams')
+    end
+
+    def build_drinks_pages
+      pages.new(name: 'Soda', category: 'Drinks', unit: 'milliliters')
+      pages.new(name: 'Tea', category: 'Drinks', unit: 'bags')
+      pages.new(name: 'Coffee', category: 'Drinks', unit: 'grams')
+    end
+
+    def build_bakery_pages
+      pages.new(name: 'Bread', category: 'Bakery', unit: 'grams')
+    end
+
+    def build_default_fresh_pages
+      [%w(Apples grams), %w(Cabbage cabbages), %w(Cheese grams), %w(Eggs dozens),
+       %w(Milk milliliters), %w(Margarine grams), %w(Mince grams),
+       %w(Chicken grams)].each do |name, unit|
+        pages.new(name: name, category: 'Fresh', unit: unit)
+      end
+    end
   end
 
   def page_count
