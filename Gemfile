@@ -23,7 +23,6 @@ gem 'opal-rails', '0.8.0'
 gem 'devise' # handle authenticaton, register , forgot password, etc
 gem 'intercom-rails' # monitor shoppers
 
-
 gem 'rollbar' # for error collecting
 gem 'newrelic_rpm' # app peformance tracking
 
