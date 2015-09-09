@@ -26,7 +26,6 @@ gem 'intercom-rails' # monitor shoppers
 
 gem 'rollbar' # for error collecting
 gem 'newrelic_rpm' # app peformance tracking
-gem 'syslogger', require: false # log to syslog
 
 gem 'faraday', require: false # for making http request
 gem 'carmen', require: false # for country and region information

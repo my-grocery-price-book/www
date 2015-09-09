@@ -245,7 +245,6 @@ GEM
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
     sqlite3 (1.3.10)
-    syslogger (1.6.3)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
@@ -293,7 +292,6 @@ DEPENDENCIES
   spring
   spring-commands-testunit
   sqlite3
-  syslogger
   therubyracer
   uglifier (>= 1.3.0)
   webmock
