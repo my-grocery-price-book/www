@@ -5,6 +5,11 @@ group :development, :test do
   gem 'dotenv-rails' # load before other gems
 end
 
+group :production do
+  gem 'rails_stdout_logging' # makes hosting rails on heroku easier
+  gem 'puma', require: false
+end
+
 gem 'rails', '~> 4.2.1'
 gem 'comfortable_mexican_sofa', '~> 1.12'
 gem 'will_paginate'
@@ -18,7 +23,6 @@ gem 'opal-rails', '0.8.0'
 gem 'devise' # handle authenticaton, register , forgot password, etc
 gem 'intercom-rails' # monitor shoppers
 
-gem 'puma', require: false
 
 gem 'rollbar' # for error collecting
 gem 'newrelic_rpm' # app peformance tracking
