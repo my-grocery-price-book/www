@@ -25,9 +25,10 @@ class ShoppingListsController < ApplicationController
   end
 
   private
-    def shopping_list
-      ShoppingList.for_shopper(current_shopper).find(params[:id])
-    end
+
+  def shopping_list
+    ShoppingList.for_shopper(current_shopper).find(params[:id])
+  end
   #
   # # Only allow a trusted parameter "white list" through.
   # def shopping_list_params
