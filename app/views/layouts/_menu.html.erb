@@ -7,16 +7,15 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">My Grocery Price Book</a>
+      <a class="navbar-brand" href="/">My Price Book</a>
     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <li><a href="<%= price_check_path %>">Price Check</a></li>
-        <% if shopper_signed_in? %>
-          <li><a href="<%= purchases_path %>">Purchases</a></li>
-          <li><a href="<%= price_book_pages_path %>">Price Book</a></li>
-          <li><a href="<%= profile_path %>">Profile</a></li>
-        <% end %>
+        <li><a href="<%= purchases_path %>">Purchases</a></li>
+        <li><a href="<%= price_book_pages_path %>">Price Book</a></li>
+        <li><a href="<%= profile_path %>">Profile</a></li>
+        <li><a href="<%= shopping_lists_path %>">Shopping List</a></li>
         <li>
         <% if shopper_signed_in? %>
           <%= form_tag(destroy_shopper_session_path, method: :delete, class: 'form-inline') do |f| %>

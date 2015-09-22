@@ -7,7 +7,7 @@
 #  product_brand_name :string
 #  package_size       :decimal(, )
 #  package_unit       :string
-#  quantity           :decimal(, )
+#  quantity           :integer
 #  total_price        :decimal(, )
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null

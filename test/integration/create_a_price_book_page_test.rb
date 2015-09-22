@@ -10,7 +10,6 @@ class CreateAPriceBookPageTest < ActionDispatch::IntegrationTest
     select 'Bakery', from: 'Category'
     fill_in 'Unit', with: 'Grams'
     click_button 'Create'
-    page.save_page
     assert page.has_css?('.notice', text: 'Page was successfully created.')
     assert page.has_content?('Bread')
   end
