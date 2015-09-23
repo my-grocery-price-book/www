@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>Shopping Lists</h1>
+    <form action="<%= shopping_lists_path %>" method="post">
+      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+      <button class='btn btn-default'>New Shopping List</button>
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Created on</th>
+          <th colspan="2"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @shopping_lists.each do |shopping_list| %>
+          <tr>
+            <td><%= shopping_list.created_on %> ( <%= shopping_list.items_progress %>)</td>
+            <td><%= link_to 'Show', shopping_list, class: 'btn btn-default' %></td>
+            <td><%= link_to 'Delete', delete_shopping_list_path(shopping_list), class: 'btn btn-default' %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+  </div>
+</div>
