@@ -11,7 +11,8 @@
   vagrant up
   vagrant ssh
   cd project
-  ./run.sh
+  bundle exec rake opal:spec test # run tests
+  ./run.sh # run development db server
 ```
 
 # Setup without Vagrant
@@ -23,8 +24,10 @@
  * Imagemagick
  
 ```
-  bin/setup.sh
-  ./run.sh
+  cp -vn "config/examples/.env.local" ".env" # then edit .env and insert correct details
+  bin/setup.sh 
+  ./run.sh # run development db server
+  bundle exec rake test opal:spec # run tests
 ```
 
 # Development

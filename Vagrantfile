@@ -50,21 +50,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |main_config|
 
       # Use VBoxManage to customize the VM. For example to change memory:
       v.memory = 256
-      v.customize ['modifyvm', :id, '--ioapic', 'on']
-      host = RbConfig::CONFIG['host_os']
-      # Give all cpu cores on the host
-      if host =~ /darwin/
-        v.cpus = `sysctl -n hw.ncpu`.to_i
-      elsif host =~ /linux/
-        v.cpus = `nproc`.to_i
-      else # sorry Windows folks, I can't help you
-        v.cpus = 2
-      end
-    end
-
-    config.vm.provision 'ansible' do |ansible|
-      ansible.playbook = 'ansible/db.yml'
-      ansible.verbose = 'vv'
     end
   end
 
@@ -116,10 +101,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |main_config|
         v.cpus = 2
       end
     end
+  end
 
-    config.vm.provision 'ansible' do |ansible|
-      ansible.playbook = 'ansible/app.yml'
-      ansible.verbose = 'vv'
-    end
+  main_config.vm.provision 'ansible' do |ansible|
+    ansible.playbook = 'ansible/vagrant.yml'
+    ansible.verbose = 'vv'
   end
 end

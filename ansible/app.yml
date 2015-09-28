@@ -1,5 +1,0 @@
-- hosts: app
-  sudo: yes
-  roles:
-    - azavea.swapfile
-    - app-runner

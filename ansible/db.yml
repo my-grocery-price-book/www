@@ -1,5 +1,0 @@
-- hosts: db
-  sudo: yes
-  roles:
-    - azavea.swapfile
-    - db-server

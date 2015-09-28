@@ -1,0 +1,12 @@
+- hosts: all
+  sudo: yes
+  roles:
+    - azavea.swapfile
+- hosts: app
+  sudo: yes
+  roles:
+    - app-runner
+- hosts: db
+  sudo: yes
+  roles:
+    - db-server
