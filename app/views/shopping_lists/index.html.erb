@@ -23,7 +23,6 @@
           <tr>
             <td><%= shopping_list.created_on %> ( <%= shopping_list.items_progress %>)</td>
             <td><%= link_to 'Show', shopping_list, class: 'btn btn-default' %></td>
-            <td><%= link_to 'Delete', delete_shopping_list_path(shopping_list), class: 'btn btn-default' %></td>
           </tr>
         <% end %>
         </tbody>

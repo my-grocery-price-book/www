@@ -2,9 +2,6 @@ Rails.application.routes.draw do
   comfy_route :cms_admin, path: '/_admin_'
 
   resources :shopping_lists, except: [:new, :edit, :update] do
-    member do
-      get 'delete'
-    end
     resources :items, controller: 'shopping_list_items', only: [:create, :destroy] do
       member do
         post 'done'
@@ -18,13 +15,13 @@ Rails.application.routes.draw do
     end
   end
 
+  devise_for :shoppers
   resource :profile, except: [:new, :create, :destroy]
 
   get 'price_check' => 'price_check#index', as: 'price_check'
   post 'select_area' => 'price_check#set_selected_area'
   get 'select_area' => 'price_check#select_area'
 
-  devise_for :shoppers
   resources :purchases, except: [:new, :show] do
     member do
       get 'delete'
