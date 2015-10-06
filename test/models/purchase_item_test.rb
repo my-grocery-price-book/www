@@ -20,9 +20,9 @@ require 'test_helper'
 class PurchaseItemTest < ActiveSupport::TestCase
   context 'validation' do
     context 'product_brand_name' do
-      should 'not be valid if not uniq per purchase' do
-        PurchaseItem.create(purchase_id: 11, product_brand_name: 'Sasko Bread')
-        purchase_item = PurchaseItem.create(purchase_id: 11, product_brand_name: 'Sasko Bread')
+      should 'not be valid if not uniq per purchase and regular_name' do
+        PurchaseItem.create(purchase_id: 11, product_brand_name: 'Sasko Bread', regular_name: 'Bread')
+        purchase_item = PurchaseItem.create(purchase_id: 11, product_brand_name: 'Sasko Bread', regular_name: 'Bread')
         assert_not_empty purchase_item.errors[:product_brand_name]
       end
 
@@ -32,9 +32,15 @@ class PurchaseItemTest < ActiveSupport::TestCase
         assert_empty purchase_item.errors[:product_brand_name]
       end
 
+      should 'be valid if same but different regular_name' do
+        PurchaseItem.create(purchase_id: 1, product_brand_name: 'Sasko Bread', regular_name: 'Bread')
+        purchase_item = PurchaseItem.create(purchase_id: 1, product_brand_name: 'Sasko Bread', regular_name: 'White Bread')
+        assert_empty purchase_item.errors[:product_brand_name]
+      end
+
       should 'be valid if same but different purchase' do
-        PurchaseItem.create(purchase_id: 1, product_brand_name: 'Sasko Bread')
-        purchase_item = PurchaseItem.create(purchase_id: 2, product_brand_name: 'Sasko Bread')
+        PurchaseItem.create(purchase_id: 1, product_brand_name: 'Sasko Bread', regular_name: 'Bread')
+        purchase_item = PurchaseItem.create(purchase_id: 2, product_brand_name: 'Sasko Bread', regular_name: 'Bread')
         assert_empty purchase_item.errors[:product_brand_name]
       end
     end
