@@ -5,7 +5,7 @@ class CreateAPriceBookPageTest < ActionDispatch::IntegrationTest
     visit '/price_book_pages'
     sign_in_shopper
     assert page.has_content?('Price Book')
-    click_link 'New Price Book Page'
+    click_link 'New Page'
     fill_in 'Name', with: 'Bread'
     select 'Bakery', from: 'Category'
     fill_in 'Unit', with: 'Grams'
