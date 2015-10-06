@@ -21,25 +21,25 @@ class PurchaseItemTest < ActiveSupport::TestCase
   context 'validation' do
     context 'product_brand_name' do
       should 'not be valid if not uniq per purchase and regular_name' do
-        PurchaseItem.create(purchase_id: 11, product_brand_name: 'Sasko Bread', regular_name: 'Bread')
+        PurchaseItem.create!(purchase_id: 11, product_brand_name: 'Sasko Bread', regular_name: 'Bread')
         purchase_item = PurchaseItem.create(purchase_id: 11, product_brand_name: 'Sasko Bread', regular_name: 'Bread')
         assert_not_empty purchase_item.errors[:product_brand_name]
       end
 
       should 'be valid if uniq per purchase' do
-        PurchaseItem.create(purchase_id: 1, product_brand_name: 'Woolworths Bread')
+        PurchaseItem.create!(purchase_id: 1, product_brand_name: 'Woolworths Bread')
         purchase_item = PurchaseItem.create(purchase_id: 1, product_brand_name: 'Sasko Bread')
         assert_empty purchase_item.errors[:product_brand_name]
       end
 
       should 'be valid if same but different regular_name' do
-        PurchaseItem.create(purchase_id: 1, product_brand_name: 'Sasko Bread', regular_name: 'Bread')
-        purchase_item = PurchaseItem.create(purchase_id: 1, product_brand_name: 'Sasko Bread', regular_name: 'White Bread')
+        PurchaseItem.create!(purchase_id: 1, product_brand_name: 'Sasko Bread', regular_name: 'Bread')
+        purchase_item = PurchaseItem.create(purchase_id: 1, product_brand_name: 'Sasko Bread', regular_name: 'W Bread')
         assert_empty purchase_item.errors[:product_brand_name]
       end
 
       should 'be valid if same but different purchase' do
-        PurchaseItem.create(purchase_id: 1, product_brand_name: 'Sasko Bread', regular_name: 'Bread')
+        PurchaseItem.create!(purchase_id: 1, product_brand_name: 'Sasko Bread', regular_name: 'Bread')
         purchase_item = PurchaseItem.create(purchase_id: 2, product_brand_name: 'Sasko Bread', regular_name: 'Bread')
         assert_empty purchase_item.errors[:product_brand_name]
       end
