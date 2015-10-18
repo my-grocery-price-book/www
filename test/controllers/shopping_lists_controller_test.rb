@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ShoppingListsControllerTest < ActionController::TestCase
   setup do
-    @shopper = create(:shopper)
+    @shopper = create_shopper
     sign_in :shopper, @shopper
   end
 
@@ -13,8 +13,8 @@ class ShoppingListsControllerTest < ActionController::TestCase
     end
 
     should 'assign own shopping_lists' do
-      create(:shopping_list, shopper: create(:shopper))
-      list = create(:shopping_list, shopper: @shopper)
+      ShoppingList.create!(shopper_id: 0)
+      list = ShoppingList.create!(shopper: @shopper)
       get :index
       assert_equal([list], assigns(:shopping_lists))
     end
@@ -37,7 +37,7 @@ class ShoppingListsControllerTest < ActionController::TestCase
 
   context 'GET show' do
     setup do
-      @shopping_list = create(:shopping_list, shopper: @shopper)
+      @shopping_list = ShoppingList.create!(shopper: @shopper)
     end
 
     should 'be success' do
@@ -53,7 +53,7 @@ class ShoppingListsControllerTest < ActionController::TestCase
 
   context 'GET delete' do
     setup do
-      @shopping_list = create(:shopping_list, shopper: @shopper)
+      @shopping_list = ShoppingList.create!(shopper: @shopper)
     end
 
     should 'be success' do
@@ -69,7 +69,7 @@ class ShoppingListsControllerTest < ActionController::TestCase
 
   context 'DELETE destroy' do
     setup do
-      @shopping_list = create(:shopping_list, shopper: @shopper)
+      @shopping_list = ShoppingList.create!(shopper: @shopper)
     end
 
     should 'destroy shopping_list' do

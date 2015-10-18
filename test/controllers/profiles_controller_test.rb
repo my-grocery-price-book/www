@@ -3,7 +3,7 @@ require 'test_helper'
 class ProfilesControllerTest < ActionController::TestCase
   context 'GET show' do
     should 'render successfully when signed in' do
-      sign_in :shopper, create(:shopper)
+      sign_in :shopper, create_shopper
       get :show
       assert_response :success
     end
@@ -16,20 +16,20 @@ class ProfilesControllerTest < ActionController::TestCase
 
   context 'GET edit' do
     should 'should render successfully when signed in' do
-      sign_in :shopper, create(:shopper)
+      sign_in :shopper, create_shopper
       get :edit
       assert_response :success
     end
 
     should 'assign shopper when signed in' do
-      shopper = create(:shopper)
+      shopper = create_shopper
       sign_in :shopper, shopper
       get :edit
       assert_equal assigns[:shopper], shopper
     end
 
     should 'assign current_public_api_options when signed in' do
-      sign_in :shopper, create(:shopper)
+      sign_in :shopper, create_shopper
       get :edit
       assert_equal(PublicApi.all, assigns[:public_apis])
     end
@@ -42,13 +42,13 @@ class ProfilesControllerTest < ActionController::TestCase
 
   context 'PATCH update' do
     should 'redirect tprofile_path when signed in' do
-      sign_in :shopper, create(:shopper)
+      sign_in :shopper, create_shopper
       patch :update, shopper: {}
       assert_redirected_to(profile_path)
     end
 
     should 'update shopper current_public_api when signed in' do
-      shopper = create(:shopper)
+      shopper = create_shopper
       sign_in :shopper, shopper
       patch :update, shopper: { current_public_api: 'za-nw.public-grocery-price-book-api.co.za' }
       shopper.reload

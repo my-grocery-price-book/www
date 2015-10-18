@@ -2,9 +2,9 @@ require 'test_helper'
 
 class PriceBookPagesControllerTest < ActionController::TestCase
   setup do
-    @price_book = create(:price_book)
-    @shopper = @price_book.shopper
-    @price_book_page = create(:price_book_page, price_book_id: @price_book.id)
+    @shopper = create_shopper
+    @price_book = PriceBook.create!(shopper_id: @shopper.id)
+    @price_book_page = @price_book.pages.create!(name: 'n1', category: 'n2', unit: 'ml')
     sign_in :shopper, @shopper
   end
 
@@ -31,11 +31,20 @@ class PriceBookPagesControllerTest < ActionController::TestCase
 
       assert_redirected_to price_book_pages_path
     end
+
+    should 'render new on failure' do
+      assert_no_difference('@price_book.page_count') do
+        post :create, price_book_page: { category: '', name: 'Banana', unit: 'KG' }
+      end
+
+      assert_response :success
+    end
   end
 
   context 'GET show' do
     setup do
-      @price_book_page = create(:price_book_page, price_book_id: @price_book.id, category: 'Fresh', unit: 'grams')
+      @shopper.update_column(:current_public_api, 'ZA-EC')
+      @price_book_page = @price_book.pages.create!(name: 'Apples', category: 'Fresh', unit: 'grams')
       stub_request(:get, 'https://api.example.com/ZA-EC/entries?category=Fresh&package_unit=grams')
         .to_return(status: 200, body: '[]')
     end
@@ -60,11 +69,17 @@ class PriceBookPagesControllerTest < ActionController::TestCase
 
   context 'PATCH update' do
     should 'update price_book_page' do
-      patch :update, id: @price_book_page,
-                     price_book_page: { unit: 'U1', category: 'C1', name: 'N1' }
+      patch :update, id: @price_book_page, price_book_page: { unit: 'U1', category: 'C1', name: 'N1' }
       @price_book_page.reload
       assert_equal({ unit: 'U1', category: 'C1', name: 'N1' }, @price_book_page.info)
       assert_redirected_to price_book_pages_path
+    end
+
+    should 'fail to update price_book_page' do
+      patch :update, id: @price_book_page, price_book_page: { unit: '', category: '', name: '' }
+      @price_book_page.reload
+      assert_not_equal({ unit: '', category: '', name: '' }, @price_book_page.info)
+      assert_response :success
     end
   end
 

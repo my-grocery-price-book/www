@@ -39,7 +39,6 @@ group :development, :test do
   gem 'sqlite3', require: false
   gem 'spring', require: false # Spring speeds up development by keeping your application running in the background
   gem 'spring-commands-testunit', require: false
-  gem 'factory_girl_rails'
 end
 
 group :test do

@@ -8,7 +8,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
 require 'support/load_database_cleaner'
-require 'support/load_factory_girl'
+require 'support/factories'
 require 'webmock/minitest'
 
 class ActiveSupport::TestCase

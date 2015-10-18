@@ -33,7 +33,7 @@ class PurchasesController < ApplicationController
     @purchase.mark_as_completed(
       api_root: current_public_api.url_root,
       api_region_code: current_public_api.code,
-      api_key: ShopperApiKey.api_key(shopper: current_shopper,
+      api_key: ShopperApiKey.api_key(shopper_id: current_shopper.id, shopper_email: current_shopper.email,
                                      api_root: current_public_api.url_root),
       current_time: Time.current
     )

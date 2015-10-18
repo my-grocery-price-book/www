@@ -8,13 +8,13 @@ class PriceCheckControllerTest < ActionController::TestCase
     end
 
     should 'be success if logged in' do
-      sign_in :shopper, create(:shopper, current_public_api: PublicApi.first_code)
+      sign_in :shopper, create_shopper(current_public_api: PublicApi.first_code)
       get :index
       assert_response :success
     end
 
     should 'redirect_to edit_profile when logged in and no current_public_api set' do
-      sign_in :shopper, create(:shopper, current_public_api: '')
+      sign_in :shopper, create_shopper(current_public_api: '')
       get :index
       assert_redirected_to(edit_profile_path)
     end

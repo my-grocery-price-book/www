@@ -2,9 +2,9 @@ require 'test_helper'
 
 class PurchaseItemsControllerTest < ActionController::TestCase
   setup do
-    @shopper = create(:shopper)
-    @purchase = create(:purchase, shopper: @shopper)
-    @purchase_item = create(:purchase_item, purchase_id: @purchase.id)
+    @shopper = create_shopper
+    @purchase = Purchase.create!(shopper: @shopper, purchased_on: Time.zone.today)
+    @purchase_item = @purchase.items.create!
     sign_in :shopper, @shopper
   end
 

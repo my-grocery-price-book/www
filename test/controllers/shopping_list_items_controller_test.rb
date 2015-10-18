@@ -2,8 +2,8 @@ require 'test_helper'
 
 class ShoppingListItemsControllerTest < ActionController::TestCase
   setup do
-    @shopper = create(:shopper)
-    @shopping_list = create(:shopping_list, shopper: @shopper)
+    @shopper = create_shopper
+    @shopping_list = ShoppingList.create!(shopper: @shopper)
     sign_in :shopper, @shopper
   end
 
@@ -38,7 +38,7 @@ class ShoppingListItemsControllerTest < ActionController::TestCase
     end
 
     should 'raise error if shopping_list belong to another shopper' do
-      other_shopping_list = create(:shopping_list, shopper: create(:shopper))
+      other_shopping_list = ShoppingList.create!(shopper_id: 44)
       assert_raise ActiveRecord::RecordNotFound do
         post :create, shopping_list_id: other_shopping_list.to_param, shopping_list_item: @item_params
       end
@@ -77,7 +77,7 @@ class ShoppingListItemsControllerTest < ActionController::TestCase
     end
 
     should 'raise error if shopping_list belong to another shopper' do
-      other_shopping_list = create(:shopping_list, shopper: create(:shopper))
+      other_shopping_list = ShoppingList.create(shopper_id: 0)
       assert_raise ActiveRecord::RecordNotFound do
         post :done, id: @shopping_list_item.to_param, shopping_list_id: other_shopping_list.to_param,
                     shopping_list_item: @item_params
@@ -116,7 +116,7 @@ class ShoppingListItemsControllerTest < ActionController::TestCase
     end
 
     should 'raise error if shopping_list belong to another shopper' do
-      other_shopping_list = create(:shopping_list, shopper: create(:shopper))
+      other_shopping_list = ShoppingList.create!(shopper_id: 77)
       assert_raise ActiveRecord::RecordNotFound do
         delete :destroy, id: @shopping_list_item.to_param, shopping_list_id: other_shopping_list.to_param
       end

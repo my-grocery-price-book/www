@@ -2,8 +2,8 @@ require 'test_helper'
 
 class PurchasesControllerTest < ActionController::TestCase
   setup do
-    @shopper = create(:shopper)
-    @purchase = create(:purchase, shopper: @shopper)
+    @shopper = create_shopper
+    @purchase = Purchase.create!(shopper: @shopper, purchased_on: (Time.zone.today - 1))
     sign_in :shopper, @shopper
   end
 
@@ -15,7 +15,7 @@ class PurchasesControllerTest < ActionController::TestCase
     end
 
     should 'be ordered by purchased_on in descending order' do
-      purchase_2 = create(:purchase, shopper: @shopper)
+      purchase_2 = Purchase.create!(shopper: @shopper, purchased_on: Time.zone.today)
       get :index
       assert_equal assigns(:purchases), [purchase_2, @purchase]
     end
@@ -50,11 +50,9 @@ class PurchasesControllerTest < ActionController::TestCase
 
   context 'PATCH complete' do
     setup do
-      api = PublicApi.find_by_code(@shopper.current_public_api)
-      create(:shopper_api_key,
-             shopper_id: @shopper.id,
-             api_root: api.url_root,
-             api_key: 'test')
+      api = PublicApi.all.first
+      @shopper.update_column(:current_public_api, api.code)
+      ShopperApiKey.create!(shopper_id: @shopper.id, api_root: api.url_root, api_key: 'test')
       stub_request(:post, "https://api.example.com/#{api.code}/entries")
     end
 
@@ -70,7 +68,7 @@ class PurchasesControllerTest < ActionController::TestCase
     end
 
     should 'mark purchase complete' do
-      create(:purchase_item, purchase_id: @purchase.id)
+      @purchase.items.create
 
       patch :complete, id: @purchase
       @purchase.reload

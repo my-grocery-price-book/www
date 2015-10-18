@@ -15,47 +15,48 @@
 require 'test_helper'
 
 describe PriceBook::Page do
-  let(:price_book) { PriceBook.create!(shopper: create(:shopper)) }
+  let(:price_book) { PriceBook.create!(shopper_id: 55) }
 
   describe 'Validation' do
     it 'can create a new page' do
-      page = PriceBook::Page.create(name: 'Soda', category: 'Drinks', unit: 'Liters', price_book_id: price_book.id)
+      page = price_book.pages.create(name: 'Soda', category: 'Drinks', unit: 'Liters')
       page.must_be :persisted?
     end
 
     it 'requires name' do
-      PriceBook::Page.create.errors[:name].wont_be_empty
+      price_book.pages.create.errors[:name].wont_be_empty
     end
 
     it 'requires category' do
-      PriceBook::Page.create.errors[:category].wont_be_empty
+      price_book.pages.create.errors[:category].wont_be_empty
     end
 
     it 'requires unit' do
-      PriceBook::Page.create.errors[:unit].wont_be_empty
+      price_book.pages.create.errors[:unit].wont_be_empty
     end
 
     it 'requires price_book_id when updating' do
-      page = PriceBook::Page.create!(name: 'Soda', category: 'Drinks', unit: 'Liters')
+      page = price_book.pages.create!(name: 'Soda', category: 'Drinks', unit: 'Liters')
+      page.price_book_id = nil
       page.valid?
       page.errors[:price_book_id].wont_be_empty
     end
 
     it 'require a uniq name per unit and book' do
-      PriceBook::Page.create(name: 'Soda', category: 'Drinks', unit: 'Liters', price_book_id: price_book.id)
-      page = PriceBook::Page.create(name: 'Soda', category: 'Drinks', unit: 'Liters', price_book_id: price_book.id)
+      price_book.pages.create(name: 'Soda', category: 'Drinks', unit: 'Liters')
+      page = price_book.pages.create(name: 'Soda', category: 'Drinks', unit: 'Liters')
       page.errors[:name].wont_be_empty
     end
 
     it 'allows a same name in another unit and book' do
-      PriceBook::Page.create(name: 'Soda', category: 'Drinks', unit: 'Liters', price_book_id: price_book.id)
-      page = PriceBook::Page.create(name: 'Soda', category: 'Drinks', unit: 'Cans', price_book_id: price_book.id)
+      price_book.pages.create(name: 'Soda', category: 'Drinks', unit: 'Liters')
+      page = price_book.pages.create(name: 'Soda', category: 'Drinks', unit: 'Cans')
       page.must_be :persisted?
     end
   end
 
   describe 'creating' do
-    subject { PriceBook::Page.new(name: 'Soda', category: 'Drinks', unit: 'Liters', price_book_id: price_book.id) }
+    subject { PriceBook::Page.new(name: 'Soda', category: 'Drinks', unit: 'Liters') }
 
     it 'saves unique product_names' do
       subject.product_names = ['Coke Lite', 'Fanta', 'Coke Lite']
@@ -65,7 +66,7 @@ describe PriceBook::Page do
   end
 
   describe 'updating' do
-    subject { PriceBook::Page.create!(name: 'Soda', category: 'Drinks', unit: 'Liters', price_book_id: price_book.id) }
+    subject { price_book.pages.create!(name: 'Soda', category: 'Drinks', unit: 'Liters') }
 
     it 'saves unique product_names' do
       subject.update(product_names: ['Sasko Bread', 'Woolworths Bread', 'Woolworths Bread'])

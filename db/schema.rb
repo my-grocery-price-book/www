@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150915112020) do
+ActiveRecord::Schema.define(version: 20151018110108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -233,7 +233,4 @@ ActiveRecord::Schema.define(version: 20150915112020) do
   add_index "shopping_lists", ["shopper_id"], name: "index_shopping_lists_on_shopper_id", using: :btree
 
   add_foreign_key "price_book_pages", "price_books"
-  add_foreign_key "price_books", "shoppers"
-  add_foreign_key "purchases", "shoppers"
-  add_foreign_key "shopping_lists", "shoppers"
 end
