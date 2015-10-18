@@ -1,2 +1,0 @@
-module PriceCheckHelper
-end
