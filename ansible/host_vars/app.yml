@@ -1,0 +1,7 @@
+# this is for vagrant
+server_name: "*.groc-test"
+database_host: '192.168.30.14'
+app_env:
+  SMTP_ADDRESS: "localhost"
+  SMTP_PORT: "1025"
+  NEW_RELIC_APP_NAME: '"My Grocery Price Book WWW (Vagrant)"'

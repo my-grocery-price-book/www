@@ -1,0 +1,26 @@
+- name: installing mailcatcher gem dependencies
+  apt: name={{item}} state=present
+  sudo: yes
+  with_items:
+    - sqlite3
+    - libsqlite3-dev
+
+- name: Install mailcatcher gem
+  gem: name={{item}} state=present user_install=no
+  sudo: yes
+  with_items:
+    - mailcatcher
+
+- name: setup mailcatcher upstart
+  copy: src=etc/init/mailcatcher.conf dest=/etc/init/mailcatcher.conf
+  sudo: yes
+
+- name: start mailcatcher
+  service: name=mailcatcher state=started
+  sudo: yes
+
+- name: set SMTP_ADDRESS in .bashrc for mailcatcher
+  lineinfile: dest=/home/vagrant/.bashrc insertafter="^# for examples" regexp="SMTP_ADDRESS=" line="export SMTP_ADDRESS=localhost"
+
+- name: set SMTP_PORT in .bashrc for mailcatcher
+  lineinfile: dest=/home/vagrant/.bashrc insertafter="^# for examples" regexp="SMTP_PORT=" line="export SMTP_PORT=1025"

@@ -22,6 +22,7 @@ public/assets/*
 ansible/vault_pass.txt
 
 # Ignore config look at config examples
+config/database.yml
 config/public_apis/dev.yml
 
 .ruby-version

@@ -1,0 +1,14 @@
+- name: create development pg vagrant user
+  postgresql_user: name=vagrant role_attr_flags=CREATEDB,SUPERUSER
+  sudo: yes
+  sudo_user: postgres
+
+- name: create development on database
+  postgresql_db: name=development encoding='UTF-8'
+  sudo: yes
+  sudo_user: postgres
+
+- name: create test on database
+  postgresql_db: name=test encoding='UTF-8'
+  sudo: yes
+  sudo_user: postgres

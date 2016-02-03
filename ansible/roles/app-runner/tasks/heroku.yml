@@ -1,6 +1,0 @@
-- name: download heroku tool installer
-  get_url: url=https://toolbelt.heroku.com/install-ubuntu.sh dest=~/install-ubuntu.sh
-
-- name: install heroku
-  command: sh ~/install-ubuntu.sh creates=/usr/local/heroku
-  sudo: yes

@@ -1,0 +1,14 @@
+- name: Install tool gems
+  gem: name={{item}} state=present user_install=yes
+  sudo: no
+  with_items:
+    - brakeman
+    - rubocop
+    - rubycritic
+
+- name: add user gems path to .bashrc
+  lineinfile: dest=/home/{{app_deploy_name}}/.bashrc line="PATH=\"$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH\""
+
+- name: Install PhantomJS 1.9.8
+  sudo: yes
+  script: _scripts/install_phantomjs.sh creates=/usr/local/bin/phantomjs

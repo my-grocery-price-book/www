@@ -1,0 +1,12 @@
+---
+- name: nginx restart
+  service: name=nginx state=restarted
+  
+- name: nginx update-rc.d
+  shell: update-rc.d nginx defaults
+
+- name: nginx reload
+  service: name=nginx state=reloaded
+
+- name: switch ruby
+  command: ruby-switch --set ruby2.2

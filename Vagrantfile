@@ -10,9 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |main_config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  main_config.vm.box = 'ubuntu_14_04'
-  main_config.vm.box_url =
-    'https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-i386-vagrant-disk1.box'
+  main_config.vm.box = 'ubuntu/trusty64' 
 
   main_config.vm.define 'db' do |config|
     # Create a forwarded port mapping which allows access to a specific port
@@ -54,6 +52,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |main_config|
   end
 
   main_config.vm.define 'app', primary: true do |config|
+    config.vm.hostname = "grocdev"
+
+    config.dns.tlds = %w(groc-dev groc-test)
+
+    config.dns.patterns = [/^www\.groc-dev$/,/^www\.groc-test$/]
     # Create a forwarded port mapping which allows access to a specific port
     # within the machine from a port on the host machine. In the example below,
     # accessing "localhost:8080" will access port 80 on the guest machine.
@@ -78,7 +81,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |main_config|
     # the path on the guest to mount the folder. And the optional third
     # argument is a set of non-required options.
     # config.vm.synced_folder "../data", "/vagrant_data"
-    config.vm.synced_folder '.', '/home/vagrant/project', nfs: true
 
     # Provider-specific configuration so you can fine-tune various
     # backing providers for Vagrant. These expose provider-specific options.
@@ -90,16 +92,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |main_config|
 
       # Use VBoxManage to customize the VM. For example to change memory:
       v.memory = 512
+      # Give 2 cpu cores on the host
       v.customize ['modifyvm', :id, '--ioapic', 'on']
-      host = RbConfig::CONFIG['host_os']
-      # Give all cpu cores on the host
-      if host =~ /darwin/
-        v.cpus = `sysctl -n hw.ncpu`.to_i
-      elsif host =~ /linux/
-        v.cpus = `nproc`.to_i
-      else # sorry Windows folks, I can't help you
-        v.cpus = 2
-      end
+      v.cpus = 2
     end
   end
 

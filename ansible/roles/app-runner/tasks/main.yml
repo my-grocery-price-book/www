@@ -1,22 +1,5 @@
-- name: ensure github.com is a known host
-  known_hosts:
-    key: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
-    host: "github.com"
+- include: create_deploy_user.yml
+- include: set_enviroment_variables.yml
+- include: install_ruby.yml
+- include: install_passenger.yml
 
-- include: ruby.yml
-- include: tools.yml
-- include: aws_eb.yml
-- include: heroku.yml
-
-- name: create .env
-  command:  cp config/examples/.env.vagrant .env
-  sudo: no
-  args:
-    chdir: ~/project
-    creates: ~/project/.env
-
-- name: app setup
-  command: bin/setup.sh
-  sudo: no
-  args:
-    chdir: ~/project

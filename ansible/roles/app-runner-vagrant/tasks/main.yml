@@ -1,0 +1,27 @@
+- name: ensure github.com is a known host
+  sudo: no
+  known_hosts:
+    key: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
+    host: "github.com"
+
+- include: tools.yml
+- include: mailcatcher.yml
+
+- name: bundle install
+  command:  bundle install
+  sudo: no
+  args:
+    chdir: /vagrant
+
+- name: load database.yml
+  template: src=vagrant/config/database.yml dest=/vagrant/config/database.yml
+  sudo: no
+  notify: rake db:setup
+
+- name: add dev.conf to ngnix sites-available
+  template: src=etc/nginx/sites-available/dev.conf dest=/etc/nginx/sites-available/dev.conf owner=root group=root mode=0644
+  notify: nginx reload
+
+- name: link dev.conf to ngnix sites-enabled
+  file: src=/etc/nginx/sites-available/dev.conf dest=/etc/nginx/sites-enabled/dev.conf owner=root group=root state=link
+  notify: nginx reload

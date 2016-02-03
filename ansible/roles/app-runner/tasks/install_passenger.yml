@@ -1,0 +1,38 @@
+- name: Remove apache2
+  apt: name=apache2 state=absent
+
+- name: Add key for passenger
+  apt_key: keyserver=keyserver.ubuntu.com id=561F9B9CAC40B2F7
+
+- name: Apt via https
+  action: apt pkg={{ item }} state=installed
+  with_items:
+   - apt-transport-https
+   - ca-certificates
+
+- name: Apt add passenger to list
+  apt_repository: repo='deb https://oss-binaries.phusionpassenger.com/apt/passenger {{ansible_distribution_release}} main' state=present update_cache=yes
+
+- name: Install nginx
+  action: apt pkg={{ item }} state=installed
+  with_items:
+   - nginx-extras
+   - passenger
+
+- name: uncomment passenger_root
+  replace: dest=/etc/nginx/nginx.conf regexp='#\spassenger_root' replace=passenger_root
+  notify: nginx reload
+
+- name: set passenger_max_pool_size to 2
+  lineinfile: dest=/etc/nginx/nginx.conf insertafter="passenger_root" regexp="passenger_max_pool_size" line="passenger_max_pool_size 2;"
+  notify: nginx reload
+
+- name: add passenger conf to ngnix sites-available
+  template: src=etc/nginx/sites-available/_passenger_site.conf dest=/etc/nginx/sites-available/{{app_deploy_name}}.conf owner=root group=root mode=0644
+  notify: nginx reload
+
+- name: link _passenger_site.conf to ngnix sites-enabled
+  file: src=/etc/nginx/sites-available/{{app_deploy_name}}.conf dest=/etc/nginx/sites-enabled/{{app_deploy_name}}.conf owner=root group=root state=link
+
+- name: add rails log logrotation for all rails log files
+  template: src=etc/logrotate.d/_logrotate_conf dest=/etc/logrotate.d/{{app_deploy_name}} owner=root group=root mode=0644

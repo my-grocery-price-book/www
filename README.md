@@ -8,8 +8,9 @@
  * anisible (at least 1.9.0)
 
 ```
+  vagrant dns --install
   vagrant up
-  vagrant ssh
+  vagrant ssh # you can visit http://www.groc-dev/
   cd project
   bundle exec rake opal:spec test # run tests
   ./run.sh # run development db server

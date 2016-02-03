@@ -3,7 +3,7 @@ development:
   encoding: unicode
   database: development
   username: vagrant
-  host: 192.168.30.14
+  host: {{database_host}}
   pool: 5
 
 test:
@@ -11,5 +11,5 @@ test:
   encoding: unicode
   database: test
   username: vagrant
-  host: 192.168.30.14
+  host: {{database_host}}
   pool: 5

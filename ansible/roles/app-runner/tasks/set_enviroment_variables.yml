@@ -1,0 +1,9 @@
+- name: set RAILS_ENV in .bashrc
+  lineinfile: dest=/home/{{app_deploy_name}}/.bashrc insertafter="^# for examples" regexp="RAILS_ENV=" line="export RAILS_ENV=production"
+
+- name: set SECRET_KEY_BASE in .bashrc
+  lineinfile: dest=/home/{{app_deploy_name}}/.bashrc insertafter="^# for examples" regexp="SECRET_KEY_BASE=" line="export SECRET_KEY_BASE=fa537edd40e5025afa4be9c3e9c1d5b185dc4aead2b18ae2dbd0b63fcff2c75ee2668e63b437c5025b9ee1846af77ff4729da2c015edd6d7f45830ac56e056f6"
+
+- name: set app enviroment variables
+  lineinfile: dest=/home/my_grocery_price_book_www/.bashrc insertafter="^# for examples" regexp="{{ item.key }}=" line="export {{ item.key }}={{ item.value }}"
+  with_dict: "{{app_env}}"
