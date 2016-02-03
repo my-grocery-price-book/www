@@ -1,9 +1,11 @@
 AllCops:
+  TargetRubyVersion: 2.1
   Exclude:
     - 'bin/**/*'
     - 'vendor/**/*'
     - 'db/migrate/**/*'
     - 'db/schema.rb'
+    - 'Vagrantfile'
 
 Metrics/LineLength:
   Max: 120

@@ -71,6 +71,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |main_config|
     # Bridged networks make the machine appear as another physical device on
     # your network.
     # config.vm.network "public_network"
+    config.vm.synced_folder '.', '/vagrant', nfs: true
 
     # If true, then any SSH connections made will enable agent forwarding.
     # Default value: false

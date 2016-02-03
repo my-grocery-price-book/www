@@ -7,7 +7,7 @@
     - rubycritic
 
 - name: add user gems path to .bashrc
-  lineinfile: dest=/home/{{app_deploy_name}}/.bashrc line="PATH=\"$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH\""
+  lineinfile: dest=/home/vagrant/.bashrc line="PATH=\"$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH\""
 
 - name: Install PhantomJS 1.9.8
   sudo: yes

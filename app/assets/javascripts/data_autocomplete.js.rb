@@ -13,7 +13,7 @@ Document.ready? do
 
   if Element['[data-autocomplete-products]'].any?
     Element['[data-autocomplete-products]'].autocomplete(
-      { source: "#{GroceryApiService.instance.product_brand_names_url}" }.to_n
+      { source: GroceryApiService.instance.product_brand_names_url.to_s }.to_n
     )
   end
 
