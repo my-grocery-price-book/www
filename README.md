@@ -9,11 +9,9 @@
 
 ```
   vagrant dns --install
-  vagrant up
-  vagrant ssh # you can visit http://www.groc-dev/
-  cd project
-  bundle exec rake opal:spec test # run tests
-  ./run.sh # run development db server
+  vagrant up # you can visit http://www.groc-dev/
+  vagrant ssh
+  cd /vagrant
 ```
 
 # Setup without Vagrant
@@ -28,7 +26,6 @@
   cp -vn "config/examples/.env.local" ".env" # then edit .env and insert correct details
   bin/setup.sh 
   ./run.sh # run development db server
-  bundle exec rake test opal:spec # run tests
 ```
 
 # Development
@@ -38,7 +35,6 @@
   # make changes :)
   bin/rails s -b 0.0.0.0 # visit http://192.168.30.15:3000
   bin/spring testunit test # run tests
-  bin/rake opal:spec  # run opal specs
 ```
 
 catching email

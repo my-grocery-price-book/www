@@ -27,13 +27,6 @@ module Project
       g.template_engine :erb
     end
 
-    # These are the available options with their default value:
-    config.opal.method_missing      = true
-    config.opal.optimized_operators = true
-    config.opal.arity_check         = false
-    config.opal.const_missing       = true
-    config.opal.dynamic_require_severity = :ignore
-
     config.assets.initialize_on_precompile = false
   end
 end
