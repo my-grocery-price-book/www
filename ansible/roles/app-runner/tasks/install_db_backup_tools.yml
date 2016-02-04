@@ -1,5 +1,0 @@
-- name: install pip - needed for awscli installation
-  apt: name=python-pip
-
-- name: install awscli for s3 bucket sync uploads for DB backups from Rake task
-  pip: name=awscli
