@@ -1,0 +1,9 @@
+/home/{{app_deploy_name}}/current/log/*.log {
+    weekly
+    missingok
+    rotate 52
+    compress
+    delaycompress
+    notifempty
+    copytruncate
+}

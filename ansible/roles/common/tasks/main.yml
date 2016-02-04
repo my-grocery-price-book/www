@@ -1,0 +1,6 @@
+---
+- name: Set up authorized_keys for the remote user
+  authorized_key: user="{{ ansible_ssh_user }}" key="{{ item }}"
+  sudo: no
+  with_file:
+    - public_keys/grant2.pub
