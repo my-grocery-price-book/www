@@ -22,3 +22,6 @@ Documentation:
 
 Rails/Validation:
   Enabled: false
+
+Performance/RedundantMerge:
+  Enabled: false

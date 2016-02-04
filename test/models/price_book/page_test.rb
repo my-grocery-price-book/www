@@ -69,7 +69,7 @@ describe PriceBook::Page do
     subject { price_book.pages.create!(name: 'Soda', category: 'Drinks', unit: 'Liters') }
 
     it 'saves unique product_names' do
-      subject[:product_names] = ['Sasko Bread', 'Woolworths Bread', 'Woolworths Bread']
+      subject.update(product_names: ['Sasko Bread', 'Woolworths Bread', 'Woolworths Bread'])
       subject.product_names.must_equal(['Sasko Bread', 'Woolworths Bread'])
     end
   end
