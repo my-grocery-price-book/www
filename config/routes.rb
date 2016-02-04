@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  comfy_route :cms_admin, path: '/_admin_'
+  root 'pages#index'
 
   resources :shopping_lists, except: [:new, :edit, :update] do
     resources :items, controller: 'shopping_list_items', only: [:create, :destroy] do
@@ -33,7 +33,4 @@ Rails.application.routes.draw do
       end
     end
   end
-
-  # Make sure this routeset is defined last
-  comfy_route :cms, path: '/', sitemap: false
 end

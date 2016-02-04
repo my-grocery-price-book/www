@@ -20,19 +20,20 @@ pre {
 
 a {
   color: #000;
-  &:visited {
-    color: #666;
-  }
-  &:hover {
-    color: #fff;
-    background-color: #000;
-  }
 }
 
-div {
-  &.field, &.actions {
+a:visited {
+    color: #666;
+}
+
+a:hover {
+    color: #fff;
+    background-color: #000;
+}
+
+
+div.field, div.actions {
     margin-bottom: 10px;
-  }
 }
 
 #notice {
@@ -50,8 +51,10 @@ div {
 #error_explanation {
     font-weight: bold;
     font-size: 12px;
-    color: rgb(0, 96, 99)
-  h2 {
+    color: rgb(0, 96, 99);
+}
+
+#error_explanation h2 {
     text-align: left;
     font-weight: bold;
     padding: 5px 5px 5px 15px;
@@ -60,8 +63,8 @@ div {
     margin-bottom: 0px;
     background-color: #c00;
     color: #fff;
-  }
-  ul li {
+}
+
+#error_explanation ul li {
     padding: 0px;
-  }
 }
