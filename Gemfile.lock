@@ -116,7 +116,6 @@ GEM
       opal (>= 0.7.0, < 0.9)
     orm_adapter (0.5.0)
     pg (0.18.3)
-    puma (2.14.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -139,7 +138,6 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails_stdout_logging (0.0.4)
     railties (4.2.5.1)
       actionpack (= 4.2.5.1)
       activesupport (= 4.2.5.1)
@@ -206,9 +204,7 @@ DEPENDENCIES
   newrelic_rpm
   opal-rails (~> 0.8.0)
   pg
-  puma
   rails (~> 4.2.1)
-  rails_stdout_logging
   rollbar
   shoulda-context
   simplecov

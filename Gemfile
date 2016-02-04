@@ -5,11 +5,6 @@ group :development, :test do
   gem 'dotenv-rails' # load before other gems
 end
 
-group :production do
-  gem 'rails_stdout_logging' # makes hosting rails on heroku easier
-  gem 'puma', require: false
-end
-
 gem 'rails', '~> 4.2.1'
 gem 'will_paginate'
 gem 'pg'
