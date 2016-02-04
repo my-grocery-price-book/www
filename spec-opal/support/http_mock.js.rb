@@ -16,7 +16,7 @@ class HTTPMock
   end
 
   def get(url)
-    fail "No response set for #{url}" unless @responses.key?(url)
+    raise "No response set for #{url}" unless @responses.key?(url)
     yield(@responses[url])
   end
 end
