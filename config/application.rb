@@ -28,5 +28,7 @@ module Project
     end
 
     config.assets.initialize_on_precompile = false
+
+    config.react.addons = true # defaults to false
   end
 end

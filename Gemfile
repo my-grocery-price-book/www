@@ -9,6 +9,7 @@ gem 'rails', '~> 4.2.1'
 gem 'will_paginate'
 gem 'pg'
 
+gem 'react-rails'
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 
 gem 'therubyracer', platforms: :ruby # See https://github.com/rails/execjs#readme for more supported runtimes

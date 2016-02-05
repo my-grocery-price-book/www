@@ -7,6 +7,13 @@ class ShoppingListItemsControllerTest < ActionController::TestCase
     sign_in :shopper, @shopper
   end
 
+  context 'GET index' do
+    should 'be success' do
+      get :index, shopping_list_id: @shopping_list.to_param
+      assert_response :success
+    end
+  end
+
   context 'POST create' do
     setup do
       @item_params = { 'name' => 'Test', 'amount' => 123, 'unit' => 'ml' }
