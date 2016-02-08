@@ -1,13 +1,12 @@
 class ShoppingListItemsController < ApplicationController
   before_action :authenticate_shopper!
 
-  def index
-    render json: shopping_list.items
-  end
-
   def create
-    shopping_list.items.create!(item_params)
-    redirect_to shopping_list_path(shopping_list)
+    @item = shopping_list.items.create!(item_params)
+    respond_to do |format|
+      format.html { shopping_list_path(shopping_list) }
+      format.json { render json: @item}
+    end
   end
 
   def done

@@ -1,6 +1,5 @@
 <%= react_component('ShoppingList',
                     createdOn: @shopping_list.created_on,
-                    action: shopping_list_items_path(@shopping_list),
-                    items_url: shopping_list_items_path(@shopping_list),
+                    itemsUrl: shopping_list_items_path(@shopping_list),
                     authenticityToken: form_authenticity_token,
-                    initial_items: @shopping_list.items) %>
+                    initialItems: @shopping_list.items) %>

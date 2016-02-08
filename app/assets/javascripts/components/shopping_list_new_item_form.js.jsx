@@ -1,10 +1,8 @@
 var ShoppingListNewItemForm = React.createClass({
   propTypes: {
-    action: React.PropTypes.string,
-    authenticityToken: React.PropTypes.string
   },
   getInitialState: function() {
-    return {name: '', amount: 1, unit: '', new_id: 0};
+    return {name: '', amount: 1, unit: ''};
   },
   handleNameChange: function(e) {
     this.setState({name: e.target.value});
@@ -20,12 +18,8 @@ var ShoppingListNewItemForm = React.createClass({
     var name = this.state.name;
     var amount = this.state.amount;
     var unit = this.state.unit;
-    //if (!text || !author) {
-    //  return;
-    //}
-    // TODO: send request to the server
-    this.props.onItemSubmit({name: name, amount: amount, unit: unit, id: "new_" + this.state.new_id});
-    this.setState({name: '', amount: 1, unit: '', new_id: this.state.new_id + 1});
+    this.props.onItemSubmit({name: name, amount: amount, unit: unit});
+    this.setState({name: '', amount: 1, unit: ''});
   },
 
   render: function () {
@@ -33,7 +27,6 @@ var ShoppingListNewItemForm = React.createClass({
         <div className="row">
           <div className="col-sm-12">
             <form onSubmit={this.handleSubmit} className="form-inline">
-              <input name="authenticity_token" value={this.props.authenticityToken} type="hidden"/>
               <div className="form-group">
                 <label className="sr-only" for="shopping_list_item_name">Item name</label>
                 <input className="form-control"

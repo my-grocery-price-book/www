@@ -1,40 +1,31 @@
 var ShoppingList = React.createClass({
   propTypes: {
     createdOn: React.PropTypes.node,
-    action: React.PropTypes.string,
-    items_url: React.PropTypes.string,
+    itemsUrl: React.PropTypes.string,
     authenticityToken: React.PropTypes.string,
-    initial_items: React.PropTypes.arrayOf(React.PropTypes.object)
+    initialItems: React.PropTypes.arrayOf(React.PropTypes.object)
   },
 
   getInitialState: function() {
-    return {items: this.props.initial_items};
+    return {items: this.props.initialItems};
   },
 
   handleItemSubmit: function(item) {
-    // TODO: submit to the server and refresh the list
-    console.info(item);
-    var new_items = this.state.items.slice()
-    new_items.push(item)
-    this.setState({ items: new_items })
-    //$.ajax({
-    //  url: this.props.items_url,
-    //  dataType: 'json',
-    //  type: 'POST',
-    //  data: item,
-    //  success: function(data) {
-    //    this.setState({data: data});
-    //  }.bind(this),
-    //  error: function(xhr, status, err) {
-    //    console.error(this.props.items_url, status, err.toString());
-    //  }.bind(this)
-    //});
+    var new_items = this.state.items.slice();
+    new_items.push(item);
+    this.setState({ items: new_items });
   },
 
   render: function() {
-    var itemNodes = this.state.items.map(function(item) {
+    var itemsUrl = this.props.itemsUrl;
+    var authenticityToken = this.props.authenticityToken;
+
+    var itemNodes = this.state.items.map(function(item, i) {
       return (
-          <ShoppingListItem key={item.id} amount={item.amount} unit={item.unit} name={item.name}/>
+          <ShoppingListItem key={"item_" + i}
+                            item={item}
+                            createUrl={itemsUrl}
+                            authenticityToken={authenticityToken} />
       );
     });
     return (
@@ -44,11 +35,10 @@ var ShoppingList = React.createClass({
               <h1>Shopping List {this.props.createdOn}</h1>
             </div>
           </div>
+          <div>{itemNodes}</div>
           <ShoppingListNewItemForm
               action={this.props.action}
-              authenticityToken={this.props.authenticityToken}
               onItemSubmit={this.handleItemSubmit} />
-          <div>{itemNodes}</div>
         </div>
     );
   }
