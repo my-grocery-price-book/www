@@ -5,7 +5,7 @@ class ShoppingListItemsController < ApplicationController
     @item = shopping_list.items.create!(item_params)
     respond_to do |format|
       format.html { shopping_list_path(shopping_list) }
-      format.json { render json: @item}
+      format.json
     end
   end
 

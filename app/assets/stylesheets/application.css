@@ -33,3 +33,28 @@ body {
   margin-top: 10px;
   border-radius: 4px
 }
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+.shopping-list-busy-overlay {
+    position: absolute;
+    top: 0;
+    margin-right: 5;
+    width: 92%;
+    height: 86%;
+    background-color: rgba(230, 230, 230, 0.9);
+    color: #fff;
+}

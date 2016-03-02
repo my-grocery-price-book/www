@@ -6,6 +6,7 @@ group :development, :test do
 end
 
 gem 'rails', '~> 4.2.1'
+gem 'jbuilder'
 gem 'will_paginate'
 gem 'pg'
 

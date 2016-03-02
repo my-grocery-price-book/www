@@ -47,7 +47,7 @@ class ShoppingListsControllerTest < ActionController::TestCase
 
     should 'assign shopping list' do
       get :show, id: @shopping_list.to_param
-      assert_equal(@shopping_list, assigns(:shopping_list))
+      assert_equal(@shopping_list, assigns(:shopping_lists))
     end
   end
 
@@ -63,7 +63,7 @@ class ShoppingListsControllerTest < ActionController::TestCase
 
     should 'assign shopping list' do
       get :show, id: @shopping_list.to_param
-      assert_equal(@shopping_list, assigns(:shopping_list))
+      assert_equal(@shopping_list, assigns(:shopping_lists))
     end
   end
 
