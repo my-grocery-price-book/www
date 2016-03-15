@@ -8,15 +8,15 @@ var ShoppingListItemIndex = React.createClass({
   },
 
   getInitialState: function () {
-    return {list: this.props.initialList, show_form: false};
+    return {list: this.props.initialList, showForm: false};
   },
 
   editTitle: function () {
-    this.setState({show_form: true});
+    this.setState({showForm: true});
   },
 
   editTitleDone: function () {
-    this.setState({show_form: false});
+    this.setState({showForm: false});
   },
 
   handleNameChange: function(e) {
@@ -29,6 +29,28 @@ var ShoppingListItemIndex = React.createClass({
 
   handleUnitChange: function(e) {
     this.setState({unit: e.target.value});
+  },
+
+  addItem: function (submit_event) {
+    submit_event.preventDefault();
+    this.setState({is_adding: true});
+    $.ajax({
+      url: this.props.createUrl,
+      dataType: 'json',
+      type: 'POST',
+      data: {authenticity_token: this.props.authenticityToken,
+             shopping_list_item: {name: this.state.name, amount: this.state.amount, unit: this.state.unit }},
+      success: function (response) {
+        new_list = this.state.list.slice();
+        new_list.push(response.data);
+        this.setState({name: '', amount: '', unit: '', is_adding: false, list: new_list});
+      }.bind(this),
+      error: function (xhr, status, err) {
+        this.setState({is_adding: false});
+        console.error(status, err.toString());
+        alert(err.toString());
+      }.bind(this)
+    });
   },
 
   render: function () {
@@ -47,14 +69,14 @@ var ShoppingListItemIndex = React.createClass({
       <div className="row">
         <div className="col-xs-12">
           <ShoppingListTitle update_url={props.shoppingList.update_url}
-                             show_form={state.show_form}
+                             showForm={state.showForm}
                              title={props.shoppingList.title}
                              authenticityToken={props.authenticityToken}
                              onDone={this.editTitleDone}/>
           <button className="btn btn-default btn-xs"
                   role="button"
                   onClick={this.editTitle}
-                  style={state.show_form ? {display: 'none'} : null }
+                  style={state.showForm ? {display: 'none'} : null }
                   type="submit">Edit</button>
         </div>
       </div>
@@ -62,9 +84,9 @@ var ShoppingListItemIndex = React.createClass({
         {render_list}
       </div>
       <div className="row">
-        <form action={this.props.createUrl} method="post">
+        <form onSubmit={this.addItem} action={props.createUrl} method="post">
           <div className="form-group">
-            <input name="authenticity_token" value={this.props.authenticityToken} type="hidden"/>
+            <input name="authenticity_token" value={props.authenticityToken} type="hidden"/>
             <div className="col-xs-5 nopadding">
               <input name="shopping_list_item[name]" className="form-control"
                      value={state.name} onChange={this.handleNameChange}
@@ -82,7 +104,9 @@ var ShoppingListItemIndex = React.createClass({
                      disabled={state.is_adding} placeholder="amount"/>
             </div>
             <div className="col-xs-1 nopadding">
-              <button className='btn btn-primary'><span className="glyphicon glyphicon-plus"></span></button>
+              <button className='btn btn-primary' disabled={state.is_adding}>
+                <span className="glyphicon glyphicon-plus"></span>
+              </button>
             </div>
           </div>
         </form>
