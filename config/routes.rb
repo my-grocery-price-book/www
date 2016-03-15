@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
+  get 'item_purchases/create'
+
   root 'pages#index'
 
   resources :shopping_lists, except: [:show, :new, :edit] do
     resources :items, controller: 'shopping_list_items', only: [:index, :create, :destroy]
+  end
+
+  resources :shopping_list_items, only: [] do
+    resources :purchases, controller: 'shopping_list_item_purchases', only: [:create]
   end
 
   resources :price_book_pages do
