@@ -58,3 +58,13 @@ body {
     background-color: rgba(230, 230, 230, 0.9);
     color: #fff;
 }
+
+.title-form {
+    display: inline-block;
+    padding-right: 1%;
+}
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}

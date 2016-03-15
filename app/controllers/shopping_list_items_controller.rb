@@ -1,10 +1,14 @@
 class ShoppingListItemsController < ApplicationController
   before_action :authenticate_shopper!
 
+  def index
+    shopping_list
+  end
+
   def create
     @item = shopping_list.items.create!(item_params)
     respond_to do |format|
-      format.html { shopping_list_path(shopping_list) }
+      format.html { redirect_to shopping_list_items_path(shopping_list) }
       format.json
     end
   end
@@ -22,7 +26,7 @@ class ShoppingListItemsController < ApplicationController
   private
 
   def shopping_list
-    ShoppingList.for_shopper(current_shopper).find(params[:shopping_list_id])
+    @shopping_list ||= ShoppingList.for_shopper(current_shopper).find(params[:shopping_list_id])
   end
 
   def shopping_list_item

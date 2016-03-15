@@ -10,26 +10,6 @@ var ShoppingListIndex = React.createClass({
     return {lists: this.props.initialLists};
   },
 
-  createShoppingList: function (submit_event) {
-    submit_event.preventDefault();
-    this.setState({is_busy_creating: true});
-    $.ajax({
-      url: this.props.createUrl,
-      dataType: 'json',
-      type: 'POST',
-      data: {"authenticity_token": this.props.authenticityToken},
-      success: function (response) {
-        var newArray = this.state.lists.slice();
-        newArray.unshift(response.data);
-        this.setState({lists: newArray, is_busy_creating: false});
-      }.bind(this),
-      error: function (xhr, status, err) {
-        this.setState({is_busy_creating: false});
-        console.error(status, err.toString());
-      }.bind(this)
-    });
-  },
-
   render: function () {
     var vm = this;
     var render_lists = this.state.lists.map(function (list) {
@@ -49,7 +29,7 @@ var ShoppingListIndex = React.createClass({
       <div className="row">
         <div className="col-md-12">
           <h1>Shopping Lists</h1>
-          <form action={this.props.createUrl} method="post" onSubmit={this.createShoppingList}>
+          <form action={this.props.createUrl} method="post">
             <input name="authenticity_token" value={this.props.authenticityToken} type="hidden"/>
             <button className='btn btn-default'>New Shopping List</button>
           </form>

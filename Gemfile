@@ -38,7 +38,8 @@ end
 
 group :test do
   gem 'webmock', require: false
-  gem 'capybara'
+  gem 'capybara', require: false
+  gem 'poltergeist', require: false
   gem 'shoulda-context'
   gem 'simplecov', require: false
   gem 'database_cleaner', require: false

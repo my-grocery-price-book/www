@@ -20,4 +20,9 @@ class ShoppingList < ActiveRecord::Base
   def done_items
     items.where(done: true)
   end
+
+  def title
+    t = super
+    t.present? ? t : created_at.to_date
+  end
 end
