@@ -28,6 +28,7 @@ module Project
     end
 
     config.assets.initialize_on_precompile = false
+    Rails.application.config.assets.precompile += ['vendor.js', 'vendor.css']
 
     config.react.addons = true # defaults to false
   end
