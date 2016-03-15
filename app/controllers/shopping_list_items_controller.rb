@@ -13,11 +13,6 @@ class ShoppingListItemsController < ApplicationController
     end
   end
 
-  def done
-    shopping_list_item.update_attribute(:done, true)
-    redirect_to shopping_list_path(shopping_list)
-  end
-
   def destroy
     shopping_list_item.destroy
     redirect_to shopping_list_path(shopping_list)

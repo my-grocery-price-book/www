@@ -52,46 +52,6 @@ class ShoppingListItemsControllerTest < ActionController::TestCase
     end
   end
 
-  context 'POST done' do
-    setup do
-      @shopping_list_item = @shopping_list.items.create!
-    end
-
-    should 'mark item as done' do
-      post :done, id: @shopping_list_item.to_param, shopping_list_id: @shopping_list.to_param,
-                  shopping_list_item: @item_params
-
-      @shopping_list_item.reload
-      assert @shopping_list_item.done
-    end
-
-    should 'redirect to shopping_list_path' do
-      post :done, id: @shopping_list_item.to_param, shopping_list_id: @shopping_list.to_param,
-                  shopping_list_item: @item_params
-      assert_redirected_to shopping_list_path(@shopping_list)
-    end
-
-    should 'raise error if shopping_list_item does not exist' do
-      assert_raise ActiveRecord::RecordNotFound do
-        post :done, id: 'asdasd', shopping_list_id: @shopping_list.to_param, shopping_list_item: @item_params
-      end
-    end
-
-    should 'raise error if shopping_list does not exist' do
-      assert_raise ActiveRecord::RecordNotFound do
-        post :done, id: @shopping_list_item.to_param, shopping_list_id: 'asdasd', shopping_list_item: @item_params
-      end
-    end
-
-    should 'raise error if shopping_list belong to another shopper' do
-      other_shopping_list = ShoppingList.create(shopper_id: 0)
-      assert_raise ActiveRecord::RecordNotFound do
-        post :done, id: @shopping_list_item.to_param, shopping_list_id: other_shopping_list.to_param,
-                    shopping_list_item: @item_params
-      end
-    end
-  end
-
   context 'DELETE destroy' do
     setup do
       @shopping_list_item = @shopping_list.items.create!

@@ -2,11 +2,7 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   resources :shopping_lists, except: [:show, :new, :edit] do
-    resources :items, controller: 'shopping_list_items', only: [:index, :create, :destroy] do
-      member do
-        post 'done'
-      end
-    end
+    resources :items, controller: 'shopping_list_items', only: [:index, :create, :destroy]
   end
 
   resources :price_book_pages do
