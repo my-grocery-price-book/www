@@ -7,8 +7,8 @@ class BuildShoppingListTest < ActionDispatch::IntegrationTest
     assert page.has_content?('Shopping List')
     click_on 'New Shopping List'
     fill_in 'Item name', with: 'bread'
-    fill_in 'Amount', with: '2'
     fill_in 'Unit', with: 'loaves'
+    fill_in 'Amount', with: '2'
     click_button 'Add'
 
     assert page.has_content?('bread')

@@ -35,7 +35,7 @@ class ShoppingListItemsControllerTest < ActionController::TestCase
 
     should 'redirect to shopping_list_path' do
       post :create, shopping_list_id: @shopping_list.to_param, shopping_list_item: @item_params
-      assert_redirected_to shopping_list_path(@shopping_list)
+      assert_redirected_to shopping_list_items_path(@shopping_list)
     end
 
     should 'raise error if shopping_list does not exist' do

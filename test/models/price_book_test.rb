@@ -16,8 +16,8 @@ describe PriceBook do
   end
 
   describe 'Validation' do
-    it 'can create a new page' do
-      PriceBook.create!(shopper_id: 1)
+    it 'can create a new book' do
+      PriceBook.create!(shopper_id: 1111)
     end
 
     it 'requires shopper_id' do
@@ -99,14 +99,14 @@ describe PriceBook do
       add_page!(subject, name: 'Soda', category: 'Drinks', unit: 'Liters')
       add_page!(subject, name: 'Eggs', category: 'Fresh', unit: 'Dozens')
       pages = subject.search_pages(nil)
-      pages.map(&:name).must_equal(%w(Soda Eggs))
+      pages.map(&:name).must_match_array(%w(Soda Eggs))
     end
 
     it 'returns all pages with blank term' do
       add_page!(subject, name: 'Soda', category: 'Drinks', unit: 'Liters')
       add_page!(subject, name: 'Eggs', category: 'Fresh', unit: 'Dozens')
       pages = subject.search_pages('')
-      pages.map(&:name).must_equal(%w(Soda Eggs))
+      pages.map(&:name).must_match_array(%w(Soda Eggs))
     end
 
     it 'returns all pages that match start string' do
@@ -127,7 +127,7 @@ describe PriceBook do
       add_page!(subject, name: 'Soda', category: 'Drinks', unit: 'Liters')
       add_page!(subject, name: 'Eggs', category: 'Fresh', unit: 'Dozens')
       pages = subject.search_pages('s')
-      pages.map(&:name).must_equal(%w(Soda Eggs))
+      pages.map(&:name).must_match_array(%w(Soda Eggs))
     end
   end
 end

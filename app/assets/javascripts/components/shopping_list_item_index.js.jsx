@@ -88,24 +88,29 @@ var ShoppingListItemIndex = React.createClass({
           <div className="form-group">
             <input name="authenticity_token" value={props.authenticityToken} type="hidden"/>
             <div className="col-xs-5 nopadding">
+              <label className="sr-only" htmlFor="shopping_list_item_name">Item name</label>
               <input name="shopping_list_item[name]" className="form-control"
                      value={state.name} onChange={this.handleNameChange}
-                     disabled={state.is_adding} placeholder="name"/>
+                     disabled={state.is_adding} placeholder="name"
+                     id="shopping_list_item_name" />
             </div>
             <div className="col-xs-3 nopadding">
+              <label className="sr-only" htmlFor="shopping_list_item_unit">Unit</label>
               <input name="shopping_list_item[unit]" className="form-control col-xs-3"
                      value={state.unit} onChange={this.handleUnitChange}
-                     disabled={state.is_adding} placeholder="unit"/>
+                     disabled={state.is_adding} placeholder="unit"
+                     id="shopping_list_item_unit"/>
             </div>
             <div className="col-xs-2 nopadding">
+              <label className="sr-only" htmlFor="shopping_list_item_amount">Amount</label>
               <input name="shopping_list_item[amount]" className="form-control"
                      value={state.amount} onChange={this.handleAmountChange} type="number"
-                     min="1"
+                     min="1" id="shopping_list_item_amount"
                      disabled={state.is_adding} placeholder="amount"/>
             </div>
             <div className="col-xs-1 nopadding">
               <button className='btn btn-primary' disabled={state.is_adding}>
-                <span className="glyphicon glyphicon-plus"></span>
+                Add
               </button>
             </div>
           </div>
