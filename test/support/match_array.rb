@@ -5,7 +5,7 @@ module MiniTest::Assertions
   #
   #     assert_matched_arrays [3,2,1], [1,2,3]
 
-  def assert_matched_arrays exp, act
+  def assert_matched_arrays(exp, act)
     exp_ary = exp.to_ary
     assert_kind_of Array, exp_ary
     act_ary = act.to_ary

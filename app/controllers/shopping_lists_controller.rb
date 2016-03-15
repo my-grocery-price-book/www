@@ -10,17 +10,29 @@ class ShoppingListsController < ApplicationController
     shopping_list
 
     if shopping_list.update(shopping_list_params)
-      respond_to do |format|
-        format.html { redirect_to shopping_lists_path, notice: 'Successfully updated.' }
-        format.json
-      end
+      update_success
     else
-      respond_to do |format|
-        format.html { redirect_to shopping_lists_path, alert: 'Failed update.' }
-        format.json { render layout: 'error' }
-      end
+      update_failure
     end
   end
+
+  private
+
+  def update_failure
+    respond_to do |format|
+      format.html { redirect_to shopping_lists_path, alert: 'Failed update.' }
+      format.json { render layout: 'error' }
+    end
+  end
+
+  def update_success
+    respond_to do |format|
+      format.html { redirect_to shopping_lists_path, notice: 'Successfully updated.' }
+      format.json
+    end
+  end
+
+  public
 
   # POST /shopping_lists
   def create

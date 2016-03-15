@@ -35,7 +35,6 @@ class ShoppingListsControllerTest < ActionController::TestCase
     end
   end
 
-
   context 'DELETE destroy' do
     setup do
       @shopping_list = ShoppingList.create!(shopper: @shopper)

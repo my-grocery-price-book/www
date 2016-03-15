@@ -1,2 +1,1 @@
-json.(shopping_list_item, :id, :name, :amount, :unit)
-
+json.call(shopping_list_item, :id, :name, :amount, :unit)

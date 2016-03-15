@@ -9,12 +9,12 @@ class ShoppingListItemPurchasesControllerTest < ActionController::TestCase
   end
 
   context 'POST create' do
-    should "create a item purchase" do
+    should 'create a item purchase' do
       assert_difference('ShoppingList::ItemPurchase.count') do
         post :create, shopping_list_item_id: @shopping_list_item.id, format: 'json'
       end
 
-      assert_equal(@shopping_list_item.id,ShoppingList::ItemPurchase.last.shopping_list_item_id)
+      assert_equal(@shopping_list_item.id, ShoppingList::ItemPurchase.last.shopping_list_item_id)
     end
   end
 end
