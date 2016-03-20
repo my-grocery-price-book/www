@@ -1,9 +1,7 @@
-<%= react_component('ShoppingListItemIndex',
-                    shopping_list: MultiJson.load(render(partial: 'shopping_lists/shopping_list',
-                                                        formats: [:json],
-                                                        locals: {shopping_list: @shopping_list} )),
-                    initial_items: MultiJson.load(render(partial: 'index',
-                                                       locals: {shopping_list_items: @shopping_list.items},
-                                                       formats: [:json])),
-                    create_url: shopping_list_items_path,
-                    authenticity_token: form_authenticity_token) %>
+<%= react_server('ShoppingListItemIndex',
+                 shopping_list: react_render(partial: 'shopping_lists/shopping_list',
+                                             locals: {shopping_list: @shopping_list} ),
+                 initial_items: react_render(partial: 'index',
+                                             locals: {shopping_list_items: @shopping_list.items}),
+                 create_url: shopping_list_items_path,
+                 authenticity_token: form_authenticity_token) %>

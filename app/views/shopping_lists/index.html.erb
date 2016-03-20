@@ -1,4 +1,4 @@
-<%= react_component('ShoppingListIndex',
-                    initial_lists: MultiJson.load(render(partial: 'index', formats: [:json])),
-                    create_url: shopping_lists_path,
-                    authenticity_token: form_authenticity_token) %>
+<%= react_server('ShoppingListIndex',
+                 initial_lists: react_render(partial: 'index'),
+                 create_url: shopping_lists_path,
+                 authenticity_token: form_authenticity_token) %>
