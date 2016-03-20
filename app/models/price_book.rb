@@ -75,7 +75,7 @@ class PriceBook < ActiveRecord::Base
   end
 
   def search_pages(term)
-    pages.where('name ILIKE ?', "%#{term}%")
+    pages.where('name ILIKE ?', "%#{term}%").order('id DESC')
   end
 
   def find_page!(page_id)

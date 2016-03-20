@@ -6,16 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>My Grocery Price Book</title>
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-
-  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= stylesheet_link_tag 'vendor', 'application', media: 'all' %>
   <%= csrf_meta_tags %>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <%= javascript_include_tag 'vendor' %>
 </head>
 <body>
 
@@ -38,10 +32,6 @@
 
 <%= javascript_include_tag 'application' %>
 
-<%= render 'layouts/ga' %>
-<script type="text/javascript" src="https://s3.amazonaws.com/assets.freshdesk.com/widget/freshwidget.js"></script>
-<script type="text/javascript">
-  FreshWidget.init("", {"queryString": "&widgetType=popup&screenshot=no&searchArea=no", "backgroundImage": "https://s3.amazonaws.com/assets.freshdesk.com/widget/help-button.png", "utf8": "✓", "widgetType": "popup", "buttonType": "image", "buttonText": "Support", "buttonColor": "white", "buttonBg": "#006063", "alignment": "3", "offset": "145px", "formHeight": "500px", "screenshot": "no", "url": "https://grocerypricebook.freshdesk.com"} );
-</script>
+<%= render 'layouts/ga' unless Rails.env.test? %>
 </body>
 </html>

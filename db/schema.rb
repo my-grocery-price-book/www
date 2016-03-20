@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151018110108) do
+ActiveRecord::Schema.define(version: 20160315220121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -214,23 +214,32 @@ ActiveRecord::Schema.define(version: 20151018110108) do
   add_index "shoppers", ["email"], name: "index_shoppers_on_email", unique: true, using: :btree
   add_index "shoppers", ["reset_password_token"], name: "index_shoppers_on_reset_password_token", unique: true, using: :btree
 
+  create_table "shopping_list_item_purchases", force: :cascade do |t|
+    t.integer  "shopping_list_item_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "shopping_list_item_purchases", ["shopping_list_item_id"], name: "index_shopping_list_item_purchases_on_shopping_list_item_id", using: :btree
+
   create_table "shopping_list_items", force: :cascade do |t|
     t.integer  "shopping_list_id"
     t.string   "name"
     t.integer  "amount"
     t.string   "unit"
-    t.boolean  "done",             default: false, null: false
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "shopping_lists", force: :cascade do |t|
     t.integer  "shopper_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "title"
   end
 
   add_index "shopping_lists", ["shopper_id"], name: "index_shopping_lists_on_shopper_id", using: :btree
 
   add_foreign_key "price_book_pages", "price_books"
+  add_foreign_key "shopping_list_item_purchases", "shopping_list_items"
 end

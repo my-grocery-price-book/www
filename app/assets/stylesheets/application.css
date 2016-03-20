@@ -10,7 +10,8 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
+ *= require scaffolds
+ *= require shopping_list
  *= require_self
  */
 
@@ -32,4 +33,43 @@ body {
   padding: 5px 5px;
   margin-top: 10px;
   border-radius: 4px
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+.shopping-list-busy-overlay {
+    position: absolute;
+    top: 0;
+    margin-right: 5;
+    width: 92%;
+    height: 86%;
+    background-color: rgba(230, 230, 230, 0.9);
+    color: #fff;
+}
+
+.form-inline-block {
+    display: inline-block;
+    padding-right: 1%;
+}
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.item-purchased {
+    text-decoration:line-through;
 }

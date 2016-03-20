@@ -31,39 +31,7 @@ class ShoppingListsControllerTest < ActionController::TestCase
 
     should 'redirect to shopping_list_path' do
       post :create
-      assert_redirected_to shopping_list_path(ShoppingList.last)
-    end
-  end
-
-  context 'GET show' do
-    setup do
-      @shopping_list = ShoppingList.create!(shopper: @shopper)
-    end
-
-    should 'be success' do
-      get :show, id: @shopping_list.to_param
-      assert_response :success
-    end
-
-    should 'assign shopping list' do
-      get :show, id: @shopping_list.to_param
-      assert_equal(@shopping_list, assigns(:shopping_list))
-    end
-  end
-
-  context 'GET delete' do
-    setup do
-      @shopping_list = ShoppingList.create!(shopper: @shopper)
-    end
-
-    should 'be success' do
-      get :show, id: @shopping_list.to_param
-      assert_response :success
-    end
-
-    should 'assign shopping list' do
-      get :show, id: @shopping_list.to_param
-      assert_equal(@shopping_list, assigns(:shopping_list))
+      assert_redirected_to shopping_list_items_path(ShoppingList.last)
     end
   end
 

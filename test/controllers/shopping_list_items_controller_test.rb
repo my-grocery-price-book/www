@@ -7,6 +7,13 @@ class ShoppingListItemsControllerTest < ActionController::TestCase
     sign_in :shopper, @shopper
   end
 
+  context 'GET index' do
+    should 'be success' do
+      get :index, shopping_list_id: @shopping_list.to_param
+      assert_response :success
+    end
+  end
+
   context 'POST create' do
     setup do
       @item_params = { 'name' => 'Test', 'amount' => 123, 'unit' => 'ml' }
@@ -28,7 +35,7 @@ class ShoppingListItemsControllerTest < ActionController::TestCase
 
     should 'redirect to shopping_list_path' do
       post :create, shopping_list_id: @shopping_list.to_param, shopping_list_item: @item_params
-      assert_redirected_to shopping_list_path(@shopping_list)
+      assert_redirected_to shopping_list_items_path(@shopping_list)
     end
 
     should 'raise error if shopping_list does not exist' do
@@ -45,53 +52,13 @@ class ShoppingListItemsControllerTest < ActionController::TestCase
     end
   end
 
-  context 'POST done' do
-    setup do
-      @shopping_list_item = @shopping_list.items.create!
-    end
-
-    should 'mark item as done' do
-      post :done, id: @shopping_list_item.to_param, shopping_list_id: @shopping_list.to_param,
-                  shopping_list_item: @item_params
-
-      @shopping_list_item.reload
-      assert @shopping_list_item.done
-    end
-
-    should 'redirect to shopping_list_path' do
-      post :done, id: @shopping_list_item.to_param, shopping_list_id: @shopping_list.to_param,
-                  shopping_list_item: @item_params
-      assert_redirected_to shopping_list_path(@shopping_list)
-    end
-
-    should 'raise error if shopping_list_item does not exist' do
-      assert_raise ActiveRecord::RecordNotFound do
-        post :done, id: 'asdasd', shopping_list_id: @shopping_list.to_param, shopping_list_item: @item_params
-      end
-    end
-
-    should 'raise error if shopping_list does not exist' do
-      assert_raise ActiveRecord::RecordNotFound do
-        post :done, id: @shopping_list_item.to_param, shopping_list_id: 'asdasd', shopping_list_item: @item_params
-      end
-    end
-
-    should 'raise error if shopping_list belong to another shopper' do
-      other_shopping_list = ShoppingList.create(shopper_id: 0)
-      assert_raise ActiveRecord::RecordNotFound do
-        post :done, id: @shopping_list_item.to_param, shopping_list_id: other_shopping_list.to_param,
-                    shopping_list_item: @item_params
-      end
-    end
-  end
-
   context 'DELETE destroy' do
     setup do
       @shopping_list_item = @shopping_list.items.create!
     end
 
     should 'deletes the item' do
-      delete :destroy, id: @shopping_list_item.to_param, shopping_list_id: @shopping_list.to_param
+      delete :destroy, id: @shopping_list_item.to_param
 
       assert_raise ActiveRecord::RecordNotFound do
         @shopping_list_item.reload
@@ -99,26 +66,26 @@ class ShoppingListItemsControllerTest < ActionController::TestCase
     end
 
     should 'redirect to shopping_list_path' do
-      delete :destroy, id: @shopping_list_item.to_param, shopping_list_id: @shopping_list.to_param
-      assert_redirected_to shopping_list_path(@shopping_list)
+      delete :destroy, id: @shopping_list_item.to_param
+      assert_redirected_to shopping_list_items_path(@shopping_list)
+    end
+
+    should 'be success for json format' do
+      delete :destroy, id: @shopping_list_item.to_param, format: 'json'
+      assert_response :success
     end
 
     should 'raise error if shopping_list_item does not exist' do
       assert_raise ActiveRecord::RecordNotFound do
-        delete :destroy, id: 'asdasd', shopping_list_id: @shopping_list.to_param
+        delete :destroy, id: 'asdasd'
       end
     end
 
-    should 'raise error if shopping_list does not exist' do
-      assert_raise ActiveRecord::RecordNotFound do
-        delete :destroy, id: @shopping_list_item.to_param, shopping_list_id: 'asdasdas'
-      end
-    end
-
-    should 'raise error if shopping_list belong to another shopper' do
+    should 'raise error if shopping_list item belong to another shopper' do
       other_shopping_list = ShoppingList.create!(shopper_id: 77)
+      other_shopping_list_item = other_shopping_list.items.create!
       assert_raise ActiveRecord::RecordNotFound do
-        delete :destroy, id: @shopping_list_item.to_param, shopping_list_id: other_shopping_list.to_param
+        delete :destroy, id: other_shopping_list_item.to_param
       end
     end
   end

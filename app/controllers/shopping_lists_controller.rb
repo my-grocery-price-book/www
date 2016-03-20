@@ -3,35 +3,60 @@ class ShoppingListsController < ApplicationController
 
   # GET /shopping_lists
   def index
-    @shopping_lists = ShoppingList.for_shopper(current_shopper).each { |list| list.extend(ShoppingListDecorator) }
+    @shopping_lists = ShoppingList.for_shopper(current_shopper)
   end
 
-  # GET /shopping_lists/1
-  def show
-    @shopping_list = shopping_list.extend(ShoppingListDecorator)
-    @shopping_list_items = @shopping_list.items.each { |item| item.extend(ShoppingListItemDecorator) }
+  def update
+    shopping_list
+
+    if shopping_list.update(shopping_list_params)
+      update_success
+    else
+      update_failure
+    end
   end
+
+  private
+
+  def update_failure
+    respond_to do |format|
+      format.html { redirect_to shopping_lists_path, alert: 'Failed update.' }
+      format.json { render layout: 'error' }
+    end
+  end
+
+  def update_success
+    respond_to do |format|
+      format.html { redirect_to shopping_lists_path, notice: 'Successfully updated.' }
+      format.json
+    end
+  end
+
+  public
 
   # POST /shopping_lists
   def create
-    shopping_list = ShoppingList.create(shopper: current_shopper)
-    redirect_to shopping_list, notice: 'Shopping list was successfully created.'
+    @shopping_list = ShoppingList.create!(shopper: current_shopper)
+    redirect_to shopping_list_items_path(@shopping_list)
   end
 
   # DELETE /shopping_lists/1
   def destroy
     shopping_list.destroy
-    redirect_to shopping_lists_url, notice: 'Shopping list was successfully destroyed.'
+    respond_to do |format|
+      format.html { redirect_to shopping_lists_url, notice: 'Shopping list was successfully destroyed.' }
+      format.json
+    end
   end
 
   private
 
   def shopping_list
-    ShoppingList.for_shopper(current_shopper).find(params[:id])
+    @shopping_list ||= ShoppingList.for_shopper(current_shopper).find(params[:id])
   end
-  #
-  # # Only allow a trusted parameter "white list" through.
-  # def shopping_list_params
-  #   params.require(:shopping_list).permit(:due_date)
-  # end
+
+  # Only allow a trusted parameter "white list" through.
+  def shopping_list_params
+    params.require(:shopping_list).permit(:title)
+  end
 end
