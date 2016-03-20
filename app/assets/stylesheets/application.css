@@ -69,3 +69,7 @@ body {
     padding: 0 !important;
     margin: 0 !important;
 }
+
+.item-purchased {
+    text-decoration:line-through;
+}

@@ -5,7 +5,7 @@ var ShoppingListItem = React.createClass({
     unit: React.PropTypes.string,
     name: React.PropTypes.string,
     item_id: React.PropTypes.number,
-    purchased_at: React.PropTypes.object,
+    purchased_at: React.PropTypes.string,
     update_url: React.PropTypes.string,
     delete_url: React.PropTypes.string,
     purchase_url: React.PropTypes.string,
@@ -17,6 +17,7 @@ var ShoppingListItem = React.createClass({
     return {amount: this.props.amount,
             unit: this.props.unit,
             name: this.props.name,
+            purchased_at: this.props.purchased_at,
             is_busy: false,
             is_deleted: false};
   },
@@ -89,15 +90,38 @@ var ShoppingListItem = React.createClass({
 
     return (
         <div style={state.is_deleted ? {display: 'none'} : null }
+             data-item-name={state.name + "-" + state.unit}
              className="col-md-6">
-          {state.amount} {state.unit} {state.name}
-          <ConfirmDelete modal_id={"confirmModal" + props.item_id}
-                         ok_handler={this.handleDelete}/>
-          <form onSubmit={this.handleDeleteSubmit} action={props.delete_url}
+          <span className={state.purchased_at ? 'item-purchased' : '' }>
+          {state.amount} {state.unit} <span data-name>{state.name}</span>
+          </span>
+          <form action={props.purchase_url}
+                style={state.purchased_at ? {display: 'none'} : null }
+                method="post" className="form-inline form-inline-block">
+            <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
+            <button className="btn btn-link" role="button">
+              <span className="sr-only">purchased</span>
+              <span className="glyphicon glyphicon-shopping-cart"></span>
+            </button>
+          </form>
+          <form action={props.unpurchase_url}
+                style={state.purchased_at ? null : {display: 'none'} }
                 method="post" className="form-inline form-inline-block">
             <input name="_method" value="delete" type="hidden"/>
             <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
             <button className="btn btn-link" role="button">
+              <span className="sr-only">unpurchased</span>
+              <span className="glyphicon glyphicon-minus"></span>
+            </button>
+          </form>
+          <ConfirmDelete modal_id={"confirmModal" + props.item_id}
+                         ok_handler={this.handleDelete}/>
+          <form onSubmit={this.handleDeleteSubmit}
+                method="post" className="form-inline form-inline-block">
+            <input name="_method" value="delete" type="hidden"/>
+            <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
+            <button className="btn btn-link" role="button">
+              <span className="sr-only">delete</span>
               <span className="glyphicon glyphicon-remove"></span>
             </button>
           </form>

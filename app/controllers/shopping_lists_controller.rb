@@ -37,7 +37,7 @@ class ShoppingListsController < ApplicationController
   # POST /shopping_lists
   def create
     @shopping_list = ShoppingList.create!(shopper: current_shopper)
-    redirect_to shopping_list_items_path(@shopping_list), notice: 'Shopping list was successfully created.'
+    redirect_to shopping_list_items_path(@shopping_list)
   end
 
   # DELETE /shopping_lists/1
