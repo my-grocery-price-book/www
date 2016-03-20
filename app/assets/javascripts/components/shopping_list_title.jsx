@@ -5,7 +5,7 @@ var ShoppingListTitle = React.createClass({
     title: React.PropTypes.string,
     show_form: React.PropTypes.bool,
     onDone: React.PropTypes.func,
-    authenticityToken: React.PropTypes.string
+    authenticity_token: React.PropTypes.string
   },
 
   getInitialState: function () {
@@ -23,7 +23,7 @@ var ShoppingListTitle = React.createClass({
       url: this.props.update_url,
       dataType: 'json',
       type: 'PATCH',
-      data: {"authenticity_token": this.props.authenticityToken, shopping_list: {title: this.state.title }},
+      data: {"authenticity_token": this.props.authenticity_token, shopping_list: {title: this.state.title }},
       success: function (response) {
         this.setState({title: response.data.title, is_updating: false});
         this.props.onDone();
@@ -43,7 +43,7 @@ var ShoppingListTitle = React.createClass({
     return (<form onSubmit={this.updateTitle} action={props.update_url}
                   method="post" className="form-inline title-form">
       <input name="_method" value="patch" type="hidden"/>
-      <input name="authenticity_token" value={props.authenticityToken} type="hidden"/>
+      <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
       <div className="form-group">
         <h3>
           <input name="shopping_list[title]"

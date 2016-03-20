@@ -7,7 +7,7 @@ var ShoppingList = React.createClass({
     item_id: React.PropTypes.number,
     title: React.PropTypes.string,
     item_progress: React.PropTypes.string,
-    authenticityToken: React.PropTypes.string
+    authenticity_token: React.PropTypes.string
   },
 
   getInitialState: function () {
@@ -35,7 +35,7 @@ var ShoppingList = React.createClass({
       url: this.props.delete_url,
       dataType: 'json',
       type: 'DELETE',
-      data: {"authenticity_token": this.props.authenticityToken, shopping_list: {title: this.state.title }},
+      data: {"authenticity_token": this.props.authenticity_token},
       success: function (response) {
         console.info(response);
         this.setState({is_deleted: true, is_busy: false});
@@ -60,13 +60,13 @@ var ShoppingList = React.createClass({
               <ShoppingListTitle update_url={props.update_url}
                                  show_form={state.show_form}
                                  title={props.title}
-                                 authenticityToken={props.authenticityToken}
+                                 authenticity_token={props.authenticity_token}
                                  onDone={this.editTitleDone}/>
 
               <p>{props.item_progress}</p>
               <form onSubmit={this.handleDeleteSubmit} action={props.delete_url} method="post" className="form-inline">
                 <input name="_method" value="delete" type="hidden"/>
-                <input name="authenticity_token" value={props.authenticityToken} type="hidden"/>
+                <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
                 <div className="btn-group" role="group" style={state.show_form ? {display: 'none'} : null}>
                   <a href={props.items_url}
                      className="btn btn-primary">

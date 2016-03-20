@@ -1,1 +1,2 @@
-json.call(@shopping_list_item_purchase, :id)
+json.purchased_at @shopping_list_item_purchase.created_at
+

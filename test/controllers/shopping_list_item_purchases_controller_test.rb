@@ -15,6 +15,7 @@ class ShoppingListItemPurchasesControllerTest < ActionController::TestCase
       end
 
       assert_equal(@shopping_list_item.id, ShoppingList::ItemPurchase.last.shopping_list_item_id)
+      assert_not_nil(@shopping_list_item.purchased_at)
     end
   end
 end

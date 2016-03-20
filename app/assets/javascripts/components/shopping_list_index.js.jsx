@@ -1,17 +1,18 @@
 var ShoppingListIndex = React.createClass({
 
   propTypes: {
-    initialLists: React.PropTypes.arrayOf(React.PropTypes.object),
-    createUrl: React.PropTypes.string,
-    authenticityToken: React.PropTypes.string
+    initial_lists: React.PropTypes.arrayOf(React.PropTypes.object),
+    create_url: React.PropTypes.string,
+    authenticity_token: React.PropTypes.string
   },
 
   getInitialState: function () {
-    return {lists: this.props.initialLists};
+    return {lists: this.props.initial_lists};
   },
 
   render: function () {
     var vm = this;
+
     var render_lists = this.state.lists.map(function (list) {
       return (
           <ShoppingList key={"list_" + list.id}
@@ -21,7 +22,7 @@ var ShoppingListIndex = React.createClass({
                         item_id={list.id}
                         title={list.title}
                         item_progress={list.item_progress}
-                        authenticityToken={vm.props.authenticityToken}/>
+                        authenticity_token={vm.props.authenticity_token}/>
       );
     });
 
@@ -29,8 +30,8 @@ var ShoppingListIndex = React.createClass({
       <div className="row">
         <div className="col-md-12">
           <h1>Shopping Lists</h1>
-          <form action={this.props.createUrl} method="post">
-            <input name="authenticity_token" value={this.props.authenticityToken} type="hidden"/>
+          <form action={this.props.create_url} method="post">
+            <input name="authenticity_token" value={this.props.authenticity_token} type="hidden"/>
             <button className='btn btn-default'>New Shopping List</button>
           </form>
           { this.state.is_busy_creating ? <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"

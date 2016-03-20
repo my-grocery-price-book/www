@@ -1,22 +1,22 @@
 var ShoppingListItemIndex = React.createClass({
 
   propTypes: {
-    initialList: React.PropTypes.arrayOf(React.PropTypes.object),
-    shoppingList: React.PropTypes.object,
-    createUrl: React.PropTypes.string,
-    authenticityToken: React.PropTypes.string
+    initial_items: React.PropTypes.arrayOf(React.PropTypes.object),
+    shopping_list: React.PropTypes.object,
+    create_url: React.PropTypes.string,
+    authenticity_token: React.PropTypes.string
   },
 
   getInitialState: function () {
-    return {list: this.props.initialList, showForm: false};
+    return {items: this.props.initial_items, show_title_form: false};
   },
 
   editTitle: function () {
-    this.setState({showForm: true});
+    this.setState({show_title_form: true});
   },
 
   editTitleDone: function () {
-    this.setState({showForm: false});
+    this.setState({show_title_form: false});
   },
 
   handleNameChange: function(e) {
@@ -35,15 +35,15 @@ var ShoppingListItemIndex = React.createClass({
     submit_event.preventDefault();
     this.setState({is_adding: true});
     $.ajax({
-      url: this.props.createUrl,
+      url: this.props.create_url,
       dataType: 'json',
       type: 'POST',
-      data: {authenticity_token: this.props.authenticityToken,
+      data: {authenticity_token: this.props.authenticity_token,
              shopping_list_item: {name: this.state.name, amount: this.state.amount, unit: this.state.unit }},
       success: function (response) {
-        new_list = this.state.list.slice();
-        new_list.push(response.data);
-        this.setState({name: '', amount: '', unit: '', is_adding: false, list: new_list});
+        new_items = this.state.items.slice();
+        new_items.push(response.data);
+        this.setState({name: '', amount: '', unit: '', is_adding: false, items: new_items});
       }.bind(this),
       error: function (xhr, status, err) {
         this.setState({is_adding: false});
@@ -57,36 +57,44 @@ var ShoppingListItemIndex = React.createClass({
     var state = this.state;
     var props = this.props;
 
-    var render_list = this.state.list.map(function (item) {
+    var rendered_items = this.state.items.map(function (item) {
       return (
-        <div key={"item_" + item.id} className="col-xs-12">
-          {item.amount} {item.unit} {item.name}
-        </div>
+          <ShoppingListItem key={"item_" + item.id}
+                            item_id={item.id}
+                            amount={item.amount}
+                            unit={item.unit}
+                            name={item.name}
+                            purchased_at={item.purchased_at}
+                            update_url={item.update_url}
+                            delete_url={item.delete_url}
+                            purchase_url={item.purchase_url}
+                            unpurchase_url={item.unpurchase_url}
+                            authenticity_token={props.authenticity_token}/>
       );
     });
 
     return <div>
       <div className="row">
         <div className="col-xs-12">
-          <ShoppingListTitle update_url={props.shoppingList.update_url}
-                             showForm={state.showForm}
-                             title={props.shoppingList.title}
-                             authenticityToken={props.authenticityToken}
+          <ShoppingListTitle update_url={props.shopping_list.update_url}
+                             show_form={state.show_title_form}
+                             title={props.shopping_list.title}
+                             authenticity_token={props.authenticity_token}
                              onDone={this.editTitleDone}/>
           <button className="btn btn-default btn-xs"
                   role="button"
                   onClick={this.editTitle}
-                  style={state.showForm ? {display: 'none'} : null }
-                  type="submit">Edit</button>
+                  style={state.show_title_form ? {display: 'none'} : null }
+                  type="submit">Edit Title</button>
         </div>
       </div>
       <div className="row">
-        {render_list}
+        {rendered_items}
       </div>
       <div className="row">
-        <form onSubmit={this.addItem} action={props.createUrl} method="post">
+        <form onSubmit={this.addItem} action={props.create_url} method="post">
           <div className="form-group">
-            <input name="authenticity_token" value={props.authenticityToken} type="hidden"/>
+            <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
             <div className="col-xs-5 nopadding">
               <label className="sr-only" htmlFor="shopping_list_item_name">Item name</label>
               <input name="shopping_list_item[name]" className="form-control"

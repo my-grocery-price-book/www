@@ -3,12 +3,12 @@ Rails.application.routes.draw do
 
   root 'pages#index'
 
-  resources :shopping_lists, except: [:show, :new, :edit] do
-    resources :items, controller: 'shopping_list_items', only: [:index, :create, :destroy]
+  resources :shopping_lists, only: [:index, :create, :update, :destroy] do
+    resources :items, controller: 'shopping_list_items', only: [:index, :create]
   end
 
-  resources :shopping_list_items, only: [] do
-    resources :purchases, controller: 'shopping_list_item_purchases', only: [:create]
+  resources :shopping_list_items, only: [:update, :destroy] do
+    resource :purchases, controller: 'shopping_list_item_purchases', only: [:create, :destroy]
   end
 
   resources :price_book_pages do

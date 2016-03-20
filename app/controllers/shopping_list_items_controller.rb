@@ -14,18 +14,18 @@ class ShoppingListItemsController < ApplicationController
   end
 
   def destroy
-    shopping_list_item.destroy
-    redirect_to shopping_list_path(shopping_list)
+    @shopping_list_item = ShoppingList.items_for_shopper(current_shopper).find(params[:id])
+    @shopping_list_item.destroy
+    respond_to do |format|
+      format.html { redirect_to shopping_list_items_path(shopping_list_id: @shopping_list_item.shopping_list_id) }
+      format.json
+    end
   end
 
   private
 
   def shopping_list
     @shopping_list ||= ShoppingList.for_shopper(current_shopper).find(params[:shopping_list_id])
-  end
-
-  def shopping_list_item
-    shopping_list.items.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
