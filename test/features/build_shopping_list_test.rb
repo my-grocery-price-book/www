@@ -1,9 +1,7 @@
 require 'integration_helper'
 
 class BuildShoppingListTest < ActionDispatch::IntegrationTest
-  test 'create a new shopping list' do
-    visit '/shopping_lists'
-    sign_in_shopper
+  def create_shopping_list
     assert page.has_text?('Shopping List')
     click_on 'New Shopping List'
     fill_in 'Item name', with: 'bread'
@@ -42,5 +40,17 @@ class BuildShoppingListTest < ActionDispatch::IntegrationTest
     assert page.has_no_text?('eggs')
     assert page.has_text?('bread')
     assert page.has_text?('milk')
+  end
+
+  test 'create shopping list as logged in shopper' do
+    visit '/shopping_lists'
+    sign_in_shopper
+    create_shopping_list
+  end
+
+  test 'create shopping list as guest' do
+    visit '/shopping_lists'
+    sign_in_guest
+    create_shopping_list
   end
 end

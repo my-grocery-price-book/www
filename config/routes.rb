@@ -35,4 +35,6 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  post 'guest_login' => 'guest#login', as: 'guest_login'
 end

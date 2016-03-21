@@ -18,8 +18,8 @@
         <li><a href="<%= shopping_lists_path %>">Shopping List</a></li>
         <li>
         <% if shopper_signed_in? %>
-          <%= form_tag(destroy_shopper_session_path, method: :delete, class: 'form-inline') do |f| %>
-            <button class='logout'>Logout</button>
+          <%= form_tag(destroy_shopper_session_path, method: :delete, class: 'form-inline form-inline-block') do |f| %>
+            <button class='btn btn-link btn-logout'>Logout</button>
           <% end %>
         <% else %>
           <a href="<%= new_shopper_session_path %>">Login</a>
