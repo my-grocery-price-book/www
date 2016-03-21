@@ -9,7 +9,7 @@ class UpdateProfileTest < ActionDispatch::IntegrationTest
 
     select 'South Africa - Western Cape', from: 'Current public api'
     click_button 'Update'
-    assert page.has_css?('.notice', text: 'Update successful')
+    assert page.has_css?('#notice', text: 'Update successful')
     assert page.has_content?('South Africa - Western Cape')
   end
 end
