@@ -19,15 +19,15 @@ var ShoppingListItemIndex = React.createClass({
     this.setState({show_title_form: false});
   },
 
-  handleNameChange: function(e) {
+  handleNameChange: function (e) {
     this.setState({name: e.target.value});
   },
 
-  handleAmountChange: function(e) {
+  handleAmountChange: function (e) {
     this.setState({amount: e.target.value});
   },
 
-  handleUnitChange: function(e) {
+  handleUnitChange: function (e) {
     this.setState({unit: e.target.value});
   },
 
@@ -38,8 +38,10 @@ var ShoppingListItemIndex = React.createClass({
       url: this.props.create_url,
       dataType: 'json',
       type: 'POST',
-      data: {authenticity_token: this.props.authenticity_token,
-             shopping_list_item: {name: this.state.name, amount: this.state.amount, unit: this.state.unit }},
+      data: {
+        authenticity_token: this.props.authenticity_token,
+        shopping_list_item: {name: this.state.name, amount: this.state.amount, unit: this.state.unit}
+      },
       success: function (response) {
         new_items = this.state.items.slice();
         new_items.push(response.data);
@@ -85,43 +87,45 @@ var ShoppingListItemIndex = React.createClass({
                   role="button"
                   onClick={this.editTitle}
                   style={state.show_title_form ? {display: 'none'} : null }
-                  type="submit">Edit Title</button>
+                  type="submit">Edit Title
+          </button>
         </div>
       </div>
       <div className="row">
         {rendered_items}
       </div>
-      <form onSubmit={this.addItem} action={props.create_url} method="post"
-            className="row form-inline form-inline-block">
-        <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
-        <div className="col-xs-5 no-right-padding">
-          <label className="sr-only" htmlFor="shopping_list_item_name">Item name</label>
-          <input name="shopping_list_item[name]" className="form-control"
-                 value={state.name} onChange={this.handleNameChange}
-                 disabled={state.is_adding} placeholder="name"
-                 id="shopping_list_item_name" />
-        </div>
-        <div className="col-xs-3 nopadding">
-          <label className="sr-only" htmlFor="shopping_list_item_unit">Unit</label>
-          <input name="shopping_list_item[unit]" className="form-control col-xs-3"
-                 value={state.unit} onChange={this.handleUnitChange}
-                 disabled={state.is_adding} placeholder="unit"
-                 id="shopping_list_item_unit"/>
-        </div>
-        <div className="col-xs-2 nopadding">
-          <label className="sr-only" htmlFor="shopping_list_item_amount">Amount</label>
-          <input name="shopping_list_item[amount]" className="form-control"
-                 value={state.amount} onChange={this.handleAmountChange} type="number"
-                 min="1" id="shopping_list_item_amount"
-                 disabled={state.is_adding} placeholder="amount"/>
-        </div>
-        <div className="col-xs-1 no-left-padding">
-          <button className='btn btn-primary' disabled={state.is_adding}>
-            <span className="sr-only">Add</span>
-            <span className="glyphicon glyphicon-plus"></span>
-          </button>
-        </div>
-      </form>
-  </div>;
+      <div className="row">
+        <form onSubmit={this.addItem} action={props.create_url} method="post">
+          <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
+          <div className="col-xs-5 no-right-padding">
+            <label className="sr-only" htmlFor="shopping_list_item_name">Item name</label>
+            <input name="shopping_list_item[name]" className="form-control"
+                   value={state.name} onChange={this.handleNameChange}
+                   disabled={state.is_adding} placeholder="name"
+                   id="shopping_list_item_name"/>
+          </div>
+          <div className="col-xs-3 nopadding">
+            <label className="sr-only" htmlFor="shopping_list_item_unit">Unit</label>
+            <input name="shopping_list_item[unit]" className="form-control col-xs-3"
+                   value={state.unit} onChange={this.handleUnitChange}
+                   disabled={state.is_adding} placeholder="unit"
+                   id="shopping_list_item_unit"/>
+          </div>
+          <div className="col-xs-2 nopadding">
+            <label className="sr-only" htmlFor="shopping_list_item_amount">Amount</label>
+            <input name="shopping_list_item[amount]" className="form-control"
+                   value={state.amount} onChange={this.handleAmountChange} type="number"
+                   min="1" id="shopping_list_item_amount"
+                   disabled={state.is_adding} placeholder="amount"/>
+          </div>
+          <div className="col-xs-1 no-left-padding">
+            <button className='btn btn-primary' disabled={state.is_adding}>
+              <span className="sr-only">Add</span>
+              <span className="glyphicon glyphicon-plus"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>;
   }
 });
