@@ -34,23 +34,36 @@ var ShoppingListItem = React.createClass({
     this.setState({unit: e.target.value});
   },
 
-  handlePurchasedSubmit: function(submit_event) {
-    submit_event.preventDefault();
-    $("#confirmModal" + this.props.item_id).modal('show');
-  },
-
-  handlePurchase: function (button_event) {
+  handlePurchasedSubmit: function (button_event) {
     button_event.preventDefault();
-    $("#confirmModal" + this.props.item_id).modal('hide');
     this.setState({is_busy: true});
     $.ajax({
-      url: this.props.delete_url,
+      url: this.props.purchase_url,
       dataType: 'json',
-      type: 'DELETE',
-      data: {"authenticity_token": this.props.authenticity_token, shopping_list: {title: this.state.title }},
+      type: 'POST',
+      data: {"authenticity_token": this.props.authenticity_token},
       success: function (response) {
         console.info(response);
-        this.setState({is_deleted: true, is_busy: false});
+        this.setState({purchased_at: response.data.purchased_at, is_busy: false});
+      }.bind(this),
+      error: function (xhr, status, err) {
+        this.setState({is_busy: false});
+        console.error(status, err.toString());
+      }.bind(this)
+    });
+  },
+
+  handleUnPurchasedSubmit: function (button_event) {
+    button_event.preventDefault();
+    this.setState({is_busy: true});
+    $.ajax({
+      url: this.props.unpurchase_url,
+      dataType: 'json',
+      type: 'DELETE',
+      data: {"authenticity_token": this.props.authenticity_token},
+      success: function (response) {
+        console.info(response);
+        this.setState({purchased_at: response.data.purchased_at, is_busy: false});
       }.bind(this),
       error: function (xhr, status, err) {
         this.setState({is_busy: false});
@@ -96,20 +109,22 @@ var ShoppingListItem = React.createClass({
           {state.amount} {state.unit} <span data-name>{state.name}</span>
           </span>
           <form action={props.purchase_url}
+                onSubmit={this.handlePurchasedSubmit}
                 style={state.purchased_at ? {display: 'none'} : null }
                 method="post" className="form-inline form-inline-block">
             <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
-            <button className="btn btn-link" role="button">
+            <button className="btn btn-link" role="button" disabled={state.is_busy}>
               <span className="sr-only">purchased</span>
               <span className="glyphicon glyphicon-shopping-cart"></span>
             </button>
           </form>
           <form action={props.unpurchase_url}
+                onSubmit={this.handleUnPurchasedSubmit}
                 style={state.purchased_at ? null : {display: 'none'} }
                 method="post" className="form-inline form-inline-block">
             <input name="_method" value="delete" type="hidden"/>
             <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
-            <button className="btn btn-link" role="button">
+            <button className="btn btn-link" role="button" disabled={state.is_busy}>
               <span className="sr-only">unpurchased</span>
               <span className="glyphicon glyphicon-minus"></span>
             </button>
@@ -120,15 +135,11 @@ var ShoppingListItem = React.createClass({
                 method="post" className="form-inline form-inline-block">
             <input name="_method" value="delete" type="hidden"/>
             <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
-            <button className="btn btn-link" role="button">
+            <button className="btn btn-link" role="button" disabled={state.is_busy}>
               <span className="sr-only">delete</span>
               <span className="glyphicon glyphicon-remove"></span>
             </button>
           </form>
-          <div style={state.is_busy ? null : {display: 'none'}}
-               className="shopping-list-busy-overlay">
-            <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
-          </div>
         </div> );
   }
 });
