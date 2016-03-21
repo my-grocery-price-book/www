@@ -64,6 +64,7 @@ class ShoppingListItemPurchasesControllerTest < ActionController::TestCase
     should 'be success for json format' do
       delete :destroy, shopping_list_item_id: @shopping_list_item.id, format: 'json'
       assert_response :success
+      assert_equal({ 'data' => { 'purchased_at' => nil } }, JSON.parse(response.body))
     end
   end
 end

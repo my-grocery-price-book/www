@@ -19,6 +19,7 @@ class ShoppingList::Item < ActiveRecord::Base
 
   def destroy_purchase
     purchase.destroy
+    reload
   end
 
   # @param [Shopper] shopper
