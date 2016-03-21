@@ -27,4 +27,16 @@ class Shopper < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  def password_required?
+    super && !guest?
+  end
+
+  def email_required?
+    !guest?
+  end
+
+  def confirmation_required?
+    super && !guest?
+  end
 end

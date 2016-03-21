@@ -7,6 +7,13 @@ class GuestControllerTest < ActionController::TestCase
         post :login
       end
 
+      assert Shopper.last.guest?
+      puts Shopper.last.inspect
+    end
+
+    should 'redirect to root_path' do
+      post :login
+
       assert_redirected_to root_path
     end
   end
