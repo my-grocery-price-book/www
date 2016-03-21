@@ -53,7 +53,7 @@ var ShoppingList = React.createClass({
 
     return (
         <div style={state.is_deleted ? {display: 'none'} : null }
-             className="col-sm-6 col-md-3">
+             className="col-sm-6 col-md-4">
           <ConfirmDelete modal_id={"confirmModal" + props.item_id} ok_handler={this.handleDelete}/>
           <div className="thumbnail">
             <div className="caption">

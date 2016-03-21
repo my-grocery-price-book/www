@@ -25,6 +25,8 @@ gem 'faraday', require: false # for making http request
 gem 'carmen', require: false # for country and region information
 gem 'json', require: false
 
+gem 'component_library'
+
 group :development do
   gem 'annotate', '~> 2.6', require: false
 end

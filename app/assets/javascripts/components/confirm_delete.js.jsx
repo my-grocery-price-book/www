@@ -3,12 +3,19 @@ var ConfirmDelete = React.createClass({
   propTypes: {
     delete_url: React.PropTypes.string,
     modal_id: React.PropTypes.string,
-    ok_handler: React.PropTypes.func
+    ok_handler: React.PropTypes.func,
+    div_class: React.PropTypes.string
+  },
+
+  getDefaultProps: function() {
+    return {
+      div_class: 'modal fade'
+    };
   },
 
   render: function () {
     return (
-        <div className="modal fade"
+        <div className={this.props.div_class}
              id={this.props.modal_id}
              tabIndex="-1"
              role="dialog"

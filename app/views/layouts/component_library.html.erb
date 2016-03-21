@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Component</title>
+  <%= stylesheet_link_tag 'vendor', 'application', media: 'all' %>
+
+  <%= stylesheet_link_tag ComponentLibrary.stylesheet_path, media: 'all' %>
+  <%= javascript_include_tag 'vendor', ComponentLibrary.javascript_path %>
+</head>
+<body>
+
+<div class="container-fluid">
+  <%= yield %>
+</div>
+
+<%= javascript_include_tag 'application' %>
+<script>
+  jQuery( document ).ready(function( $ ) {
+    // Code using $ as usual goes here.
+    $(document).on('submit','form', function(e){
+      e.preventDefault();
+      console.log('form disabled');
+    });
+  });
+</script>
+</body>
+</html>
