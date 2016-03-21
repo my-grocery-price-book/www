@@ -58,6 +58,9 @@ GEM
       activesupport (>= 3.0.0)
     cliver (0.3.2)
     coffee-script-source (1.10.0)
+    component_library (0.0.3)
+      rails (>= 4.0.0)
+      sass (~> 3.4, >= 3.4.21)
     concurrent-ruby (1.0.1)
     connection_pool (2.2.0)
     crack (0.4.2)
@@ -150,6 +153,7 @@ GEM
     rollbar (2.3.0)
       oj (~> 2.12.14)
     safe_yaml (1.0.4)
+    sass (3.4.21)
     shoulda-context (1.2.1)
     simplecov (0.10.0)
       docile (~> 1.1.0)
@@ -196,6 +200,7 @@ DEPENDENCIES
   annotate (~> 2.6)
   capybara
   carmen
+  component_library
   database_cleaner
   devise
   dotenv-rails
