@@ -70,6 +70,16 @@ body {
     margin: 0 !important;
 }
 
+.no-left-padding {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+
+.no-right-padding {
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+}
+
 .item-purchased {
     text-decoration:line-through;
 }
