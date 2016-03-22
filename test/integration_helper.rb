@@ -18,4 +18,8 @@ class ActionDispatch::IntegrationTest
     click_button 'Log in'
     shopper
   end
+
+  def sign_in_guest
+    click_button 'Log in as Guest'
+  end
 end

@@ -10,7 +10,7 @@ class CreatePurchaseTest < ActionDispatch::IntegrationTest
     fill_in 'Store', with: 'Woolworths'
     fill_in 'Location', with: 'Canal Walk'
     click_button 'Update'
-    assert page.has_css?('.notice', text: 'Purchase was successfully updated.')
+    assert page.has_css?('#notice', text: 'Purchase was successfully updated.')
     assert page.has_field?('Store', with: 'Woolworths')
 
     # create a item
@@ -23,7 +23,7 @@ class CreatePurchaseTest < ActionDispatch::IntegrationTest
     fill_in 'Total price', with: '10.99'
     click_button 'Save'
     assert page.has_content?('Editing Purchase')
-    assert page.has_css?('.notice', text: 'Purchase item was successfully updated.')
+    assert page.has_css?('#notice', text: 'Purchase item was successfully updated.')
     assert page.has_field?('Product brand name', with: 'Coke Lite')
 
     # create a second item
@@ -38,7 +38,7 @@ class CreatePurchaseTest < ActionDispatch::IntegrationTest
       fill_in 'Total price', with: '18.95'
       click_button 'Save'
     end
-    assert page.has_css?('.notice', text: 'Purchase item was successfully updated.')
+    assert page.has_css?('#notice', text: 'Purchase item was successfully updated.')
     assert page.has_field?('Product brand name', with: 'Coke Lite')
     assert page.has_field?('Product brand name', with: 'Woolworths White Sugar')
 

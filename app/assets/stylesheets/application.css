@@ -19,20 +19,8 @@ body {
   padding-top: 50px;
 }
 
-.btn-default {
-  margin-bottom: 10px;
-}
-
-.logout {
-  color: #333;
-  background-color: #fff;
-  border-color: #ccc;
-  text-shadow: 0 1px 0 #fff;
-  position: relative;
-  display: block;
-  padding: 5px 5px;
-  margin-top: 10px;
-  border-radius: 4px
+.btn-logout {
+    padding-top: 14px;
 }
 
 .glyphicon-refresh-animate {
