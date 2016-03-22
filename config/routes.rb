@@ -37,4 +37,6 @@ Rails.application.routes.draw do
   end
 
   post 'guest_login' => 'guest#login', as: 'guest_login'
+  get 'guest_register' => 'guest#register', as: 'guest_register'
+  patch 'guest_register' => 'guest#do_register'
 end

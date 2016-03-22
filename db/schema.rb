@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160321222045) do
+ActiveRecord::Schema.define(version: 20160321225104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -212,7 +212,7 @@ ActiveRecord::Schema.define(version: 20160321222045) do
   end
 
   add_index "shoppers", ["confirmation_token"], name: "index_shoppers_on_confirmation_token", unique: true, using: :btree
-  add_index "shoppers", ["email"], name: "index_shoppers_on_email", unique: true, using: :btree
+  add_index "shoppers", ["email"], name: "index_shoppers_on_email", using: :btree
   add_index "shoppers", ["reset_password_token"], name: "index_shoppers_on_reset_password_token", unique: true, using: :btree
 
   create_table "shopping_list_item_purchases", force: :cascade do |t|

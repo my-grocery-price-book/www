@@ -29,14 +29,21 @@ class Shopper < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   def password_required?
-    super && !guest?
+    return false if new_creating_guest?
+    super || guest?
   end
 
   def email_required?
-    !guest?
+    !new_creating_guest?
   end
 
-  def confirmation_required?
-    super && !guest?
+  def valid_password?(*)
+    guest? || super
+  end
+
+  private
+
+  def new_creating_guest?
+    new_record? && guest?
   end
 end

@@ -45,7 +45,7 @@ GEM
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
-    bcrypt (3.1.10)
+    bcrypt (3.1.11)
     builder (3.2.2)
     capybara (2.6.2)
       addressable
@@ -145,7 +145,7 @@ GEM
       rails (>= 3.2)
       tilt
     ref (2.0.0)
-    responders (2.1.1)
+    responders (2.1.2)
       railties (>= 4.2.0, < 5.1)
     rollbar (2.3.0)
       oj (~> 2.12.14)

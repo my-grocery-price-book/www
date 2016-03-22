@@ -8,7 +8,7 @@ class RegisterAndLoginTest < ActionDispatch::IntegrationTest
     fill_in 'Password', with: '123asd!@#'
     fill_in 'Password confirmation', with: '123asd!@#'
     click_button 'Sign up'
-    assert page.has_content?('Work in progress but hopefully soon the place for keeping a grocery price book')
+    assert page.has_content?('Welcome! You have signed up successfully.')
   end
 
   test 'login' do
@@ -21,5 +21,16 @@ class RegisterAndLoginTest < ActionDispatch::IntegrationTest
     fill_in 'Password', with: 'pass123!!'
     click_button 'Log in'
     assert page.has_content?('Listing Purchases')
+  end
+
+  test 'guest register' do
+    visit '/purchases'
+    click_on 'Log in as Guest'
+    click_link 'Register'
+    fill_in 'Email', with: 'test@example.com'
+    fill_in 'Password', with: '123asd!@#'
+    fill_in 'Password confirmation', with: '123asd!@#'
+    click_button 'Register'
+    assert page.has_content?('You have registered successfully.')
   end
 end

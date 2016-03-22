@@ -8,7 +8,6 @@ class GuestControllerTest < ActionController::TestCase
       end
 
       assert Shopper.last.guest?
-      puts Shopper.last.inspect
     end
 
     should 'redirect to root_path' do
