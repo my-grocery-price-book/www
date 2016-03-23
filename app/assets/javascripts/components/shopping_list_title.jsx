@@ -1,5 +1,3 @@
-/*eslint no-unused-vars: [2, { "varsIgnorePattern": "ShoppingListTitle" }]*/
-
 var ShoppingListTitle = React.createClass({
 
   propTypes: {

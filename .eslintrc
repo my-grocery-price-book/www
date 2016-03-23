@@ -9,6 +9,9 @@
     "$": "require('jquery')"
   },
   "rules": {
-      "react/jsx-no-undef": 1
+      "react/jsx-no-undef": 0,
+      "no-unused-vars": [2, { "vars": "local",
+                              "args": "after-used",
+                              "varsIgnorePattern": "[QWERTYUIOPASDFGHJKLZXCVBNM]" }] // ignore anything starting with a capital letter
   }
 }

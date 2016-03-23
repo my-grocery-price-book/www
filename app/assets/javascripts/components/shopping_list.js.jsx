@@ -36,13 +36,11 @@ var ShoppingList = React.createClass({
       dataType: 'json',
       type: 'DELETE',
       data: {"authenticity_token": this.props.authenticity_token},
-      success: function (response) {
-        console.info(response);
+      success: function () {
         this.setState({is_deleted: true, is_busy: false});
       }.bind(this),
-      error: function (xhr, status, err) {
+      error: function () {
         this.setState({is_busy: false});
-        console.error(status, err.toString());
       }.bind(this)
     });
   },
