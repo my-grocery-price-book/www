@@ -1,3 +1,5 @@
+/*eslint no-unused-vars: [2, { "varsIgnorePattern": "ShoppingListTitle" }]*/
+
 var ShoppingListTitle = React.createClass({
 
   propTypes: {
@@ -23,15 +25,14 @@ var ShoppingListTitle = React.createClass({
       url: this.props.update_url,
       dataType: 'json',
       type: 'PATCH',
-      data: {"authenticity_token": this.props.authenticity_token, shopping_list: {title: this.state.title }},
+      data: { authenticity_token: this.props.authenticity_token, shopping_list: { title: this.state.title } },
       success: function (response) {
         this.setState({title: response.data.title, is_updating: false});
         this.props.onDone();
       }.bind(this),
-      error: function (xhr, status, err) {
+      error: function () {
         this.setState({is_updating: false});
         this.props.onDone();
-        console.error(status, err.toString());
       }.bind(this)
     });
   },

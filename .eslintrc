@@ -1,0 +1,14 @@
+{
+  "extends": ["standard", "eslint:recommended", "plugin:react/recommended"],
+  "plugins": ["standard", "react"],
+  "env": {
+    "browser": true
+  },
+  "globals": {
+    "React": "require('react')",
+    "$": "require('jquery')"
+  },
+  "rules": {
+      "react/jsx-no-undef": 1
+  }
+}
