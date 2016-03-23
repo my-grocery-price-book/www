@@ -43,14 +43,12 @@ var ShoppingListItemIndex = React.createClass({
         shopping_list_item: {name: this.state.name, amount: this.state.amount, unit: this.state.unit}
       },
       success: function (response) {
-        new_items = this.state.items.slice();
+        var new_items = this.state.items.slice();
         new_items.push(response.data);
         this.setState({name: '', amount: '', unit: '', is_adding: false, items: new_items});
       }.bind(this),
-      error: function (xhr, status, err) {
+      error: function () {
         this.setState({is_adding: false});
-        console.error(status, err.toString());
-        alert(err.toString());
       }.bind(this)
     });
   },
