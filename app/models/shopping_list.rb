@@ -15,6 +15,12 @@ class ShoppingList < ActiveRecord::Base
   validates :price_book_id, presence: true
   has_many :items, dependent: :destroy
 
+  before_save :set__deprecated_shopper_id_migrated
+
+  def set__deprecated_shopper_id_migrated
+    self._deprecated_shopper_id_migrated = true
+  end
+
   # @param [Shopper] shopper
   def shopper=(shopper)
     self.price_book_id = PriceBook.for_shopper(shopper).id

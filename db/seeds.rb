@@ -9,15 +9,19 @@ if Shopper.count == 0
 end
 
 PriceBook.where(_deprecated_shopper_id_migrated: false).each do |book|
-  shopper = Shopper.find(book._deprecated_shopper_id)
+  shopper = Shopper.find_by(id: book._deprecated_shopper_id)
   Rails.logger.warn "migrating #{book} to members for #{shopper}"
-  book.members.create!(shopper: shopper, admin: true)
+  book.members.create!(shopper: shopper, admin: true) if shopper
   book.update!(_deprecated_shopper_id_migrated: true)
 end
 
 ShoppingList.where(_deprecated_shopper_id_migrated: false).each do |list|
-  shopper = Shopper.find(list._deprecated_shopper_id)
+  shopper = Shopper.find_by(id: list._deprecated_shopper_id)
   Rails.logger.warn "migrating #{list} to members for #{shopper}"
-  list.update!(_deprecated_shopper_id_migrated: true,
-               price_book_id: PriceBook.for_shopper(shopper).id)
+  if shopper
+    list.update!(_deprecated_shopper_id_migrated: true,
+                 price_book_id: PriceBook.for_shopper(shopper).id)
+  else
+    list.update!(_deprecated_shopper_id_migrated: true)
+  end
 end

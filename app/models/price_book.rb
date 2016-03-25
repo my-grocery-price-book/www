@@ -19,6 +19,12 @@ class PriceBook < ActiveRecord::Base
   attr_writer :shopper
   after_create :create_member
 
+  before_save :set__deprecated_shopper_id_migrated
+
+  def set__deprecated_shopper_id_migrated
+    self._deprecated_shopper_id_migrated = true
+  end
+
   def create_member
     members.create!(shopper: @shopper)
   end
