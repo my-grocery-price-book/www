@@ -2,11 +2,12 @@
 #
 # Table name: price_books
 #
-#  id                     :integer          not null, primary key
-#  _deprecated_shopper_id :integer
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  name                   :string           default("My Price Book"), not null
+#  id                              :integer          not null, primary key
+#  _deprecated_shopper_id          :integer
+#  created_at                      :datetime         not null
+#  updated_at                      :datetime         not null
+#  name                            :string           default("My Price Book"), not null
+#  _deprecated_shopper_id_migrated :boolean          default(FALSE), not null
 #
 
 class PriceBook < ActiveRecord::Base

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160325104938) do
+ActiveRecord::Schema.define(version: 20160325113925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,9 +160,10 @@ ActiveRecord::Schema.define(version: 20160325104938) do
 
   create_table "price_books", force: :cascade do |t|
     t.integer  "_deprecated_shopper_id"
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
-    t.string   "name",                   default: "My Price Book", null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
+    t.string   "name",                            default: "My Price Book", null: false
+    t.boolean  "_deprecated_shopper_id_migrated", default: false,           null: false
   end
 
   add_index "price_books", ["_deprecated_shopper_id"], name: "index_price_books_on__deprecated_shopper_id", using: :btree
