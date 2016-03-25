@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: shopping_lists
+#
+#  id         :integer          not null, primary key
+#  shopper_id :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  title      :string
+#
+
 require 'test_helper'
 
 class ShoppingListsControllerTest < ActionController::TestCase

@@ -2,10 +2,12 @@
 #
 # Table name: price_books
 #
-#  id         :integer          not null, primary key
-#  shopper_id :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                              :integer          not null, primary key
+#  _deprecated_shopper_id          :integer
+#  created_at                      :datetime         not null
+#  updated_at                      :datetime         not null
+#  name                            :string           default("My Price Book"), not null
+#  _deprecated_shopper_id_migrated :boolean          default(FALSE), not null
 #
 
 require 'test_helper'
@@ -15,23 +17,22 @@ describe PriceBook do
     price_book.pages.create!(attrs)
   end
 
+  describe 'Defaults' do
+    it 'has a default name for a price book' do
+      PriceBook.new.name.must_equal('My Price Book')
+    end
+  end
+
   describe 'Validation' do
     it 'can create a new book' do
-      PriceBook.create!(shopper_id: 1111)
+      book = PriceBook.create!(name: 'A Price Book', shopper: create_shopper)
+      book.name.must_equal('A Price Book')
     end
 
-    it 'requires shopper_id' do
-      PriceBook.create.errors[:shopper_id].wont_be_empty
-    end
-
-    it 'requires unique shopper' do
-      PriceBook.create!(shopper_id: 12)
-      PriceBook.create(shopper_id: 12).errors[:shopper_id].wont_be_empty
-    end
-
-    it 'allows different shopper_ids' do
-      PriceBook.create!(shopper_id: 12)
-      PriceBook.create(shopper_id: 13).errors[:shopper_id].must_be_empty
+    it 'requires name' do
+      book = PriceBook.new(name: '')
+      book.save
+      book.errors[:name].wont_be_empty
     end
   end
 
@@ -63,7 +64,7 @@ describe PriceBook do
   end
 
   describe 'destroy' do
-    subject { PriceBook.create!(shopper_id: 15) }
+    subject { PriceBook.create!(shopper: create_shopper) }
 
     it 'allows to destroy' do
       subject.destroy
@@ -79,7 +80,7 @@ describe PriceBook do
   end
 
   describe 'find_page!' do
-    subject { PriceBook.create!(shopper_id: 15) }
+    subject { PriceBook.create!(shopper: create_shopper) }
 
     it 'can find a page' do
       add_page!(subject, name: 'Soda', category: 'Drinks', unit: 'Liters')
@@ -93,7 +94,7 @@ describe PriceBook do
   end
 
   describe 'search_pages' do
-    subject { PriceBook.create!(shopper_id: 14) }
+    subject { PriceBook.create!(shopper: create_shopper) }
 
     it 'returns all pages with nil term' do
       add_page!(subject, name: 'Soda', category: 'Drinks', unit: 'Liters')

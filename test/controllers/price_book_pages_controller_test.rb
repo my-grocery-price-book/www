@@ -3,7 +3,7 @@ require 'test_helper'
 class PriceBookPagesControllerTest < ActionController::TestCase
   setup do
     @shopper = create_shopper
-    @price_book = PriceBook.create!(shopper_id: @shopper.id)
+    @price_book = PriceBook.create!(shopper: @shopper)
     @price_book_page = @price_book.pages.create!(name: 'n1', category: 'n2', unit: 'ml')
     sign_in :shopper, @shopper
   end

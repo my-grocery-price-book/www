@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: purchase_items
+#
+#  id                 :integer          not null, primary key
+#  purchase_id        :integer
+#  product_brand_name :string
+#  package_size       :decimal(, )
+#  package_unit       :string
+#  quantity           :integer
+#  total_price        :decimal(, )
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  category           :string
+#  regular_name       :string
+#
+
 require 'test_helper'
 
 class PurchaseItemsControllerTest < ActionController::TestCase
