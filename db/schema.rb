@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160321225104) do
+ActiveRecord::Schema.define(version: 20160325104938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,6 +135,17 @@ ActiveRecord::Schema.define(version: 20160321225104) do
   add_index "comfy_cms_snippets", ["site_id", "identifier"], name: "index_comfy_cms_snippets_on_site_id_and_identifier", unique: true, using: :btree
   add_index "comfy_cms_snippets", ["site_id", "position"], name: "index_comfy_cms_snippets_on_site_id_and_position", using: :btree
 
+  create_table "members", force: :cascade do |t|
+    t.integer  "price_book_id"
+    t.integer  "shopper_id"
+    t.boolean  "admin",         default: false, null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "members", ["price_book_id"], name: "index_members_on_price_book_id", using: :btree
+  add_index "members", ["shopper_id"], name: "index_members_on_shopper_id", using: :btree
+
   create_table "price_book_pages", force: :cascade do |t|
     t.string   "name"
     t.string   "category"
@@ -148,12 +159,13 @@ ActiveRecord::Schema.define(version: 20160321225104) do
   add_index "price_book_pages", ["price_book_id"], name: "index_price_book_pages_on_price_book_id", using: :btree
 
   create_table "price_books", force: :cascade do |t|
-    t.integer  "shopper_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "_deprecated_shopper_id"
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.string   "name",                   default: "My Price Book", null: false
   end
 
-  add_index "price_books", ["shopper_id"], name: "index_price_books_on_shopper_id", using: :btree
+  add_index "price_books", ["_deprecated_shopper_id"], name: "index_price_books_on__deprecated_shopper_id", using: :btree
 
   create_table "purchase_items", force: :cascade do |t|
     t.integer  "purchase_id"
@@ -241,6 +253,8 @@ ActiveRecord::Schema.define(version: 20160321225104) do
 
   add_index "shopping_lists", ["shopper_id"], name: "index_shopping_lists_on_shopper_id", using: :btree
 
+  add_foreign_key "members", "price_books"
+  add_foreign_key "members", "shoppers"
   add_foreign_key "price_book_pages", "price_books"
   add_foreign_key "shopping_list_item_purchases", "shopping_list_items"
 end

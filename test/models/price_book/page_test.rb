@@ -15,7 +15,7 @@
 require 'test_helper'
 
 describe PriceBook::Page do
-  let(:price_book) { PriceBook.create!(shopper_id: 55) }
+  let(:price_book) { PriceBook.create!(shopper: create_shopper) }
 
   describe 'Validation' do
     it 'can create a new page' do

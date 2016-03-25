@@ -20,6 +20,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  current_public_api     :string           default("za-wc.public-grocery-price-book-api.co.za"), not null
+#  guest                  :boolean          default(FALSE), not null
 #
 
 require 'test_helper'

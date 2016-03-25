@@ -2,19 +2,27 @@
 #
 # Table name: price_books
 #
-#  id         :integer          not null, primary key
-#  shopper_id :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                     :integer          not null, primary key
+#  _deprecated_shopper_id :integer
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  name                   :string           default("My Price Book"), not null
 #
 
 class PriceBook < ActiveRecord::Base
-  validates :shopper_id, uniqueness: true, presence: true
+  validates :name, presence: true
   has_many :pages, dependent: :delete_all
-  belongs_to :shopper
+  has_many :members, dependent: :delete_all
+
+  attr_writer :shopper
+  after_create :create_member
+
+  def create_member
+    members.create!(shopper: @shopper)
+  end
 
   def self.for_shopper(shopper)
-    book = find_by(shopper_id: shopper.id)
+    book = joins(:members).find_by(members: { shopper_id: shopper.id })
     return book if book
     new(shopper: shopper).tap do |new_book|
       new_book.extend(ForShopperDefaultPages)
@@ -80,5 +88,9 @@ class PriceBook < ActiveRecord::Base
 
   def find_page!(page_id)
     pages.where("CONCAT(LOWER(category),'_',LOWER(unit),'_',LOWER(name)) = ?", page_id).first!
+  end
+
+  def to_s
+    "<PriceBook id:#{id} name:#{name} member_count:#{members.count} />"
   end
 end

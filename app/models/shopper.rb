@@ -20,6 +20,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  current_public_api     :string           default("za-wc.public-grocery-price-book-api.co.za"), not null
+#  guest                  :boolean          default(FALSE), not null
 #
 
 class Shopper < ActiveRecord::Base
@@ -39,6 +40,10 @@ class Shopper < ActiveRecord::Base
 
   def valid_password?(*)
     guest? || super
+  end
+
+  def to_s
+    "<Shopper id:#{id} email:#{email} confirmed:#{confirmed?}/>"
   end
 
   private
