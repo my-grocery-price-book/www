@@ -3,7 +3,7 @@ require 'test_helper'
 class ShoppingListItemPurchasesControllerTest < ActionController::TestCase
   setup do
     @shopper = create_shopper
-    @shopping_list = ShoppingList.create!(shopper_id: @shopper.id)
+    @shopping_list = ShoppingList.create!(shopper: @shopper)
     @shopping_list_item = @shopping_list.items.create!(name: 'Bread')
     sign_in :shopper, @shopper
   end

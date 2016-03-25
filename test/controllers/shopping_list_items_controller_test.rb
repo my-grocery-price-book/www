@@ -3,7 +3,8 @@ require 'test_helper'
 class ShoppingListItemsControllerTest < ActionController::TestCase
   setup do
     @shopper = create_shopper
-    @shopping_list = ShoppingList.create!(shopper: @shopper)
+    @price_book = PriceBook.create!(shopper: @shopper)
+    @shopping_list = ShoppingList.create!(price_book_id: @price_book.id)
     sign_in :shopper, @shopper
   end
 
@@ -45,7 +46,7 @@ class ShoppingListItemsControllerTest < ActionController::TestCase
     end
 
     should 'raise error if shopping_list belong to another shopper' do
-      other_shopping_list = ShoppingList.create!(shopper_id: 44)
+      other_shopping_list = ShoppingList.create!(shopper: create_shopper)
       assert_raise ActiveRecord::RecordNotFound do
         post :create, shopping_list_id: other_shopping_list.to_param, shopping_list_item: @item_params
       end
@@ -82,7 +83,7 @@ class ShoppingListItemsControllerTest < ActionController::TestCase
     end
 
     should 'raise error if shopping_list item belong to another shopper' do
-      other_shopping_list = ShoppingList.create!(shopper_id: 77)
+      other_shopping_list = ShoppingList.create!(shopper: create_shopper)
       other_shopping_list_item = other_shopping_list.items.create!
       assert_raise ActiveRecord::RecordNotFound do
         delete :destroy, id: other_shopping_list_item.to_param

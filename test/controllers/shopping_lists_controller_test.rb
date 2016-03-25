@@ -2,11 +2,12 @@
 #
 # Table name: shopping_lists
 #
-#  id         :integer          not null, primary key
-#  shopper_id :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  title      :string
+#  id            :integer          not null, primary key
+#  shopper_id    :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  title         :string
+#  price_book_id :integer
 #
 
 require 'test_helper'
@@ -14,6 +15,7 @@ require 'test_helper'
 class ShoppingListsControllerTest < ActionController::TestCase
   setup do
     @shopper = create_shopper
+    @price_book = PriceBook.for_shopper(@shopper)
     sign_in :shopper, @shopper
   end
 
@@ -24,10 +26,28 @@ class ShoppingListsControllerTest < ActionController::TestCase
     end
 
     should 'assign own shopping_lists' do
-      ShoppingList.create!(shopper_id: 0)
+      ShoppingList.create!(shopper: create_shopper)
       list = ShoppingList.create!(shopper: @shopper)
       get :index
       assert_equal([list], assigns(:shopping_lists))
+    end
+  end
+
+  context 'PATCH update' do
+    setup do
+      @shopping_list = ShoppingList.create!(shopper: @shopper)
+    end
+
+    should 'update shopping_list' do
+      patch :update, id: @shopping_list.to_param, shopping_list: { title: 'My Title' }
+      @shopping_list.reload
+
+      assert_equal('My Title', @shopping_list.title)
+    end
+
+    should 'redirect to shopping_list_path' do
+      patch :update, id: @shopping_list.to_param, shopping_list: { title: 'My Title' }
+      assert_redirected_to shopping_lists_path
     end
   end
 
@@ -37,7 +57,7 @@ class ShoppingListsControllerTest < ActionController::TestCase
         post :create
       end
 
-      assert_equal(@shopper, ShoppingList.last.shopper)
+      assert_equal(@price_book.id, ShoppingList.last.price_book_id)
     end
 
     should 'redirect to shopping_list_path' do
