@@ -18,6 +18,6 @@ end
 ShoppingList.where(_deprecated_shopper_id_migrated: false).each do |list|
   shopper = Shopper.find(list._deprecated_shopper_id)
   Rails.logger.warn "migrating #{list} to members for #{shopper}"
-  book.update!(_deprecated_shopper_id_migrated: true,
+  list.update!(_deprecated_shopper_id_migrated: true,
                price_book_id: PriceBook.for_shopper(shopper).id)
 end
