@@ -14,6 +14,7 @@ class PriceBook < ActiveRecord::Base
   validates :name, presence: true
   has_many :pages, dependent: :delete_all
   has_many :members, dependent: :delete_all
+  has_many :shopping_lists, dependent: :destroy
 
   attr_writer :shopper
   after_create :create_member

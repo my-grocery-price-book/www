@@ -2,20 +2,28 @@
 #
 # Table name: shopping_lists
 #
-#  id         :integer          not null, primary key
-#  shopper_id :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  title      :string
+#  id                              :integer          not null, primary key
+#  _deprecated_shopper_id          :integer
+#  created_at                      :datetime         not null
+#  updated_at                      :datetime         not null
+#  title                           :string
+#  price_book_id                   :integer
+#  _deprecated_shopper_id_migrated :boolean          default(FALSE), not null
 #
 
 class ShoppingList < ActiveRecord::Base
-  belongs_to :shopper
+  validates :price_book_id, presence: true
   has_many :items, dependent: :destroy
 
   # @param [Shopper] shopper
+  def shopper=(shopper)
+    self.price_book_id = PriceBook.for_shopper(shopper).id
+  end
+
+  # @param [Shopper] shopper
   def self.for_shopper(shopper)
-    where(shopper_id: shopper.id).order('created_at DESC')
+    price_book_id = PriceBook.for_shopper(shopper).id
+    where(price_book_id: price_book_id).order('created_at DESC')
   end
 
   # @param [Shopper] shopper
@@ -31,5 +39,9 @@ class ShoppingList < ActiveRecord::Base
   def title
     t = super
     t.present? ? t : created_at.to_date
+  end
+
+  def to_s
+    "<ShoppingList id:#{id} title:#{title} />"
   end
 end

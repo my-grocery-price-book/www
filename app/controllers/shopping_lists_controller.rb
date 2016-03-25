@@ -2,11 +2,13 @@
 #
 # Table name: shopping_lists
 #
-#  id         :integer          not null, primary key
-#  shopper_id :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  title      :string
+#  id                              :integer          not null, primary key
+#  _deprecated_shopper_id          :integer
+#  created_at                      :datetime         not null
+#  updated_at                      :datetime         not null
+#  title                           :string
+#  price_book_id                   :integer
+#  _deprecated_shopper_id_migrated :boolean          default(FALSE), not null
 #
 
 class ShoppingListsController < ApplicationController
@@ -20,30 +22,12 @@ class ShoppingListsController < ApplicationController
   def update
     shopping_list
 
-    if shopping_list.update(shopping_list_params)
-      update_success
-    else
-      update_failure
-    end
-  end
-
-  private
-
-  def update_failure
-    respond_to do |format|
-      format.html { redirect_to shopping_lists_path, alert: 'Failed update.' }
-      format.json { render layout: 'error' }
-    end
-  end
-
-  def update_success
+    shopping_list.update(shopping_list_params)
     respond_to do |format|
       format.html { redirect_to shopping_lists_path, notice: 'Successfully updated.' }
       format.json
     end
   end
-
-  public
 
   # POST /shopping_lists
   def create
