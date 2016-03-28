@@ -29,7 +29,7 @@ class PurchaseItemsController < ApplicationController
   # PATCH/PUT /purchase_items/1
   def update
     if @purchase.update_item(@purchase_item, purchase_item_params)
-      PriceBook.for_shopper(current_shopper).update_product!(purchase_item_params)
+      PriceBook.default_for_shopper(current_shopper).update_product!(purchase_item_params)
       redirect_to edit_purchase_path(@purchase), notice: 'Purchase item was successfully updated.'
     else
       redirect_to edit_purchase_path(@purchase), alert: 'Purchase item failed update.'

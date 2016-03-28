@@ -66,6 +66,6 @@ class PriceBookPagesController < ApplicationController
   end
 
   def load_price_book
-    @price_book = PriceBook.for_shopper(current_shopper)
+    @price_book = PriceBook.default_for_shopper(current_shopper)
   end
 end

@@ -23,12 +23,12 @@ class ShoppingList < ActiveRecord::Base
 
   # @param [Shopper] shopper
   def shopper=(shopper)
-    self.price_book_id = PriceBook.for_shopper(shopper).id
+    self.price_book_id = PriceBook.default_for_shopper(shopper).id
   end
 
   # @param [Shopper] shopper
   def self.for_shopper(shopper)
-    price_book_id = PriceBook.for_shopper(shopper).id
+    price_book_id = PriceBook.default_for_shopper(shopper).id
     where(price_book_id: price_book_id).order('created_at DESC')
   end
 

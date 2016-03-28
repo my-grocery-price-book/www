@@ -29,7 +29,7 @@ class PriceBook < ActiveRecord::Base
     members.create!(shopper: @shopper)
   end
 
-  def self.for_shopper(shopper)
+  def self.default_for_shopper(shopper)
     book = joins(:members).find_by(members: { shopper_id: shopper.id })
     return book if book
     new(shopper: shopper).tap do |new_book|

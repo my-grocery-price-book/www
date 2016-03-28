@@ -16,7 +16,7 @@ require 'test_helper'
 class ShoppingListsControllerTest < ActionController::TestCase
   setup do
     @shopper = create_shopper
-    @price_book = PriceBook.for_shopper(@shopper)
+    @price_book = PriceBook.default_for_shopper(@shopper)
     sign_in :shopper, @shopper
   end
 

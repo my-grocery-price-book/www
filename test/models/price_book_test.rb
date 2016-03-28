@@ -36,7 +36,7 @@ describe PriceBook do
     end
   end
 
-  describe '#for_shopper' do
+  describe '#default_for_shopper' do
     let(:shopper) { create_shopper }
     let(:default_pages) do
       %w(Apples Bread Cabbage Cheese Chicken Soda Eggs Flour Maize Margarine Milk
@@ -44,20 +44,20 @@ describe PriceBook do
     end
 
     it 'creates a new book' do
-      book = PriceBook.for_shopper(shopper)
+      book = PriceBook.default_for_shopper(shopper)
       book.reload
       book.must_be :persisted?
     end
 
     it 'builds default_pages for new book' do
-      book = PriceBook.for_shopper(shopper)
+      book = PriceBook.default_for_shopper(shopper)
       book.reload
       book.pages.map(&:name).sort.must_equal(default_pages.sort)
     end
 
     it 'wont add pages for existing book' do
       PriceBook.create!(shopper: shopper)
-      book = PriceBook.for_shopper(shopper)
+      book = PriceBook.default_for_shopper(shopper)
       book.reload
       book.pages.map(&:name).must_equal([])
     end
