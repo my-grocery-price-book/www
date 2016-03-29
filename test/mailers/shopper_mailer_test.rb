@@ -6,7 +6,7 @@ class ShopperMailerTest < ActionMailer::TestCase
     mail = ShopperMailer.invite(invite)
     assert_equal 'Invite to My Grocery Price Book', mail.subject
     assert_equal ['to@example.org'], mail.to
-    assert_equal "no-reply@my-grocery-price-book.co.za", mail.from
+    assert_equal ['no-reply@my-grocery-price-book.co.za'], mail.from
     assert_match 'Dear Gman', mail.body.encoded
   end
 end
