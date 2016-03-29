@@ -27,12 +27,12 @@ class SharingAShoppingListTest < FeatureTest
       click_on 'New Shopping List'
       click_button 'Edit Title'
       fill_in 'Title', with: 'Our Shopping'
+      sleep 0.1 # slow down for reactjs
       click_button 'Update'
     end
 
     assert @grant.has_css?('span', text: 'Our Shopping')
     assert @grant.has_no_css?('span', text: 'Update Failed')
-    @grant.save_screenshot
 
     @kim.perform do
       click_link 'Shopping List'
