@@ -33,7 +33,7 @@ var ShoppingListItemIndex = React.createClass({
 
   addItem: function (submit_event) {
     submit_event.preventDefault();
-    this.setState({is_adding: true});
+    this.setState({is_busy: true});
     $.ajax({
       url: this.props.create_url,
       dataType: 'json',
@@ -45,10 +45,26 @@ var ShoppingListItemIndex = React.createClass({
       success: function (response) {
         var new_items = this.state.items.slice();
         new_items.push(response.data);
-        this.setState({name: '', amount: '', unit: '', is_adding: false, items: new_items});
+        this.setState({name: '', amount: '', unit: '', is_busy: false, items: new_items});
       }.bind(this),
       error: function () {
-        this.setState({is_adding: false});
+        this.setState({is_busy: false});
+      }.bind(this)
+    });
+  },
+
+  reloadItems: function (click_event) {
+    click_event.preventDefault();
+    this.setState({is_busy: true});
+    $.ajax({
+      url: this.props.shopping_list.items_url,
+      dataType: 'json',
+      type: 'GET',
+      success: function (response) {
+        this.setState({items: response.data, is_busy: false});
+      }.bind(this),
+      error: function () {
+        location.reload();
       }.bind(this)
     });
   },
@@ -87,6 +103,12 @@ var ShoppingListItemIndex = React.createClass({
                   style={state.show_title_form ? {display: 'none'} : null }
                   type="submit">Edit Title
           </button>
+          <a onClick={this.reloadItems}
+             href={props.shopping_list.items_url}
+             disabled={state.is_busy}
+             className="btn btn-default btn-xs">
+            Refresh
+          </a>
         </div>
       </div>
       <div className="row">
@@ -99,14 +121,14 @@ var ShoppingListItemIndex = React.createClass({
             <label className="sr-only" htmlFor="shopping_list_item_name">Item name</label>
             <input name="shopping_list_item[name]" className="form-control"
                    value={state.name} onChange={this.handleNameChange}
-                   disabled={state.is_adding} placeholder="name"
+                   disabled={state.is_busy} placeholder="name"
                    id="shopping_list_item_name"/>
           </div>
           <div className="col-xs-3 nopadding">
             <label className="sr-only" htmlFor="shopping_list_item_unit">Unit</label>
             <input name="shopping_list_item[unit]" className="form-control col-xs-3"
                    value={state.unit} onChange={this.handleUnitChange}
-                   disabled={state.is_adding} placeholder="unit"
+                   disabled={state.is_busy} placeholder="unit"
                    id="shopping_list_item_unit"/>
           </div>
           <div className="col-xs-2 nopadding">
@@ -114,10 +136,10 @@ var ShoppingListItemIndex = React.createClass({
             <input name="shopping_list_item[amount]" className="form-control"
                    value={state.amount} onChange={this.handleAmountChange} type="number"
                    min="1" id="shopping_list_item_amount"
-                   disabled={state.is_adding} placeholder="amount"/>
+                   disabled={state.is_busy} placeholder="amount"/>
           </div>
           <div className="col-xs-1 no-left-padding">
-            <button className='btn btn-primary' disabled={state.is_adding}>
+            <button className='btn btn-primary' disabled={state.is_busy}>
               <span className="sr-only">Add</span>
               <span className="glyphicon glyphicon-plus"></span>
             </button>

@@ -9,7 +9,7 @@ var ShoppingListTitle = React.createClass({
   },
 
   getInitialState: function () {
-    return {title: this.props.title, is_updating: false};
+    return {title: this.props.title, is_updating: false, update_failed: false};
   },
 
   handleTitleChange: function(e) {
@@ -18,7 +18,7 @@ var ShoppingListTitle = React.createClass({
 
   updateTitle: function (submit_event) {
     submit_event.preventDefault();
-    this.setState({is_updating: true});
+    this.setState({is_updating: true, update_failed: false});
     $.ajax({
       url: this.props.update_url,
       dataType: 'json',
@@ -29,7 +29,7 @@ var ShoppingListTitle = React.createClass({
         this.props.onDone();
       }.bind(this),
       error: function () {
-        this.setState({is_updating: false});
+        this.setState({is_updating: false, update_failed: true});
         this.props.onDone();
       }.bind(this)
     });
@@ -45,7 +45,9 @@ var ShoppingListTitle = React.createClass({
       <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
       <div className="form-group">
         <h3>
+          <label className="sr-only" htmlFor="shopping_list_title">Title</label>
           <input name="shopping_list[title]"
+                 id="shopping_list_title"
                  className="form-control"
                  value={state.title}
                  onChange={this.handleTitleChange}
@@ -55,6 +57,12 @@ var ShoppingListTitle = React.createClass({
             {state.title}
           </span>
         </h3>
+        <div className="alert alert-danger alert-dismissible" role="alert" style={state.update_failed ? null : {display: 'none'}  }>
+          <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          Update Failed
+        </div>
         <button className="btn btn-primary"
                 role="button"
                 type="submit"

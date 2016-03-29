@@ -21,3 +21,6 @@
 
 en:
   hello: "Hello world"
+  shopper_mailer:
+    invite:
+      subject: 'Invite to My Grocery Price Book'

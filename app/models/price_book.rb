@@ -26,7 +26,12 @@ class PriceBook < ActiveRecord::Base
   end
 
   def create_member
-    members.create!(shopper: @shopper)
+    members.create!(shopper: @shopper) if @shopper
+  end
+
+  # @param [Shopper] shopper
+  def add_member(shopper)
+    members.create(shopper: shopper)
   end
 
   def self.default_for_shopper(shopper)
@@ -37,6 +42,13 @@ class PriceBook < ActiveRecord::Base
       new_book.build_default_pages
       new_book.save
     end
+  end
+
+  # @param [Shopper] shopper
+  # @param [String] id
+  def self.find_for_shopper(shopper, id)
+    book = joins(:members).where(members: { shopper_id: shopper.id })
+    book.find(id)
   end
 
   # used and tested through Pricebook#for_shopper

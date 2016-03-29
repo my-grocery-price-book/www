@@ -14,4 +14,5 @@ class Member < ActiveRecord::Base
   belongs_to :shopper
 
   validates :shopper_id, :price_book_id, presence: true
+  validates :shopper_id, uniqueness: { scope: :price_book_id }
 end

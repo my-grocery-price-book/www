@@ -40,6 +40,7 @@ end
 group :test do
   gem 'webmock', require: false
   gem 'capybara', require: false
+  gem 'capybara-email', require: false
   gem 'poltergeist', require: false
   gem 'shoulda-context'
   gem 'simplecov', require: false

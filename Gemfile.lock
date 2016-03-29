@@ -54,6 +54,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-email (2.5.0)
+      capybara (~> 2.4)
+      mail
     carmen (1.0.2)
       activesupport (>= 3.0.0)
     cliver (0.3.2)
@@ -201,6 +204,7 @@ PLATFORMS
 DEPENDENCIES
   annotate (~> 2.6)
   capybara
+  capybara-email
   carmen
   component_library
   database_cleaner

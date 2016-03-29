@@ -1,3 +1,7 @@
 .inline-form-for-button {
   display: inline;
 }
+
+.item-purchased {
+    text-decoration:line-through;
+}

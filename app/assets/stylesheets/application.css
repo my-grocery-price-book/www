@@ -11,6 +11,7 @@
  * file per style scope.
  *
  *= require scaffolds
+ *= require price_book_pages
  *= require shopping_list
  *= require_self
  */
@@ -66,8 +67,4 @@ body {
 .no-right-padding {
     padding-right: 0 !important;
     margin-right: 0 !important;
-}
-
-.item-purchased {
-    text-decoration:line-through;
 }

@@ -1,6 +1,6 @@
 require 'integration_helper'
 
-class PriceCheckTest < ActionDispatch::IntegrationTest
+class PriceCheckTest < IntegrationTest
   test 'Search for items when not logged in' do
     visit '/price_check'
     select 'South Africa - Western Cape', from: 'Current public api'

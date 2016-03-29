@@ -1,6 +1,6 @@
 require 'integration_helper'
 
-class RegisterAndLoginTest < ActionDispatch::IntegrationTest
+class RegisterAndLoginTest < IntegrationTest
   test 'register' do
     visit '/purchases'
     click_link 'Sign up'

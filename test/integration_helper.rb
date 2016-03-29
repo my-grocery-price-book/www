@@ -5,7 +5,7 @@ require 'capybara/poltergeist'
 
 Capybara.default_driver = :poltergeist
 
-class ActionDispatch::IntegrationTest
+class IntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL # Make the Capybara DSL available in all integration tests
 
   def sign_in_shopper(shopper_attributes = {})
