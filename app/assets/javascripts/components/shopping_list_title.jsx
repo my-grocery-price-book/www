@@ -13,7 +13,12 @@ var ShoppingListTitle = React.createClass({
   },
 
   handleTitleChange: function(e) {
-    this.setState({title: e.target.value});
+    console.log('--handleTitleChange');
+    this.setState({title: e.target.value}, this.titleStateUpdated);
+  },
+
+  titleStateUpdated: function() {
+    console.log('--titleStateUpdated');
   },
 
   queueUpdateTitle: function (submit_event) {
@@ -22,6 +27,7 @@ var ShoppingListTitle = React.createClass({
   },
 
   updateTitle: function() {
+    console.log(JSON.stringify({ authenticity_token: this.props.authenticity_token, shopping_list: { title: this.state.title } }));
     $.ajax({
       url: this.props.update_url,
       dataType: 'json',
