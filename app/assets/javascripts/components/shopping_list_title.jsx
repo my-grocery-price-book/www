@@ -31,8 +31,8 @@ var ShoppingListTitle = React.createClass({
     $.ajax({
       url: this.props.update_url,
       dataType: 'json',
-      type: 'PATCH',
-      data: { authenticity_token: this.props.authenticity_token, shopping_list: { title: this.state.title } }
+      type: 'POST',
+      data: { _method: "patch", authenticity_token: this.props.authenticity_token, shopping_list: { title: this.state.title } }
     }).done(function(response) {
       this.setState({title: response.data.title, is_updating: false},this.props.onDone());
     }.bind(this)).fail(function(jqXHR, textStatus, errorThrown) {
