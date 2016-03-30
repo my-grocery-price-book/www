@@ -16,21 +16,22 @@ var ShoppingListTitle = React.createClass({
     this.setState({title: e.target.value});
   },
 
-  updateTitle: function (submit_event) {
+  queueUpdateTitle: function (submit_event) {
     submit_event.preventDefault();
-    this.setState({is_updating: true, update_failed: false});
+    this.setState({is_updating: true, update_failed: false},this.updateTitle);
+  },
+
+  updateTitle: function() {
     $.ajax({
       url: this.props.update_url,
       dataType: 'json',
       type: 'PATCH',
       data: { authenticity_token: this.props.authenticity_token, shopping_list: { title: this.state.title } },
       success: function (response) {
-        this.setState({title: response.data.title, is_updating: false});
-        this.props.onDone();
+        this.setState({title: response.data.title, is_updating: false},this.props.onDone());
       }.bind(this),
       error: function () {
-        this.setState({is_updating: false, update_failed: true});
-        this.props.onDone();
+        this.setState({is_updating: false, update_failed: true},this.props.onDone());
       }.bind(this)
     });
   },
@@ -39,7 +40,7 @@ var ShoppingListTitle = React.createClass({
     var props = this.props;
     var state = this.state;
 
-    return (<form onSubmit={this.updateTitle} action={props.update_url}
+    return (<form onSubmit={this.queueUpdateTitle} action={props.update_url}
                   method="post" className="form-inline title-form">
       <input name="_method" value="patch" type="hidden"/>
       <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
