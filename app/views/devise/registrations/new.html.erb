@@ -5,6 +5,7 @@
 
   <div class="field">
     <%= f.label :email %><br />
+    <% resource.email = params[:email] if resource.email.blank? %>
     <%= f.email_field :email, autofocus: true %>
   </div>
 

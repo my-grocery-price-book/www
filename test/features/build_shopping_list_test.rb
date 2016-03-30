@@ -1,6 +1,6 @@
 require 'integration_helper'
 
-class BuildShoppingListTest < ActionDispatch::IntegrationTest
+class BuildShoppingListTest < IntegrationTest
   def create_shopping_list
     assert page.has_text?('Shopping List')
     click_on 'New Shopping List'

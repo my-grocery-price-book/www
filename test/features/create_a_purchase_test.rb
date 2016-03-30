@@ -1,6 +1,6 @@
 require 'integration_helper'
 
-class CreatePurchaseTest < ActionDispatch::IntegrationTest
+class CreatePurchaseTest < IntegrationTest
   test 'create new purchases and items' do
     visit '/purchases'
     sign_in_shopper

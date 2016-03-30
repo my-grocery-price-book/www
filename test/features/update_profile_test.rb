@@ -1,6 +1,6 @@
 require 'integration_helper'
 
-class UpdateProfileTest < ActionDispatch::IntegrationTest
+class UpdateProfileTest < IntegrationTest
   test 'update shopper profile' do
     visit '/profile'
     sign_in_shopper

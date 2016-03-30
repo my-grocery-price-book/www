@@ -1,11 +1,9 @@
-<div class="row">
-  <div class="col-md-12">
-    <h1>Price Book</h1>
-    <%= link_to 'New Page', new_price_book_page_path, class: 'btn btn-default' %>
-  </div>
-</div>
+<%= render 'index_header',
+           new_page_link: new_price_book_page_path,
+           invite_link: new_price_book_invite_path(@price_book) %>
 
-<div class="row">
+
+<div class="row price-book-pages">
   <% @price_book_pages.each do |price_book_page| %>
     <div class="col-sm-4 col-md-2">
       <div class="thumbnail">

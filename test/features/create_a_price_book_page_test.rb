@@ -1,6 +1,6 @@
 require 'integration_helper'
 
-class CreateAPriceBookPageTest < ActionDispatch::IntegrationTest
+class CreateAPriceBookPageTest < IntegrationTest
   test 'create a new regular item' do
     visit '/price_book_pages'
     sign_in_shopper
