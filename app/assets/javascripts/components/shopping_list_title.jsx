@@ -37,7 +37,7 @@ var ShoppingListTitle = React.createClass({
       this.setState({title: response.data.title, is_updating: false},this.props.onDone());
     }.bind(this)).fail(function(jqXHR, textStatus, errorThrown) {
       console.log("----- ERROR ----");
-      console.log(jqXHR);
+      console.log(JSON.stringify(jqXHR));
       console.log(textStatus);
       console.log(errorThrown);
       console.log("----- ----- ----");
