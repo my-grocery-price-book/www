@@ -13,12 +13,7 @@ var ShoppingListTitle = React.createClass({
   },
 
   handleTitleChange: function(e) {
-    console.log('--handleTitleChange');
-    this.setState({title: e.target.value}, this.titleStateUpdated);
-  },
-
-  titleStateUpdated: function() {
-    console.log('--titleStateUpdated');
+    this.setState({title: e.target.value});
   },
 
   queueUpdateTitle: function (submit_event) {
@@ -27,20 +22,14 @@ var ShoppingListTitle = React.createClass({
   },
 
   updateTitle: function() {
-    console.log(JSON.stringify({ authenticity_token: this.props.authenticity_token, shopping_list: { title: this.state.title } }));
     $.ajax({
       url: this.props.update_url,
       dataType: 'json',
-      type: 'POST',
-      data: { _method: "patch", authenticity_token: this.props.authenticity_token, shopping_list: { title: this.state.title } }
+      method: 'PATCH',
+      data: { authenticity_token: this.props.authenticity_token, shopping_list: { title: this.state.title } }
     }).done(function(response) {
       this.setState({title: response.data.title, is_updating: false},this.props.onDone());
-    }.bind(this)).fail(function(jqXHR, textStatus, errorThrown) {
-      console.log("----- ERROR ----");
-      console.log(JSON.stringify(jqXHR));
-      console.log(textStatus);
-      console.log(errorThrown);
-      console.log("----- ----- ----");
+    }.bind(this)).fail(function() {
       this.setState({is_updating: false, update_failed: true},this.props.onDone());
     }.bind(this));
   },
