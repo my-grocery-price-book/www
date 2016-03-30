@@ -32,14 +32,17 @@ var ShoppingListTitle = React.createClass({
       url: this.props.update_url,
       dataType: 'json',
       type: 'PATCH',
-      data: { authenticity_token: this.props.authenticity_token, shopping_list: { title: this.state.title } },
-      success: function (response) {
-        this.setState({title: response.data.title, is_updating: false},this.props.onDone());
-      }.bind(this),
-      error: function () {
-        this.setState({is_updating: false, update_failed: true},this.props.onDone());
-      }.bind(this)
-    });
+      data: { authenticity_token: this.props.authenticity_token, shopping_list: { title: this.state.title } }
+    }).done(function(response) {
+      this.setState({title: response.data.title, is_updating: false},this.props.onDone());
+    }.bind(this)).fail(function(jqXHR, textStatus, errorThrown) {
+      console.log("----- ERROR ----");
+      console.log(jqXHR);
+      console.log(textStatus);
+      console.log(errorThrown);
+      console.log("----- ----- ----");
+      this.setState({is_updating: false, update_failed: true},this.props.onDone());
+    }.bind(this));
   },
 
   render: function () {
