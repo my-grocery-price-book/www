@@ -17,7 +17,8 @@ class PersonaSession
 
   def click_link_in_email(link_name)
     email = open_email(@email)
-    link_path = email.find_link(link_name)[:href].gsub('http://example.com', '')
+    host = Rails.configuration.action_mailer.default_url_options[:host]
+    link_path = email.find_link(link_name)[:href].gsub("http://#{host}", '')
     visit link_path
   end
 
