@@ -31,7 +31,7 @@ class SharingAShoppingListTest < FeatureTest
     end
 
     assert @grant.has_css?('span', text: 'Our Shopping')
-    if @grant.has_no_css?('span', text: 'Update Failed')
+    if @grant.has_css?('span', text: 'Update Failed')
       puts `cat log/test.log`
     end
     assert @grant.has_no_css?('span', text: 'Update Failed')
