@@ -101,8 +101,7 @@ var ShoppingListItem = React.createClass({
     var state = this.state;
 
     return (
-        <div style={state.is_deleted ? {display: 'none'} : null }
-             data-item-name={state.name + "-" + state.unit}
+        <div data-item-name={state.name + "-" + state.unit}
              className="col-md-6">
           <span className={state.purchased_at ? 'item-purchased' : '' }>
           {state.amount} {state.unit} <span data-name>{state.name}</span>
@@ -112,7 +111,7 @@ var ShoppingListItem = React.createClass({
                 style={state.purchased_at ? {display: 'none'} : null }
                 method="post" className="form-inline form-inline-block">
             <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
-            <button className="btn btn-link" role="button" disabled={state.is_busy}>
+            <button className="btn btn-link" role="button" disabled={state.is_busy || state.is_deleted}>
               <span className="sr-only">purchased</span>
               <span className="glyphicon glyphicon-shopping-cart"></span>
             </button>
@@ -123,7 +122,7 @@ var ShoppingListItem = React.createClass({
                 method="post" className="form-inline form-inline-block">
             <input name="_method" value="delete" type="hidden"/>
             <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
-            <button className="btn btn-link" role="button" disabled={state.is_busy}>
+            <button className="btn btn-link" role="button" disabled={state.is_busy || state.is_deleted}>
               <span className="sr-only">unpurchased</span>
               <span className="glyphicon glyphicon-minus"></span>
             </button>
@@ -134,7 +133,7 @@ var ShoppingListItem = React.createClass({
                 method="post" className="form-inline form-inline-block">
             <input name="_method" value="delete" type="hidden"/>
             <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
-            <button className="btn btn-link" role="button" disabled={state.is_busy}>
+            <button className="btn btn-link" role="button" disabled={state.is_busy || state.is_deleted}>
               <span className="sr-only">delete</span>
               <span className="glyphicon glyphicon-remove"></span>
             </button>

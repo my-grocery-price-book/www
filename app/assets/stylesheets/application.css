@@ -68,3 +68,21 @@ body {
     padding-right: 0 !important;
     margin-right: 0 !important;
 }
+
+.shopping-list-item-enter {
+    opacity: 0.01;
+}
+
+.shopping-list-item-enter.shopping-list-item-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.shopping-list-item-leave {
+    opacity: 1;
+}
+
+.shopping-list-item-leave.shopping-list-item-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+}

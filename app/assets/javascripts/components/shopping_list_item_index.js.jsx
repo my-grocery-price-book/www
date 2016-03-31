@@ -1,3 +1,5 @@
+ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
 var ShoppingListItemIndex = React.createClass({
 
   propTypes: {
@@ -127,7 +129,9 @@ var ShoppingListItemIndex = React.createClass({
         </div>
       </div>
       <div className="row">
-        {rendered_items}
+        <ReactCSSTransitionGroup transitionName="shopping-list-item" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+          {rendered_items}
+        </ReactCSSTransitionGroup>
       </div>
       <div className="row">
         <form onSubmit={this.addItem} action={props.create_url} method="post">
