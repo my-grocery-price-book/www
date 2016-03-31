@@ -22,6 +22,11 @@ var ShoppingListItem = React.createClass({
             is_deleted: false};
   },
 
+  componentWillReceiveProps: function (nextProps) {
+    this.setState({amount: nextProps.amount, unit: nextProps.unit,
+                   name: nextProps.name, purchased_at: nextProps.purchased_at});
+  },
+
   handleAmountChange: function(e) {
     this.setState({amount: e.target.value});
   },

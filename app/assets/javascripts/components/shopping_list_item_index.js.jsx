@@ -31,6 +31,10 @@ var ShoppingListItemIndex = React.createClass({
     this.setState({unit: e.target.value});
   },
 
+  componentDidMount: function() {
+    setInterval(this.loadItemsFromServer, 5000);
+  },
+
   addItem: function (submit_event) {
     submit_event.preventDefault();
     this.setState({is_busy: true});
@@ -65,6 +69,17 @@ var ShoppingListItemIndex = React.createClass({
       }.bind(this),
       error: function () {
         location.reload();
+      }.bind(this)
+    });
+  },
+
+  loadItemsFromServer: function () {
+    $.ajax({
+      url: this.props.shopping_list.items_url,
+      dataType: 'json',
+      type: 'GET',
+      success: function (response) {
+        this.setState({items: response.data});
       }.bind(this)
     });
   },
