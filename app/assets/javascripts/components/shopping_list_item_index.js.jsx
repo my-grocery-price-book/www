@@ -31,6 +31,10 @@ var ShoppingListItemIndex = React.createClass({
     this.setState({unit: e.target.value});
   },
 
+  componentDidMount: function() {
+    setTimeout(this.loadItemsFromServer, 5000);
+  },
+
   addItem: function (submit_event) {
     submit_event.preventDefault();
     this.setState({is_busy: true});
@@ -65,6 +69,21 @@ var ShoppingListItemIndex = React.createClass({
       }.bind(this),
       error: function () {
         location.reload();
+      }.bind(this)
+    });
+  },
+
+  loadItemsFromServer: function () {
+    $.ajax({
+      url: this.props.shopping_list.items_url,
+      dataType: 'json',
+      type: 'GET',
+      success: function (response) {
+        this.setState({items: response.data});
+        setTimeout(this.loadItemsFromServer, 5000);
+      }.bind(this),
+      error: function () {
+        setTimeout(this.loadItemsFromServer, 60000);
       }.bind(this)
     });
   },
@@ -112,7 +131,9 @@ var ShoppingListItemIndex = React.createClass({
         </div>
       </div>
       <div className="row">
-        {rendered_items}
+        <ReactCSSTransitionGroup transitionName="shopping-list-item" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+          {rendered_items}
+        </ReactCSSTransitionGroup>
       </div>
       <div className="row">
         <form onSubmit={this.addItem} action={props.create_url} method="post">

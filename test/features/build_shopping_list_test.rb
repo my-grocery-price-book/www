@@ -37,9 +37,11 @@ class BuildShoppingListTest < IntegrationTest
       click_on 'OK' # confirm the delete
     end
 
-    assert page.has_no_text?('eggs')
-    assert page.has_text?('bread')
-    assert page.has_text?('milk')
+    using_wait_time(5) do
+      assert page.has_no_text?('eggs')
+      assert page.has_text?('bread')
+      assert page.has_text?('milk')
+    end
   end
 
   test 'create shopping list as logged in shopper' do
