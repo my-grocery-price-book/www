@@ -1,5 +1,3 @@
-ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-
 var ShoppingListItemIndex = React.createClass({
 
   propTypes: {
@@ -34,7 +32,7 @@ var ShoppingListItemIndex = React.createClass({
   },
 
   componentDidMount: function() {
-    setInterval(this.loadItemsFromServer, 5000);
+    setTimeout(this.loadItemsFromServer, 5000);
   },
 
   addItem: function (submit_event) {
@@ -82,6 +80,10 @@ var ShoppingListItemIndex = React.createClass({
       type: 'GET',
       success: function (response) {
         this.setState({items: response.data});
+        setTimeout(this.loadItemsFromServer, 5000);
+      }.bind(this),
+      error: function () {
+        setTimeout(this.loadItemsFromServer, 60000);
       }.bind(this)
     });
   },
