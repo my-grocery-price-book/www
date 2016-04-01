@@ -7,7 +7,7 @@ namespace :rollbar do
     uri    = URI.parse 'https://api.rollbar.com/api/1/deploy/'
     params = {
       local_username: ENV['LOCAL_USER'] || ENV['USER'] || ENV['USERNAME'],
-      access_token: ENV['POST_SERVER_ITEM_ACCESS_TOKEN'],
+      access_token: ENV['ROLLBAR_ACCESS_TOKEN'],
       environment: ENV['ROLLBAR_ENV'],
       revision: ENV['REVISION'] }
 
