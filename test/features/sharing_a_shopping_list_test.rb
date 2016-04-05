@@ -30,8 +30,8 @@ class SharingAShoppingListTest < FeatureTest
       click_button 'Update'
     end
 
-    assert @grant.has_css?('span', text: 'Our Shopping')
-    assert @grant.has_no_css?('span', text: 'Update Failed')
+    assert @grant.has_no_css?('span', text: 'Update Failed'), 'Update Failed'
+    assert @grant.has_css?('span', text: 'Our Shopping'), 'Our Shopping not visible'
 
     @kate.perform do
       click_link 'Shopping List'
@@ -42,10 +42,10 @@ class SharingAShoppingListTest < FeatureTest
       click_button 'Add'
     end
 
-    assert @kate.has_content?('bread')
+    assert @kate.has_content?('bread'), 'bread not visible'
 
     @grant.using_wait_time(5) do
-      assert @grant.has_content?('bread')
+      assert @grant.has_content?('bread'), 'bread not visible'
     end
   end
 end
