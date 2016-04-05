@@ -6,6 +6,7 @@ group :development, :test do
 end
 
 gem 'rails', '~> 4.2.1'
+gem 'sprockets', '~> 2.7' # so test files can be .jsx
 gem 'jbuilder'
 gem 'will_paginate'
 gem 'pg'
