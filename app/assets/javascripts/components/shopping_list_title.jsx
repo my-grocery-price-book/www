@@ -38,7 +38,7 @@ var ShoppingListTitle = React.createClass({
     var props = this.props;
     var state = this.state;
 
-§    if(props.show_form) {
+    if(props.show_form) {
       return (<form onSubmit={this.queueUpdateTitle} action={props.update_url}
                     method="post" className="form-inline title-form">
         <input name="_method" value="patch" type="hidden"/>
