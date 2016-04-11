@@ -38,38 +38,35 @@ var ShoppingListTitle = React.createClass({
     var props = this.props;
     var state = this.state;
 
-    return (<form onSubmit={this.queueUpdateTitle} action={props.update_url}
-                  method="post" className="form-inline title-form">
-      <input name="_method" value="patch" type="hidden"/>
-      <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
-      <div className="form-group">
-        <h3>
-          <label className="sr-only" htmlFor="shopping_list_title">Title</label>
+    if(props.show_form) {
+      return (<form onSubmit={this.queueUpdateTitle} action={props.update_url}
+                    method="post" className="form-inline title-form">
+        <input name="_method" value="patch" type="hidden"/>
+        <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
+        <div className="form-group">
           <input name="shopping_list[title]"
                  id="shopping_list_title"
                  className="form-control"
                  value={state.title}
                  onChange={this.handleTitleChange}
-                 style={props.show_form ? null : {display: 'none'}}
+                 placeholder="Title"
                  disabled={state.is_updating}/>
-          <span style={props.show_form ? {display: 'none'} : null }>
-            {state.title}
-          </span>
-        </h3>
-        <div className="alert alert-danger alert-dismissible" role="alert" style={state.update_failed ? null : {display: 'none'}  }>
-          <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+          <div className="alert alert-danger alert-dismissible" role="alert" style={state.update_failed ? null : {display: 'none'}  }>
+            <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            Update Failed
+          </div>
+          <button className="btn btn-primary"
+                  role="button"
+                  type="submit"
+                  disabled={state.is_updating}>Update
           </button>
-          Update Failed
         </div>
-        <button className="btn btn-primary"
-                role="button"
-                type="submit"
-                disabled={state.is_updating}
-                style={props.show_form ? null : {display: 'none'}}>Update
-        </button>
-      </div>
-    </form>)
+      </form>)
+    } else {
+      return <h3><span id="shopping_list_title_span">{state.title}</span></h3>
+    }
   }
 
 });

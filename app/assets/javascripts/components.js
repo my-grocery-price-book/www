@@ -1,2 +1,2 @@
 //= require_tree ./components
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;

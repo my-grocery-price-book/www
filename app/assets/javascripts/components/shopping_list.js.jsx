@@ -14,15 +14,15 @@ var ShoppingList = React.createClass({
     return {show_form: false, is_busy: false, is_deleted: false};
   },
 
-  editTitle: function() {
+  editTitle: function () {
     this.setState({show_form: true});
   },
 
-  editTitleDone: function() {
+  editTitleDone: function () {
     this.setState({show_form: false});
   },
 
-  handleDeleteSubmit: function(submit_event) {
+  handleDeleteSubmit: function (submit_event) {
     submit_event.preventDefault();
     $("#confirmModal" + this.props.item_id).modal('show');
   },
@@ -30,19 +30,24 @@ var ShoppingList = React.createClass({
   handleDelete: function (button_event) {
     button_event.preventDefault();
     $("#confirmModal" + this.props.item_id).modal('hide');
-    this.setState({is_busy: true, show_form: false});
+    this.setState({is_busy: true, show_form: false},this.doDelete);
+  },
+
+  doDelete: function() {
     $.ajax({
       url: this.props.delete_url,
       dataType: 'json',
       type: 'DELETE',
-      data: {"authenticity_token": this.props.authenticity_token},
-      success: function () {
-        this.setState({is_deleted: true, is_busy: false});
-      }.bind(this),
-      error: function () {
-        this.setState({is_busy: false});
-      }.bind(this)
-    });
+      data: {"authenticity_token": this.props.authenticity_token}
+    }).done(this.deleteSuccesful).fail(this.deleteFailed);
+  },
+
+  deleteSuccesful: function () {
+    this.setState({is_deleted: true, is_busy: false});
+  },
+
+  deleteFailed: function () {
+    this.setState({is_busy: false});
   },
 
   render: function () {
