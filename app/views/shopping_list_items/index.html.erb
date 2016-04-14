@@ -3,5 +3,6 @@
                                              locals: {shopping_list: @shopping_list} ),
                  initial_items: react_render(partial: 'index',
                                              locals: {shopping_list_items: @shopping_list.items}),
-                 create_url: shopping_list_items_path,
+                 create_url: shopping_list_items_path(@shopping_list),
+                 create_list_url: shopping_lists_path,
                  authenticity_token: form_authenticity_token) %>

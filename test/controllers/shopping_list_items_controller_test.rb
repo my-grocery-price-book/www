@@ -15,6 +15,19 @@ class ShoppingListItemsControllerTest < ActionController::TestCase
     end
   end
 
+  context 'GET latest' do
+    should 'be success' do
+      get :latest
+      assert_response :success
+    end
+
+    should 'be last created shopping list' do
+      ShoppingList.create!(title: 'Final List', price_book_id: @price_book.id)
+      get :latest
+      assert_includes response.body, 'Final List'
+    end
+  end
+
   context 'POST create' do
     setup do
       @item_params = { 'name' => 'Test', 'amount' => 123, 'unit' => 'ml' }

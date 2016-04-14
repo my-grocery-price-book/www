@@ -5,6 +5,11 @@ class ShoppingListItemsController < ApplicationController
     shopping_list
   end
 
+  def latest
+    @shopping_list = ShoppingList.for_shopper(current_shopper).first
+    render :index
+  end
+
   def create
     @item = shopping_list.items.create!(item_params)
     respond_to do |format|

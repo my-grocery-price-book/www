@@ -29,6 +29,7 @@ module Project
 
     config.assets.initialize_on_precompile = false
     Rails.application.config.assets.precompile += ['react-server.js', 'components.js', 'vendor.js', 'vendor.css']
+    Rails.application.config.assets.precompile += ["#{ComponentLibrary.javascript_path}.js"]
 
     config.react.addons = true # defaults to false
   end

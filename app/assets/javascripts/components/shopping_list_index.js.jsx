@@ -3,6 +3,7 @@ var ShoppingListIndex = React.createClass({
   propTypes: {
     initial_lists: React.PropTypes.arrayOf(React.PropTypes.object),
     create_url: React.PropTypes.string,
+    latest_url: React.PropTypes.string,
     authenticity_token: React.PropTypes.string
   },
 
@@ -30,12 +31,13 @@ var ShoppingListIndex = React.createClass({
       <div className="row">
         <div className="col-md-12">
           <h1>Shopping Lists</h1>
-          <form action={this.props.create_url} method="post">
+          <form action={this.props.create_url} method="post" className="form-inline form-inline-block">
             <input name="authenticity_token" value={this.props.authenticity_token} type="hidden"/>
-            <button className='btn btn-default'>New Shopping List</button>
+            <button className='btn btn-default btn-xs'>New Shopping List</button>
           </form>
           { this.state.is_busy_creating ? <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"
                                                 aria-hidden="true"></span> : null }
+          <a className="btn btn-default btn-xs" href={this.props.latest_url}>Latest Shopping List</a>
         </div>
       </div>
       <div className="row">

@@ -1,4 +1,5 @@
 <%= react_server('ShoppingListIndex',
                  initial_lists: react_render(partial: 'index'),
                  create_url: shopping_lists_path,
+                 latest_url: latest_shopping_list_items_path,
                  authenticity_token: form_authenticity_token) %>
