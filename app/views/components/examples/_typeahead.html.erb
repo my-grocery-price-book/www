@@ -1,0 +1,30 @@
+<input data-typeahead="provinces" type="text" placeholder="Provinces of South African">
+
+<script>
+  var provinces = [
+    'The Eastern Cape', 'The Free State', 'Gauteng', 'KwaZulu-Natal',
+    'Limpopo', 'Mpumalanga', 'The Northern Cape', 'North West', 'The Western Cape'
+  ];
+
+  jQuery(document).ready(function ($) {
+    var bloodhound_provinces = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.whitespace,
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      // `states` is an array of state names defined in "The Basics"
+      local: provinces
+    });
+
+    // Code using $ as usual goes here.
+    $('[data-typeahead="provinces"]').typeahead({
+          hint: true,
+          highlight: true,
+          minLength: 1
+        },
+        {
+          name: 'provinces',
+          source: bloodhound_provinces,
+          limit: 3
+        }
+    );
+  });
+</script>
