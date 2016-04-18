@@ -24,16 +24,29 @@ var ShoppingListItemIndex = React.createClass({
     this.setState({name: e.target.value});
   },
 
-  handleAmountChange: function (e) {
-    this.setState({amount: e.target.value});
-  },
-
-  handleUnitChange: function (e) {
-    this.setState({unit: e.target.value});
-  },
-
   componentDidMount: function() {
     setTimeout(this.loadItemsFromServer, 5000);
+    var bloodhound_source = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.whitespace,
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      prefetch: {url: this.props.shopping_list.price_book_pages_url,
+                 cache: false,
+                 transform: this.transform}
+    });
+    $('#shopping_list_item_name').typeahead(null,
+        {
+          source: bloodhound_source,
+          limit: 3
+        }
+    );
+  },
+
+  transform: function(response) {
+    var values = response.data.map(function(value) {
+      return value.name;
+    });
+
+    return values;
   },
 
   addItem: function (submit_event) {
@@ -143,26 +156,12 @@ var ShoppingListItemIndex = React.createClass({
       <div className="row">
         <form onSubmit={this.addItem} action={props.create_url} method="post">
           <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
-          <div className="col-xs-5 no-right-padding">
+          <div className="col-xs-10 no-right-padding">
             <label className="sr-only" htmlFor="shopping_list_item_name">Item name</label>
             <input name="shopping_list_item[name]" className="form-control"
                    value={state.name} onChange={this.handleNameChange}
                    disabled={state.is_busy} placeholder="name"
                    id="shopping_list_item_name"/>
-          </div>
-          <div className="col-xs-3 nopadding">
-            <label className="sr-only" htmlFor="shopping_list_item_unit">Unit</label>
-            <input name="shopping_list_item[unit]" className="form-control col-xs-3"
-                   value={state.unit} onChange={this.handleUnitChange}
-                   disabled={state.is_busy} placeholder="unit"
-                   id="shopping_list_item_unit"/>
-          </div>
-          <div className="col-xs-2 nopadding">
-            <label className="sr-only" htmlFor="shopping_list_item_amount">Amount</label>
-            <input name="shopping_list_item[amount]" className="form-control"
-                   value={state.amount} onChange={this.handleAmountChange} type="number"
-                   min="1" id="shopping_list_item_amount"
-                   disabled={state.is_busy} placeholder="amount"/>
           </div>
           <div className="col-xs-1 no-left-padding">
             <button className='btn btn-primary' disabled={state.is_busy}>

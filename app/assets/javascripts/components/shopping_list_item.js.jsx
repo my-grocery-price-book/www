@@ -101,7 +101,7 @@ var ShoppingListItem = React.createClass({
     var state = this.state;
 
     return (
-        <div data-item-name={state.name + "-" + state.unit}
+        <div data-item-name={state.name}
              className="col-md-6">
           <span className={state.purchased_at ? 'item-purchased' : '' }>
           {state.amount} {state.unit} <span data-name>{state.name}</span>

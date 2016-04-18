@@ -37,8 +37,6 @@ class SharingAShoppingListTest < FeatureTest
       click_link 'Shopping List'
       click_link 'Items'
       fill_in 'Item name', with: 'bread'
-      fill_in 'Unit', with: 'loaves'
-      fill_in 'Amount', with: '2'
       click_button 'Add'
     end
 

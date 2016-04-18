@@ -66,6 +66,10 @@ class PriceBookPagesController < ApplicationController
   end
 
   def load_price_book
-    @price_book = PriceBook.default_for_shopper(current_shopper)
+    @price_book = if params[:book_id]
+                    PriceBook.find_for_shopper(current_shopper, params[:book_id])
+                  else
+                    PriceBook.default_for_shopper(current_shopper)
+                  end
   end
 end

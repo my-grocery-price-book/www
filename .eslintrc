@@ -6,6 +6,7 @@
   },
   "globals": {
     "React": "require('react')",
+    "Bloodhound": "require('bloodhound')",
     "$": "require('jquery')"
   },
   "rules": {
