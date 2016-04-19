@@ -20,13 +20,6 @@ var ShoppingListItemIndex = React.createClass({
     this.setState({show_title_form: false});
   },
 
-  handleNameSuggestions: function (book_pages) {
-    var names = book_pages.map(function(book_page) {
-      return book_page.name;
-    });
-    this.setState({name_suggestions: names});
-  },
-
   componentDidMount: function() {
     setTimeout(this.loadItemsFromServer, 5000);
   },
