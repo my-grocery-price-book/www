@@ -9,7 +9,8 @@ var ShoppingListItemIndex = React.createClass({
   },
 
   getInitialState: function () {
-    return {items: this.props.initial_items, show_title_form: false};
+    return {items: this.props.initial_items, show_title_form: false,
+            bloodhound_initialized: false, name_suggestions: []};
   },
 
   editTitle: function () {
@@ -21,32 +22,41 @@ var ShoppingListItemIndex = React.createClass({
   },
 
   handleNameChange: function (e) {
+    if(this.bloodhound) {
+      this.bloodhound.search(e.target.value, this.handleNameSuggestions)
+    }
     this.setState({name: e.target.value});
+  },
+
+  handleNameSuggestions: function (book_pages) {
+    var names = book_pages.map(function(book_page) {
+      return book_page.name;
+    });
+    this.setState({name_suggestions: names});
   },
 
   componentDidMount: function() {
     setTimeout(this.loadItemsFromServer, 5000);
-    var bloodhound_source = new Bloodhound({
-      datumTokenizer: Bloodhound.tokenizers.whitespace,
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
-      prefetch: {url: this.props.shopping_list.price_book_pages_url,
-                 cache: false,
-                 transform: this.transform}
-    });
-    $('#shopping_list_item_name').typeahead(null,
-        {
-          source: bloodhound_source,
-          limit: 3
-        }
-    );
+    this.loadBloodhound();
   },
 
-  transform: function(response) {
-    var values = response.data.map(function(value) {
-      return value.name;
+  loadBloodhound: function() {
+    this.bloodhound = new Bloodhound({
+      datumTokenizer: function(obj) { return Bloodhound.tokenizers.whitespace(obj.name); },
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      sufficient: 3,
+      identify: function(obj) { return obj.id; },
+      prefetch: {
+        url: this.props.shopping_list.price_book_pages_url,
+        cache: false,
+        transform: function(response) {return response.data;}
+      }
     });
+    this.bloodhound.initialize().done(this.bloodhoundInitialized);
+  },
 
-    return values;
+  bloodhoundInitialized: function() {
+    this.setState({bloodhound_initialized: true});
   },
 
   addItem: function (submit_event) {
@@ -58,12 +68,35 @@ var ShoppingListItemIndex = React.createClass({
       type: 'POST',
       data: {
         authenticity_token: this.props.authenticity_token,
-        shopping_list_item: {name: this.state.name, amount: this.state.amount, unit: this.state.unit}
+        shopping_list_item: {name: this.state.name}
       },
       success: function (response) {
         var new_items = this.state.items.slice();
         new_items.push(response.data);
-        this.setState({name: '', amount: '', unit: '', is_busy: false, items: new_items});
+        this.setState({name: '', name_suggestions: [], is_busy: false, items: new_items});
+      }.bind(this),
+      error: function () {
+        this.setState({is_busy: false});
+      }.bind(this)
+    });
+  },
+
+  addItemFromSuggestion: function (click_event) {
+    click_event.preventDefault();
+    var new_name = click_event.currentTarget.textContent;
+    this.setState({is_busy: true});
+    $.ajax({
+      url: this.props.create_url,
+      dataType: 'json',
+      type: 'POST',
+      data: {
+        authenticity_token: this.props.authenticity_token,
+        shopping_list_item: {name: new_name}
+      },
+      success: function (response) {
+        var new_items = this.state.items.slice();
+        new_items.push(response.data);
+        this.setState({name: '', name_suggestions: [], is_busy: false, items: new_items});
       }.bind(this),
       error: function () {
         this.setState({is_busy: false});
@@ -105,6 +138,7 @@ var ShoppingListItemIndex = React.createClass({
   render: function () {
     var state = this.state;
     var props = this.props;
+    var component = this;
 
     var rendered_items = this.state.items.map(function (item) {
       return (
@@ -119,6 +153,14 @@ var ShoppingListItemIndex = React.createClass({
                             purchase_url={item.purchase_url}
                             unpurchase_url={item.unpurchase_url}
                             authenticity_token={props.authenticity_token}/>
+      );
+    });
+
+    var rendered_name_suggestions = this.state.name_suggestions.map(function (name) {
+      return (
+          <button className="bg-info name-suggestion" key={"suggested-" + name} onClick={component.addItemFromSuggestion}>
+            {name}
+          </button>
       );
     });
 
@@ -149,11 +191,16 @@ var ShoppingListItemIndex = React.createClass({
         </div>
       </div>
       <div className="row">
-        <ReactCSSTransitionGroup transitionName="shopping-list-item" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+        <ReactCSSTransitionGroup transitionName="shopping-list-item" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
           {rendered_items}
         </ReactCSSTransitionGroup>
       </div>
       <div className="row">
+        <div className="col-xs-12">
+          <ReactCSSTransitionGroup transitionName="shopping-list-item" transitionEnterTimeout={100} transitionLeaveTimeout={100}>
+            {rendered_name_suggestions}
+          </ReactCSSTransitionGroup>
+        </div>
         <form onSubmit={this.addItem} action={props.create_url} method="post">
           <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
           <div className="col-xs-10 no-right-padding">
@@ -161,6 +208,7 @@ var ShoppingListItemIndex = React.createClass({
             <input name="shopping_list_item[name]" className="form-control"
                    value={state.name} onChange={this.handleNameChange}
                    disabled={state.is_busy} placeholder="name"
+                   autoComplete={state.bloodhound_initialized ? 'off' : 'on'}
                    id="shopping_list_item_name"/>
           </div>
           <div className="col-xs-1 no-left-padding">
