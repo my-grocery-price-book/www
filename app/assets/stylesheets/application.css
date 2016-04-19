@@ -10,9 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require scaffolds
- *= require price_book_pages
- *= require shopping_list
+ *= require_tree ./site
  *= require_self
  */
 

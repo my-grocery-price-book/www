@@ -46,6 +46,7 @@ class PriceBook < ActiveRecord::Base
 
   # @param [Shopper] shopper
   # @param [String] id
+  # @return [PriceBook]
   def self.find_for_shopper(shopper, id)
     book = joins(:members).where(members: { shopper_id: shopper.id })
     book.find(id)

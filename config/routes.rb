@@ -9,6 +9,10 @@ Rails.application.routes.draw do
     resources :invites, only: [:new, :create]
   end
 
+  resources :book, controller: 'price_book', only: [] do
+    resources :pages, controller: 'price_book_pages', only: [:index]
+  end
+
   resources :invites, only: [:show] do
     member do
       patch 'accept'

@@ -20,24 +20,12 @@ var ShoppingListItemIndex = React.createClass({
     this.setState({show_title_form: false});
   },
 
-  handleNameChange: function (e) {
-    this.setState({name: e.target.value});
-  },
-
-  handleAmountChange: function (e) {
-    this.setState({amount: e.target.value});
-  },
-
-  handleUnitChange: function (e) {
-    this.setState({unit: e.target.value});
-  },
-
   componentDidMount: function() {
     setTimeout(this.loadItemsFromServer, 5000);
   },
 
-  addItem: function (submit_event) {
-    submit_event.preventDefault();
+
+  addItem: function (name) {
     this.setState({is_busy: true});
     $.ajax({
       url: this.props.create_url,
@@ -45,12 +33,12 @@ var ShoppingListItemIndex = React.createClass({
       type: 'POST',
       data: {
         authenticity_token: this.props.authenticity_token,
-        shopping_list_item: {name: this.state.name, amount: this.state.amount, unit: this.state.unit}
+        shopping_list_item: {name: name}
       },
       success: function (response) {
         var new_items = this.state.items.slice();
         new_items.push(response.data);
-        this.setState({name: '', amount: '', unit: '', is_busy: false, items: new_items});
+        this.setState({is_busy: false, items: new_items});
       }.bind(this),
       error: function () {
         this.setState({is_busy: false});
@@ -136,41 +124,16 @@ var ShoppingListItemIndex = React.createClass({
         </div>
       </div>
       <div className="row">
-        <ReactCSSTransitionGroup transitionName="shopping-list-item" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+        <ReactCSSTransitionGroup transitionName="shopping-list-item" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
           {rendered_items}
         </ReactCSSTransitionGroup>
       </div>
       <div className="row">
-        <form onSubmit={this.addItem} action={props.create_url} method="post">
-          <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
-          <div className="col-xs-5 no-right-padding">
-            <label className="sr-only" htmlFor="shopping_list_item_name">Item name</label>
-            <input name="shopping_list_item[name]" className="form-control"
-                   value={state.name} onChange={this.handleNameChange}
-                   disabled={state.is_busy} placeholder="name"
-                   id="shopping_list_item_name"/>
-          </div>
-          <div className="col-xs-3 nopadding">
-            <label className="sr-only" htmlFor="shopping_list_item_unit">Unit</label>
-            <input name="shopping_list_item[unit]" className="form-control col-xs-3"
-                   value={state.unit} onChange={this.handleUnitChange}
-                   disabled={state.is_busy} placeholder="unit"
-                   id="shopping_list_item_unit"/>
-          </div>
-          <div className="col-xs-2 nopadding">
-            <label className="sr-only" htmlFor="shopping_list_item_amount">Amount</label>
-            <input name="shopping_list_item[amount]" className="form-control"
-                   value={state.amount} onChange={this.handleAmountChange} type="number"
-                   min="1" id="shopping_list_item_amount"
-                   disabled={state.is_busy} placeholder="amount"/>
-          </div>
-          <div className="col-xs-1 no-left-padding">
-            <button className='btn btn-primary' disabled={state.is_busy}>
-              <span className="sr-only">Add</span>
-              <span className="glyphicon glyphicon-plus"></span>
-            </button>
-          </div>
-        </form>
+        <ShoppingListItemAddForm handleAdd={this.addItem}
+                                 create_url={props.create_url}
+                                 price_book_pages_url={props.shopping_list.price_book_pages_url}
+                                 authenticity_token={props.authenticity_token}
+                                 disabled={state.is_busy} />
       </div>
     </div>;
   }
