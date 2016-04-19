@@ -59,7 +59,7 @@ var ShoppingListItemAddForm = React.createClass({
 
     var rendered_name_suggestions = this.state.name_suggestions.map(function (name) {
       return (
-          <button className="bg-info name-suggestion" key={"suggested-" + name}
+          <button className="bg-info name-suggestion btn" key={"suggested-" + name}
                   onClick={component.addItemFromSuggestion} disabled={props.disabled}>
             {name}
           </button>
