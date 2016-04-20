@@ -28,32 +28,31 @@ describe ShoppingList do
 
     it 'returns all item names' do
       @shopping_list.create_item!(name: 'Cheese')
-      names = ShoppingList.item_names_for_book(@book,query: nil)
-      assert_equal(['Cheese'],names)
+      names = ShoppingList.item_names_for_book(@book, query: nil)
+      assert_equal(['Cheese'], names)
     end
 
     it 'returns them in alphabetical order' do
       @shopping_list.create_item!(name: 'Cheese')
       @shopping_list.create_item!(name: 'Meat')
       @shopping_list.create_item!(name: 'Apples')
-      names = ShoppingList.item_names_for_book(@book,query: nil)
-      assert_equal(['Apples','Cheese','Meat'],names)
+      names = ShoppingList.item_names_for_book(@book, query: nil)
+      assert_equal(%w(Apples Cheese Meat), names)
     end
 
     it 'returns items filtered' do
       @shopping_list.create_item!(name: 'Cheese')
       @shopping_list.create_item!(name: 'Meat')
       @shopping_list.create_item!(name: 'Apples')
-      names = ShoppingList.item_names_for_book(@book,query: 's')
-      assert_equal(['Apples','Cheese'],names)
+      names = ShoppingList.item_names_for_book(@book, query: 's')
+      assert_equal(%w(Apples Cheese), names)
     end
-
 
     it 'ignores duplicates' do
       @shopping_list.create_item!(name: 'Cheese')
       @shopping_list.create_item!(name: 'Cheese')
-      names = ShoppingList.item_names_for_book(@book,query: nil)
-      assert_equal(['Cheese'],names)
+      names = ShoppingList.item_names_for_book(@book, query: nil)
+      assert_equal(['Cheese'], names)
     end
 
     it 'ignores case duplicates' do
@@ -61,8 +60,8 @@ describe ShoppingList do
       @shopping_list.create_item!(name: 'cheese')
       @shopping_list.create_item!(name: 'apples')
       @shopping_list.create_item!(name: 'appleS')
-      names = ShoppingList.item_names_for_book(@book,query: nil)
-      assert_equal(['apples','cheese'],names)
+      names = ShoppingList.item_names_for_book(@book, query: nil)
+      assert_equal(%w(apples cheese), names)
     end
 
     it 'ignores items of other books' do
@@ -71,8 +70,8 @@ describe ShoppingList do
 
       other_shopping_list.create_item!(name: 'Bread')
 
-      names = ShoppingList.item_names_for_book(@book,query: nil)
-      assert_equal([],names)
+      names = ShoppingList.item_names_for_book(@book, query: nil)
+      assert_equal([], names)
     end
 
     it 'limits to ten results' do
@@ -84,8 +83,8 @@ describe ShoppingList do
         @shopping_list.create_item!(name: r)
       end
 
-      names = ShoppingList.item_names_for_book(@book,query: nil)
-      assert_equal(results.first(10),names)
+      names = ShoppingList.item_names_for_book(@book, query: nil)
+      assert_equal(results.first(10), names)
     end
   end
 end

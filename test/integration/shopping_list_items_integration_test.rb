@@ -22,18 +22,18 @@ class ShoppingListItemsIntegrationTest < ActionDispatch::IntegrationTest
       shopping_list.items.create(name: 'Cheese')
     end
 
-    should "return all item names" do
+    should 'return all item names' do
       get "/book/#{@book.to_param}/shopping_items/names.json"
       assert_response :success
       parsed_body = MultiJson.load(response.body)
-      assert_equal(['Bread', 'Cheese', 'Eggs'],parsed_body['data'])
+      assert_equal(%w(Bread Cheese Eggs), parsed_body['data'])
     end
 
-    should "return filtered item" do
+    should 'return filtered item' do
       get "/book/#{@book.to_param}/shopping_items/names.json", query: 'bread'
       assert_response :success
       parsed_body = MultiJson.load(response.body)
-      assert_equal(['Bread'],parsed_body['data'])
+      assert_equal(['Bread'], parsed_body['data'])
     end
   end
 end

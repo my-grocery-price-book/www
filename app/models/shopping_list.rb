@@ -51,7 +51,7 @@ class ShoppingList < ActiveRecord::Base
     filtered_items = items.where('name iLIKE ?', "%#{query}%")
     filtered_items = filtered_items.select(:name).distinct.limit(100) # improve performance
     all_names = filtered_items.map(&:name)
-    all_names.uniq!{ |name| name.downcase } # remove duplicates ignoring case
+    all_names.uniq!(&:downcase) # remove duplicates ignoring case
     all_names.first(10)
   end
 
