@@ -26,6 +26,10 @@ class ShoppingList < ActiveRecord::Base
     self.price_book_id = PriceBook.default_for_shopper(shopper).id
   end
 
+  def create_item!(*a)
+    items.create!(*a)
+  end
+
   # @param [Shopper] shopper
   def self.for_shopper(shopper)
     price_book_id = PriceBook.default_for_shopper(shopper).id
@@ -36,6 +40,19 @@ class ShoppingList < ActiveRecord::Base
   def self.items_for_shopper(shopper)
     shopping_list_ids = for_shopper(shopper).map(&:id)
     ShoppingList::Item.for_shopping_list_ids(shopping_list_ids)
+  end
+
+  # @param [PriceBook] book
+  # @param [String] query
+  # @return [Array<String>]
+  def self.item_names_for_book(book, query:)
+    shopping_list_ids = book.shopping_lists.map(&:id)
+    items = ShoppingList::Item.where(shopping_list_id: shopping_list_ids).order(:name)
+    filtered_items = items.where('name iLIKE ?', "%#{query}%")
+    filtered_items = filtered_items.select(:name).distinct.limit(100) # improve performance
+    all_names = filtered_items.map(&:name)
+    all_names.uniq!{ |name| name.downcase } # remove duplicates ignoring case
+    all_names.first(10)
   end
 
   def done_items

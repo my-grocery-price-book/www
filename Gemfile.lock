@@ -224,6 +224,7 @@ DEPENDENCIES
   jasmine-rails
   jbuilder
   json
+  multi_json
   newrelic_rpm
   pg
   poltergeist
