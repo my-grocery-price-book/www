@@ -3,4 +3,4 @@
 //= require es6-shim
 //= require jquery-2.2.1
 //= require bootstrap
-//= require typeahead
+//= require bloodhound
