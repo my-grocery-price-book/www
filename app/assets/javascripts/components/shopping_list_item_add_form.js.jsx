@@ -17,12 +17,8 @@ var ShoppingListItemAddForm = React.createClass({
   },
 
   handleNameChange: function (e) {
-    if(e.target.value === "") {
-      this.setState({name: "", suggestions: [], more_suggestions: []});
-    } else {
-      this.findSuggestions(e.target.value);
-      this.setState({name: e.target.value});
-    }
+    this.findSuggestions(e.target.value);
+    this.setState({name: e.target.value});
   },
 
   findSuggestions: function(name) {
@@ -74,6 +70,9 @@ var ShoppingListItemAddForm = React.createClass({
     var component = this;
 
     var suggestions = this.state.suggestions.concat(this.state.more_suggestions).slice(0,3);
+    if(state.name == "") {
+      suggestions = [];
+    }
 
     var rendered_suggestions = suggestions.map(function (name) {
       return (
