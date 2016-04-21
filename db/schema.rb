@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328063823) do
+ActiveRecord::Schema.define(version: 20160420201023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -257,6 +257,8 @@ ActiveRecord::Schema.define(version: 20160328063823) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
+
+  add_index "shopping_list_items", ["created_at"], name: "index_shopping_list_items_on_created_at", using: :btree
 
   create_table "shopping_lists", force: :cascade do |t|
     t.integer  "_deprecated_shopper_id"

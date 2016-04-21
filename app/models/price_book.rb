@@ -21,6 +21,10 @@ class PriceBook < ActiveRecord::Base
 
   before_save :set__deprecated_shopper_id_migrated
 
+  def create_shopping_list!(*a)
+    shopping_lists.create(*a)
+  end
+
   def set__deprecated_shopper_id_migrated
     self._deprecated_shopper_id_migrated = true
   end
