@@ -5,6 +5,7 @@ var ShoppingListItemIndex = React.createClass({
     shopping_list: React.PropTypes.object,
     create_url: React.PropTypes.string,
     create_list_url: React.PropTypes.string,
+    all_lists_url: React.PropTypes.string,
     authenticity_token: React.PropTypes.string
   },
 
@@ -116,6 +117,10 @@ var ShoppingListItemIndex = React.createClass({
              disabled={state.is_busy}
              className="btn btn-default btn-xs">
             Refresh
+          </a>
+          <a href={props.all_lists_url}
+             className="btn btn-default btn-xs">
+            Previous Lists
           </a>
           <form action={this.props.create_list_url} method="post" className="form-inline form-inline-block">
             <input name="authenticity_token" value={this.props.authenticity_token} type="hidden"/>
