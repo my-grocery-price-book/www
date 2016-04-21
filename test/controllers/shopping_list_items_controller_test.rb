@@ -26,6 +26,12 @@ class ShoppingListItemsControllerTest < ActionController::TestCase
       get :latest
       assert_includes response.body, 'Final List'
     end
+
+    should 'redirect to shopping lists if not shopping list exist' do
+      @shopping_list.destroy
+      get :latest
+      assert_redirected_to shopping_lists_path
+    end
   end
 
   context 'POST create' do
