@@ -86,5 +86,13 @@ describe ShoppingList do
       names = ShoppingList.item_names_for_book(@book, query: nil)
       assert_equal(results.first(10), names)
     end
+
+    it 'ignores items older than 6 months' do
+      @shopping_list.create_item!(name: 'Butter', created_at: 6.months.ago - 1.day)
+      @shopping_list.create_item!(name: 'Bread', created_at: 6.months.ago + 1.day)
+
+      names = ShoppingList.item_names_for_book(@book, query: nil)
+      assert_equal(['Bread'], names)
+    end
   end
 end
