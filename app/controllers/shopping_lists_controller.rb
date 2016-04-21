@@ -32,7 +32,7 @@ class ShoppingListsController < ApplicationController
   # POST /shopping_lists
   def create
     @shopping_list = ShoppingList.create!(shopper: current_shopper)
-    redirect_to shopping_list_items_path(@shopping_list)
+    redirect_to latest_shopping_list_items_path
   end
 
   # DELETE /shopping_lists/1

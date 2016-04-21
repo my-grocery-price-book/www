@@ -12,7 +12,11 @@ class ShoppingListItemsController < ApplicationController
 
   def latest
     @shopping_list = ShoppingList.for_shopper(current_shopper).first
-    render :index
+    if @shopping_list
+      render :index
+    else
+      redirect_to shopping_lists_path
+    end
   end
 
   def create

@@ -61,9 +61,9 @@ class ShoppingListsControllerTest < ActionController::TestCase
       assert_equal(@price_book.id, ShoppingList.last.price_book_id)
     end
 
-    should 'redirect to shopping_list_path' do
+    should 'redirect to latest_shopping_list_items_path' do
       post :create
-      assert_redirected_to shopping_list_items_path(ShoppingList.last)
+      assert_redirected_to latest_shopping_list_items_path
     end
   end
 
