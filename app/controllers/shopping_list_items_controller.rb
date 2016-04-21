@@ -1,6 +1,11 @@
 class ShoppingListItemsController < ApplicationController
   before_action :authenticate_shopper!
 
+  def names
+    @book = PriceBook.find_for_shopper(current_shopper, params[:book_id])
+    @names = ShoppingList.item_names_for_book(@book, query: params[:query])
+  end
+
   def index
     shopping_list
   end

@@ -3,18 +3,25 @@
 //= require components
 //= require_self
 
-function ShoppingListItemsBloodhound(url) {
+function ShoppingListItemsBloodhound(prefetch_url, remote_url) {
   return new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.whitespace,
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     sufficient: 3,
     prefetch: {
-      url: url,
+      url: prefetch_url,
       cache: false,
       transform: function(response) {
         return response.data.map(function(value) {
           return value.name;
         });
+      }
+    },
+    remote: {
+      url: remote_url + "?query=%QUERY",
+      wildcard: '%QUERY',
+      transform: function(response) {
+        return response.data;
       }
     }
   });
