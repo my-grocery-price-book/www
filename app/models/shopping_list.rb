@@ -48,7 +48,7 @@ class ShoppingList < ActiveRecord::Base
   def self.item_names_for_book(book, query:)
     shopping_list_ids = book.shopping_lists.map(&:id)
     items = ShoppingList::Item.where(shopping_list_id: shopping_list_ids).order(:name)
-    filtered_items = items.where('name iLIKE ?', "%#{query}%").where('created_at > ?',6.months.ago)
+    filtered_items = items.where('name iLIKE ?', "%#{query}%").where('created_at > ?', 6.months.ago)
     filtered_items = filtered_items.select(:name).distinct.limit(100) # improve performance
     all_names = filtered_items.map(&:name)
     all_names.uniq!(&:downcase) # remove duplicates ignoring case

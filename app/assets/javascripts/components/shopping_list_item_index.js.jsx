@@ -132,6 +132,7 @@ var ShoppingListItemIndex = React.createClass({
         <ShoppingListItemAddForm handleAdd={this.addItem}
                                  create_url={props.create_url}
                                  price_book_pages_url={props.shopping_list.price_book_pages_url}
+                                 item_names_url={props.shopping_list.item_names_url}
                                  authenticity_token={props.authenticity_token}
                                  disabled={state.is_busy} />
       </div>

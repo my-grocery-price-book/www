@@ -5,24 +5,40 @@ var ShoppingListItemAddForm = React.createClass({
     bloodhoundBuilder: React.PropTypes.func,
     create_url: React.PropTypes.string,
     price_book_pages_url: React.PropTypes.string,
+    item_names_url: React.PropTypes.string,
     authenticity_token: React.PropTypes.string,
     disabled: React.PropTypes.bool
   },
 
 
   getInitialState: function () {
-    return {name: "", name_suggestions: [], bloodhound_initialized: false};
+    return {name: "", suggestions: [],
+           more_suggestions: [], bloodhound_initialized: false};
   },
 
   handleNameChange: function (e) {
-    if (this.state.bloodhound_initialized) {
-      this.bloodhound.search(e.target.value, this.handleNameSuggestions)
+    if(e.target.value === "") {
+      this.setState({name: "", suggestions: [], more_suggestions: []});
+    } else {
+      this.findSuggestions(e.target.value);
+      this.setState({name: e.target.value});
     }
-    this.setState({name: e.target.value});
+  },
+
+  findSuggestions: function(name) {
+    if (this.state.bloodhound_initialized) {
+      this.bloodhound.search(name,
+          this.handleNameSuggestions,
+          this.handleAdditionalNameSuggestions)
+    }
   },
 
   handleNameSuggestions: function (suggested_names) {
-    this.setState({name_suggestions: suggested_names});
+    this.setState({suggestions: suggested_names});
+  },
+
+  handleAdditionalNameSuggestions: function (suggested_names) {
+    this.setState({more_suggestions: suggested_names});
   },
 
   componentDidMount: function () {
@@ -31,7 +47,7 @@ var ShoppingListItemAddForm = React.createClass({
 
   loadBloodhound: function () {
     var bloodhoundBuilder = this.props.bloodhoundBuilder || window.ShoppingListItemsBloodhound;
-    this.bloodhound = bloodhoundBuilder(this.props.price_book_pages_url);
+    this.bloodhound = bloodhoundBuilder(this.props.price_book_pages_url, this.props.item_names_url);
     this.bloodhound.initialize().done(this.bloodhoundInitialized);
   },
 
@@ -42,14 +58,14 @@ var ShoppingListItemAddForm = React.createClass({
   addItem: function (submit_event) {
     submit_event.preventDefault();
     this.props.handleAdd(this.state.name);
-    this.setState({name: '', name_suggestions: []});
+    this.setState({name: '', suggestions: [], more_suggestions: []});
   },
 
   addItemFromSuggestion: function (click_event) {
     click_event.preventDefault();
     var new_name = click_event.currentTarget.textContent;
     this.props.handleAdd(new_name);
-    this.setState({name: '', name_suggestions: []});
+    this.setState({name: '', suggestions: [], more_suggestions: []});
   },
 
   render: function () {
@@ -57,7 +73,9 @@ var ShoppingListItemAddForm = React.createClass({
     var props = this.props;
     var component = this;
 
-    var rendered_name_suggestions = this.state.name_suggestions.map(function (name) {
+    var suggestions = this.state.suggestions.concat(this.state.more_suggestions).slice(0,3);
+
+    var rendered_suggestions = suggestions.map(function (name) {
       return (
           <button className="bg-info name-suggestion btn" key={"suggested-" + name}
                   onClick={component.addItemFromSuggestion} disabled={props.disabled}>
@@ -68,9 +86,9 @@ var ShoppingListItemAddForm = React.createClass({
 
     return <div>
       <div className="col-xs-12">
-        <ReactCSSTransitionGroup transitionName="shopping-list-item" transitionEnterTimeout={100}
-                                 transitionLeaveTimeout={100}>
-          {rendered_name_suggestions}
+        <ReactCSSTransitionGroup transitionName="shopping-list-item" transitionEnterTimeout={250}
+                                 transitionLeaveTimeout={250}>
+          {rendered_suggestions}
         </ReactCSSTransitionGroup>
       </div>
       <form onSubmit={this.addItem} action={props.create_url} method="post">

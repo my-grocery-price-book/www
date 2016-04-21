@@ -2,15 +2,17 @@ describe('ShoppingListItemAddForm', function() {
   var react_dom;
   var dom_node;
   var names_added;
-  var bloodhound_url;
+  var prefetch_url;
+  var remote_url;
 
-  function localBloodhound(url) {
-    bloodhound_url = url;
+  function localBloodhound(p,r) {
+    prefetch_url = p;
+    remote_url = r
     return new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.whitespace,
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       sufficient: 3,
-      local: ['Bread', 'Oranges', 'Cheese']
+      local: ['Bread', 'Oranges', 'Cheese', 'Chicken', 'Carrots', 'Corn', 'Chips']
     });
   }
 
@@ -24,6 +26,7 @@ describe('ShoppingListItemAddForm', function() {
         <ShoppingListItemAddForm handleAdd={stubAdd}
                                  bloodhoundBuilder={localBloodhound}
                                  price_book_pages_url="/my_url"
+                                 item_names_url="/my_other"
                                  authenticity_token="asd"/>
     );
     dom_node = ReactDOM.findDOMNode(react_dom);
@@ -33,8 +36,12 @@ describe('ShoppingListItemAddForm', function() {
     expect(dom_node.nodeName).toEqual('DIV');
   });
 
-  it("sets bloodhound url", function () {
-    expect(bloodhound_url).toEqual('/my_url');
+  it("sets prefetch_url", function () {
+    expect(prefetch_url).toEqual('/my_url');
+  });
+
+  it("sets remote_url", function () {
+    expect(remote_url).toEqual('/my_other');
   });
 
   it("enables input", function () {
@@ -72,12 +79,24 @@ describe('ShoppingListItemAddForm', function() {
     expect(names_added).toEqual(["Bread"]);
   });
 
+  it("shows only 3 suggestions", function () {
+    const input = dom_node.querySelector('#shopping_list_item_name');
+
+    input.value = 'C';
+    TestUtils.Simulate.change(input);
+
+    const buttons = dom_node.querySelectorAll('button.name-suggestion');
+
+    expect(buttons.length).toEqual(3);
+  });
+
   describe('disabled', function() {
     beforeEach(function() {
       react_dom = TestUtils.renderIntoDocument(
           <ShoppingListItemAddForm handleAdd={stubAdd}
                                    bloodhoundBuilder={localBloodhound}
                                    price_book_pages_url="/my_url"
+                                   item_names_url="/my_other"
                                    authenticity_token="asd"
                                    disabled={true} />
       );
