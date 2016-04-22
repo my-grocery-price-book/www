@@ -5,18 +5,3 @@
 .item-purchased {
     text-decoration:line-through;
 }
-
-.shopping-list-add-form {
-    position: relative;
-}
-
-.shopping-list-add-form span:first-child {
-    display: table;
-    position: absolute;
-    z-index: 1;
-    bottom: 100%;
-}
-
-.shopping-list-add-form-suggestions {
-    display: table-cell;
-}
