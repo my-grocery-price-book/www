@@ -97,16 +97,6 @@ class PriceBook < ActiveRecord::Base
     pages.count
   end
 
-  def update_product!(info)
-    item = pages.find_or_initialize_by(
-      category: info[:category],
-      name: info[:regular_name],
-      unit: info[:package_unit]
-    )
-    item.product_names << info[:product_brand_name]
-    item.save
-  end
-
   def search_pages(term)
     pages.where('name ILIKE ?', "%#{term}%").order('id DESC')
   end

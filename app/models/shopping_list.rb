@@ -55,10 +55,6 @@ class ShoppingList < ActiveRecord::Base
     all_names.first(10)
   end
 
-  def done_items
-    items.where(done: true)
-  end
-
   def title
     t = super
     t.present? ? t : created_at.to_date

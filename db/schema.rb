@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160422132605) do
+ActiveRecord::Schema.define(version: 20160422134223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -194,33 +194,6 @@ ActiveRecord::Schema.define(version: 20160422132605) do
   end
 
   add_index "price_entries", ["store_id"], name: "index_price_entries_on_store_id", using: :btree
-
-  create_table "purchase_items", force: :cascade do |t|
-    t.integer  "purchase_id"
-    t.string   "product_brand_name"
-    t.decimal  "package_size"
-    t.string   "package_unit"
-    t.integer  "quantity"
-    t.decimal  "total_price"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.string   "category"
-    t.string   "regular_name"
-  end
-
-  add_index "purchase_items", ["purchase_id"], name: "index_purchase_items_on_purchase_id", using: :btree
-
-  create_table "purchases", force: :cascade do |t|
-    t.date     "purchased_on"
-    t.string   "store"
-    t.string   "location"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "shopper_id"
-    t.datetime "completed_at"
-  end
-
-  add_index "purchases", ["shopper_id"], name: "index_purchases_on_shopper_id", using: :btree
 
   create_table "shoppers", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false

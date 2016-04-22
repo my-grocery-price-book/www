@@ -2,7 +2,7 @@ require 'integration_helper'
 
 class RegisterAndLoginTest < IntegrationTest
   test 'register' do
-    visit '/purchases'
+    visit '/shopping_lists'
     click_link 'Sign up'
     fill_in 'Email', with: 'test@example.com'
     fill_in 'Password', with: '123asd!@#'
@@ -16,15 +16,15 @@ class RegisterAndLoginTest < IntegrationTest
                     password_confirmation: 'pass123!!',
                     password: 'pass123!!',
                     confirmed_at: Time.current)
-    visit '/purchases'
+    visit '/shopping_lists'
     fill_in 'Email', with: 'test@example.com'
     fill_in 'Password', with: 'pass123!!'
     click_button 'Log in'
-    assert page.has_content?('Listing Purchases')
+    assert page.has_content?('Shopping Lists')
   end
 
   test 'guest register' do
-    visit '/purchases'
+    visit '/shopping_lists'
     click_on 'Log in as Guest'
     click_link 'Register'
     fill_in 'Email', with: 'test@example.com'
