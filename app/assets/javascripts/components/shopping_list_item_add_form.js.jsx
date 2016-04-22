@@ -74,6 +74,8 @@ var ShoppingListItemAddForm = React.createClass({
       suggestions = [];
     }
 
+    suggestions.reverse();
+    
     var rendered_suggestions = suggestions.map(function (name) {
       return (
           <button className="bg-info name-suggestion btn" key={"suggested-" + name}
