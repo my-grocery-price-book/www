@@ -5,23 +5,24 @@
 
 <div class="row price-book-pages">
   <% @price_book_pages.each do |price_book_page| %>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-xs-6 col-sm-4 col-md-2">
       <div class="thumbnail">
-        <img src="http://placehold.it/220x165?text=Coming+Soon" alt="Coming Soon">
         <div class="caption">
-          <h3>
-            <a href="<%= price_book_page_path(price_book_page) %>">
-              <%= price_book_page.name %>
-            </a>
-          </h3>
+          <h4>
+            <a href="<%= price_book_page_path(price_book_page) %>"><%= price_book_page.name %></a>
+          </h4>
           <p><%= price_book_page.category %>,<%= price_book_page.unit %></p>
           <div class="btn-group" role="group">
             <a href="<%= edit_price_book_page_path(price_book_page) %>"
-                 class="btn btn-primary"
-                 role="button">Edit</a>
+               class="btn btn-primary" aria-label="Edit"
+               role="button">
+              <i class="glyphicon glyphicon-edit"></i>
+            </a>
             <a href="<%= delete_price_book_page_path(price_book_page) %>"
-               class="btn btn-default"
-               role="button">Delete</a>
+               class="btn btn-default" aria-label="Delete"
+               role="button">
+              <i class="glyphicon glyphicon-trash"></i>
+            </a>
           </div>
         </div>
       </div>

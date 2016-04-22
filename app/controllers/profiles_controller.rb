@@ -6,11 +6,10 @@ class ProfilesController < ApplicationController
 
   def edit
     @shopper = current_shopper
-    @public_apis = PublicApi.all
   end
 
   def update
-    current_shopper.update(params[:shopper].permit(:current_public_api))
+    current_shopper.update(params[:shopper].permit(:name))
     redirect_to(profile_path, notice: 'Update successful')
   end
 end

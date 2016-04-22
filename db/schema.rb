@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420201023) do
+ActiveRecord::Schema.define(version: 20160422134223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -181,48 +181,27 @@ ActiveRecord::Schema.define(version: 20160420201023) do
 
   add_index "price_books", ["_deprecated_shopper_id"], name: "index_price_books_on__deprecated_shopper_id", using: :btree
 
-  create_table "purchase_items", force: :cascade do |t|
-    t.integer  "purchase_id"
-    t.string   "product_brand_name"
-    t.decimal  "package_size"
-    t.string   "package_unit"
-    t.integer  "quantity"
-    t.decimal  "total_price"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.string   "category"
-    t.string   "regular_name"
+  create_table "price_entries", force: :cascade do |t|
+    t.date     "date_on",                    null: false
+    t.integer  "store_id"
+    t.string   "product_name",               null: false
+    t.integer  "amount",                     null: false
+    t.integer  "package_size",               null: false
+    t.string   "package_unit",               null: false
+    t.integer  "price_per_package_in_cents", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
-  add_index "purchase_items", ["purchase_id"], name: "index_purchase_items_on_purchase_id", using: :btree
-
-  create_table "purchases", force: :cascade do |t|
-    t.date     "purchased_on"
-    t.string   "store"
-    t.string   "location"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "shopper_id"
-    t.datetime "completed_at"
-  end
-
-  add_index "purchases", ["shopper_id"], name: "index_purchases_on_shopper_id", using: :btree
-
-  create_table "shopper_api_keys", force: :cascade do |t|
-    t.integer  "shopper_id", null: false
-    t.string   "api_key",    null: false
-    t.string   "api_root",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+  add_index "price_entries", ["store_id"], name: "index_price_entries_on_store_id", using: :btree
 
   create_table "shoppers", force: :cascade do |t|
-    t.string   "email",                  default: "",                                          null: false
-    t.string   "encrypted_password",     default: "",                                          null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,                                           null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -231,10 +210,9 @@ ActiveRecord::Schema.define(version: 20160420201023) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.datetime "created_at",                                                                   null: false
-    t.datetime "updated_at",                                                                   null: false
-    t.string   "current_public_api",     default: "za-wc.public-grocery-price-book-api.co.za", null: false
-    t.boolean  "guest",                  default: false,                                       null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "guest",                  default: false, null: false
   end
 
   add_index "shoppers", ["confirmation_token"], name: "index_shoppers_on_confirmation_token", unique: true, using: :btree
@@ -272,10 +250,18 @@ ActiveRecord::Schema.define(version: 20160420201023) do
   add_index "shopping_lists", ["_deprecated_shopper_id"], name: "index_shopping_lists_on__deprecated_shopper_id", using: :btree
   add_index "shopping_lists", ["price_book_id"], name: "index_shopping_lists_on_price_book_id", using: :btree
 
+  create_table "stores", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.string   "location",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "invites", "price_books"
   add_foreign_key "members", "price_books"
   add_foreign_key "members", "shoppers"
   add_foreign_key "price_book_pages", "price_books"
+  add_foreign_key "price_entries", "stores"
   add_foreign_key "shopping_list_item_purchases", "shopping_list_items"
   add_foreign_key "shopping_lists", "price_books"
 end

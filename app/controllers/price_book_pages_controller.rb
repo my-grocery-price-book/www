@@ -10,9 +10,7 @@ class PriceBookPagesController < ApplicationController
 
   # GET /price_book_pages/1
   def show
-    @prices = PriceEntriesService.new(price_book_page: @price_book_page,
-                                      region: current_public_api.code,
-                                      logger: Rails.logger)
+    @prices = PriceEntry.none
   end
 
   # GET /price_book_pages/new

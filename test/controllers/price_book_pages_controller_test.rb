@@ -43,20 +43,12 @@ class PriceBookPagesControllerTest < ActionController::TestCase
 
   context 'GET show' do
     setup do
-      @shopper.update_column(:current_public_api, 'ZA-EC')
       @price_book_page = @price_book.pages.create!(name: 'Apples', category: 'Fresh', unit: 'grams')
-      stub_request(:get, 'https://api.example.com/ZA-EC/entries?category=Fresh&package_unit=grams')
-        .to_return(status: 200, body: '[]')
     end
 
     should 'show price_book_page' do
       get :show, id: @price_book_page.to_param
       assert_response :success
-    end
-
-    should 'assign prices' do
-      get :show, id: @price_book_page.to_param
-      assert_instance_of(PriceEntriesService, assigns[:prices])
     end
   end
 
