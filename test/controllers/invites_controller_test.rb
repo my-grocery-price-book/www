@@ -23,7 +23,7 @@ class InvitesControllerTest < ActionController::TestCase
 
   context 'GET new' do
     should 'render the new page with form' do
-      get :new, price_book_id: @price_book.to_param
+      get :new, book_id: @price_book.to_param
       assert_response :success
       assert response.body.include?('Invite')
       assert response.body.include?('<form')
@@ -33,7 +33,7 @@ class InvitesControllerTest < ActionController::TestCase
   context 'POST create' do
     should 'create invite' do
       assert_difference('Invite.count') do
-        post :create, price_book_id: @price_book.to_param,
+        post :create, book_id: @price_book.to_param,
                       invite: { name: 'Joe', email: 'joe@mail.com' }
       end
 
@@ -42,15 +42,14 @@ class InvitesControllerTest < ActionController::TestCase
 
     should 'send an email' do
       assert_difference('ActionMailer::Base.deliveries.size') do
-        post :create, price_book_id: @price_book.to_param,
+        post :create, book_id: @price_book.to_param,
                       invite: { name: 'Joe', email: 'joe@mail.com' }
       end
     end
 
     should 'render new on failure' do
       assert_no_difference('Invite.count') do
-        post :create, price_book_id: @price_book.to_param,
-                      invite: { name: 'Joe', email: '' }
+        post :create, book_id: @price_book.to_param, invite: { name: 'Joe', email: '' }
       end
 
       assert_response :success

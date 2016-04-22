@@ -1,4 +1,4 @@
-<%= form_for([@price_book,@invite]) do |f| %>
+<%= form_for(@invite, url: book_invites_path(@price_book)) do |f| %>
   <% if @invite.errors.any? %>
     <div id="error_explanation">
       <ul>

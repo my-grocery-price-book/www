@@ -34,7 +34,7 @@ class InvitesController < ApplicationController
   private
 
   def price_book
-    @price_book ||= PriceBook.find_for_shopper(current_shopper, params[:price_book_id])
+    @price_book ||= PriceBook.find_for_shopper(current_shopper, params[:book_id])
   end
 
   # Only allow a trusted parameter "white item" through.
