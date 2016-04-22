@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_public_api
 
   # before_action :slow_down_if_xhr
-  protected
 
   # def slow_down_if_xhr
   #   sleep(3) if request.xhr?
