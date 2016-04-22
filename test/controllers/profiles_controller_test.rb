@@ -28,12 +28,6 @@ class ProfilesControllerTest < ActionController::TestCase
       assert_equal assigns[:shopper], shopper
     end
 
-    should 'assign current_public_api_options when signed in' do
-      sign_in :shopper, create_shopper
-      get :edit
-      assert_equal(PublicApi.all, assigns[:public_apis])
-    end
-
     should 'redirect new_shopper_session when signed out' do
       get :edit
       assert_redirected_to(new_shopper_session_path)
@@ -41,18 +35,10 @@ class ProfilesControllerTest < ActionController::TestCase
   end
 
   context 'PATCH update' do
-    should 'redirect tprofile_path when signed in' do
+    should 'redirect trofile_path when signed in' do
       sign_in :shopper, create_shopper
       patch :update, shopper: {}
       assert_redirected_to(profile_path)
-    end
-
-    should 'update shopper current_public_api when signed in' do
-      shopper = create_shopper
-      sign_in :shopper, shopper
-      patch :update, shopper: { current_public_api: 'za-nw.public-grocery-price-book-api.co.za' }
-      shopper.reload
-      assert_equal 'za-nw.public-grocery-price-book-api.co.za', shopper.current_public_api
     end
 
     should 'redirect new_shopper_session when signed out' do

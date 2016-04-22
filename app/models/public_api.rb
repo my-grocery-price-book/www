@@ -1,12 +1,8 @@
 require 'yaml'
 require 'carmen'
 
-PublicApi = Struct.new(:code, :name, :url_root, :country_name)
+PublicApi = Struct.new(:code, :name, :country_name)
 class PublicApi
-  def url
-    "#{url_root}/#{code}"
-  end
-
   def self.find_by_code(code)
     all.find { |api| api.code == code }
   end
@@ -21,7 +17,7 @@ class PublicApi
       country = Carmen::Country.named(country_name)
       country.subregions.each do |region|
         code = "#{country.alpha_2_code}-#{region.code}"
-        all << new(code, "#{country.name} - #{region.name}", ENV['PUBLIC_API_DOMAIN'], country.name)
+        all << new(code, "#{country.name} - #{region.name}", country.name)
       end
     end
     all

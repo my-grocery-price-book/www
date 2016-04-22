@@ -31,7 +31,7 @@ class SharingAShoppingListTest < FeatureTest
     end
 
     assert @grant.has_no_css?('span', text: 'Update Failed'), 'Update Failed'
-    assert @grant.has_css?('span', text: 'Our Shopping'), 'Our Shopping not visible'
+    assert @grant.has_css?('h3', text: 'Our Shopping'), 'Our Shopping not visible'
 
     @kate.perform do
       click_link 'Shopping List'

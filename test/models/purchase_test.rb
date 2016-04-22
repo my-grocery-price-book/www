@@ -40,51 +40,6 @@ describe Purchase do
     end
   end
 
-  describe '#mark_as_completed' do
-    before :each do
-      @current_time = Time.current
-      @purchase = Purchase.create!(shopper_id: 11, purchased_on: Time.zone.today)
-    end
-
-    def mark_as_completed(params)
-      @purchase.mark_as_completed(params)
-      @purchase.reload
-    end
-
-    it 'sets completed_at on purchase' do
-      mark_as_completed(current_time: @current_time,
-                        api_root: 'http://example.com',
-                        api_region_code: 'za-wc',
-                        api_key: 'a')
-
-      @purchase.completed_at.to_s.must_equal(@current_time.to_s)
-    end
-
-    it 'exports one purchase item' do
-      stub_request(:post, 'http://example.com/za-wc/entries')
-      @purchase.items.create!
-
-      mark_as_completed(current_time: @current_time,
-                        api_root: 'http://example.com',
-                        api_region_code: 'za-wc',
-                        api_key: 'a')
-
-      # make sure Purchases::SendItemToApiJob gets called
-      assert_requested :post, 'http://example.com/za-wc/entries', times: 1
-    end
-
-    it 'exports multiple purchase item' do
-      3.times { @purchase.items.create! }
-      stub_request(:post, 'http://example.com/za-wc/entries')
-
-      mark_as_completed(current_time: @current_time, api_root: 'http://example.com',
-                        api_region_code: 'za-wc', api_key: 'a')
-
-      # make sure Purchases::SendItemToApiJob gets called
-      assert_requested :post, 'http://example.com/za-wc/entries', times: 3
-    end
-  end
-
   describe 'Validation' do
     it 'must have a shopper' do
       purchase = Purchase.new

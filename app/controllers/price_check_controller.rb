@@ -1,6 +1,4 @@
 class PriceCheckController < ApplicationController
-  before_action :check_public_api_is_selected, only: [:index]
-
   def index
   end
 

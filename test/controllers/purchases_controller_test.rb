@@ -62,35 +62,6 @@ class PurchasesControllerTest < ActionController::TestCase
     end
   end
 
-  context 'PATCH complete' do
-    setup do
-      api = PublicApi.all.first
-      @shopper.update_column(:current_public_api, api.code)
-      ShopperApiKey.create!(shopper_id: @shopper.id, api_root: api.url_root, api_key: 'test')
-      stub_request(:post, "https://api.example.com/#{api.code}/entries")
-    end
-
-    should 'redirect to profile if no current_public_api' do
-      @shopper.update_column(:current_public_api, '')
-      patch :complete, id: @purchase
-      assert_redirected_to edit_profile_path
-    end
-
-    should 'redirect to edit_purchase_path' do
-      patch :complete, id: @purchase
-      assert_redirected_to edit_purchase_path(assigns(:purchase))
-    end
-
-    should 'mark purchase complete' do
-      @purchase.items.create
-
-      patch :complete, id: @purchase
-      @purchase.reload
-
-      refute_nil(@purchase.completed_at)
-    end
-  end
-
   context 'DELETE destroy' do
     should 'destroy purchase' do
       assert_difference('Purchase.count', -1) do
