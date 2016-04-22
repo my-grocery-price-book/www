@@ -5,3 +5,20 @@
 .item-purchased {
     text-decoration:line-through;
 }
+
+.shopping-list-item-add-form {
+    position: relative;
+}
+
+.shopping-list-suggestions {
+    position: absolute;
+    z-index: 1030;
+    bottom: 100%;
+    left: 0;
+}
+.name-suggestion {
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+
