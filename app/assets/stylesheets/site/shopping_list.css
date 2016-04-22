@@ -6,17 +6,19 @@
     text-decoration:line-through;
 }
 
-.shopping-list-add-form {
+.shopping-list-item-add-form {
     position: relative;
 }
 
-.shopping-list-add-form span:first-child {
-    display: table;
+.shopping-list-suggestions {
     position: absolute;
-    z-index: 1;
+    z-index: 1030;
     bottom: 100%;
+    left: 0;
+}
+.name-suggestion {
+    display: block;
+    width: 100%;
+    text-align: left;
 }
 
-.shopping-list-add-form-suggestions {
-    display: table-cell;
-}

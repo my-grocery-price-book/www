@@ -74,6 +74,8 @@ var ShoppingListItemAddForm = React.createClass({
       suggestions = [];
     }
 
+    suggestions.reverse();
+    
     var rendered_suggestions = suggestions.map(function (name) {
       return (
           <button className="bg-info name-suggestion btn" key={"suggested-" + name}
@@ -83,8 +85,8 @@ var ShoppingListItemAddForm = React.createClass({
       );
     });
 
-    return <div className="shopping-list-add-form">
-      <div className="col-xs-12 shopping-list-add-form-suggestions">
+    return <div className="shopping-list-item-add-form">
+      <div className="col-xs-12 shopping-list-suggestions">
         <ReactCSSTransitionGroup transitionName="shopping-list-item" transitionEnterTimeout={250}
                                  transitionLeaveTimeout={250}>
           {rendered_suggestions}
