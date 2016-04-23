@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'pages#index'
 
-  resources :books, controller: 'price_books', only: [:edit, :update] do
+  resources :books, only: [:edit, :update] do
     resources :invites, only: [:new, :create]
     resources :pages, controller: 'price_book_pages', only: [:index]
     resources :price_entries, only: [:new, :create]
