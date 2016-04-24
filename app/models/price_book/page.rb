@@ -31,8 +31,4 @@ class PriceBook::Page < ActiveRecord::Base
   def info
     { name: name, category: category, unit: unit }
   end
-
-  def to_param
-    "#{category}_#{unit}_#{name}".downcase
-  end
 end

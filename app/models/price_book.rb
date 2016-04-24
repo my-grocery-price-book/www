@@ -8,6 +8,7 @@
 #  updated_at                      :datetime         not null
 #  name                            :string           default("My Price Book"), not null
 #  _deprecated_shopper_id_migrated :boolean          default(FALSE), not null
+#  region_codes                    :string           default([]), is an Array
 #
 
 class PriceBook < ActiveRecord::Base
@@ -39,7 +40,7 @@ class PriceBook < ActiveRecord::Base
   end
 
   def self.default_for_shopper(shopper)
-    book = joins(:members).find_by(members: { shopper_id: shopper.id })
+    book = for_shopper(shopper).first
     return book if book
     new(shopper: shopper).tap do |new_book|
       new_book.extend(ForShopperDefaultPages)
@@ -52,8 +53,13 @@ class PriceBook < ActiveRecord::Base
   # @param [String] id
   # @return [PriceBook]
   def self.find_for_shopper(shopper, id)
-    book = joins(:members).where(members: { shopper_id: shopper.id })
-    book.find(id)
+    for_shopper(shopper).find(id)
+  end
+
+  # @param [Shopper] shopper
+  # @return [Array<PriceBook>]
+  def self.for_shopper(shopper)
+    joins(:members).where(members: { shopper_id: shopper.id })
   end
 
   # used and tested through Pricebook#for_shopper
@@ -102,7 +108,11 @@ class PriceBook < ActiveRecord::Base
   end
 
   def find_page!(page_id)
-    pages.where("CONCAT(LOWER(category),'_',LOWER(unit),'_',LOWER(name)) = ?", page_id).first!
+    pages.find(page_id)
+  end
+
+  def region_set?
+    region_codes.select(&:present?).any?
   end
 
   def to_s

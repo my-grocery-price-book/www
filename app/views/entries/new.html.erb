@@ -1,0 +1,5 @@
+<%= render 'form', entry: @entry,
+                   form_action: book_page_entries_path(@book,@page),
+                   back_href: book_page_path(@book,@page),
+                   title:  'New Price Entry',
+                   error_messages: @entry.errors.full_messages %>

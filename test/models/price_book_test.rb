@@ -8,6 +8,7 @@
 #  updated_at                      :datetime         not null
 #  name                            :string           default("My Price Book"), not null
 #  _deprecated_shopper_id_migrated :boolean          default(FALSE), not null
+#  region_codes                    :string           default([]), is an Array
 #
 
 require 'test_helper'
@@ -83,13 +84,13 @@ describe PriceBook do
     subject { PriceBook.create!(shopper: create_shopper) }
 
     it 'can find a page' do
-      add_page!(subject, name: 'Soda', category: 'Drinks', unit: 'Liters')
-      subject.find_page!('drinks_liters_soda').info.must_equal(name: 'Soda', category: 'Drinks', unit: 'Liters')
+      page = add_page!(subject, name: 'Soda', category: 'Drinks', unit: 'Liters')
+      subject.find_page!(page.id).info.must_equal(name: 'Soda', category: 'Drinks', unit: 'Liters')
     end
 
-    it 'returns nil for unknown page' do
+    it 'raises error if cant find' do
       add_page!(subject, name: 'Soda', category: 'Drinks', unit: 'Liters')
-      -> { subject.find_page!('unknown') }.must_raise(ActiveRecord::RecordNotFound)
+      -> { subject.find_page!("0") }.must_raise(ActiveRecord::RecordNotFound)
     end
   end
 

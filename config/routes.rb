@@ -3,8 +3,9 @@ Rails.application.routes.draw do
 
   resources :books, only: [:edit, :update] do
     resources :invites, only: [:new, :create]
-    resources :pages, controller: 'price_book_pages', only: [:index]
-    resources :price_entries, only: [:new, :create]
+    resources :pages, controller: 'price_book_pages', only: [:index, :show] do
+      resources :entries, only: [:new, :create]
+    end
     resources :shopping_items, controller: 'shopping_list_items', only: [] do
       collection do
         get 'names'
