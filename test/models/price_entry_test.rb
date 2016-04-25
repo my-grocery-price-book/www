@@ -2,16 +2,16 @@
 #
 # Table name: price_entries
 #
-#  id                   :integer          not null, primary key
-#  date_on              :date             not null
-#  store_id             :integer
-#  product_name         :string           not null
-#  amount               :integer          not null
-#  package_size         :integer          not null
-#  package_unit         :string           not null
-#  total_price_in_cents :integer          not null
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
+#  id           :integer          not null, primary key
+#  date_on      :date             not null
+#  store_id     :integer
+#  product_name :string           not null
+#  amount       :integer          not null
+#  package_size :integer          not null
+#  package_unit :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  total_price  :money            not null
 #
 
 require 'test_helper'
@@ -38,8 +38,8 @@ describe PriceEntry do
       PriceEntry.create.errors[:package_unit].wont_be_empty
     end
 
-    it 'requires total_price_in_cents' do
-      PriceEntry.create.errors[:total_price_in_cents].wont_be_empty
+    it 'requires total_price' do
+      PriceEntry.create.errors[:total_price].wont_be_empty
     end
   end
 end

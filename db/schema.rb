@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160423133138) do
+ActiveRecord::Schema.define(version: 20160425061130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -183,15 +183,15 @@ ActiveRecord::Schema.define(version: 20160423133138) do
   add_index "price_books", ["_deprecated_shopper_id"], name: "index_price_books_on__deprecated_shopper_id", using: :btree
 
   create_table "price_entries", force: :cascade do |t|
-    t.date     "date_on",              null: false
+    t.date     "date_on",                null: false
     t.integer  "store_id"
-    t.string   "product_name",         null: false
-    t.integer  "amount",               null: false
-    t.integer  "package_size",         null: false
-    t.string   "package_unit",         null: false
-    t.integer  "total_price_in_cents", null: false
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.string   "product_name",           null: false
+    t.integer  "amount",                 null: false
+    t.integer  "package_size",           null: false
+    t.string   "package_unit",           null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.money    "total_price",  scale: 2, null: false
   end
 
   add_index "price_entries", ["store_id"], name: "index_price_entries_on_store_id", using: :btree

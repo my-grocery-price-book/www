@@ -8,7 +8,8 @@ class BooksController < ApplicationController
   def update
     @book = PriceBook.find(params[:id])
     if @book.update(book_params)
-      redirect_to price_book_pages_path, notice: 'Update successful'
+      redirect_to (session[:book_update_return] || price_book_pages_path), notice: 'Update successful'
+      session[:book_update_return] = nil
     else
       render :edit
     end
@@ -18,6 +19,6 @@ class BooksController < ApplicationController
 
   # Only allow a trusted parameter "white item" through.
   def book_params
-    params.require(:price_book).permit(:name)
+    params.require(:price_book).permit(:name, region_codes: [])
   end
 end

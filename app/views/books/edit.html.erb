@@ -1,5 +1,6 @@
 <%= render 'form', book: @book,
-                   form_action: edit_book_path(@book),
+                   form_action: book_path(@book),
                    back_href: price_book_pages_path,
                    title:  'Edit Price Book',
+                   region_options: book_region_options,
                    error_messages: @book.errors.full_messages %>

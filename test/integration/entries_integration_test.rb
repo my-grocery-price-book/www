@@ -14,7 +14,7 @@
 
 require 'test_helper'
 
-class PriceEntriesIntegrationTest < ActionDispatch::IntegrationTest
+class EntriesIntegrationTest < ActionDispatch::IntegrationTest
   include Warden::Test::Helpers
 
   teardown do
@@ -32,7 +32,7 @@ class PriceEntriesIntegrationTest < ActionDispatch::IntegrationTest
   context 'GET /books/:book_id/pages/:page_id/entries/new' do
     context 'book region codes sets' do
       setup do
-        @price_book.update!(region_codes: [Region.first_code])
+        @price_book.update!(region_codes: [RegionFinder.instance.first_code])
       end
 
       context 'page exists' do
@@ -71,6 +71,11 @@ class PriceEntriesIntegrationTest < ActionDispatch::IntegrationTest
       should 'set a alert' do
         get "/books/#{@price_book.to_param}/pages/#{@page.to_param}/entries/new"
         assert_equal 'book requires region first', flash[:alert]
+      end
+
+      should 'set a price_book_save_return' do
+        get "/books/#{@price_book.to_param}/pages/#{@page.to_param}/entries/new"
+        assert_equal(new_book_page_entry_path(@price_book,@page), session[:book_update_return])
       end
     end
   end
