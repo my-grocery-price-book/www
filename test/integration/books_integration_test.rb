@@ -42,8 +42,8 @@ class BooksIntegrationTest < ActionDispatch::IntegrationTest
         patch "/books/#{@price_book.to_param}",
               price_book: { name: 'New Name', region_codes: ['ZAR-WC'] }
         @price_book.reload
-        new_values = @price_book.attributes.slice('name','region_codes')
-        assert_equal({'name' => 'New Name', 'region_codes' => ['ZAR-WC']}, new_values)
+        new_values = @price_book.attributes.slice('name', 'region_codes')
+        assert_equal({ 'name' => 'New Name', 'region_codes' => ['ZAR-WC'] }, new_values)
       end
 
       should 'redirect to price_book_pages_path' do
@@ -55,10 +55,10 @@ class BooksIntegrationTest < ActionDispatch::IntegrationTest
         page = @price_book.pages.create!(name: 'Beans', category: 'Cupboard Food', unit: 'grams')
 
         get "/books/#{@price_book.to_param}/pages/#{page.to_param}/entries/new"
-        assert_equal(new_book_page_entry_path(@price_book,page), session[:book_update_return])
+        assert_equal(new_book_page_entry_path(@price_book, page), session[:book_update_return])
 
         patch "/books/#{@price_book.to_param}", price_book: { name: 'New Name' }
-        assert_redirected_to(new_book_page_entry_path(@price_book,page))
+        assert_redirected_to(new_book_page_entry_path(@price_book, page))
 
         patch "/books/#{@price_book.to_param}", price_book: { name: 'New Name' }
         assert_redirected_to(price_book_pages_path)

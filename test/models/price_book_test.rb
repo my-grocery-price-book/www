@@ -90,7 +90,7 @@ describe PriceBook do
 
     it 'raises error if cant find' do
       add_page!(subject, name: 'Soda', category: 'Drinks', unit: 'Liters')
-      -> { subject.find_page!("0") }.must_raise(ActiveRecord::RecordNotFound)
+      -> { subject.find_page!('0') }.must_raise(ActiveRecord::RecordNotFound)
     end
   end
 

@@ -75,7 +75,7 @@ class EntriesIntegrationTest < ActionDispatch::IntegrationTest
 
       should 'set a price_book_save_return' do
         get "/books/#{@price_book.to_param}/pages/#{@page.to_param}/entries/new"
-        assert_equal(new_book_page_entry_path(@price_book,@page), session[:book_update_return])
+        assert_equal(new_book_page_entry_path(@price_book, @page), session[:book_update_return])
       end
     end
   end
