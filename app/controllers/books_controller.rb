@@ -2,12 +2,11 @@ class BooksController < ApplicationController
   before_action :authenticate_shopper!
 
   def edit
-    @book = PriceBook.find(params[:id])
+    book
   end
 
   def update
-    @book = PriceBook.find(params[:id])
-    if @book.update(book_params)
+    if book.update(book_params)
       redirect_to (session[:book_update_return] || price_book_pages_path), notice: 'Update successful'
       session[:book_update_return] = nil
     else
@@ -20,5 +19,9 @@ class BooksController < ApplicationController
   # Only allow a trusted parameter "white item" through.
   def book_params
     params.require(:price_book).permit(:name, region_codes: [])
+  end
+
+  def book
+    @book ||= PriceBook.find_for_shopper(current_shopper, params[:id])
   end
 end
