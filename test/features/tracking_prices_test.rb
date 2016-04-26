@@ -8,7 +8,7 @@ class TrackingPricesTest < FeatureTest
     @pat.sign_up
   end
 
-  test 'Grant tracks price of Sugar and Pat sees it' do
+  test 'Grant tracks price of Sugar for the first time and Pat sees it' do
     @grant.perform do
       click_link 'Price Book'
       click_on 'Sugar'
@@ -18,7 +18,12 @@ class TrackingPricesTest < FeatureTest
       select 'South Africa - Western Cape', from: 'Region'
       click_on 'Save'
 
-      save_screenshot
+      # need to create a new store first
+      click_link 'New Store'
+      fill_in 'Name', with: 'Pick n Pay'
+      fill_in 'Location', with: 'Canal Walk'
+      click_on 'Save'
+
       # start filling in the price
       fill_in 'Product name', with: 'Koo Beans'
       fill_in 'Amount', with: '1'

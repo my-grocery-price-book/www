@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425061130) do
+ActiveRecord::Schema.define(version: 20160426060238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,6 +178,7 @@ ActiveRecord::Schema.define(version: 20160425061130) do
     t.string   "name",                            default: "My Price Book", null: false
     t.boolean  "_deprecated_shopper_id_migrated", default: false,           null: false
     t.string   "region_codes",                    default: [],                           array: true
+    t.integer  "store_ids",                       default: [],                           array: true
   end
 
   add_index "price_books", ["_deprecated_shopper_id"], name: "index_price_books_on__deprecated_shopper_id", using: :btree
@@ -252,10 +253,11 @@ ActiveRecord::Schema.define(version: 20160425061130) do
   add_index "shopping_lists", ["price_book_id"], name: "index_shopping_lists_on_price_book_id", using: :btree
 
   create_table "stores", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.string   "location",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",        null: false
+    t.string   "location",    null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "region_code", null: false
   end
 
   add_foreign_key "invites", "price_books"

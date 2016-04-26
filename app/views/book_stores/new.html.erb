@@ -1,0 +1,6 @@
+<%= render 'form', store: @store,
+                   form_action: book_stores_path(@book),
+                   back_href: session[:book_store_create_return] || book_pages_path(@book),
+                   title:  'New Store',
+                   error_messages: @store.errors.full_messages,
+                   selectable_regions: regions_for_book(@book) %>

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :books, only: [:edit, :update] do
     resources :invites, only: [:new, :create]
+    resources :stores, controller: 'book_stores', only: [:new, :create]
     resources :pages, controller: 'price_book_pages', only: [:index, :show] do
       resources :entries, only: [:new, :create]
     end

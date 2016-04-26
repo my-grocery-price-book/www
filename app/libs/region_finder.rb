@@ -39,6 +39,12 @@ class RegionFinder
     @all.find { |region| region.code == code }
   end
 
+  # @param [Array<String>] codes
+  # @return [Array<RegionFinder::Region>]
+  def find_by_codes(codes)
+    @all.select { |region| codes.include?(region.code) }
+  end
+
   def first_code
     @all.first.code
   end

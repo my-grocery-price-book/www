@@ -19,6 +19,7 @@ class EntriesController < ApplicationController
 
   def new
     @entry = PriceEntry.new
+    session[:book_store_create_return] = new_book_page_entry_path
   end
 
   def create

@@ -41,6 +41,11 @@ class EntriesIntegrationTest < ActionDispatch::IntegrationTest
           assert_response :success
           assert response.body.include?('<form'), 'does not contain form'
         end
+
+        should 'set book_store_create_return session' do
+          get "/books/#{@price_book.to_param}/pages/#{@page.to_param}/entries/new"
+          assert_equal new_book_page_entry_path(@price_book,@page), session[:book_store_create_return]
+        end
       end
 
       context 'page does not exist' do

@@ -2,5 +2,7 @@
 <%= render 'entries/form', entry: price_entry,
            form_action: "#",
            back_href: '#',
+           new_store_href: '#',
            title:  'New Entry',
-           error_messages: price_entry.errors.full_messages  %>
+           error_messages: price_entry.errors.full_messages,
+           selectable_stores: ['Pick n Pay - Canal Walk', 'Checkers - Canal Walk'] %>

@@ -9,6 +9,7 @@
 #  name                            :string           default("My Price Book"), not null
 #  _deprecated_shopper_id_migrated :boolean          default(FALSE), not null
 #  region_codes                    :string           default([]), is an Array
+#  store_ids                       :integer          default([]), is an Array
 #
 
 require 'test_helper'

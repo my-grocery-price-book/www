@@ -9,6 +9,7 @@
 #  name                            :string           default("My Price Book"), not null
 #  _deprecated_shopper_id_migrated :boolean          default(FALSE), not null
 #  region_codes                    :string           default([]), is an Array
+#  store_ids                       :integer          default([]), is an Array
 #
 
 class PriceBook < ActiveRecord::Base
@@ -21,6 +22,16 @@ class PriceBook < ActiveRecord::Base
   after_create :create_member
 
   before_save :set__deprecated_shopper_id_migrated
+
+  def stores
+    Store.where(id: store_ids)
+  end
+
+  # @param [Store] store
+  def add_store!(store)
+    store_ids << store.id
+    save!
+  end
 
   def create_shopping_list!(*a)
     shopping_lists.create(*a)
