@@ -1,6 +1,9 @@
 ENV['RAILS_ENV'] ||= 'test'
 require 'rubygems'
-require 'simplecov'
+if ENV['COVERAGE']
+  require 'simplecov'
+  SimpleCov.start 'rails'
+end
 require 'bundler/setup'
 require 'minitest/spec'
 require File.expand_path('../../config/environment', __FILE__)
