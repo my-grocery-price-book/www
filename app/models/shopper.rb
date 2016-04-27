@@ -19,7 +19,6 @@
 #  unconfirmed_email      :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  current_public_api     :string           default("za-wc.public-grocery-price-book-api.co.za"), not null
 #  guest                  :boolean          default(FALSE), not null
 #
 
@@ -28,6 +27,14 @@ class Shopper < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  has_many :entry_owners
+  has_many :price_entries, through: :entry_owners
+
+  # @param [PriceEntry] entry
+  def create_entry_owner!(entry)
+    entry_owners.create!(price_entry: entry)
+  end
 
   def password_required?
     return false if new_creating_guest?

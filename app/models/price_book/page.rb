@@ -20,6 +20,12 @@ class PriceBook::Page < ActiveRecord::Base
 
   before_save :uniq_product_names
 
+  # @param [String] name
+  def add_product_name!(name)
+    product_names << name
+    save!
+  end
+
   protected
 
   def uniq_product_names
@@ -30,9 +36,5 @@ class PriceBook::Page < ActiveRecord::Base
 
   def info
     { name: name, category: category, unit: unit }
-  end
-
-  def to_param
-    "#{category}_#{unit}_#{name}".downcase
   end
 end

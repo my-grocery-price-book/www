@@ -1,0 +1,26 @@
+<h1><%= title %></h1>
+
+<%= form_for(book, url: form_action) do |f| %>
+    <% if error_messages.present? %>
+      <div class="error-explanation">
+        <ul>
+          <% error_messages.each do |message| %>
+              <%= message %>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="form-group">
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </div>
+    <div class="form-group">
+      <label for="price_book_region_codes_0">Region</label><br/>
+      <select id="price_book_region_codes_0" name="price_book[region_codes][]">
+        <%= options_for_select(region_options, selected: book.region_codes[0]) %>
+      </select>
+    </div>
+    <button class="btn btn-primary">Save</button>
+    <a href="<%= back_href %>" class="btn btn-default">Back</a>
+<% end %>
+

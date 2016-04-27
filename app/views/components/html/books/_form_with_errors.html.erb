@@ -1,0 +1,8 @@
+<% book = PriceBook.new(name: '').tap(&:save) %>
+
+<%= render 'books/form', book: book,
+           form_action: "#",
+           back_href: '#',
+           title:  'Edit Price Book',
+           region_options: book_region_options,
+           error_messages: book.errors.full_messages  %>

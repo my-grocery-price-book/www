@@ -14,11 +14,17 @@
   </div>
   <div class="form-group">
     <%= f.label :category %><br>
-  <%= f.select :category, ['Bakery','Fresh','Frozen','Ready Meals', 'Food Cupboard', 'Snacks and Sweets', 'Drinks', 'Household', 'Pets','Baby','Health and Beauty', 'Other'], include_blank: true %>
+    <%= f.select :category, ['Bakery','Fresh','Frozen','Ready Meals', 'Food Cupboard',
+                             'Snacks and Sweets', 'Drinks', 'Household', 'Pets','Baby',
+                             'Health and Beauty', 'Other'], include_blank: true %>
   </div>
   <div class="form-group">
     <%= f.label :unit %><br>
-    <%= f.text_field :unit %>
+    <%= f.select :unit, ['grams','kilograms', 'milliliters','liters', 'gallons','pounds','items',
+                         'bags','packages', 'centimeters', 'meters','inches','ounces','pints', 'yard',
+                         'cubic feet', 'cubic inches', 'cubic meters', 'fluid ounces', 'quarts',
+                         'square feet', 'square inch', 'square meter', 'square yard'],
+                          include_blank: true %>
   </div>
   <%= f.submit nil, class: 'btn btn-default' %>
 <% end %>

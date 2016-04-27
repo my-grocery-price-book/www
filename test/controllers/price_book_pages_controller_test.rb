@@ -50,6 +50,18 @@ class PriceBookPagesControllerTest < ActionController::TestCase
       get :show, id: @price_book_page.to_param
       assert_response :success
     end
+
+    should 'shows prices' do
+      @store = Store.create(name: 'Test', location: 'Test', region_code: 'ZAR-WC')
+      @price_book.add_store!(@store)
+      @price_book_page.add_product_name!('Red Apples')
+      PriceEntry.create!(date_on: Date.current, store: @store, product_name: 'red apples',
+                         amount: 42, package_size: 100, package_unit: 'grams', total_price: 508.66)
+
+      get :show, id: @price_book_page.to_param
+      assert_response :success
+      assert response.body.include?('red apples')
+    end
   end
 
   context 'GET edit' do

@@ -57,7 +57,7 @@ class ShoppingList < ActiveRecord::Base
 
   def title
     t = super
-    t.present? ? t : created_at.to_date
+    t.present? ? t : created_at.try(:to_date)
   end
 
   def to_s

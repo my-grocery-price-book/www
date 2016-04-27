@@ -3,11 +3,11 @@ class PriceCheckController < ApplicationController
   end
 
   def select_area
-    @public_apis = PublicApi.all
+    @public_apis = RegionFinder.instance
   end
 
   def set_selected_area
-    public_api = PublicApi.find_by_code(params[:current_public_api])
+    public_api = RegionFinder.instance.find_by_code(params[:current_public_api])
     session['current_public_api_code'] = public_api.try(:code)
     redirect_to(price_check_path, notice: 'Area Selected')
   end
