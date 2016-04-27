@@ -12,6 +12,6 @@
 
 module StoresHelper
   def regions_for_book(book)
-    RegionFinder.instance.find_by_codes(book.region_codes).map{|s| [s.name, s.code]}
+    RegionFinder.instance.find_by_codes(book.region_codes).map { |s| [s.name, s.code] }
   end
 end

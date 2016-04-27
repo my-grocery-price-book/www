@@ -31,14 +31,14 @@ describe Store do
     it 'strips leading spacing' do
       store = Store.create!(name: ' World', location: ' Space', region_code: 'ZAR-WC')
       store.reload
-      assert_equal(store.attributes.slice('name','location'),
+      assert_equal(store.attributes.slice('name', 'location'),
                    'name' => 'World', 'location' => 'Space')
     end
 
     it 'strips trailing spacing' do
       store = Store.create!(name: 'World ', location: 'Space ', region_code: 'ZAR-WC')
       store.reload
-      assert_equal(store.attributes.slice('name','location'),
+      assert_equal(store.attributes.slice('name', 'location'),
                    'name' => 'World', 'location' => 'Space')
     end
   end
@@ -49,8 +49,8 @@ describe Store do
                                        location: 'Space',
                                        region_code: 'ZAR-WC')
       assert store.new_record?
-      assert_equal({'name' => 'World', 'location' => 'Space', 'region_code' => 'ZAR-WC'},
-                    store.attributes.slice('name','location','region_code'))
+      assert_equal({ 'name' => 'World', 'location' => 'Space', 'region_code' => 'ZAR-WC' },
+                   store.attributes.slice('name', 'location', 'region_code'))
     end
 
     it 'matches on correct name and location' do
@@ -60,8 +60,8 @@ describe Store do
                                        location: 'Earth',
                                        region_code: 'ZAR-WC')
       assert store.persisted?
-      assert_equal({'name' => 'Hello', 'location' => 'Earth', 'region_code' => 'ZAR-WC'},
-                   store.attributes.slice('name','location','region_code'))
+      assert_equal({ 'name' => 'Hello', 'location' => 'Earth', 'region_code' => 'ZAR-WC' },
+                   store.attributes.slice('name', 'location', 'region_code'))
     end
 
     it 'matches case insensitvity' do
@@ -70,8 +70,8 @@ describe Store do
                                        location: 'World',
                                        region_code: 'ZAR-WC')
       assert store.persisted?
-      assert_equal({'name' => 'hello', 'location' => 'world', 'region_code' => 'ZAR-WC'},
-                   store.attributes.slice('name','location','region_code'))
+      assert_equal({ 'name' => 'hello', 'location' => 'world', 'region_code' => 'ZAR-WC' },
+                   store.attributes.slice('name', 'location', 'region_code'))
     end
 
     it 'matches ignoring leading and trailing spacing' do
@@ -80,8 +80,8 @@ describe Store do
                                        location: ' go there ',
                                        region_code: 'ZAR-WC')
       assert store.persisted?
-      assert_equal({'name' => 'place here', 'location' => 'go there', 'region_code' => 'ZAR-WC'},
-                   store.attributes.slice('name','location','region_code'))
+      assert_equal({ 'name' => 'place here', 'location' => 'go there', 'region_code' => 'ZAR-WC' },
+                   store.attributes.slice('name', 'location', 'region_code'))
     end
 
     it 'matches ignoring spacing' do
@@ -90,8 +90,8 @@ describe Store do
                                        location: ' go there ',
                                        region_code: 'ZAR-WC')
       assert store.persisted?
-      assert_equal({'name' => 'place here', 'location' => 'gothere', 'region_code' => 'ZAR-WC'},
-                   store.attributes.slice('name','location','region_code'))
+      assert_equal({ 'name' => 'place here', 'location' => 'gothere', 'region_code' => 'ZAR-WC' },
+                   store.attributes.slice('name', 'location', 'region_code'))
     end
 
     it 'matches ignoring spacing' do
@@ -100,8 +100,8 @@ describe Store do
                                        location: ' gothere ',
                                        region_code: 'ZAR-WC')
       assert store.persisted?
-      assert_equal({'name' => 'placehere', 'location' => 'go there', 'region_code' => 'ZAR-WC'},
-                   store.attributes.slice('name','location','region_code'))
+      assert_equal({ 'name' => 'placehere', 'location' => 'go there', 'region_code' => 'ZAR-WC' },
+                   store.attributes.slice('name', 'location', 'region_code'))
     end
 
     it 'matches in correct region_code' do
@@ -112,8 +112,8 @@ describe Store do
                                        location: 'world',
                                        region_code: 'ZAR-WC')
       assert store.persisted?
-      assert_equal({'name' => 'hello', 'location' => 'world', 'region_code' => 'ZAR-WC'},
-                   store.attributes.slice('name','location','region_code'))
+      assert_equal({ 'name' => 'hello', 'location' => 'world', 'region_code' => 'ZAR-WC' },
+                   store.attributes.slice('name', 'location', 'region_code'))
     end
   end
 end

@@ -26,7 +26,7 @@ class Store < ActiveRecord::Base
 
   def self.find_or_initialize(args)
     find_by('replace(name, \' \', \'\') ILIKE ? AND replace(location, \' \', \'\') ILIKE ? AND region_code = ?',
-            args.fetch(:name).gsub(/\s/,''), args.fetch(:location).gsub(/\s/,''), args.fetch(:region_code)) ||
-    new(args)
+            args.fetch(:name).gsub(/\s/, ''), args.fetch(:location).gsub(/\s/, ''), args.fetch(:region_code)) ||
+      new(args)
   end
 end

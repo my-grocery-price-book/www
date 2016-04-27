@@ -71,7 +71,7 @@ class EntriesIntegrationTest < ActionDispatch::IntegrationTest
           post "/books/#{@price_book.to_param}/stores",
                store: { name: 'Shop', location: 'Place', region_code: 'ZAR-WC' }
           values = Store.last.attributes.slice('name', 'location', 'region_code')
-          assert_equal({'name' => 'Shop', 'location' => 'Place', 'region_code' => 'ZAR-WC'},
+          assert_equal({ 'name' => 'Shop', 'location' => 'Place', 'region_code' => 'ZAR-WC' },
                        values)
         end
 
