@@ -27,7 +27,7 @@ require 'test_helper'
 describe Shopper do
   describe 'to_s' do
     it 'works' do
-      "#{Shopper.new}"
+      Shopper.new.to_s
     end
   end
 end

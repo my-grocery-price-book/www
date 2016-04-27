@@ -20,6 +20,12 @@ class PriceBook::Page < ActiveRecord::Base
 
   before_save :uniq_product_names
 
+  # @param [String] name
+  def add_product_name!(name)
+    product_names << name
+    save!
+  end
+
   protected
 
   def uniq_product_names

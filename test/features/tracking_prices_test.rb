@@ -32,14 +32,21 @@ class TrackingPricesTest < FeatureTest
       click_on 'Save'
     end
 
-    # assert @grant.has_content?('Koo Beans')
-    # assert @grant.has_content?('410 grams')
-    #
+    assert @grant.has_content?('Koo Beans')
+    assert @grant.has_content?('410')
+
     # @pat.perform do
     #   click_link 'Price Book'
+    #
+    #   click_on 'Edit'
+    #
+    #   # need to select a region first
+    #   select 'South Africa - Western Cape', from: 'Region'
+    #   click_on 'Save'
+    #
     #   click_on 'Sugar'
     #   click_on 'Edit'
-    #   fill_in 'Following product 1', with: 'Koo Beans'
+    #   fill_in 'Following product 1', with: 'koo beans'
     #   click_on 'Save'
     # end
     #

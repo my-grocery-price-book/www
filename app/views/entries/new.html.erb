@@ -4,4 +4,5 @@
                    new_store_href: new_book_store_path(@book,@page),
                    title:  'New Price Entry',
                    error_messages: @entry.errors.full_messages,
-                   selectable_stores: stores_options_for_book(@book) %>
+                   selectable_stores: stores_options_for_book(@book),
+                   package_unit: @page.unit %>

@@ -348,6 +348,38 @@ ALTER SEQUENCE comfy_cms_snippets_id_seq OWNED BY comfy_cms_snippets.id;
 
 
 --
+-- Name: entry_owners; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE entry_owners (
+    id integer NOT NULL,
+    price_entry_id integer,
+    shopper_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: entry_owners_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE entry_owners_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: entry_owners_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE entry_owners_id_seq OWNED BY entry_owners.id;
+
+
+--
 -- Name: invites; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -775,6 +807,13 @@ ALTER TABLE ONLY comfy_cms_snippets ALTER COLUMN id SET DEFAULT nextval('comfy_c
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY entry_owners ALTER COLUMN id SET DEFAULT nextval('entry_owners_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY invites ALTER COLUMN id SET DEFAULT nextval('invites_id_seq'::regclass);
 
 
@@ -911,6 +950,14 @@ ALTER TABLE ONLY comfy_cms_sites
 
 ALTER TABLE ONLY comfy_cms_snippets
     ADD CONSTRAINT comfy_cms_snippets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: entry_owners_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY entry_owners
+    ADD CONSTRAINT entry_owners_pkey PRIMARY KEY (id);
 
 
 --
@@ -1113,6 +1160,20 @@ CREATE INDEX index_comfy_cms_snippets_on_site_id_and_position ON comfy_cms_snipp
 
 
 --
+-- Name: index_entry_owners_on_price_entry_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_entry_owners_on_price_entry_id ON entry_owners USING btree (price_entry_id);
+
+
+--
+-- Name: index_entry_owners_on_shopper_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_entry_owners_on_shopper_id ON entry_owners USING btree (shopper_id);
+
+
+--
 -- Name: index_invites_on_price_book_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1152,6 +1213,13 @@ CREATE INDEX index_price_book_pages_on_price_book_id ON price_book_pages USING b
 --
 
 CREATE INDEX index_price_books_on__deprecated_shopper_id ON price_books USING btree (_deprecated_shopper_id);
+
+
+--
+-- Name: index_price_entries_on_package_unit; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_price_entries_on_package_unit ON price_entries USING btree (package_unit);
 
 
 --
@@ -1218,6 +1286,13 @@ CREATE INDEX index_stores_on_region_code ON stores USING btree (region_code);
 
 
 --
+-- Name: price_entries_replace_lower_product_name_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX price_entries_replace_lower_product_name_idx ON price_entries USING btree (replace(lower((product_name)::text), ' '::text, ''::text));
+
+
+--
 -- Name: stores_replace_lower_loc_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1244,6 +1319,14 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 ALTER TABLE ONLY shopping_lists
     ADD CONSTRAINT fk_rails_182f20ecae FOREIGN KEY (price_book_id) REFERENCES price_books(id);
+
+
+--
+-- Name: fk_rails_26957f8c33; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY entry_owners
+    ADD CONSTRAINT fk_rails_26957f8c33 FOREIGN KEY (price_entry_id) REFERENCES price_entries(id);
 
 
 --
@@ -1284,6 +1367,14 @@ ALTER TABLE ONLY shopping_list_item_purchases
 
 ALTER TABLE ONLY members
     ADD CONSTRAINT fk_rails_ef460209ef FOREIGN KEY (shopper_id) REFERENCES shoppers(id);
+
+
+--
+-- Name: fk_rails_f40128c16f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY entry_owners
+    ADD CONSTRAINT fk_rails_f40128c16f FOREIGN KEY (shopper_id) REFERENCES shoppers(id);
 
 
 --
@@ -1401,4 +1492,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160426040101');
 INSERT INTO schema_migrations (version) VALUES ('20160426060238');
 
 INSERT INTO schema_migrations (version) VALUES ('20160427034514');
+
+INSERT INTO schema_migrations (version) VALUES ('20160427044309');
+
+INSERT INTO schema_migrations (version) VALUES ('20160427053838');
 

@@ -22,7 +22,7 @@ describe ShoppingList do
 
   describe 'to_s' do
     it 'works' do
-      "#{ShoppingList.new}"
+      ShoppingList.new.to_s
     end
   end
 

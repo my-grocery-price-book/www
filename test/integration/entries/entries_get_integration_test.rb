@@ -14,7 +14,7 @@
 
 require 'test_helper'
 
-class EntriesIntegrationTest < ActionDispatch::IntegrationTest
+class EntriesGetIntegrationTest < ActionDispatch::IntegrationTest
   include Warden::Test::Helpers
 
   teardown do
@@ -84,28 +84,4 @@ class EntriesIntegrationTest < ActionDispatch::IntegrationTest
       end
     end
   end
-
-  # context 'POST /books/:book_id/pages/:book_id/price_entries' do
-  #   context 'success' do
-  #     should 'save the record' do
-  #       patch "/books/:book_id/pages/#{@price_book.to_param}", price_entry: { name: 'New Name' }
-  #       @price_book.reload
-  #       assert_equal 'New Name', @price_book.name
-  #     end
-  #
-  #     should 'redirect to price_pages_path' do
-  #       patch "/books/:book_id/pages/#{@price_book.to_param}", price_book: { name: 'New Name' }
-  #       assert_redirected_to(price_pages_path)
-  #     end
-  #   end
-  #
-  #   context 'validation errors' do
-  #     should 'render the edit form with errors' do
-  #       patch "/books/:book_id/pages/#{@price_book.to_param}", price_book: { name: '' }
-  #       assert_response :success
-  #       assert response.body.include?('<form'), 'does not contain form'
-  #       assert response.body.include?('error-explanation'), 'does not contain errors'
-  #     end
-  #   end
-  # end
 end

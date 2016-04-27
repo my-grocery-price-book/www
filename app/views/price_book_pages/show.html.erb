@@ -21,11 +21,11 @@
       <% @prices.each do |price| %>
         <tr>
           <td><%= price.date_on %></td>
-          <td><%= price.store %></td>
-          <td><%= price.location %></td>
+          <td><%= price.store.name %></td>
+          <td><%= price.store.location %></td>
           <td><%= price.product_name %></td>
           <td><%= price.package_size %></td>
-          <td><%= price.price_per_package_unit %></td>
+          <td><%= price.price_per_unit %></td>
         </tr>
       <% end %>
       </tbody>

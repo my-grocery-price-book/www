@@ -30,8 +30,16 @@ describe PriceEntry do
       PriceEntry.create.errors[:amount].wont_be_empty
     end
 
+    it 'requires amount to be positive' do
+      PriceEntry.create(amount: 0).errors[:amount].wont_be_empty
+    end
+
     it 'requires package_size' do
       PriceEntry.create.errors[:package_size].wont_be_empty
+    end
+
+    it 'requires package_size to be positive' do
+      PriceEntry.create(package_size: 0).errors[:package_size].wont_be_empty
     end
 
     it 'requires package_unit' do
@@ -40,6 +48,10 @@ describe PriceEntry do
 
     it 'requires total_price' do
       PriceEntry.create.errors[:total_price].wont_be_empty
+    end
+
+    it 'requires total_price to be positive' do
+      PriceEntry.create(total_price: 0).errors[:total_price].wont_be_empty
     end
   end
 end

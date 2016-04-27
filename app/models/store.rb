@@ -25,8 +25,11 @@ class Store < ActiveRecord::Base
   end
 
   def self.find_or_initialize(args)
-    find_by('replace(LOWER(name), \' \', \'\') = ? AND replace(LOWER(location), \' \', \'\') = ? AND region_code = ?',
-            args.fetch(:name).downcase.gsub(/\s/, ''), args.fetch(:location).downcase.gsub(/\s/, ''), args.fetch(:region_code)) ||
+    matching_name = args.fetch(:name).downcase.gsub(/\s/, '')
+    matching_location = args.fetch(:location).downcase.gsub(/\s/, '')
+    find_by('replace(LOWER(name), \' \', \'\') = ? AND replace(LOWER(location), \' \', \'\') = ?
+             AND region_code = ?',
+            matching_name, matching_location, args.fetch(:region_code)) ||
       new(args)
   end
 end

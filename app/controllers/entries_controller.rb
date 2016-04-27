@@ -15,23 +15,33 @@
 #
 
 class EntriesController < ApplicationController
-  before_action :check_if_region_set, :load_page
+  before_action :check_if_region_set, only: [:new]
+  before_action :load_page
 
   def new
-    @entry = PriceEntry.new
+    @entry = PriceEntry.new(date_on: Date.current, amount: 1)
     session[:book_store_create_return] = new_book_page_entry_path
   end
 
   def create
-    @entry = PriceEntry.new
-    render :new
+    @entry = PriceEntry.new(entry_params)
+    @entry.package_unit = @page.unit
+    if @entry.save
+      current_shopper.create_entry_owner!(@entry)
+      @page.add_product_name!(@entry.product_name)
+      redirect_to book_page_path(book, @page)
+    else
+      render 'new'
+    end
   end
 
   private
 
   # Only allow a trusted parameter "white item" through.
   def entry_params
-    params.require(:price_entry).permit(:name, :category, :unit)
+    params.require(:price_entry).permit(
+      :date_on, :store_id, :product_name, :amount, :package_size, :total_price
+    )
   end
 
   def book
