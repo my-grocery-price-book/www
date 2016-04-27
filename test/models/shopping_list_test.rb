@@ -20,6 +20,12 @@ describe ShoppingList do
     end
   end
 
+  describe 'to_s' do
+    it 'works' do
+      "#{ShoppingList.new}"
+    end
+  end
+
   describe '.item_names_for_book' do
     before do
       @book = PriceBook.create!

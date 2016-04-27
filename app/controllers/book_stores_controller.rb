@@ -27,10 +27,6 @@ class BookStoresController < ApplicationController
     @book ||= PriceBook.find_for_shopper(current_shopper, params[:book_id])
   end
 
-  def page
-    @page ||= book.find_page!(params[:page_id])
-  end
-
   def check_if_region_set
     if book.region_set?
       true

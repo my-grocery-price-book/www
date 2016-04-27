@@ -23,6 +23,8 @@ class EntriesController < ApplicationController
   end
 
   def create
+    @entry = PriceEntry.new
+    render :new
   end
 
   private
