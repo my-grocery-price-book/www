@@ -51,7 +51,7 @@ class PriceBook < ActiveRecord::Base
   end
 
   def self.default_for_shopper(shopper)
-    book = for_shopper(shopper).first
+    book = for_shopper(shopper).order('price_books.id DESC').first
     return book if book
     new(shopper: shopper).tap do |new_book|
       new_book.extend(ForShopperDefaultPages)
