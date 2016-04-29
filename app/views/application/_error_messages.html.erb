@@ -1,0 +1,9 @@
+<% if error_messages.present? %>
+  <div class="error-explanation">
+    <ul>
+      <% error_messages.each do |message| %>
+          <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

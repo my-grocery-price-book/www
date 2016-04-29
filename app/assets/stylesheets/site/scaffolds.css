@@ -44,12 +44,11 @@ div.field, div.actions {
 
 .field_with_errors {
   padding: 2px;
-  background-color: rgb(0, 96, 99);
-  display: table;
+  background-color: red;
 }
 
 #error_explanation, .error-explanation {
     font-weight: bold;
     font-size: 12px;
-    color: rgb(0, 96, 99);
+    color: red;
 }

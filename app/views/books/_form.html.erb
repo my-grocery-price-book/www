@@ -1,22 +1,16 @@
 <h1><%= title %></h1>
 
 <%= form_for(book, url: form_action) do |f| %>
-    <% if error_messages.present? %>
-      <div class="error-explanation">
-        <ul>
-          <% error_messages.each do |message| %>
-              <%= message %>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+    <%= render 'error_messages', error_messages: error_messages %>
     <div class="form-group">
-      <%= f.label :name %><br>
-      <%= f.text_field :name %>
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
     </div>
     <div class="form-group">
       <label for="price_book_region_codes_0">Region</label><br/>
-      <select id="price_book_region_codes_0" name="price_book[region_codes][]">
+      <select id="price_book_region_codes_0"
+              name="price_book[region_codes][]"
+              class="form-control">
         <%= options_for_select(region_options, selected: book.region_codes[0]) %>
       </select>
     </div>
