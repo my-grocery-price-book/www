@@ -30,7 +30,7 @@ gem 'multi_json'
 gem 'component_library'
 
 group :development do
-  gem 'annotate', '~> 2.6', require: false
+  gem 'annotate', require: false
 end
 
 group :development, :test do
