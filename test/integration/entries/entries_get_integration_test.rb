@@ -70,7 +70,7 @@ class EntriesGetIntegrationTest < ActionDispatch::IntegrationTest
     context 'no book region codes set' do
       should 'redirect to price book edit page' do
         get "/books/#{@price_book.to_param}/pages/#{@page.to_param}/entries/new"
-        assert_redirected_to edit_book_path(@price_book)
+        assert_redirected_to select_country_book_regions_path(@price_book)
       end
 
       should 'set a alert' do
@@ -78,9 +78,9 @@ class EntriesGetIntegrationTest < ActionDispatch::IntegrationTest
         assert_equal 'book requires region first', flash[:alert]
       end
 
-      should 'set a price_book_save_return' do
+      should 'set a book_regions_create_return' do
         get "/books/#{@price_book.to_param}/pages/#{@page.to_param}/entries/new"
-        assert_equal(new_book_page_entry_path(@price_book, @page), session[:book_update_return])
+        assert_equal(new_book_page_entry_path(@price_book, @page), session[:book_regions_create_return])
       end
     end
   end

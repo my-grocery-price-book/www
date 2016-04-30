@@ -6,14 +6,6 @@
       <%= f.label :name %>
       <%= f.text_field :name, class: 'form-control' %>
     </div>
-    <div class="form-group">
-      <label for="price_book_region_codes_0">Region</label><br/>
-      <select id="price_book_region_codes_0"
-              name="price_book[region_codes][]"
-              class="form-control">
-        <%= options_for_select(region_options, selected: book.region_codes[0]) %>
-      </select>
-    </div>
     <button class="btn btn-primary">Save</button>
     <a href="<%= back_href %>" class="btn btn-default">Back</a>
 <% end %>

@@ -56,8 +56,8 @@ class EntriesController < ApplicationController
     if book.region_set?
       true
     else
-      session[:book_update_return] = new_book_page_entry_path
-      redirect_to edit_book_path(book), alert: 'book requires region first'
+      session[:book_regions_create_return] = new_book_page_entry_path
+      redirect_to select_country_book_regions_path(book), alert: 'book requires region first'
       false
     end
   end

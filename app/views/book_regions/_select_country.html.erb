@@ -1,0 +1,10 @@
+<h1>Select Country</h1>
+<ul class="list-unstyled">
+  <% RegionFinder.instance.countries.each do |country| %>
+    <li>
+      <a href="<%= new_book_regions_path(book,country.alpha_3_code) %>">
+        <%= country.name %>
+      </a>
+    </li>
+  <% end %>
+</ul>
