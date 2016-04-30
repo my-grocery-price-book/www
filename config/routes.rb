@@ -2,6 +2,13 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   resources :books, only: [:edit, :update] do
+    resources :regions, controller: 'book_regions', only: [] do
+      collection do
+        get 'select_country'
+        get ':country_code/new', action: 'new', as: 'new'
+        post ':country_code', action: 'create', as: ''
+      end
+    end
     resources :invites, only: [:new, :create]
     resources :stores, controller: 'book_stores', only: [:new, :create]
     resources :pages, controller: 'price_book_pages', only: [:index, :show] do

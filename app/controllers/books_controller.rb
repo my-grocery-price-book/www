@@ -18,7 +18,7 @@ class BooksController < ApplicationController
 
   # Only allow a trusted parameter "white item" through.
   def book_params
-    params.require(:price_book).permit(:name, region_codes: [])
+    params.require(:price_book).permit(:name)
   end
 
   def book

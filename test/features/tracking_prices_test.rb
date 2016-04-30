@@ -15,7 +15,8 @@ class TrackingPricesTest < FeatureTest
       click_on 'New Price'
 
       # need to select a region first
-      select 'South Africa - Western Cape', from: 'Region'
+      click_on 'South Africa'
+      select 'Western Cape', from: 'Region'
       click_on 'Save'
 
       # need to create a new store first
