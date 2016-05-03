@@ -73,10 +73,18 @@ class PriceBookPagesControllerTest < ActionController::TestCase
 
   context 'PATCH update' do
     should 'update price_book_page' do
-      patch :update, id: @price_book_page, price_book_page: { unit: 'U1', category: 'C1', name: 'N1' }
+      patch :update, id: @price_book_page,
+                     price_book_page: { unit: 'U1', category: 'C1', name: 'N1' }
       @price_book_page.reload
       assert_equal({ unit: 'U1', category: 'C1', name: 'N1' }, @price_book_page.info)
       assert_redirected_to price_book_pages_path
+    end
+
+    should 'update price_book_page product_names' do
+      patch :update, id: @price_book_page,
+                     price_book_page: { product_names: %w(U1 C1) }
+      @price_book_page.reload
+      assert_equal(%w(U1 C1), @price_book_page.product_names)
     end
 
     should 'fail to update price_book_page' do

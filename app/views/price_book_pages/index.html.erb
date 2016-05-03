@@ -1,5 +1,6 @@
 <%= render 'index_header',
-           set_book_area_link: edit_book_path(@price_book),
+           set_region_link: select_country_book_regions_path(@price_book),
+           edit_book_link: edit_book_path(@price_book),
            new_page_link: new_price_book_page_path,
            invite_link: new_book_invite_path(@price_book) %>
 

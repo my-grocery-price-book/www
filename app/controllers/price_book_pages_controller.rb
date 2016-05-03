@@ -26,6 +26,7 @@ class PriceBookPagesController < ApplicationController
 
   # GET /price_book_pages/1/edit
   def edit
+    session[:price_book_pages_update_return] = request.referrer
   end
 
   # POST /price_book_pages
@@ -41,7 +42,9 @@ class PriceBookPagesController < ApplicationController
   # PATCH/PUT /price_book_pages/1
   def update
     if @price_book_page.update(price_book_page_params)
-      redirect_to price_book_pages_path, notice: 'Page was successfully updated.'
+      redirect_to session[:price_book_pages_update_return] || price_book_pages_path,
+                  notice: 'Page was successfully updated.'
+      session[:price_book_pages_update_return] = nil
     else
       render :edit
     end
@@ -62,7 +65,7 @@ class PriceBookPagesController < ApplicationController
 
   # Only allow a trusted parameter "white item" through.
   def price_book_page_params
-    params.require(:price_book_page).permit(:name, :category, :unit)
+    params.require(:price_book_page).permit(:name, :category, :unit, product_names: [])
   end
 
   def load_price_book
