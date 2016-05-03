@@ -27,7 +27,7 @@ class PriceBookPagesControllerTest < ActionController::TestCase
     should 'create price_book_page' do
       assert_difference('@price_book.page_count') do
         post :create, book_id: @price_book.to_param,
-             price_book_page: { category: 'Food', name: 'Banana', unit: 'KG' }
+                      price_book_page: { category: 'Food', name: 'Banana', unit: 'KG' }
       end
 
       assert_redirected_to price_book_pages_path
@@ -36,7 +36,7 @@ class PriceBookPagesControllerTest < ActionController::TestCase
     should 'render new on failure' do
       assert_no_difference('@price_book.page_count') do
         post :create, book_id: @price_book.to_param,
-             price_book_page: { category: '', name: 'Banana', unit: 'KG' }
+                      price_book_page: { category: '', name: 'Banana', unit: 'KG' }
       end
 
       assert_response :success
