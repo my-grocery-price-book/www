@@ -18,7 +18,7 @@ class PriceBook::Page < ActiveRecord::Base
   validates :price_book_id, presence: true, on: :update
   validates_uniqueness_of :name, scope: [:price_book_id, :unit]
 
-  before_save :uniq_product_names
+  before_save :uniq_product_names, :reject_blank_names
 
   # @param [String] name
   def add_product_name!(name)
@@ -30,6 +30,10 @@ class PriceBook::Page < ActiveRecord::Base
 
   def uniq_product_names
     product_names.uniq!
+  end
+
+  def reject_blank_names
+    product_names.reject!(&:blank?)
   end
 
   public

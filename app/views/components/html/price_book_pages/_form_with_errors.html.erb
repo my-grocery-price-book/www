@@ -1,0 +1,2 @@
+<% page = PriceBook::Page.new.tap(&:save) %>
+<%= render 'price_book_pages/form', page: page, back_href: '#' %>

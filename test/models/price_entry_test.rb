@@ -54,4 +54,21 @@ describe PriceEntry do
       PriceEntry.create(total_price: 0).errors[:total_price].wont_be_empty
     end
   end
+
+  describe '.for_product_names' do
+    before do
+      @store = Store.create(name: 'Test', location: 'Test', region_code: 'ZAR-WC')
+      PriceEntry.create!(date_on: Date.current, store: @store, product_name: 'White Milk',
+                         amount: 42, package_size: 100, package_unit: 'liters', total_price: 300.01)
+      PriceEntry.create!(date_on: Date.current, store: @store, product_name: 'Yellow Bananas',
+                         amount: 42, package_size: 100, package_unit: 'grams', total_price: 200.00)
+      PriceEntry.create!(date_on: Date.current, store: @store, product_name: 'Red Apples',
+                         amount: 42, package_size: 100, package_unit: 'grams', total_price: 508.66)
+    end
+
+    it 'find the product in the correct store' do
+      entries = PriceEntry.for_product_names(['Red Apples'], unit: 'grams', store_ids: [@store.id])
+      entries.map(&:product_name).must_equal(['Red Apples'])
+    end
+  end
 end
