@@ -18,7 +18,7 @@ class PriceBookPagesControllerTest < ActionController::TestCase
 
   context 'GET new' do
     should 'get new' do
-      get :new
+      get :new, book_id: @price_book.to_param
       assert_response :success
     end
   end
@@ -26,7 +26,8 @@ class PriceBookPagesControllerTest < ActionController::TestCase
   context 'POST create' do
     should 'create price_book_page' do
       assert_difference('@price_book.page_count') do
-        post :create, price_book_page: { category: 'Food', name: 'Banana', unit: 'KG' }
+        post :create, book_id: @price_book.to_param,
+             price_book_page: { category: 'Food', name: 'Banana', unit: 'KG' }
       end
 
       assert_redirected_to price_book_pages_path
@@ -34,7 +35,8 @@ class PriceBookPagesControllerTest < ActionController::TestCase
 
     should 'render new on failure' do
       assert_no_difference('@price_book.page_count') do
-        post :create, price_book_page: { category: '', name: 'Banana', unit: 'KG' }
+        post :create, book_id: @price_book.to_param,
+             price_book_page: { category: '', name: 'Banana', unit: 'KG' }
       end
 
       assert_response :success
@@ -47,7 +49,7 @@ class PriceBookPagesControllerTest < ActionController::TestCase
     end
 
     should 'show price_book_page' do
-      get :show, id: @price_book_page.to_param
+      get :show, book_id: @price_book.to_param, id: @price_book_page.to_param
       assert_response :success
     end
 
@@ -58,7 +60,7 @@ class PriceBookPagesControllerTest < ActionController::TestCase
       PriceEntry.create!(date_on: Date.current, store: @store, product_name: 'red apples',
                          amount: 42, package_size: 100, package_unit: 'grams', total_price: 508.66)
 
-      get :show, id: @price_book_page.to_param
+      get :show, book_id: @price_book.to_param, id: @price_book_page.to_param
       assert_response :success
       assert response.body.include?('red apples')
     end
