@@ -1,4 +1,6 @@
 class BookRegionsController < ApplicationController
+  before_action :authenticate_shopper!
+
   def select_country
     book
   end
