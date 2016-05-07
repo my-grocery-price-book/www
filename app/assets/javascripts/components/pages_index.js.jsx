@@ -20,30 +20,21 @@ var PagesIndex = React.createClass({
     var rendered_pages = state.pages.map(function (page) {
       return (
           <Page key={"page_" + page.id}
-                show_url={page.show_url}
-                edit_url={page.edit_url}
-                delete_url={page.delete_url}
-                page_id={page.id}
-                name={page.name}
-                category={page.category}
-                unit={page.unit}
+                page={page}
                 authenticity_token={props.authenticity_token}/>
       );
     });
 
-    return <div>
-      <div className="row">
-        <div className="col-md-12">
-          <h1>Price Book</h1>
-          <a href={props.edit_book_url} className="btn btn-default btn-sm">Edit Book</a>
-          <a href={props.set_region_url} className="btn btn-default btn-sm">Set Region</a>
-          <a href={props.invite_url} className="btn btn-default btn-sm">Invite Shopper</a>
-          <a href={props.new_page_url} className="btn btn-primary btn-sm">New Page</a>
+    return(
+        <div>
+          <PagesHeader edit_book_url={props.edit_book_url}
+                  set_region_url={props.set_region_url}
+                  invite_url={props.invite_url}
+                  new_page_url={props.new_page_url} />
+          <div className="row">
+            {rendered_pages}
+          </div>
         </div>
-      </div>
-      <div className="row">
-        {rendered_pages}
-      </div>
-    </div>;
+    );
   }
 });

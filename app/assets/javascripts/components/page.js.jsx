@@ -1,43 +1,34 @@
 var Page = React.createClass({
 
   propTypes: {
-    show_url: React.PropTypes.string,
-    edit_url: React.PropTypes.string,
-    delete_url: React.PropTypes.string,
-    page_id: React.PropTypes.number,
-    name: React.PropTypes.string,
-    category: React.PropTypes.string,
-    unit: React.PropTypes.string,
+    page: React.PropTypes.object,
     authenticity_token: React.PropTypes.string
   },
 
   render: function () {
-    var props = this.props;
-    // var state = this.state;
+    var page = this.props.page;
+    var info = <div className="page-info">
+      { page.category },{ page.unit }
+    </div>;
+
+    if(page.best_entry) {
+      var best_entry = page.best_entry;
+      var ratio = window.displayPrice(best_entry.total_price / (best_entry.amount * best_entry.package_size));
+      info = <div className="page-info">
+        <div className="page-best-price-ratio">{ratio} / {best_entry.package_unit}</div>
+        <div className="page-best-product-name">{best_entry.product_name}</div>
+        <div className="page-best-store">{best_entry.store_name} {best_entry.location}</div>
+        <div className="page-best-price">{best_entry.total_price} for {best_entry.amount} x {best_entry.package_size} {best_entry.package_unit}</div>
+      </div>;
+    }
 
     return (
-        <div className="col-xs-6 col-sm-4 col-md-2">
+        <div className="col-xs-12 col-sm-6 col-md-3">
           <div className="thumbnail">
-            <div className="caption">
-              <h4>
-                <a href={ props.show_url }>
-                  { props.name }
-                </a>
-              </h4>
-              <p>{ props.category },{ props.unit }</p>
-              <div className="btn-group" role="group">
-                <a href={ props.edit_url }
-                   className="btn btn-primary" aria-label="Edit"
-                   role="button">
-                  <i className="glyphicon glyphicon-edit"></i>
-                </a>
-                <a href={ props.delete_url }
-                   className="btn btn-default" aria-label="Delete"
-                   role="button">
-                  <i className="glyphicon glyphicon-trash"></i>
-                </a>
-              </div>
-            </div>
+            <h4>
+              <a href={ page.show_url }>{ page.name }</a>
+            </h4>
+            { info }
           </div>
         </div> );
   }

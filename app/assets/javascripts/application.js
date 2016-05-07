@@ -26,3 +26,11 @@ function ShoppingListItemsBloodhound(prefetch_url, remote_url) {
     }
   });
 }
+
+function displayPrice(price) {
+  if(price < 0.001) {
+    return price.toExponential(3);
+  } else {
+    return price.toPrecision(4);
+  }
+}
