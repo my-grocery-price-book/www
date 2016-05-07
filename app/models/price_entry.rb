@@ -29,6 +29,10 @@ class PriceEntry < ActiveRecord::Base
     store.location
   end
 
+  def currency_symbol
+    RegionFinder.instance.find_by_code(store.region_code).currency_symbol
+  end
+
   def strip_spacing
     product_name.try(:strip!)
   end

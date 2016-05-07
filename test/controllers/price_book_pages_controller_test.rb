@@ -15,7 +15,7 @@ class PriceBookPagesControllerTest < ActionController::TestCase
     end
 
     should 'be success with price entry' do
-      @store = Store.create(name: 'Checkers', location: 'George Mall', region_code: 'ZAR-WC')
+      @store = Store.create(name: 'Checkers', location: 'George Mall', region_code: 'ZAF-WC')
       @price_book.add_store!(@store)
       @price_book_page.add_product_name!('Coke')
       PriceEntry.create!(date_on: Date.current, store: @store, product_name: 'Coke',

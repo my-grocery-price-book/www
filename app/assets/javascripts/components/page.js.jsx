@@ -7,6 +7,7 @@ var Page = React.createClass({
 
   render: function () {
     var page = this.props.page;
+
     var info = <div className="page-info">
       { page.category },{ page.unit }
     </div>;
@@ -15,10 +16,10 @@ var Page = React.createClass({
       var best_entry = page.best_entry;
       var ratio = window.displayPrice(best_entry.total_price / (best_entry.amount * best_entry.package_size));
       info = <div className="page-info">
-        <div className="page-best-price-ratio">{ratio} / {best_entry.package_unit}</div>
+        <div className="page-best-price-ratio">{best_entry.currency_symbol} {ratio} / {best_entry.package_unit}</div>
         <div className="page-best-product-name">{best_entry.product_name}</div>
         <div className="page-best-store">{best_entry.store_name} {best_entry.location}</div>
-        <div className="page-best-price">{best_entry.total_price} for {best_entry.amount} x {best_entry.package_size} {best_entry.package_unit}</div>
+        <div className="page-best-price">{best_entry.currency_symbol} {best_entry.total_price} for {best_entry.amount} x {best_entry.package_size} {best_entry.package_unit}</div>
       </div>;
     }
 

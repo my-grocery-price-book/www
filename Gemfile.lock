@@ -65,6 +65,10 @@ GEM
       rails (>= 4.0.0)
       sass (~> 3.4, >= 3.4.21)
     connection_pool (2.2.0)
+    countries (1.2.5)
+      currencies (~> 0.4.2)
+      i18n_data (~> 0.7.0)
+    currencies (0.4.2)
     database_cleaner (1.5.3)
     devise (4.0.1)
       bcrypt (~> 3.0)
@@ -85,6 +89,7 @@ GEM
       activesupport (>= 4.1.0)
     hike (1.2.3)
     i18n (0.7.0)
+    i18n_data (0.7.0)
     intercom-rails (0.2.34)
       activesupport (> 3.0)
     jasmine-core (2.4.1)
@@ -207,6 +212,7 @@ DEPENDENCIES
   capybara-email
   carmen
   component_library
+  countries
   database_cleaner
   devise
   dotenv-rails
@@ -232,4 +238,4 @@ DEPENDENCIES
   will_paginate
 
 BUNDLED WITH
-   1.11.2
+   1.12.3
