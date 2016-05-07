@@ -106,7 +106,7 @@ class BookRegionsIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     should 'redirect to new_book_page_entry_path only once' do
-      page = @price_book.pages.create!(name: 'Beans', category: 'Cupboard Food', unit: 'grams')
+      page = PriceBook::Page.create!(book: @price_book, name: 'Beans', category: 'Cupboard Food', unit: 'grams')
 
       get "/books/#{@price_book.to_param}/pages/#{page.to_param}/entries/new"
       assert_equal(new_book_page_entry_path(@price_book, page),

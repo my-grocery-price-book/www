@@ -39,7 +39,7 @@ class TrackingPricesTest < FeatureTest
     @pat.perform do
       click_link 'Price Book'
 
-      click_on 'Set Region'
+      click_on 'Region'
 
       # need to select a region first
       click_on 'South Africa'

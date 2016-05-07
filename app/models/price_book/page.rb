@@ -13,6 +13,7 @@
 #
 
 class PriceBook::Page < ActiveRecord::Base
+  belongs_to :book, class_name: 'PriceBook', foreign_key: 'price_book_id'
   validates :name, :category, :unit, presence: true
   # on update only allows build pages for an unsaved PriceBook
   validates :price_book_id, presence: true, on: :update
@@ -20,10 +21,32 @@ class PriceBook::Page < ActiveRecord::Base
 
   before_save :uniq_product_names, :reject_blank_names
 
+  # @return [PriceEntry]
+  def best_entry
+    @best_entry ||= entries.to_a.min_by do |entry|
+      entry.total_price / (entry.amount * entry.package_size)
+    end
+  end
+
+  # @return [Array<PriceEntry>]
+  def entries
+    PriceEntry.for_product_names(product_names, unit: unit, store_ids: book.store_ids)
+  end
+
   # @param [String] name
   def add_product_name!(name)
     product_names << name
     save!
+  end
+
+  # @param [PriceBook] book
+  # @return [Array<PriceBook::Page>]
+  def self.for_book(book)
+    where(price_book_id: book.id)
+  end
+
+  def self.find_page!(book, id)
+    for_book(book).find(id)
   end
 
   protected

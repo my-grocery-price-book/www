@@ -1,4 +1,5 @@
 require 'carmen'
+require 'countries'
 
 class RegionFinder
   include Singleton
@@ -8,6 +9,7 @@ class RegionFinder
     def initialize(country, region)
       @country = country
       @region = region
+      @currency = ISO3166::Country.find_country_by_alpha3(@country.alpha_3_code).currency
     end
 
     def name
@@ -28,6 +30,10 @@ class RegionFinder
 
     def code
       "#{@country.alpha_3_code}-#{@region.code}"
+    end
+
+    def currency_symbol
+      @currency.symbol
     end
   end
 

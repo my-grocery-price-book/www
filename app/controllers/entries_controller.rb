@@ -50,7 +50,7 @@ class EntriesController < ApplicationController
   end
 
   def load_page
-    @page = book.find_page!(params[:page_id])
+    @page = PriceBook::Page.find_page!(book, params[:page_id])
   end
 
   def check_if_region_set

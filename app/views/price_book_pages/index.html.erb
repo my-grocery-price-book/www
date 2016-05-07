@@ -1,34 +1,3 @@
-<%= render 'index_header',
-           set_region_link: select_country_book_regions_path(@price_book),
-           edit_book_link: edit_book_path(@price_book),
-           new_page_link: new_price_book_page_path,
-           invite_link: new_book_invite_path(@price_book) %>
-
-
-<div class="row price-book-pages">
-  <% @price_book_pages.each do |price_book_page| %>
-    <div class="col-xs-6 col-sm-4 col-md-2">
-      <div class="thumbnail">
-        <div class="caption">
-          <h4>
-            <a href="<%= price_book_page_path(price_book_page) %>"><%= price_book_page.name %></a>
-          </h4>
-          <p><%= price_book_page.category %>,<%= price_book_page.unit %></p>
-          <div class="btn-group" role="group">
-            <a href="<%= edit_price_book_page_path(price_book_page) %>"
-               class="btn btn-primary" aria-label="Edit"
-               role="button">
-              <i class="glyphicon glyphicon-edit"></i>
-            </a>
-            <a href="<%= delete_price_book_page_path(price_book_page) %>"
-               class="btn btn-default" aria-label="Delete"
-               role="button">
-              <i class="glyphicon glyphicon-trash"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</div>
-
+<%= react_server('PagesIndex',
+                 react_render(partial: 'index',
+                              locals: {book: @price_book, pages: @price_book_pages})) %>

@@ -5,19 +5,17 @@ class PriceBookPagesController < ApplicationController
 
   # GET /price_book_pages
   def index
-    @price_book_pages = @price_book.search_pages(params[:term])
+    @price_book_pages = PriceBook::Page.for_book(@price_book)
   end
 
   # GET /price_book_pages/1
   def show
-    @prices = PriceEntry.for_product_names(@price_book_page.product_names,
-                                           unit: @price_book_page.unit,
-                                           store_ids: @price_book.store_ids)
+    @prices = @price_book_page.entries
   end
 
   # GET /price_book_pages/new
   def new
-    @price_book_page = @price_book.pages.new
+    @price_book_page = PriceBook::Page.new
   end
 
   # GET /price_book_pages/1/delete
@@ -31,7 +29,8 @@ class PriceBookPagesController < ApplicationController
 
   # POST /price_book_pages
   def create
-    @price_book_page = @price_book.pages.new(price_book_page_params)
+    @price_book_page = PriceBook::Page.new(price_book_page_params)
+    @price_book_page.book = @price_book
     if @price_book_page.save
       redirect_to price_book_pages_path, notice: 'Page was successfully created.'
     else
@@ -60,7 +59,7 @@ class PriceBookPagesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_price_book_page
-    @price_book_page = @price_book.find_page!(params[:id])
+    @price_book_page = PriceBook::Page.find_page!(@price_book, params[:id])
   end
 
   # Only allow a trusted parameter "white item" through.

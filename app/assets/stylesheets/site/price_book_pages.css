@@ -1,3 +1,17 @@
 .price-book-pages {
     padding-top: 5px;
 }
+
+.page-best-price-ratio {
+    display: inline-block;
+    float: right;
+}
+
+.page-best-store {
+    display: inline-block;
+    float: right;
+}
+
+.pages-header {
+    padding-bottom: 5px;
+}
