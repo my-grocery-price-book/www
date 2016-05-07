@@ -19,38 +19,38 @@ describe PriceBook::Page do
 
   describe 'Validation' do
     it 'can create a new page' do
-      page = price_book.pages.create(name: 'Soda', category: 'Drinks', unit: 'Liters')
+      page = PriceBook::Page.create!(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Liters')
       page.must_be :persisted?
     end
 
     it 'requires name' do
-      price_book.pages.create.errors[:name].wont_be_empty
+      PriceBook::Page.create.errors[:name].wont_be_empty
     end
 
     it 'requires category' do
-      price_book.pages.create.errors[:category].wont_be_empty
+      PriceBook::Page.create.errors[:category].wont_be_empty
     end
 
     it 'requires unit' do
-      price_book.pages.create.errors[:unit].wont_be_empty
+      PriceBook::Page.create.errors[:unit].wont_be_empty
     end
 
     it 'requires price_book_id when updating' do
-      page = price_book.pages.create!(name: 'Soda', category: 'Drinks', unit: 'Liters')
+      page = PriceBook::Page.create!(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Liters')
       page.price_book_id = nil
       page.valid?
       page.errors[:price_book_id].wont_be_empty
     end
 
     it 'require a uniq name per unit and book' do
-      price_book.pages.create(name: 'Soda', category: 'Drinks', unit: 'Liters')
-      page = price_book.pages.create(name: 'Soda', category: 'Drinks', unit: 'Liters')
+      PriceBook::Page.create!(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Liters')
+      page = PriceBook::Page.create(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Liters')
       page.errors[:name].wont_be_empty
     end
 
     it 'allows a same name in another unit and book' do
-      price_book.pages.create(name: 'Soda', category: 'Drinks', unit: 'Liters')
-      page = price_book.pages.create(name: 'Soda', category: 'Drinks', unit: 'Cans')
+      PriceBook::Page.create!(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Liters')
+      page = PriceBook::Page.create(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Cans')
       page.must_be :persisted?
     end
   end
@@ -66,11 +66,31 @@ describe PriceBook::Page do
   end
 
   describe 'updating' do
-    subject { price_book.pages.create!(name: 'Soda', category: 'Drinks', unit: 'Liters') }
+    subject { PriceBook::Page.create!(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Liters') }
 
     it 'saves unique product_names' do
       subject.update(product_names: ['Sasko Bread', 'Woolworths Bread', 'Woolworths Bread'])
       subject.product_names.must_equal(['Sasko Bread', 'Woolworths Bread'])
+    end
+  end
+
+  describe 'find_page!' do
+    def add_page!(attrs)
+      PriceBook::Page.create!(attrs.merge(book: @book))
+    end
+
+    before :each do
+      @book = PriceBook.create!(shopper: create_shopper)
+    end
+
+    it 'can find a page' do
+      page = add_page!(name: 'Soda', category: 'Drinks', unit: 'Liters')
+      PriceBook::Page.find_page!(@book, page.id).info.must_equal(name: 'Soda', category: 'Drinks', unit: 'Liters')
+    end
+
+    it 'raises error if cant find' do
+      add_page!(name: 'Soda', category: 'Drinks', unit: 'Liters')
+      -> { PriceBook::Page.find_page!(@book, '0') }.must_raise(ActiveRecord::RecordNotFound)
     end
   end
 end

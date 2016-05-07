@@ -26,7 +26,7 @@ class EntriesPostIntegrationTest < ActionDispatch::IntegrationTest
     @shopper = create_shopper
     login_as(@shopper, scope: :shopper)
     @price_book = PriceBook.create!(shopper: @shopper)
-    @page = @price_book.pages.create!(name: 'Beans', category: 'Cupboard Food', unit: 'grams')
+    @page = PriceBook::Page.create!(book: @price_book, name: 'Beans', category: 'Cupboard Food', unit: 'grams')
   end
 
   context 'POST /books/:book_id/pages/:page_id/entries' do

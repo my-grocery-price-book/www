@@ -4,7 +4,7 @@ class PriceBookPagesControllerTest < ActionController::TestCase
   setup do
     @shopper = create_shopper
     @price_book = PriceBook.create!(shopper: @shopper)
-    @price_book_page = @price_book.pages.create!(name: 'n1', category: 'n2', unit: 'ml')
+    @price_book_page = PriceBook::Page.create!(book: @price_book, name: 'n1', category: 'n2', unit: 'ml')
     sign_in :shopper, @shopper
   end
 
@@ -12,7 +12,6 @@ class PriceBookPagesControllerTest < ActionController::TestCase
     should 'be success' do
       get :index
       assert_response :success
-      assert_equal assigns(:price_book_pages), [@price_book_page]
     end
 
     should 'be success with price entry' do
@@ -38,7 +37,7 @@ class PriceBookPagesControllerTest < ActionController::TestCase
 
   context 'POST create' do
     should 'create price_book_page' do
-      assert_difference('@price_book.page_count') do
+      assert_difference('PriceBook::Page.for_book(@price_book).count') do
         post :create, book_id: @price_book.to_param,
                       price_book_page: { category: 'Food', name: 'Banana', unit: 'KG' }
       end
@@ -47,7 +46,7 @@ class PriceBookPagesControllerTest < ActionController::TestCase
     end
 
     should 'render new on failure' do
-      assert_no_difference('@price_book.page_count') do
+      assert_no_difference('PriceBook::Page.for_book(@price_book).count') do
         post :create, book_id: @price_book.to_param,
                       price_book_page: { category: '', name: 'Banana', unit: 'KG' }
       end
@@ -58,7 +57,7 @@ class PriceBookPagesControllerTest < ActionController::TestCase
 
   context 'GET show' do
     setup do
-      @price_book_page = @price_book.pages.create!(name: 'Apples', category: 'Fresh', unit: 'grams')
+      @price_book_page = PriceBook::Page.create!(book: @price_book, name: 'Apples', category: 'Fresh', unit: 'grams')
     end
 
     should 'show price_book_page' do
@@ -112,7 +111,7 @@ class PriceBookPagesControllerTest < ActionController::TestCase
 
   context 'DELETE destroy' do
     should 'destroy price_book_page' do
-      assert_difference('@price_book.page_count', -1) do
+      assert_difference('PriceBook::Page.for_book(@price_book).count', -1) do
         delete :destroy, id: @price_book_page
       end
 

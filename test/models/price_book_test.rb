@@ -16,7 +16,7 @@ require 'test_helper'
 
 describe PriceBook do
   def add_page!(price_book, attrs)
-    price_book.pages.create!(attrs)
+    PriceBook::Page.create!(attrs.merge(book: price_book))
   end
 
   describe 'Defaults' do
@@ -54,14 +54,14 @@ describe PriceBook do
     it 'builds default_pages for new book' do
       book = PriceBook.default_for_shopper(shopper)
       book.reload
-      book.pages.map(&:name).sort.must_equal(default_pages.sort)
+      PriceBook::Page.for_book(book).map(&:name).sort.must_equal(default_pages.sort)
     end
 
     it 'wont add pages for existing book' do
       PriceBook.create!(shopper: shopper)
       book = PriceBook.default_for_shopper(shopper)
       book.reload
-      book.pages.map(&:name).must_equal([])
+      PriceBook::Page.for_book(book).map(&:name).must_equal([])
     end
   end
 
@@ -78,59 +78,6 @@ describe PriceBook do
       subject.destroy
       -> { page.reload }.must_raise(ActiveRecord::RecordNotFound)
       -> { subject.reload }.must_raise(ActiveRecord::RecordNotFound)
-    end
-  end
-
-  describe 'find_page!' do
-    subject { PriceBook.create!(shopper: create_shopper) }
-
-    it 'can find a page' do
-      page = add_page!(subject, name: 'Soda', category: 'Drinks', unit: 'Liters')
-      subject.find_page!(page.id).info.must_equal(name: 'Soda', category: 'Drinks', unit: 'Liters')
-    end
-
-    it 'raises error if cant find' do
-      add_page!(subject, name: 'Soda', category: 'Drinks', unit: 'Liters')
-      -> { subject.find_page!('0') }.must_raise(ActiveRecord::RecordNotFound)
-    end
-  end
-
-  describe 'search_pages' do
-    subject { PriceBook.create!(shopper: create_shopper) }
-
-    it 'returns all pages with nil term' do
-      add_page!(subject, name: 'Soda', category: 'Drinks', unit: 'Liters')
-      add_page!(subject, name: 'Eggs', category: 'Fresh', unit: 'Dozens')
-      pages = subject.search_pages(nil)
-      pages.map(&:name).must_match_array(%w(Soda Eggs))
-    end
-
-    it 'returns all pages with blank term' do
-      add_page!(subject, name: 'Soda', category: 'Drinks', unit: 'Liters')
-      add_page!(subject, name: 'Eggs', category: 'Fresh', unit: 'Dozens')
-      pages = subject.search_pages('')
-      pages.map(&:name).must_match_array(%w(Soda Eggs))
-    end
-
-    it 'returns all pages that match start string' do
-      add_page!(subject, name: 'Soda', category: 'Drinks', unit: 'Liters')
-      add_page!(subject, name: 'Eggs', category: 'Fresh', unit: 'Dozens')
-      pages = subject.search_pages('Eg')
-      pages.map(&:name).must_equal(%w(Eggs))
-    end
-
-    it 'returns all pages that match end of string' do
-      add_page!(subject, name: 'Soda', category: 'Drinks', unit: 'Liters')
-      add_page!(subject, name: 'Eggs', category: 'Fresh', unit: 'Dozens')
-      pages = subject.search_pages('da')
-      pages.map(&:name).must_equal(%w(Soda))
-    end
-
-    it 'returns all pages that match string' do
-      add_page!(subject, name: 'Soda', category: 'Drinks', unit: 'Liters')
-      add_page!(subject, name: 'Eggs', category: 'Fresh', unit: 'Dozens')
-      pages = subject.search_pages('s')
-      pages.map(&:name).must_match_array(%w(Soda Eggs))
     end
   end
 end

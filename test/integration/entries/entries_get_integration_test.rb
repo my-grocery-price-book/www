@@ -26,7 +26,7 @@ class EntriesGetIntegrationTest < ActionDispatch::IntegrationTest
     @shopper = create_shopper
     login_as(@shopper, scope: :shopper)
     @price_book = PriceBook.create!(shopper: @shopper)
-    @page = @price_book.pages.create!(name: 'Beans', category: 'Cupboard Food', unit: 'grams')
+    @page = PriceBook::Page.create!(book: @price_book, name: 'Beans', category: 'Cupboard Food', unit: 'grams')
   end
 
   context 'GET /books/:book_id/pages/:page_id/entries/new' do
@@ -59,7 +59,7 @@ class EntriesGetIntegrationTest < ActionDispatch::IntegrationTest
       context 'page belongs to another book' do
         should 'raise ActiveRecord::RecordNotFound error' do
           another_book = PriceBook.create!
-          page = another_book.pages.create!(name: 'Beans', category: 'Cupboard Food', unit: 'grams')
+          page = PriceBook::Page.create!(book: another_book, name: 'Beans', category: 'Cupboard Food', unit: 'grams')
           assert_raises(ActiveRecord::RecordNotFound) do
             get "/books/#{@price_book.to_param}/pages/#{page.to_param}/entries/new"
           end
