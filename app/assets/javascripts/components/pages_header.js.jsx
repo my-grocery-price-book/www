@@ -5,7 +5,7 @@ function PagesHeader(props) {
           <h1>Price Book</h1>
           <div className="btn-group" role="group">
             <a href={props.edit_book_url} className="btn btn-default btn-sm">Edit Book</a>
-            <a href={props.set_region_url} className="btn btn-default btn-sm">Set Region</a>
+            <a href={props.set_region_url} className="btn btn-default btn-sm">Region</a>
             <a href={props.invite_url} className="btn btn-default btn-sm">Invite Shopper</a>
             <a href={props.new_page_url} className="btn btn-default btn-sm">New Page</a>
           </div>

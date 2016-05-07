@@ -10,9 +10,7 @@ class PriceBookPagesController < ApplicationController
 
   # GET /price_book_pages/1
   def show
-    @prices = PriceEntry.for_product_names(@price_book_page.product_names,
-                                           unit: @price_book_page.unit,
-                                           store_ids: @price_book.store_ids)
+    @prices = @price_book_page.entries(@price_book.store_ids)
   end
 
   # GET /price_book_pages/new

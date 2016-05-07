@@ -14,6 +14,19 @@ class PriceBookPagesControllerTest < ActionController::TestCase
       assert_response :success
       assert_equal assigns(:price_book_pages), [@price_book_page]
     end
+
+    should 'be success with price entry' do
+      @store = Store.create(name: 'Checkers', location: 'George Mall', region_code: 'ZAR-WC')
+      @price_book.add_store!(@store)
+      @price_book_page.add_product_name!('Coke')
+      PriceEntry.create!(date_on: Date.current, store: @store, product_name: 'Coke',
+                         amount: 1, package_size: 340, package_unit: 'ml', total_price: 8)
+      get :index
+      assert_response :success
+      assert response.body.include?('Coke')
+      assert response.body.include?('Checkers')
+      assert response.body.include?('George Mall')
+    end
   end
 
   context 'GET new' do

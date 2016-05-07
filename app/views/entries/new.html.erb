@@ -1,7 +1,7 @@
 <%= render 'form', entry: @entry,
                    form_action: book_page_entries_path(@book,@page),
                    back_href: book_page_path(@book,@page),
-                   new_store_href: new_book_store_path(@book,@page),
+                   new_store_href: new_book_store_path(@book),
                    title:  'New Price Entry',
                    error_messages: @entry.errors.full_messages,
                    selectable_stores: stores_options_for_book(@book),

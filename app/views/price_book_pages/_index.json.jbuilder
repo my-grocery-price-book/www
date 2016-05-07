@@ -1,5 +1,5 @@
 json.pages do
-  json.partial! 'pages', pages: pages
+  json.partial! 'pages', pages: pages, store_ids: book.store_ids
 end
 json.set_region_url select_country_book_regions_url(book)
 json.edit_book_url edit_book_url(book)
