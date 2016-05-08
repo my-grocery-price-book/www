@@ -44,6 +44,22 @@ describe('displayPriceRatio', function() {
   it("returns 1.000 / grams for 0.01, kilograms", function () {
     expect(displayPriceRatio(0.01,'kilograms')).toEqual('10.00 / grams');
   });
+
+  it("returns 1.000 / milliliters for 1, milliliters", function () {
+    expect(displayPriceRatio(1,'milliliters')).toEqual('1.000 / milliliters');
+  });
+
+  it("returns 1.000 / liters for 1000, milliliters", function () {
+    expect(displayPriceRatio(1000,'milliliters')).toEqual('1.000 / liters');
+  });
+
+  it("returns 1.000 / liters for 1, liters", function () {
+    expect(displayPriceRatio(1,'liters')).toEqual('1.000 / liters');
+  });
+
+  it("returns 1.000 / milliliters for 0.01, kilograms", function () {
+    expect(displayPriceRatio(0.01,'liters')).toEqual('10.00 / milliliters');
+  });
   //
   // it("returns 1.000e+5 for 100000", function () {
   //   expect(displayPrice(100000)).toEqual('1.000e+5');
