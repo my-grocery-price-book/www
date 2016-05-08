@@ -8,3 +8,14 @@ function displayPrice(price) {
     return price.toPrecision(4);
   }
 }
+
+function displayPriceRatio(p, unit) {
+  if(unit == 'grams' && p >= 1000) {
+    return (displayPrice(p / 1000) + ' / kilograms');
+  } else if(unit == 'kilograms' && p <= 0.01) {
+    return (displayPrice(p * 1000) + ' / grams');
+  } else {
+    return (displayPrice(p) + ' / ' + unit);
+  }
+
+}

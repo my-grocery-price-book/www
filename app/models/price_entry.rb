@@ -38,7 +38,7 @@ class PriceEntry < ActiveRecord::Base
   end
 
   def price_per_unit
-    total_price / (amount * package_size)
+    (total_price / (amount * package_size)).to_f
   end
 
   # @param [Array<String>] product_names
