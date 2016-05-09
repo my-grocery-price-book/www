@@ -21,11 +21,14 @@ class PriceBook::Page < ActiveRecord::Base
 
   before_save :uniq_product_names, :reject_blank_names
 
+  # @param [Store] store
+  def add_store_to_book!(store)
+    book.add_store!(store)
+  end
+
   # @return [PriceEntry]
   def best_entry
-    @best_entry ||= entries.to_a.min_by do |entry|
-      entry.total_price / (entry.amount * entry.package_size)
-    end
+    @best_entry ||= entries.to_a.min_by(&:price_per_unit)
   end
 
   # @return [Array<PriceEntry>]

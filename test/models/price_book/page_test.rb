@@ -93,4 +93,29 @@ describe PriceBook::Page do
       -> { PriceBook::Page.find_page!(@book, '0') }.must_raise(ActiveRecord::RecordNotFound)
     end
   end
+
+  describe 'best_entry' do
+    subject { PriceBook::Page.create!(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Liters') }
+
+    it 'find no entries' do
+      subject.best_entry.must_be_nil
+    end
+
+    it 'find no entries' do
+      entry = add_new_entry_to_page(subject)
+      subject.best_entry.must_equal(entry)
+    end
+
+    it 'find cheaper entry' do
+      add_new_entry_to_page(subject, amount: 1, package_size: 1, total_price: 2)
+      entry = add_new_entry_to_page(subject, amount: 1, package_size: 1, total_price: 1)
+      subject.best_entry.must_equal(entry)
+    end
+
+    it 'find cheapest price_per_unit entry' do
+      add_new_entry_to_page(subject, amount: 1, package_size: 1, total_price: 2)
+      entry = add_new_entry_to_page(subject, amount: 3, package_size: 1, total_price: 4)
+      subject.best_entry.must_equal(entry)
+    end
+  end
 end

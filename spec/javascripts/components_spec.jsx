@@ -60,24 +60,4 @@ describe('displayPriceRatio', function() {
   it("returns 1.000 / milliliters for 0.01, kilograms", function () {
     expect(displayPriceRatio(0.01,'liters')).toEqual('10.00 / milliliters');
   });
-  //
-  // it("returns 1.000e+5 for 100000", function () {
-  //   expect(displayPrice(100000)).toEqual('1.000e+5');
-  // });
-  //
-  // it("returns 1.000e+4 for 10000", function () {
-  //   expect(displayPrice(10000)).toEqual('1.000e+4');
-  // });
-  //
-  // it("returns 1.000 for 0.9999999999", function () {
-  //   expect(displayPrice(0.9999999999)).toEqual('1.000');
-  // });
-  //
-  // it("returns 1.111e-6 for 0.0000011111", function () {
-  //   expect(displayPrice(0.0000011111)).toEqual('1.111e-6');
-  // });
-  //
-  // it("returns 1.111e-4 for 0.00011111", function () {
-  //   expect(displayPrice(0.00011111)).toEqual('1.111e-4');
-  // });
 });
