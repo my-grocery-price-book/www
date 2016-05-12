@@ -1,0 +1,4 @@
+# BUNDLE_GEMFILE=Gemfile-next bundle install
+@next_upgrade = true
+main_gemfile = File.expand_path(File.dirname(__FILE__) + '/Gemfile')
+eval File.read(main_gemfile), nil, main_gemfile
