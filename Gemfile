@@ -5,7 +5,12 @@ group :development, :test do
   gem 'dotenv-rails' # load before other gems
 end
 
-gem 'rails', '~> 4.2.1'
+if @next_upgrade
+  gem 'rails', '5.0.0.beta4'
+else
+  gem 'rails', '~> 4.2.6'
+end
+
 gem 'sprockets'
 gem 'jbuilder'
 gem 'will_paginate'
@@ -49,4 +54,7 @@ group :test do
   gem 'shoulda-context'
   gem 'simplecov', require: false
   gem 'database_cleaner', require: false
+  if @next_upgrade
+    gem 'rails-controller-testing' # https://github.com/rails/rails-controller-testing
+  end
 end

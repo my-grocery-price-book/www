@@ -223,7 +223,7 @@ DEPENDENCIES
   newrelic_rpm
   pg
   poltergeist
-  rails (~> 4.2.1)
+  rails (~> 4.2.6)
   react-rails
   rollbar
   shoulda-context

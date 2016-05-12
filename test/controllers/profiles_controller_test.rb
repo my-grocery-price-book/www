@@ -35,7 +35,7 @@ class ProfilesControllerTest < ActionController::TestCase
   end
 
   context 'PATCH update' do
-    should 'redirect trofile_path when signed in' do
+    should 'redirect profile_path when signed in' do
       sign_in :shopper, create_shopper
       patch :update, shopper: {}
       assert_redirected_to(profile_path)

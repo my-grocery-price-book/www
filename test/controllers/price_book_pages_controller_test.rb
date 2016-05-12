@@ -68,7 +68,7 @@ class PriceBookPagesControllerTest < ActionController::TestCase
       @price_book.add_store!(@store)
       @price_book_page.add_product_name!('Red Apples')
       PriceEntry.create!(date_on: Date.current, store: @store, product_name: 'red apples',
-                         amount: 42, package_size: 100, package_unit: 'grams', total_price: 508.66)
+                         amount: 42, package_size: 100, package_unit: 'grams', total_price: '508.66')
 
       get :show, book_id: @price_book.to_param, id: @price_book_page.to_param
       assert_response :success
