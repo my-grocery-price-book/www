@@ -38,7 +38,7 @@ group :development, :test do
   # gem 'byebug' # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'spring', require: false # Spring speeds up development by keeping your application running in the background
   gem 'spring-commands-testunit', require: false
-  gem "teaspoon-jasmine"
+  gem 'teaspoon-jasmine'
   gem 'coffee-script' # needed for teaspoon-jasmine https://github.com/modeset/teaspoon/issues/405
 end
 
