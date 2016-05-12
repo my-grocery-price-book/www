@@ -5,8 +5,13 @@ group :development, :test do
   gem 'dotenv-rails' # load before other gems
 end
 
-gem 'rails', '~> 4.2.1'
-gem 'sprockets', '~> 2.7' # so test files can be .jsx (https://github.com/searls/jasmine-rails/issues/178)
+if @next_upgrade
+  gem 'rails', '5.0.0.beta4'
+else
+  gem 'rails', '~> 4.2.6'
+end
+
+gem 'sprockets'
 gem 'jbuilder'
 gem 'will_paginate'
 gem 'pg'
@@ -38,7 +43,8 @@ group :development, :test do
   # gem 'byebug' # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'spring', require: false # Spring speeds up development by keeping your application running in the background
   gem 'spring-commands-testunit', require: false
-  gem 'jasmine-rails'
+  gem 'teaspoon-jasmine'
+  gem 'coffee-script' # needed for teaspoon-jasmine https://github.com/modeset/teaspoon/issues/405
 end
 
 group :test do
@@ -48,4 +54,7 @@ group :test do
   gem 'shoulda-context'
   gem 'simplecov', require: false
   gem 'database_cleaner', require: false
+  if @next_upgrade
+    gem 'rails-controller-testing' # https://github.com/rails/rails-controller-testing
+  end
 end
