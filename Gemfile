@@ -13,7 +13,6 @@ end
 
 gem 'sprockets'
 gem 'jbuilder'
-gem 'will_paginate'
 gem 'pg'
 
 gem 'react-rails'
