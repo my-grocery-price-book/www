@@ -31,7 +31,6 @@ class SharingAShoppingListTest < FeatureTest
     end
 
     assert @grant.has_no_css?('span', text: 'Update Failed'), 'Update Failed'
-    skip('Broken on rails 5') if ENV['BUNDLE_GEMFILE'] == 'Gemfile-next'
     assert @grant.has_css?('h3', text: 'Our Shopping'), 'Our Shopping not visible'
 
     @kate.perform do

@@ -22,7 +22,7 @@ class ShoppingListsController < ApplicationController
   def update
     shopping_list
 
-    shopping_list.update(shopping_list_params) if params[:shopping_list]
+    shopping_list.update(shopping_list_params)
     respond_to do |format|
       format.html { redirect_to shopping_lists_path, notice: 'Successfully updated.' }
       format.json

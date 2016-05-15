@@ -53,6 +53,7 @@ group :test do
   gem 'shoulda-context'
   gem 'simplecov', require: false
   gem 'database_cleaner', require: false
+  gem 'phantomjs', require: false
   if @next_upgrade
     gem 'rails-controller-testing' # https://github.com/rails/rails-controller-testing
   end
