@@ -15,9 +15,9 @@
   <div class="form-group">
     <%= f.label :unit %>
     <%= f.select :unit, ['grams','kilograms', 'milliliters','liters', 'gallons','pounds','items', 'each',
-                         'bags','packages', 'centimeters', 'meters','inches','ounces','pints', 'yard',
-                         'cubic feet', 'cubic inches', 'cubic meters', 'fluid ounces', 'quarts',
-                         'square feet', 'square inch', 'square meter', 'square yard'],
+                         'bags','packages','sheets', 'rolls', 'centimeters', 'meters','inches','ounces',
+                         'pints', 'yard', 'cubic feet', 'cubic inches', 'cubic meters', 'fluid ounces',
+                         'quarts', 'square feet', 'square inch', 'square meter', 'square yard'],
                           { include_blank: true }, class: 'form-control' %>
   </div>
    <% page.product_names.each_with_index do |product_name, i| %>
