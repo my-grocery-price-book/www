@@ -6,7 +6,7 @@ group :development, :test do
 end
 
 if @next_upgrade
-  gem 'rails', '5.0.0.beta4'
+  gem 'rails', '5.0.0.rc1'
 else
   gem 'rails', '~> 4.2.6'
 end
