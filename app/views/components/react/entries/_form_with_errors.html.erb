@@ -1,0 +1,10 @@
+<% price_entry = PriceEntry.new.tap(&:save) %>
+<%= react_component('EntriesForm',
+                    entry: {total_price: 100, date_on: Date.current, product_name: 'Hello',
+                            amount: 10, package_size: 2},
+                    package_unit: "KG",
+                    back_href: "#",
+                    new_store_href: "#",
+                    create_url: "#",
+                    error_messages: price_entry.errors.full_messages,
+                    selectable_stores: [['Pick n Pay - Canal Walk', 't'],['Checkers - Canal Walk', ' tt']]) %>
