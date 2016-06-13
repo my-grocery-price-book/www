@@ -26,3 +26,12 @@ function ShoppingListItemsBloodhound(prefetch_url, remote_url) {
     }
   });
 }
+
+function EntriesBloodhound(local_suggestions) {
+  return new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    sufficient: 3,
+    local: local_suggestions
+  });
+}
