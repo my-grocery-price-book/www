@@ -16,7 +16,7 @@
 
 class PriceEntry < ActiveRecord::Base
   belongs_to :store
-  validates :date_on, :product_name, :package_unit, presence: true
+  validates :date_on, :product_name, :package_unit, :store_id, presence: true
   validates_numericality_of :amount, :package_size, :total_price, greater_than: 0
 
   before_validation :strip_spacing

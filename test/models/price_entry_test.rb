@@ -19,7 +19,8 @@ require 'test_helper'
 describe PriceEntry do
   describe 'Validation' do
     it 'creates a valid entry' do
-      PriceEntry.create!(date_on: Date.current, store: @store, product_name: 'Fresh Milk',
+      store = Store.create!(name: 'Test', location: 'Test', region_code: 'ZAR')
+      PriceEntry.create!(date_on: Date.current, store: store, product_name: 'Fresh Milk',
                          amount: 42, package_size: 100, package_unit: 'liters',
                          total_price: '199.99')
     end
@@ -58,6 +59,10 @@ describe PriceEntry do
 
     it 'requires total_price to be positive' do
       PriceEntry.create(total_price: 0).errors[:total_price].wont_be_empty
+    end
+
+    it 'requires store_id' do
+      PriceEntry.create.errors[:store_id].wont_be_empty
     end
   end
 

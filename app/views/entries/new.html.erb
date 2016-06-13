@@ -1,8 +1,14 @@
-<%= render 'form', entry: @entry,
-                   form_action: book_page_entries_path(@book,@page),
-                   back_href: book_page_path(@book,@page),
-                   new_store_href: new_book_store_path(@book),
-                   title:  'New Price Entry',
-                   error_messages: @entry.errors.full_messages,
-                   selectable_stores: stores_options_for_book(@book),
-                   package_unit: @page.unit %>
+<h1>New Price Entry</h1>
+
+<%= react_server('EntriesForm',
+                 entry: {total_price: @entry.total_price || "", date_on: @entry.date_on || "",
+                         product_name: @entry.product_name || "", amount: @entry.amount || "",
+                         package_size: @entry.package_size || ""},
+                 back_href: book_page_url(@book, @page),
+                 new_store_href: new_book_store_url(@book),
+                 create_url: book_page_entries_path(@book, @page),
+                 error_messages: @entry.errors.full_messages,
+                 selectable_stores: stores_options_for_book(@book),
+                 local_suggestions: EntryOwner.local_suggestions(shopper: current_shopper),
+                 package_unit: @page.unit,
+                 authenticity_token: form_authenticity_token) %>
