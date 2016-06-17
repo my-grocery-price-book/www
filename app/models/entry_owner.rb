@@ -26,4 +26,27 @@ class EntryOwner < ActiveRecord::Base
     suggestions.uniq!
     suggestions
   end
+
+  # @param [Shopper] shopper
+  # @param [PriceEntry] entry
+  def self.create_for!(shopper:, entry:)
+    create!(shopper_id: shopper.id, price_entry_id: entry.id)
+  end
+
+  # @param [Shopper] shopper
+  # @return [PriceEntry]
+  def self.new_entry_for_shopper(shopper)
+    entries = entries_for_shopper(shopper)
+    entries = entries.where('price_entries.created_at >= ?', 1.hour.ago)
+    entry = entries.last || PriceEntry.new(date_on: Date.current)
+    PriceEntry.new(date_on: entry.date_on,
+                   store_id: entry.store_id,
+                   amount: 1)
+  end
+
+  # @param [Shopper] shopper
+  # @return [Array<PriceEntry>]
+  def self.entries_for_shopper(shopper)
+    PriceEntry.joins(:entry_owner).where(entry_owners: { shopper_id: shopper.id })
+  end
 end

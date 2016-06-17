@@ -20,7 +20,7 @@ class EntriesController < ApplicationController
   before_action :load_page
 
   def new
-    @entry = PriceEntry.new(date_on: Date.current, amount: 1)
+    @entry = EntryOwner.new_entry_for_shopper(current_shopper)
     session[:book_store_create_return] = new_book_page_entry_path
   end
 
@@ -28,7 +28,7 @@ class EntriesController < ApplicationController
     @entry = PriceEntry.new(entry_params)
     @entry.package_unit = @page.unit
     if @entry.save
-      current_shopper.create_entry_owner!(@entry)
+      EntryOwner.create_for!(shopper: current_shopper, entry: @entry)
       @page.add_product_name!(@entry.product_name)
       redirect_to book_page_path(book, @page)
     else

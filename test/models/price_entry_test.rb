@@ -17,12 +17,17 @@
 require 'test_helper'
 
 describe PriceEntry do
+  let(:store) { Store.create!(name: 'Test', location: 'Test', region_code: 'ZAR') }
+
+  let(:default_attributes) do
+    { date_on: Date.current, store: store, product_name: 'Fresh Milk',
+      amount: 42, package_size: 100, package_unit: 'liters',
+      total_price: '199.99' }
+  end
+
   describe 'Validation' do
     it 'creates a valid entry' do
-      store = Store.create!(name: 'Test', location: 'Test', region_code: 'ZAR')
-      PriceEntry.create!(date_on: Date.current, store: store, product_name: 'Fresh Milk',
-                         amount: 42, package_size: 100, package_unit: 'liters',
-                         total_price: '199.99')
+      PriceEntry.create!(default_attributes)
     end
 
     it 'requires date_on' do

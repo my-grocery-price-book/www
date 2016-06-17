@@ -52,7 +52,7 @@ class EntriesPostIntegrationTest < ActionDispatch::IntegrationTest
                             amount: '1', package_size: '340', total_price: '5.59' }
         entry = PriceEntry.last
 
-        assert_includes(@shopper.price_entries, entry)
+        assert_includes(EntryOwner.entries_for_shopper(@shopper), entry)
       end
 
       should 'adds product_name to page' do
