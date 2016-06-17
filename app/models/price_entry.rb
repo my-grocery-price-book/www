@@ -20,6 +20,7 @@ class PriceEntry < ActiveRecord::Base
   validates_numericality_of :amount, :package_size, :total_price, greater_than: 0
 
   before_validation :strip_spacing
+  has_one :entry_owner
 
   def store_name
     store.name

@@ -28,14 +28,6 @@ class Shopper < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :entry_owners
-  has_many :price_entries, through: :entry_owners
-
-  # @param [PriceEntry] entry
-  def create_entry_owner!(entry)
-    entry_owners.create!(price_entry: entry)
-  end
-
   def password_required?
     return false if new_creating_guest?
     super || guest?
