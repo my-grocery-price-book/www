@@ -13,10 +13,6 @@ class EntryOwner < ActiveRecord::Base
   validates :price_entry_id, :shopper_id, presence: true
   belongs_to :price_entry
 
-  def price_entry_product_name
-    price_entry.product_name
-  end
-
   # @param [Shopper] shopper
   # @return [Array<String>]
   def self.local_suggestions(shopper:)

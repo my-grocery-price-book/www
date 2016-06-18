@@ -65,7 +65,7 @@ describe PriceBook do
     end
   end
 
-  describe 'destroy' do
+  describe '#destroy' do
     subject { PriceBook.create!(shopper: create_shopper) }
 
     it 'allows to destroy' do
@@ -78,6 +78,16 @@ describe PriceBook do
       subject.destroy
       -> { page.reload }.must_raise(ActiveRecord::RecordNotFound)
       -> { subject.reload }.must_raise(ActiveRecord::RecordNotFound)
+    end
+  end
+
+  describe '#to_s' do
+    it 'renders saved' do
+      PriceBook.create!(shopper: create_shopper).to_s
+    end
+
+    it 'renders unsaved' do
+      PriceBook.new.to_s
     end
   end
 end
