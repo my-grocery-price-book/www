@@ -51,10 +51,6 @@ Rails.application.routes.draw do
   devise_for :shoppers
   resource :profile, except: [:new, :create, :destroy]
 
-  get 'price_check' => 'price_check#index', as: 'price_check'
-  post 'select_area' => 'price_check#set_selected_area'
-  get 'select_area' => 'price_check#select_area'
-
   post 'guest_login' => 'guest#login', as: 'guest_login'
   get 'guest_register' => 'guest#register', as: 'guest_register'
   patch 'guest_register' => 'guest#do_register'
