@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/my-grocery-price-book/www.png?label=ready&title=Ready)](https://waffle.io/my-grocery-price-book/www)
 # My Grocery Price Book Rails app
 [![Build Status](https://semaphoreci.com/api/v1/projects/9e86687d-5794-45da-96f0-ebd507dddd33/683754/badge.svg)](https://semaphoreci.com/my-grocery-price-book/www)
 
