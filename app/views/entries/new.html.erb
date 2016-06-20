@@ -1,4 +1,4 @@
-<h1>New Price Entry</h1>
+<h1>New <%= @page.name %> Entry</h1>
 
 <%= react_server('EntriesForm',
                  entry: {total_price: @entry.total_price || "", date_on: @entry.date_on || "",
