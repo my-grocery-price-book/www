@@ -20,3 +20,7 @@ end
 class ActionController::TestCase
   include Devise::TestHelpers
 end
+
+if Rails.version >= '5'
+  ActiveSupport::Deprecation.silenced = true
+end
