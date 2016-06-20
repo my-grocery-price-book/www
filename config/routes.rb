@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   root 'pages#index'
+  get 'contact' => 'pages#contact'
+  get 'thank_you' => 'pages#thank_you'
 
   resources :books, only: [:edit, :update] do
     resources :regions, controller: 'book_regions', only: [] do
