@@ -18,6 +18,9 @@ Metrics/ParameterLists:
 Style/ClassAndModuleChildren:
   Enabled: false
 
+Style/SymbolProc:
+  Enabled: false
+
 Documentation:
   Enabled: false
 
