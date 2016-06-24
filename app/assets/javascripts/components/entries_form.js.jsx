@@ -5,6 +5,8 @@ var EntriesForm = React.createClass({
     package_unit: React.PropTypes.string,
     back_href: React.PropTypes.string,
     new_store_href: React.PropTypes.string,
+    form_action: React.PropTypes.string,
+    form_method: React.PropTypes.string,
     error_messages:  React.PropTypes.arrayOf(React.PropTypes.string),
     local_suggestions:  React.PropTypes.arrayOf(React.PropTypes.string),
     selectable_stores:  React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.string)),
@@ -93,7 +95,7 @@ var EntriesForm = React.createClass({
       const all_errors = this.props.error_messages.map(function (message) {
         i += 1;
         return (
-            <option key={"message_" + i}>{message}</option>
+            <li key={"message_" + i}>{message}</li>
         );
       });
       rendered_errors = <div className="error-explanation">
@@ -126,8 +128,9 @@ var EntriesForm = React.createClass({
     });
 
 
-    return <form action={props.create_url} method="post">
+    return <form action={props.form_action} method="post">
       <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
+      <input name="_method" value={props.form_method} type="hidden"/>
       {rendered_errors}
       <div className="form-group">
         <label htmlFor="store_id">Store</label>

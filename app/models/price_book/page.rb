@@ -42,6 +42,17 @@ class PriceBook::Page < ActiveRecord::Base
     save!
   end
 
+  # @param [PriceEntry] entry
+  # @param [Hash] params
+  # @return [Boolean]
+  def update_entry(entry, params)
+    self.class.transaction do
+      entry.attributes = params
+      add_product_name!(entry.product_name)
+      entry.save
+    end
+  end
+
   # @param [PriceBook] book
   # @return [Array<PriceBook::Page>]
   def self.for_book(book)

@@ -1,4 +1,6 @@
 require 'test_helper'
+require 'capybara'
+require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'capybara/email'
 
