@@ -16,9 +16,9 @@ var EntriesForm = React.createClass({
 
   getInitialState: function () {
     const entry = this.props.entry;
-    return {total_price: entry.total_price, date_on: entry.date_on,
-            product_name: entry.product_name, amount: entry.amount,
-            package_size: entry.package_size, bloodhound_initialized: false,
+    return {total_price: entry.total_price, date_on: entry.date_on, 
+            store_id: entry.store_id.toString(), product_name: entry.product_name, 
+            amount: entry.amount, package_size: entry.package_size, bloodhound_initialized: false,
             suggestions: [], more_suggestions: []};
   },
 
@@ -105,7 +105,8 @@ var EntriesForm = React.createClass({
 
     const rendered_store_options = this.props.selectable_stores.map(function (store_option) {
       return (
-          <option key={"store" + store_option[1]} value={store_option[1]}>
+          <option key={"store" + store_option[1]}
+                  value={store_option[1]}>
             {store_option[0]}
           </option>
       );
@@ -135,7 +136,7 @@ var EntriesForm = React.createClass({
       <div className="form-group">
         <label htmlFor="store_id">Store</label>
         <select id="store_id" name="price_entry[store_id]" className="form-control"
-                onChange={this.handleStoreIDChange}>
+                onChange={this.handleStoreIDChange} value={state.store_id}>
           {rendered_store_options}
         </select>
         <a href={props.new_store_href}>New Store</a>
