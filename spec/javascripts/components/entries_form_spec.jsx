@@ -16,7 +16,7 @@ describe('EntriesFormSpec', function() {
         <EntriesForm entry={{total_price: 100, date_on: "2016-01-21", product_name: "Beans",
                              amount: 10, package_size: 20}}
                      package_unit="KG" back_href="/back" new_store_href="/new_store"
-                     create_url="/save" bloodhoundBuilder={localBloodhound}
+                     form_action="/save" bloodhoundBuilder={localBloodhound}
                      error_messages={['Message 1']}
                      local_sugesstion={['Bread', 'Oranges', 'Cheese', 'Chicken', 'Carrots', 'Corn', 'Chips']}
                      selectable_stores={[]} />

@@ -36,6 +36,21 @@ class EntriesController < ApplicationController
     end
   end
 
+  def edit
+    @entry = EntryOwner.find_entry_for_shopper(current_shopper, id: params[:id])
+    session[:book_store_create_return] = edit_book_page_entry_path(book, @page, @entry)
+  end
+
+  def update
+    @entry = EntryOwner.find_entry_for_shopper(current_shopper, id: params[:id])
+    if @page.update_entry(@entry, entry_params)
+      redirect_to book_page_path(book, @page)
+    else
+      book
+      render :edit
+    end
+  end
+
   private
 
   # Only allow a trusted parameter "white item" through.

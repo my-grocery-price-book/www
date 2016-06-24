@@ -11,6 +11,8 @@ require 'rails/test_help'
 require 'support/load_database_cleaner'
 require 'support/factories'
 require 'support/match_array'
+require 'capybara'
+require 'capybara/rails'
 
 class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
@@ -19,6 +21,12 @@ end
 
 class ActionController::TestCase
   include Devise::TestHelpers
+end
+
+class ActionDispatch::IntegrationTest
+  def page
+    Capybara::Node::Simple.new(response.body)
+  end
 end
 
 ActiveSupport::Deprecation.silenced = true if Rails.version >= '5'

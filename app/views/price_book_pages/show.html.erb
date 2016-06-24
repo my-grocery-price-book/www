@@ -14,6 +14,7 @@
         <th>Product</th>
         <th>Package size</th>
         <th>Price per <%= @price_book_page.unit %></th>
+        <th></th>
       </tr>
       </thead>
 
@@ -26,6 +27,13 @@
           <td><%= price.product_name %></td>
           <td><%= price.package_size %></td>
           <td><%= price.price_per_unit %></td>
+          <td>
+            <% if EntryOwner.can_update?(shopper: current_shopper, entry: price) %>
+              <a href="<%= edit_book_page_entry_path(@price_book,@price_book_page,price) %>" title="Edit Entry">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+              </a>
+            <% end %>
+          </td>
         </tr>
       <% end %>
       </tbody>

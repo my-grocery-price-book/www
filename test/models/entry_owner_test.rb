@@ -22,6 +22,37 @@ describe EntryOwner do
     end
   end
 
+  describe '.can_update?' do
+    it 'is true when owner' do
+      entry = FactoryGirl.create(:price_entry)
+      shopper = FactoryGirl.create(:shopper)
+      EntryOwner.create!(price_entry: entry, shopper: shopper)
+      EntryOwner.must_be :can_update?, entry: entry, shopper: shopper
+    end
+
+    it 'is false when not owner' do
+      entry = FactoryGirl.create(:price_entry)
+      shopper = FactoryGirl.create(:shopper)
+      EntryOwner.wont_be :can_update?, entry: entry, shopper: shopper
+    end
+
+    it 'is false when owner of another entry' do
+      entry = FactoryGirl.create(:price_entry)
+      shopper = FactoryGirl.create(:shopper)
+      EntryOwner.create!(price_entry: FactoryGirl.create(:price_entry),
+                         shopper: shopper)
+      EntryOwner.wont_be :can_update?, entry: entry, shopper: shopper
+    end
+
+    it 'is false when entry has another owner' do
+      entry = FactoryGirl.create(:price_entry)
+      shopper = FactoryGirl.create(:shopper)
+      EntryOwner.create!(price_entry: entry,
+                         shopper: FactoryGirl.create(:shopper))
+      EntryOwner.wont_be :can_update?, entry: entry, shopper: shopper
+    end
+  end
+
   describe '.local_suggestions' do
     let(:shopper) { create_shopper }
 

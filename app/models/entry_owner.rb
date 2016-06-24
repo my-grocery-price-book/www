@@ -12,9 +12,16 @@
 class EntryOwner < ActiveRecord::Base
   validates :price_entry_id, :shopper_id, presence: true
   belongs_to :price_entry
+  belongs_to :shopper
 
   def price_entry_product_name
     price_entry.product_name
+  end
+
+  # @param [Shopper] shopper
+  # @param [PriceEntry] entry
+  def self.can_update?(shopper:, entry:)
+    EntryOwner.where(shopper_id: shopper.id, price_entry_id: entry.id).any?
   end
 
   # @param [Shopper] shopper
@@ -50,5 +57,12 @@ class EntryOwner < ActiveRecord::Base
   # @return [Array<PriceEntry>]
   def self.entries_for_shopper(shopper)
     PriceEntry.joins(:entry_owner).where(entry_owners: { shopper_id: shopper.id })
+  end
+
+  # @param [Shopper] shopper
+  # @param [String,Integer] id
+  # @return [PriceEntry]
+  def self.find_entry_for_shopper(shopper, id:)
+    entries_for_shopper(shopper).find(id)
   end
 end
