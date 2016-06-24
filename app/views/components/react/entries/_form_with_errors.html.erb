@@ -1,7 +1,7 @@
 <% price_entry = PriceEntry.new.tap(&:save) %>
 <%= react_component('EntriesForm',
                     entry: {total_price: 100, date_on: Date.current, product_name: 'Hello',
-                            amount: 10, package_size: 2},
+                            amount: 10, package_size: 2, store_id: "tt"},
                     package_unit: "KG",
                     back_href: "#",
                     new_store_href: "#",

@@ -14,12 +14,12 @@ describe('EntriesFormSpec', function() {
   beforeEach(function() {
     react_dom = TestUtils.renderIntoDocument(
         <EntriesForm entry={{total_price: 100, date_on: "2016-01-21", product_name: "Beans",
-                             amount: 10, package_size: 20}}
+                             amount: 10, package_size: 20, store_id: 2}}
                      package_unit="KG" back_href="/back" new_store_href="/new_store"
                      form_action="/save" bloodhoundBuilder={localBloodhound}
                      error_messages={['Message 1']}
                      local_sugesstion={['Bread', 'Oranges', 'Cheese', 'Chicken', 'Carrots', 'Corn', 'Chips']}
-                     selectable_stores={[]} />
+                     selectable_stores={[['Store 1',"1"],['Store 2', "2"]]} />
     );
     dom_node = ReactDOM.findDOMNode(react_dom);
   });

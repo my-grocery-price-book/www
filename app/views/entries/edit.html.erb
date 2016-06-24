@@ -3,7 +3,7 @@
 <%= react_server('EntriesForm',
                  entry: {total_price: @entry.total_price, date_on: @entry.date_on,
                          product_name: @entry.product_name, amount: @entry.amount,
-                         package_size: @entry.package_size},
+                         package_size: @entry.package_size, store_id: @entry.store_id},
                  back_href: session[:entry_update_return_path],
                  new_store_href: new_book_store_url(@book),
                  form_action: book_page_entry_path(@book,@page,@entry),
