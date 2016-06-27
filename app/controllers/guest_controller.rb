@@ -8,7 +8,7 @@ class GuestController < ApplicationController
 
   def register
     @shopper = current_shopper
-    session[:guest_register_return] = request.referrer
+    session[:guest_register_return] = request.referer
   end
 
   def do_register

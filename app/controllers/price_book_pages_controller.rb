@@ -24,7 +24,7 @@ class PriceBookPagesController < ApplicationController
 
   # GET /price_book_pages/1/edit
   def edit
-    session[:price_book_pages_update_return] = request.referrer
+    session[:price_book_pages_update_return] = request.referer
   end
 
   # POST /price_book_pages
