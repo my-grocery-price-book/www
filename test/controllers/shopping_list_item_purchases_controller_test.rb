@@ -11,7 +11,7 @@ class ShoppingListItemPurchasesControllerTest < ActionController::TestCase
   context 'POST create' do
     should 'create a item purchase' do
       assert_difference('ShoppingList::ItemPurchase.count') do
-        post :create, shopping_list_item_id: @shopping_list_item.id, format: 'json'
+        post :create, params: { shopping_list_item_id: @shopping_list_item.id, format: 'json' }
       end
 
       assert_equal(@shopping_list_item.id, ShoppingList::ItemPurchase.last.shopping_list_item_id)
@@ -19,18 +19,18 @@ class ShoppingListItemPurchasesControllerTest < ActionController::TestCase
     end
 
     should 'redirect to shopping list items for html format' do
-      post :create, shopping_list_item_id: @shopping_list_item.id
+      post :create, params: { shopping_list_item_id: @shopping_list_item.id }
       assert_redirected_to shopping_list_items_path(@shopping_list)
     end
 
     should 'redirect to shopping list items for html format with multiple items' do
       shopping_list_item2 = @shopping_list.items.create!(name: 'Bread')
-      post :create, shopping_list_item_id: shopping_list_item2.id
+      post :create, params: { shopping_list_item_id: shopping_list_item2.id }
       assert_redirected_to shopping_list_items_path(@shopping_list)
     end
 
     should 'be success for json format' do
-      post :create, shopping_list_item_id: @shopping_list_item.id, format: 'json'
+      post :create, params: { shopping_list_item_id: @shopping_list_item.id, format: 'json' }
       assert_response :success
     end
   end
@@ -42,7 +42,7 @@ class ShoppingListItemPurchasesControllerTest < ActionController::TestCase
 
     should 'destroys a item purchase' do
       assert_difference('ShoppingList::ItemPurchase.count', -1) do
-        delete :destroy, shopping_list_item_id: @shopping_list_item.id, format: 'json'
+        delete :destroy, params: { shopping_list_item_id: @shopping_list_item.id, format: 'json' }
       end
 
       @shopping_list_item.reload
@@ -50,19 +50,19 @@ class ShoppingListItemPurchasesControllerTest < ActionController::TestCase
     end
 
     should 'redirect to shopping list items for html format' do
-      delete :destroy, shopping_list_item_id: @shopping_list_item.id
+      delete :destroy, params: { shopping_list_item_id: @shopping_list_item.id }
       assert_redirected_to shopping_list_items_path(@shopping_list)
     end
 
     should 'redirect to shopping list items for html format with multiple items' do
       shopping_list_item2 = @shopping_list.items.create!(name: 'Bread')
       shopping_list_item2.create_purchase
-      delete :destroy, shopping_list_item_id: shopping_list_item2.id
+      delete :destroy, params: { shopping_list_item_id: shopping_list_item2.id }
       assert_redirected_to shopping_list_items_path(@shopping_list)
     end
 
     should 'be success for json format' do
-      delete :destroy, shopping_list_item_id: @shopping_list_item.id, format: 'json'
+      delete :destroy, params: { shopping_list_item_id: @shopping_list_item.id, format: 'json' }
       assert_response :success
       assert_equal({ 'data' => { 'purchased_at' => nil } }, JSON.parse(response.body))
     end
