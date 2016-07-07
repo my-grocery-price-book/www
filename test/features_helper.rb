@@ -34,7 +34,7 @@ class PersonaSession
 end
 
 class ShopperPersonaSession < PersonaSession
-  def initialize(email:)
+  def initialize(email: nil)
     super()
     @email = email
     @password = 'password'

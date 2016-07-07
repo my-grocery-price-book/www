@@ -1,8 +1,9 @@
-require 'integration_helper'
+require 'features_helper'
 
-class ComponentLibraryTest < IntegrationTest
+class ComponentLibraryTest < FeatureTest
   test 'List the components' do
-    visit '/components'
-    assert page.has_text?('Component Library')
+    @guest = ShopperPersonaSession.new
+    @guest.visit '/components'
+    assert @guest.has_text?('Component Library')
   end
 end
