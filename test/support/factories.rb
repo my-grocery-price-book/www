@@ -1,7 +1,7 @@
 # @param [Hash] shopper_args
 # @return [Shopper]
 def create_shopper(shopper_args = {})
-  FactoryGirl.create(:shopper,shopper_args)
+  FactoryGirl.create(:shopper, shopper_args)
 end
 
 # @param [PriceBook::Page] page
