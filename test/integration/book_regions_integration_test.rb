@@ -1,30 +1,9 @@
-# == Schema Information
-#
-# Table name: invites
-#
-#  id            :integer          not null, primary key
-#  price_book_id :integer
-#  name          :string
-#  email         :string
-#  status        :string           default("sent"), not null
-#  token         :string           not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#
-
 require 'test_helper'
 
-class BookRegionsIntegrationTest < ActionDispatch::IntegrationTest
-  include Warden::Test::Helpers
-
-  teardown do
-    Warden.test_reset!
-  end
-
+class BookRegionsIntegrationTest < IntegrationTest
   setup do
-    Warden.test_mode!
     @shopper = create_shopper
-    login_as(@shopper, scope: :shopper)
+    login_shopper(@shopper)
     @price_book = PriceBook.create!(shopper: @shopper)
   end
 

@@ -1,20 +1,6 @@
-# == Schema Information
-#
-# Table name: invites
-#
-#  id            :integer          not null, primary key
-#  price_book_id :integer
-#  name          :string
-#  email         :string
-#  status        :string           default("sent"), not null
-#  token         :string           not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#
-
 require 'test_helper'
 
-class PagesIntegrationTest < ActionDispatch::IntegrationTest
+class PagesIntegrationTest < IntegrationTest
   context 'GET /' do
     should 'render' do
       get '/'

@@ -1,16 +1,9 @@
 require 'test_helper'
 
-class EntriesIntegrationTest < ActionDispatch::IntegrationTest
-  include Warden::Test::Helpers
-
-  teardown do
-    Warden.test_reset!
-  end
-
+class EntriesIntegrationTest < IntegrationTest
   setup do
-    Warden.test_mode!
     @shopper = FactoryGirl.create(:shopper)
-    login_as(@shopper, scope: :shopper)
+    login_shopper(@shopper)
     @price_book = PriceBook.create!(shopper: @shopper)
     @page = FactoryGirl.create(:page, book: @price_book)
   end

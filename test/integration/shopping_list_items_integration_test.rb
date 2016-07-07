@@ -1,16 +1,9 @@
 require 'test_helper'
 
-class ShoppingListItemsIntegrationTest < ActionDispatch::IntegrationTest
-  include Warden::Test::Helpers
-
-  teardown do
-    Warden.test_reset!
-  end
-
+class ShoppingListItemsIntegrationTest < IntegrationTest
   setup do
-    Warden.test_mode!
     @shopper = create_shopper
-    login_as(@shopper, scope: :shopper)
+    login_shopper(@shopper)
   end
 
   context 'GET /books/:book_id/shopping_items/names.json' do

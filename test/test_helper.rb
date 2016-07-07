@@ -29,4 +29,20 @@ class ActionDispatch::IntegrationTest
   end
 end
 
+class IntegrationTest < ActionDispatch::IntegrationTest
+  include Warden::Test::Helpers
+
+  teardown do
+    Warden.test_reset!
+  end
+
+  setup do
+    Warden.test_mode!
+  end
+
+  def login_shopper(shopper)
+    login_as(shopper, scope: :shopper)
+  end
+end
+
 ActiveSupport::Deprecation.silenced = true if Rails.version >= '5'
