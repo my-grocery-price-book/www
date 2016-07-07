@@ -17,7 +17,7 @@ class ShoppingListsControllerTest < ActionController::TestCase
   setup do
     @shopper = create_shopper
     @price_book = PriceBook.default_for_shopper(@shopper)
-    sign_in :shopper, @shopper
+    sign_in @shopper, scope: :shopper
   end
 
   context 'GET index' do

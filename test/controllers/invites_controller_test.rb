@@ -18,7 +18,7 @@ class InvitesControllerTest < ActionController::TestCase
   setup do
     @shopper = create_shopper
     @price_book = PriceBook.create!(shopper: @shopper)
-    sign_in :shopper, @shopper
+    sign_in @shopper, scope: :shopper
   end
 
   context 'GET new' do

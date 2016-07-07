@@ -5,7 +5,7 @@ class ShoppingListItemPurchasesControllerTest < ActionController::TestCase
     @shopper = create_shopper
     @shopping_list = ShoppingList.create!(shopper: @shopper)
     @shopping_list_item = @shopping_list.items.create!(name: 'Bread')
-    sign_in :shopper, @shopper
+    sign_in @shopper, scope: :shopper
   end
 
   context 'POST create' do

@@ -5,7 +5,8 @@ class ShoppingListItemsControllerTest < ActionController::TestCase
     @shopper = create_shopper
     @price_book = PriceBook.create!(shopper: @shopper)
     @shopping_list = ShoppingList.create!(price_book_id: @price_book.id)
-    sign_in :shopper, @shopper
+    sign_in @shopper, scope: :shopper
+
   end
 
   context 'GET index' do

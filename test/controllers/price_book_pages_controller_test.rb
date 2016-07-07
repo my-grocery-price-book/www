@@ -5,7 +5,7 @@ class PriceBookPagesControllerTest < ActionController::TestCase
     @shopper = create_shopper
     @price_book = PriceBook.create!(shopper: @shopper)
     @price_book_page = PriceBook::Page.create!(book: @price_book, name: 'n1', category: 'n2', unit: 'ml')
-    sign_in :shopper, @shopper
+    sign_in @shopper, scope: :shopper
   end
 
   context 'GET index' do
