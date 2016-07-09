@@ -8,7 +8,7 @@ class DeviseCustomFailure < Devise::FailureApp
   def to_shopper_registration
     return nil unless warden_options[:scope] == :shopper
 
-    controller_params = env['action_dispatch.request.path_parameters']
+    controller_params = request.env['action_dispatch.request.path_parameters']
     return nil unless controller_params[:controller] == 'invites'
 
     invite = Invite.find_by(token: controller_params[:id])
