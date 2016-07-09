@@ -48,7 +48,7 @@ class BookStoresIntegrationTest < IntegrationTest
       context 'success' do
         should 'save the record' do
           post "/books/#{@price_book.to_param}/stores",
-               store: { name: 'Shop', location: 'Place', region_code: 'ZAR-WC' }
+               params: { store: { name: 'Shop', location: 'Place', region_code: 'ZAR-WC' } }
           values = Store.last.attributes.slice('name', 'location', 'region_code')
           assert_equal({ 'name' => 'Shop', 'location' => 'Place', 'region_code' => 'ZAR-WC' },
                        values)
@@ -56,14 +56,14 @@ class BookStoresIntegrationTest < IntegrationTest
 
         should 'set stores in price_book' do
           post "/books/#{@price_book.to_param}/stores",
-               store: { name: 'Shop', location: 'Place', region_code: 'ZAR-WC' }
+               params: { store: { name: 'Shop', location: 'Place', region_code: 'ZAR-WC' } }
           @price_book.reload
           assert_includes @price_book.stores, Store.last
         end
 
         should 'redirect to price_pages_path' do
           post "/books/#{@price_book.to_param}/stores",
-               store: { name: 'Shop', location: 'Place', region_code: 'ZAR-WC' }
+               params: { store: { name: 'Shop', location: 'Place', region_code: 'ZAR-WC' } }
           assert_redirected_to(book_pages_path)
         end
       end
@@ -71,7 +71,7 @@ class BookStoresIntegrationTest < IntegrationTest
       context 'validation errors' do
         should 'render the edit form with errors' do
           post "/books/#{@price_book.to_param}/stores",
-               store: { name: '', location: '', region_code: 'ZAR-WC' }
+               params: { store: { name: '', location: '', region_code: 'ZAR-WC' } }
           assert_response :success
           assert response.body.include?('<form'), 'does not contain form'
           assert response.body.include?('error-explanation'), 'does not contain errors'

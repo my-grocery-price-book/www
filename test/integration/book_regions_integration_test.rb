@@ -73,14 +73,14 @@ class BookRegionsIntegrationTest < IntegrationTest
   context 'POST /books/:book_id/regions/:country_code' do
     should 'save the record' do
       post "/books/#{@price_book.to_param}/regions/ZAF",
-           price_book: { region_codes: ['ZAF-WC'] }
+           params: { price_book: { region_codes: ['ZAF-WC'] } }
       @price_book.reload
       assert_equal(['ZAF-WC'], @price_book.region_codes)
     end
 
     should 'redirect to price_pages_path' do
       post "/books/#{@price_book.to_param}/regions/ZAF",
-           price_book: { region_codes: ['ZAF-WC'] }
+           params: { price_book: { region_codes: ['ZAF-WC'] } }
       assert_redirected_to(book_pages_path(@price_book))
     end
 
@@ -91,10 +91,12 @@ class BookRegionsIntegrationTest < IntegrationTest
       assert_equal(new_book_page_entry_path(@price_book, page),
                    session[:book_regions_create_return])
 
-      post "/books/#{@price_book.to_param}/regions/ZAF", price_book: { region_codes: ['ZAF-WC'] }
+      post "/books/#{@price_book.to_param}/regions/ZAF",
+           params: { price_book: { region_codes: ['ZAF-WC'] } }
       assert_redirected_to(new_book_page_entry_path(@price_book, page))
 
-      post "/books/#{@price_book.to_param}/regions/ZAF", price_book: { region_codes: ['ZAF-WC'] }
+      post "/books/#{@price_book.to_param}/regions/ZAF",
+           params: { price_book: { region_codes: ['ZAF-WC'] } }
       assert_redirected_to(book_pages_path(@price_book))
     end
   end

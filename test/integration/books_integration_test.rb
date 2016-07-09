@@ -25,20 +25,20 @@ class BooksIntegrationTest < IntegrationTest
   context 'PATCH /books/:book_id/update' do
     context 'success' do
       should 'save the record' do
-        patch "/books/#{@price_book.to_param}", price_book: { name: 'New Name' }
+        patch "/books/#{@price_book.to_param}", params: { price_book: { name: 'New Name' } }
         @price_book.reload
         assert_equal('New Name', @price_book.name)
       end
 
       should 'redirect to price_book_pages_path' do
-        patch "/books/#{@price_book.to_param}", price_book: { name: 'New Name' }
+        patch "/books/#{@price_book.to_param}", params: { price_book: { name: 'New Name' } }
         assert_redirected_to(price_book_pages_path)
       end
     end
 
     context 'validation errors' do
       should 'render the edit form with errors' do
-        patch "/books/#{@price_book.to_param}", price_book: { name: '' }
+        patch "/books/#{@price_book.to_param}", params: { price_book: { name: '' } }
         assert_response :success
         assert response.body.include?('<form'), 'does not contain form'
         assert response.body.include?('error-explanation'), 'does not contain errors'
@@ -49,7 +49,7 @@ class BooksIntegrationTest < IntegrationTest
       should 'raise ActiveRecord Exception' do
         book = PriceBook.create!
         assert_raises(ActiveRecord::RecordNotFound) do
-          patch "/books/#{book.to_param}", price_book: { name: '' }
+          patch "/books/#{book.to_param}", params: { price_book: { name: '' } }
         end
       end
     end

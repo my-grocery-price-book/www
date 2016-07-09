@@ -23,7 +23,7 @@ class ShoppingListItemsIntegrationTest < IntegrationTest
     end
 
     should 'return filtered item' do
-      get "/books/#{@book.to_param}/shopping_items/names.json", query: 'bread'
+      get "/books/#{@book.to_param}/shopping_items/names.json", params: { query: 'bread' }
       assert_response :success
       parsed_body = MultiJson.load(response.body)
       assert_equal(['Bread'], parsed_body['data'])
