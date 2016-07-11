@@ -11,7 +11,7 @@
 #  _deprecated_shopper_id_migrated :boolean          default(FALSE), not null
 #
 
-class ShoppingList < ActiveRecord::Base
+class ShoppingList < ApplicationRecord
   validates :price_book_id, presence: true
   has_many :items, dependent: :destroy
 

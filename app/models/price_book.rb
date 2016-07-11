@@ -12,7 +12,7 @@
 #  store_ids                       :integer          default([]), is an Array
 #
 
-class PriceBook < ActiveRecord::Base
+class PriceBook < ApplicationRecord
   validates :name, presence: true
   has_many :members, dependent: :delete_all
   has_many :shopping_lists, dependent: :destroy

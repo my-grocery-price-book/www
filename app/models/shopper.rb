@@ -22,7 +22,7 @@
 #  guest                  :boolean          default(FALSE), not null
 #
 
-class Shopper < ActiveRecord::Base
+class Shopper < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,

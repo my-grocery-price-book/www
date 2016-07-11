@@ -11,7 +11,7 @@
 #  updated_at       :datetime         not null
 #
 
-class ShoppingList::Item < ActiveRecord::Base
+class ShoppingList::Item < ApplicationRecord
   has_one :purchase,
           class_name: 'ShoppingList::ItemPurchase',
           foreign_key: 'shopping_list_item_id',

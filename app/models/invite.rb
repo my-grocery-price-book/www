@@ -14,7 +14,7 @@
 
 require 'securerandom'
 
-class Invite < ActiveRecord::Base
+class Invite < ApplicationRecord
   belongs_to :price_book
 
   validates :price_book_id, :email, presence: true
