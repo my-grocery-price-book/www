@@ -3,7 +3,7 @@ require 'test_helper'
 class ProfilesControllerTest < ActionController::TestCase
   context 'GET show' do
     should 'render successfully when signed in' do
-      sign_in :shopper, create_shopper
+      sign_in create_shopper, scope: :shopper
       get :show
       assert_response :success
     end
@@ -16,14 +16,14 @@ class ProfilesControllerTest < ActionController::TestCase
 
   context 'GET edit' do
     should 'should render successfully when signed in' do
-      sign_in :shopper, create_shopper
+      sign_in create_shopper, scope: :shopper
       get :edit
       assert_response :success
     end
 
     should 'assign shopper when signed in' do
       shopper = create_shopper
-      sign_in :shopper, shopper
+      sign_in shopper, scope: :shopper
       get :edit
       assert_equal assigns[:shopper], shopper
     end
@@ -36,8 +36,8 @@ class ProfilesControllerTest < ActionController::TestCase
 
   context 'PATCH update' do
     should 'redirect profile_path when signed in' do
-      sign_in :shopper, create_shopper
-      patch :update, shopper: {}
+      sign_in create_shopper, scope: :shopper
+      patch :update, params: { shopper: {} }
       assert_redirected_to(profile_path)
     end
 

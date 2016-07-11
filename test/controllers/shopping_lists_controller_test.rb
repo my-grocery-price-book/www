@@ -17,7 +17,7 @@ class ShoppingListsControllerTest < ActionController::TestCase
   setup do
     @shopper = create_shopper
     @price_book = PriceBook.default_for_shopper(@shopper)
-    sign_in :shopper, @shopper
+    sign_in @shopper, scope: :shopper
   end
 
   context 'GET index' do
@@ -40,14 +40,14 @@ class ShoppingListsControllerTest < ActionController::TestCase
     end
 
     should 'update shopping_list' do
-      patch :update, id: @shopping_list.to_param, shopping_list: { title: 'My Title' }
+      patch :update, params: { id: @shopping_list.to_param, shopping_list: { title: 'My Title' } }
       @shopping_list.reload
 
       assert_equal('My Title', @shopping_list.title)
     end
 
     should 'redirect to shopping_list_path' do
-      patch :update, id: @shopping_list.to_param, shopping_list: { title: 'My Title' }
+      patch :update, params: { id: @shopping_list.to_param, shopping_list: { title: 'My Title' } }
       assert_redirected_to shopping_lists_path
     end
   end
@@ -74,7 +74,7 @@ class ShoppingListsControllerTest < ActionController::TestCase
 
     should 'destroy shopping_list' do
       assert_difference('ShoppingList.count', -1) do
-        delete :destroy, id: @shopping_list
+        delete :destroy, params: { id: @shopping_list }
       end
 
       assert_redirected_to shopping_lists_path

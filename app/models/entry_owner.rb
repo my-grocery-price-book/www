@@ -9,7 +9,7 @@
 #  updated_at     :datetime         not null
 #
 
-class EntryOwner < ActiveRecord::Base
+class EntryOwner < ApplicationRecord
   validates :price_entry_id, :shopper_id, presence: true
   belongs_to :price_entry
   belongs_to :shopper

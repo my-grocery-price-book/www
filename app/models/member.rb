@@ -10,7 +10,7 @@
 #  updated_at    :datetime         not null
 #
 
-class Member < ActiveRecord::Base
+class Member < ApplicationRecord
   belongs_to :shopper
 
   validates :shopper_id, :price_book_id, presence: true

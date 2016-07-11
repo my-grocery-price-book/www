@@ -5,11 +5,7 @@ group :development, :test do
   gem 'dotenv-rails' # load before other gems
 end
 
-if @next_upgrade
-  gem 'rails', '5.0.0.rc1'
-else
-  gem 'rails', '~> 4.2.6'
-end
+gem 'rails', '~> 5.0.0'
 
 gem 'sprockets'
 gem 'jbuilder'
@@ -56,7 +52,5 @@ group :test do
   gem 'simplecov', require: false
   gem 'database_cleaner', require: false
   gem 'phantomjs', require: false
-  if @next_upgrade
-    gem 'rails-controller-testing' # https://github.com/rails/rails-controller-testing
-  end
+  gem 'rails-controller-testing' # https://github.com/rails/rails-controller-testing
 end

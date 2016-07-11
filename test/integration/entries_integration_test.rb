@@ -1,16 +1,9 @@
 require 'test_helper'
 
-class EntriesIntegrationTest < ActionDispatch::IntegrationTest
-  include Warden::Test::Helpers
-
-  teardown do
-    Warden.test_reset!
-  end
-
+class EntriesIntegrationTest < IntegrationTest
   setup do
-    Warden.test_mode!
     @shopper = FactoryGirl.create(:shopper)
-    login_as(@shopper, scope: :shopper)
+    login_shopper(@shopper)
     @price_book = PriceBook.create!(shopper: @shopper)
     @page = FactoryGirl.create(:page, book: @price_book)
   end
@@ -58,14 +51,14 @@ class EntriesIntegrationTest < ActionDispatch::IntegrationTest
       context 'validation failed' do
         should 'show edit page' do
           put "#{base_url}/#{@entry.to_param}",
-              price_entry: { product_name: '' }
+              params: { price_entry: { product_name: '' } }
           assert_response :success
           assert response.body.include?('Edit Entry')
         end
 
         should 'show error messages' do
           put "#{base_url}/#{@entry.to_param}",
-              price_entry: { product_name: '' }
+              params: { price_entry: { product_name: '' } }
           assert_response :success
           assert page.has_content?('Product name can\'t be blank')
         end
@@ -74,7 +67,7 @@ class EntriesIntegrationTest < ActionDispatch::IntegrationTest
       context 'successful save' do
         should 'redirects' do
           put "#{base_url}/#{@entry.to_param}",
-              price_entry: { product_name: 'New Name' }
+              params: { price_entry: { product_name: 'New Name' } }
           assert_redirected_to book_page_path(@price_book, @page)
         end
 
@@ -86,7 +79,7 @@ class EntriesIntegrationTest < ActionDispatch::IntegrationTest
                          'package_size' => 100,
                          'total_price' => 32 }
           put "#{base_url}/#{@entry.to_param}",
-              price_entry: new_values
+              params: { price_entry: new_values }
           @entry.reload
           saved_values = @entry.attributes.slice(*new_values.keys)
           assert_equal(new_values, saved_values)

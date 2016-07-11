@@ -12,7 +12,7 @@
 #  price_book_id :integer
 #
 
-class PriceBook::Page < ActiveRecord::Base
+class PriceBook::Page < ApplicationRecord
   belongs_to :book, class_name: 'PriceBook', foreign_key: 'price_book_id'
   validates :name, :category, :unit, presence: true
   # on update only allows build pages for an unsaved PriceBook

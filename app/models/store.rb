@@ -10,7 +10,7 @@
 #  region_code :string           not null
 #
 
-class Store < ActiveRecord::Base
+class Store < ApplicationRecord
   validates :name, :location, :region_code, presence: true
 
   before_validation :strip_spacing

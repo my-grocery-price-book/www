@@ -8,5 +8,5 @@
 #  updated_at            :datetime         not null
 #
 
-class ShoppingList::ItemPurchase < ActiveRecord::Base
+class ShoppingList::ItemPurchase < ApplicationRecord
 end

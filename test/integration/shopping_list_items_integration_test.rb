@@ -1,16 +1,9 @@
 require 'test_helper'
 
-class ShoppingListItemsIntegrationTest < ActionDispatch::IntegrationTest
-  include Warden::Test::Helpers
-
-  teardown do
-    Warden.test_reset!
-  end
-
+class ShoppingListItemsIntegrationTest < IntegrationTest
   setup do
-    Warden.test_mode!
     @shopper = create_shopper
-    login_as(@shopper, scope: :shopper)
+    login_shopper(@shopper)
   end
 
   context 'GET /books/:book_id/shopping_items/names.json' do
@@ -30,7 +23,7 @@ class ShoppingListItemsIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     should 'return filtered item' do
-      get "/books/#{@book.to_param}/shopping_items/names.json", query: 'bread'
+      get "/books/#{@book.to_param}/shopping_items/names.json", params: { query: 'bread' }
       assert_response :success
       parsed_body = MultiJson.load(response.body)
       assert_equal(['Bread'], parsed_body['data'])

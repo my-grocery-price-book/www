@@ -16,11 +16,11 @@ require 'capybara/rails'
 
 class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
-  self.use_transactional_fixtures = false
+  self.use_transactional_tests = false
 end
 
 class ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 end
 
 class ActionDispatch::IntegrationTest
@@ -29,4 +29,18 @@ class ActionDispatch::IntegrationTest
   end
 end
 
-ActiveSupport::Deprecation.silenced = true if Rails.version >= '5'
+class IntegrationTest < ActionDispatch::IntegrationTest
+  include Warden::Test::Helpers
+
+  teardown do
+    Warden.test_reset!
+  end
+
+  setup do
+    Warden.test_mode!
+  end
+
+  def login_shopper(shopper)
+    login_as(shopper, scope: :shopper)
+  end
+end
