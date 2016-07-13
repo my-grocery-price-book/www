@@ -33,7 +33,7 @@ var Page = React.createClass({
 
     return (
         <div className="col-xs-12 col-sm-6 col-md-4">
-          <div className={"thumbnail category-" + this.dasherize(page.category)}>
+          <div className={"thumbnail category-" + this.dasherize(page.category || 'other')}>
             <h4>
               <a href={ page.show_url }>{ page.name }</a>
             </h4>
