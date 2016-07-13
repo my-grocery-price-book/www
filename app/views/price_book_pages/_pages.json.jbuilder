@@ -1,3 +1,3 @@
 json.array! pages do |page|
-  json.partial! 'page', page: page
+  json.partial! 'price_book_pages/page', page: page
 end

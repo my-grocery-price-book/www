@@ -13,6 +13,7 @@
 
 class ShoppingList < ApplicationRecord
   validates :price_book_id, presence: true
+  belongs_to :book, class_name: 'PriceBook', foreign_key: 'price_book_id'
   has_many :items, dependent: :destroy
 
   before_save :set__deprecated_shopper_id_migrated
@@ -31,6 +32,13 @@ class ShoppingList < ApplicationRecord
   end
 
   # @param [Shopper] shopper
+  # @return [ShoppingList]
+  def self.first_for_shopper(shopper)
+    for_shopper(shopper).first
+  end
+
+  # @param [Shopper] shopper
+  # @return [Array<ShoppingList>]
   def self.for_shopper(shopper)
     price_book_id = PriceBook.default_for_shopper(shopper).id
     where(price_book_id: price_book_id).order('created_at DESC')
