@@ -1,5 +1,13 @@
 var Page = React.createClass({
 
+  trim: function (str, characters) {
+    return str.replace(new RegExp('^' + characters + '+|' + characters + '+$', 'g'), '');
+  },
+
+  dasherize: function (str) {
+    return this.trim(str).replace(/([A-Z])/g, '-$1').replace(/[-_\s]+/g, '-').toLowerCase();
+  },
+
   propTypes: {
     page: React.PropTypes.object,
     authenticity_token: React.PropTypes.string
@@ -25,7 +33,7 @@ var Page = React.createClass({
 
     return (
         <div className="col-xs-12 col-sm-6 col-md-4">
-          <div className="thumbnail">
+          <div className={"thumbnail category-" + this.dasherize(page.category)}>
             <h4>
               <a href={ page.show_url }>{ page.name }</a>
             </h4>

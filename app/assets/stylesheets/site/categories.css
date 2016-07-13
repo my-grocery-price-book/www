@@ -1,0 +1,47 @@
+.category--bakery {
+    background-color: yellow;
+}
+
+.category--fresh {
+    background-color: lightgreen;
+}
+
+.category--frozen {
+    background-color: deepskyblue;
+}
+
+.category--ready-meals {
+    background-color: coral;
+}
+
+.category--food-cupboard {
+    background-color: rosybrown;
+}
+
+.category--snacks-and-sweets {
+    background-color: pink;
+}
+
+.category--drinks {
+    background-color: dodgerblue;
+}
+
+.category--household {
+    background-color: lightseagreen;
+}
+
+.category--pets {
+    background-color: sandybrown;
+}
+
+.category--baby {
+    background-color: lightyellow;
+}
+
+.category--health-and-beauty {
+    background-color: lightsteelblue;
+}
+
+.category--other {
+    background-color: darkolivegreen;
+}
