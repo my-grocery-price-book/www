@@ -8,11 +8,13 @@ class ShoppingListItemsController < ApplicationController
 
   def index
     shopping_list
+    @pages = PriceBook::Page.for_book(@shopping_list.book)
   end
 
   def latest
-    @shopping_list = ShoppingList.for_shopper(current_shopper).first
+    @shopping_list = ShoppingList.first_for_shopper(current_shopper)
     if @shopping_list
+      @pages = PriceBook::Page.for_book(@shopping_list.book)
       render :index
     else
       redirect_to shopping_lists_path

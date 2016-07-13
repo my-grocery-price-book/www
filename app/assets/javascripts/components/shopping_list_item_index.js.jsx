@@ -1,7 +1,9 @@
 var ShoppingListItemIndex = React.createClass({
+  page_matches: {},
 
   propTypes: {
     initial_items: React.PropTypes.arrayOf(React.PropTypes.object),
+    pages: React.PropTypes.arrayOf(React.PropTypes.object),
     shopping_list: React.PropTypes.object,
     create_url: React.PropTypes.string,
     create_list_url: React.PropTypes.string,
@@ -70,7 +72,7 @@ var ShoppingListItemIndex = React.createClass({
       type: 'GET',
       success: function (response) {
         this.setState({items: response.data});
-        setTimeout(this.loadItemsFromServer, 5000);
+        setTimeout(this.loadItemsFromServer, 10000);
       }.bind(this),
       error: function () {
         setTimeout(this.loadItemsFromServer, 60000);
@@ -78,13 +80,37 @@ var ShoppingListItemIndex = React.createClass({
     });
   },
 
+  getMatchingPage: function (item) {
+    if(this.page_matches[item.id]) {
+      return this.page_matches[item.id];
+    }
+
+    this.page_matches[item.id] = {category: 'other'};
+    var self = this;
+
+    this.props.pages.map(function (page) {
+      if(page.name == item.name) {
+        self.page_matches[item.id] = page;
+        return;
+      } else if(page.product_names.includes(item.name)) {
+        self.page_matches[item.id] = page;
+        return;
+      }
+    });
+
+    return this.page_matches[item.id];
+  },
+
   render: function () {
     var state = this.state;
     var props = this.props;
+    var self = this;
 
     var rendered_items = this.state.items.map(function (item) {
+      var page = self.getMatchingPage(item);
       return (
           <ShoppingListItem key={"item_" + item.id}
+                            page={page}
                             item_id={item.id}
                             amount={item.amount}
                             unit={item.unit}

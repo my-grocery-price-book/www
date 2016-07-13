@@ -1,6 +1,7 @@
 var ShoppingListItem = React.createClass({
 
   propTypes: {
+    page: React.PropTypes.object,
     amount: React.PropTypes.number,
     unit: React.PropTypes.string,
     name: React.PropTypes.string,
@@ -11,6 +12,14 @@ var ShoppingListItem = React.createClass({
     purchase_url: React.PropTypes.string,
     unpurchase_url: React.PropTypes.string,
     authenticity_token: React.PropTypes.string
+  },
+
+  trim: function (str, characters) {
+    return str.replace(new RegExp('^' + characters + '+|' + characters + '+$', 'g'), '');
+  },
+
+  dasherize: function (str) {
+    return this.trim(str).replace(/([A-Z])/g, '-$1').replace(/[-_\s]+/g, '-').toLowerCase();
   },
 
   getInitialState: function () {
@@ -102,7 +111,7 @@ var ShoppingListItem = React.createClass({
 
     return (
         <div data-item-name={state.name}
-             className="col-md-6">
+             className={"col-xs-12 col-md-6 category-" + this.dasherize(this.props.page.category || 'other')}>
           <span className={state.purchased_at ? 'item-purchased' : '' }>
           {state.amount} {state.unit} <span data-name>{state.name}</span>
           </span>

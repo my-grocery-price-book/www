@@ -1,8 +1,20 @@
+<% ['Bakery','Fresh','Frozen','Ready Meals', 'Food Cupboard',
+    'Snacks and Sweets', 'Drinks', 'Household', 'Pets','Baby',
+    'Health and Beauty', 'Other'] %>
 <%= react_component('PagesIndex',
                     pages: [{id: 1, name: 'Bread', category: 'Bakery', unit: 'grams',
                              best_entry: {product_name: 'Woolworths White Bread', amount: 1,
                                           package_size: 700, package_unit: 'grams',
                                           price_per_unit: 0.77, store_name: 'Woolworths',
                                           location: 'Cape Town', total_price: 13.95 }},
-                            {id: 2, name: 'Eggs', category: 'Fresh', unit: 'items'},
-                            {id: 3, name: 'Oven Chips', category: 'Frozen', unit: 'grams'}]) %>
+                            {id: 2, name: 'Large Eggs', category: 'Fresh', unit: 'items'},
+                            {id: 3, name: 'Oven Chips', category: 'Frozen', unit: 'grams'},
+                            {id: 4, name: 'Microwave Macaroni', category: 'Ready Meals', unit: 'grams'},
+                            {id: 5, name: 'Beans in Tomato Sauce', category: 'Food Cupboard', unit: 'grams'},
+                            {id: 6, name: 'Fizzers', category: 'Snacks and Sweets', unit: 'each'},
+                            {id: 7, name: 'Beer', category: 'Drinks', unit: 'milliliters'},
+                            {id: 8, name: 'Dish washing liquid', category: 'Household', unit: 'milliliters'},
+                            {id: 9, name: 'Dog Food', category: 'Pets', unit: 'grams'},
+                            {id: 10, name: 'Diapers', category: 'Baby', unit: 'grams'},
+                            {id: 11, name: 'Toothbrushes', category: 'Health and Beauty', unit: 'each'},
+                            {id: 12, name: 'Hammer', category: 'Other', unit: 'each'}]) %>
