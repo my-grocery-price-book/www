@@ -85,7 +85,7 @@ var ShoppingListItemIndex = React.createClass({
       return this.page_matches[item.id];
     }
 
-    this.page_matches[item.id] = {category: 'other'};
+    this.page_matches[item.id] = {category: 'Other'};
     var self = this;
 
     this.props.pages.map(function (page) {

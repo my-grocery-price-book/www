@@ -1,5 +1,9 @@
 .inline-form-for-button {
-  display: inline;
+    display: inline;
+}
+
+.item-name {
+    padding-left: 5px;
 }
 
 .item-purchased {
@@ -16,9 +20,15 @@
     bottom: 100%;
     left: 0;
 }
+
 .name-suggestion {
     display: block;
     width: 100%;
     text-align: left;
+}
+
+.shopping-list-item {
+    border-radius: 7px;
+    margin: 2px;
 }
 
