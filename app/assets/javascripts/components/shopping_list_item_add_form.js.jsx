@@ -86,7 +86,7 @@ var ShoppingListItemAddForm = React.createClass({
     });
 
     return <div className="shopping-list-item-add-form">
-      <div className="col-xs-12 shopping-list-suggestions">
+      <div className="col-xs-11 shopping-list-suggestions">
         <ReactCSSTransitionGroup transitionName="shopping-list-item" transitionEnterTimeout={250}
                                  transitionLeaveTimeout={250}>
           {rendered_suggestions}
