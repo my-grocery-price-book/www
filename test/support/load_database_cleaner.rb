@@ -26,11 +26,11 @@ end
 
 class ActionDispatch::IntegrationTest
   setup prepend: true do
-    DatabaseCleaner.strategy = :truncation
-    DatabaseCleaner.clean_with :truncation
+    DatabaseCleaner.strategy = nil
   end
 
   teardown do
+    DatabaseCleaner.clean_with :truncation
     DatabaseCleaner.strategy = :transaction
   end
 end
