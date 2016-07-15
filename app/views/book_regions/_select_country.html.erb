@@ -1,10 +1,30 @@
 <h1>Select Country</h1>
+<label for="country_select_filter">Filter:</label>
+<input id="country_select_filter">
 <ul class="list-unstyled">
   <% RegionFinder.instance.countries.each do |country| %>
-    <li>
+    <li data-country-item>
       <a href="<%= new_book_regions_path(book,country.alpha_3_code) %>">
         <%= country.name %>
       </a>
     </li>
   <% end %>
 </ul>
+
+<script>
+  jQuery( document ).ready(function( $ ) {
+    // Code using $ as usual goes here.
+    $('#country_select_filter').on('input', function() {
+      input_value = $('#country_select_filter').val().toLowerCase();
+      $('[data-country-item]').each(function() {
+        country_name = $( this ).text().toLowerCase();
+        if(country_name.includes(input_value)) {
+          $( this ).show();
+        } else {
+          $( this ).hide();
+        }
+      });
+    })
+  });
+</script>
+

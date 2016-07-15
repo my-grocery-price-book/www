@@ -116,8 +116,6 @@ class TrackingPricesTest < FeatureTest
       click_on 'Save'
     end
 
-    @grant.save_screenshot
-
     assert @grant.has_content?('Checkers')
     assert @grant.has_content?('Langa')
     assert @grant.has_content?('White Sugar')
