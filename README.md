@@ -1,6 +1,7 @@
-[![Stories in Ready](https://badge.waffle.io/my-grocery-price-book/www.png?label=ready&title=Ready)](https://waffle.io/my-grocery-price-book/www)
 # My Grocery Price Book Rails app
+
 [![Build Status](https://semaphoreci.com/api/v1/projects/9e86687d-5794-45da-96f0-ebd507dddd33/683754/badge.svg)](https://semaphoreci.com/my-grocery-price-book/www)
+[![Stories in Ready](https://badge.waffle.io/my-grocery-price-book/www.png?label=ready&title=Ready)](https://waffle.io/my-grocery-price-book/www)
 
 For development with [vagrant read this](https://github.com/my-grocery-price-book/www-infrastructure#setting-up-a-development-enviroment-with-vagrant-and-ansible)
 
@@ -12,17 +13,15 @@ For development with [vagrant read this](https://github.com/my-grocery-price-boo
  
 ```
   cp -vn "config/examples/.env.local" ".env" # then edit .env and insert correct details
-  bin/setup.sh 
-  ./run.sh # run development db server
+  bin/setup 
 ```
 
 # Development
 
 ```
-  bundle install --path vendor/bundle
-  # make changes :)
-  bin/rails s -b 0.0.0.0 # visit http://192.168.30.15:3000
+  ./run.sh # starts the server
   bin/spring testunit test # run tests
+  bin/teaspoon spec # run javascript tests
 ```
 
 catching email
