@@ -1,7 +1,7 @@
 var ShoppingListItem = React.createClass({
 
   propTypes: {
-    page: React.PropTypes.object,
+    page: React.PropTypes.object.isRequired,
     amount: React.PropTypes.number,
     unit: React.PropTypes.string,
     name: React.PropTypes.string,
@@ -108,11 +108,12 @@ var ShoppingListItem = React.createClass({
   render: function () {
     var props = this.props;
     var state = this.state;
-
+    var category_class = 'category-' + this.dasherize(this.props.page.category);
+    
     return (
         <div data-item-name={state.name}
              className="col-xs-11">
-          <div className={"shopping-list-item category-" + this.dasherize(this.props.page.category)}>
+          <div className={"shopping-list-item " + category_class}>
             <span className={state.purchased_at ? 'item-name item-purchased' : 'item-name' }>
             {state.amount} {state.unit} <span data-name>{state.name}</span>
             </span>
