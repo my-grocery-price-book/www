@@ -26,6 +26,7 @@ class TrackingPricesTest < FeatureTest
       click_on 'Save'
 
       # start filling in the price
+      select 'Pick n Pay - Canal Walk', from: 'Store'
       fill_in 'Product name', with: 'White Sugar'
       fill_in 'Amount', with: '1'
       fill_in 'Package size', with: '410'
@@ -59,6 +60,7 @@ class TrackingPricesTest < FeatureTest
       click_on 'Save'
 
       # start filling in the price
+      select 'Pick n Pay - Canal Walk', from: 'Store'
       fill_in 'Product name', with: 'Brown Sugar'
       fill_in 'Amount', with: '1'
       fill_in 'Package size', with: '400'
@@ -90,6 +92,7 @@ class TrackingPricesTest < FeatureTest
       click_on 'Save'
 
       # start filling in the price
+      select 'Pick n Pay - Canal Walk', from: 'Store'
       fill_in 'Product name', with: 'Sugar'
       fill_in 'Amount', with: '1'
       fill_in 'Package size', with: '4100'

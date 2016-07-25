@@ -10,6 +10,6 @@
                  form_method: 'post',
                  error_messages: @entry.errors.full_messages,
                  selectable_stores: stores_options_for_book(@book),
-                 local_suggestions: EntryOwner.local_suggestions(shopper: current_shopper),
+                 local_suggestions: @page.product_names,
                  package_unit: @page.unit,
                  authenticity_token: form_authenticity_token) %>
