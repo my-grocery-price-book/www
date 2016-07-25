@@ -26,12 +26,13 @@ class EntryOwner < ApplicationRecord
 
   # @param [Shopper] shopper
   # @return [Array<String>]
-  def self.local_suggestions(shopper:)
-    entry_owners = includes(:price_entry).where(shopper_id: shopper.id).order('id DESC').limit(1000)
+  def self.name_suggestions(shopper:, query: nil)
+    entry_owners = includes(:price_entry).joins(:price_entry).where(shopper_id: shopper.id).limit(1000)
+    entry_owners = entry_owners.where('price_entries.created_at > ?', 6.months.ago)
     suggestions = entry_owners.collect do |entry|
       entry.price_entry_product_name
     end
-    suggestions.sort!
+    suggestions.select! { |name| name.include?(query) } if query
     suggestions.uniq!
     suggestions
   end

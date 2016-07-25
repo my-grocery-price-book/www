@@ -9,6 +9,7 @@ var EntriesForm = React.createClass({
     form_method: React.PropTypes.string,
     error_messages:  React.PropTypes.arrayOf(React.PropTypes.string),
     local_suggestions:  React.PropTypes.arrayOf(React.PropTypes.string),
+    entry_names_url: React.PropTypes.string,
     selectable_stores:  React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.string)),
     bloodhoundBuilder: React.PropTypes.func,
     authenticity_token: React.PropTypes.string
@@ -75,7 +76,7 @@ var EntriesForm = React.createClass({
 
   loadBloodhound: function () {
     var bloodhoundBuilder = this.props.bloodhoundBuilder || window.EntriesBloodhound;
-    this.bloodhound = bloodhoundBuilder(this.props.local_suggestions);
+    this.bloodhound = bloodhoundBuilder(this.props.local_suggestions, this.props.entry_names_url);
     this.bloodhound.initialize().done(this.bloodhoundInitialized);
   },
 
@@ -134,21 +135,22 @@ var EntriesForm = React.createClass({
       <input name="_method" value={props.form_method} type="hidden"/>
       {rendered_errors}
       <div className="form-group">
-        <label htmlFor="store_id">Store</label>
+        <label className="sr-only" htmlFor="store_id">Store</label>
         <select id="store_id" name="price_entry[store_id]" className="form-control"
                 onChange={this.handleStoreIDChange} value={state.store_id}>
+          <option>Select a store</option>
           {rendered_store_options}
         </select>
-        <a href={props.new_store_href}>New Store</a>
+        <a href={props.new_store_href} className="btn btn-default">New Store</a>
       </div>
       <div className="form-group">
-        <label htmlFor="date_on">Date on</label>
+        <label className="sr-only" htmlFor="date_on">Date on</label>
         <input name="price_entry[date_on]" className="form-control"
                value={state.date_on} onChange={this.handleDateOnChange}
-               id="date_on" type="date" required/>
+               id="date_on" type="date" required placeholder="Date on"/>
       </div>
       <div className="form-group" style={{position: "relative"}}>
-        <label htmlFor="product_name">Product name</label>
+        <label className="sr-only" htmlFor="product_name">Product name</label>
         <div className="col-xs-12 shopping-list-suggestions">
           <ReactCSSTransitionGroup transitionName="shopping-list-item" transitionEnterTimeout={250}
                                    transitionLeaveTimeout={250}>
@@ -157,29 +159,31 @@ var EntriesForm = React.createClass({
         </div>
         <input name="price_entry[product_name]" className="form-control"
                value={state.product_name} onChange={this.handleProductNameChange}
-               id="product_name" required
+               id="product_name" required placeholder="Product name"
                autoComplete={state.bloodhound_initialized ? 'off' : 'on'} />
       </div>
       <div className="form-group">
-        <label htmlFor="amount">Amount</label>
+        <label className="sr-only" htmlFor="amount">Amount</label>
         <input name="price_entry[amount]" className="form-control"
                value={state.amount} onChange={this.handleAmountChange}
-               id="amount" type="number" min="1" required/>
+               id="amount" type="number" min="1" required placeholder="Amount"/>
       </div>
       <div className="form-group">
-        <label htmlFor="package_size">Package size</label>
+        <label className="sr-only" htmlFor="package_size">Package size</label>
         <div className="input-group">
           <input name="price_entry[package_size]" className="form-control"
                  value={state.package_size} onChange={this.handlePackageSizeChange}
-                 id="package_size" type="number" min="1" aria-describedby="package_unit" required/>
+                 id="package_size" type="number" min="1" aria-describedby="package_unit"
+                 required placeholder="Package size"/>
           <span className="input-group-addon" id="package_unit">{props.package_unit}</span>
         </div>
       </div>
       <div className="form-group">
-        <label htmlFor="total_price">Total price</label>
+        <label className="sr-only" htmlFor="total_price">Total price</label>
         <input name="price_entry[total_price]" className="form-control"
                value={state.total_price} onChange={this.handleTotalPriceChange}
-               id="total_price" type="number" min="0" step="0.01" required/>
+               id="total_price" type="number" min="0" step="0.01" required
+               placeholder="Total price"/>
       </div>
       <button className="btn btn-primary">Save</button>
       <a href={props.back_href} className="btn btn-default">Back</a>

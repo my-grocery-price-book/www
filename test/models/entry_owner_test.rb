@@ -53,17 +53,26 @@ describe EntryOwner do
     end
   end
 
-  describe '.local_suggestions' do
+  describe '.name_suggestions' do
     let(:shopper) { create_shopper }
 
     let(:price_book) { PriceBook.create!(shopper: shopper) }
 
-    it 'returns local suggestions' do
+    it 'returns name suggestions' do
       page = PriceBook::Page.create!(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Liters')
       entry = add_new_entry_to_page(page, product_name: 'Coke')
       EntryOwner.create_for!(shopper: shopper, entry: entry)
-      suggestions = EntryOwner.local_suggestions(shopper: shopper)
+      suggestions = EntryOwner.name_suggestions(shopper: shopper)
       suggestions.must_equal(['Coke'])
+    end
+
+    it 'ignores entries older than 6 months' do
+      page = PriceBook::Page.create!(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Liters')
+      entry = add_new_entry_to_page(page, product_name: 'Coke')
+      entry.update_column(:created_at, 7.months.ago)
+      EntryOwner.create_for!(shopper: shopper, entry: entry)
+      suggestions = EntryOwner.name_suggestions(shopper: shopper)
+      suggestions.must_equal([])
     end
   end
 

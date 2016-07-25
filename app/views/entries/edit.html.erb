@@ -1,4 +1,4 @@
-<h1>Edit Entry</h1>
+<h1>Edit <%= @page.name %> Entry</h1>
 
 <%= react_server('EntriesForm',
                  entry: {total_price: @entry.total_price, date_on: @entry.date_on,
@@ -10,6 +10,7 @@
                  form_method: 'put',
                  error_messages: @entry.errors.full_messages,
                  selectable_stores: stores_options_for_book(@book),
-                 local_suggestions: EntryOwner.local_suggestions(shopper: current_shopper),
+                 local_suggestions: @page.product_names,
+                 entry_names_url: names_book_page_entries_url(@book,@page),
                  package_unit: @entry.package_unit,
                  authenticity_token: form_authenticity_token) %>
