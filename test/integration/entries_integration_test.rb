@@ -19,7 +19,7 @@ class EntriesIntegrationTest < IntegrationTest
         EntryOwner.create!(price_entry: entry, shopper: @shopper)
         get "#{base_url}/#{entry.to_param}/edit"
         assert_response :success
-        assert response.body.include?('Edit Entry')
+        assert response.body.include?('Edit')
       end
     end
 
@@ -41,6 +41,13 @@ class EntriesIntegrationTest < IntegrationTest
     end
   end
 
+  context 'GET /books/:book_id/pages/:page_id/entries/names' do
+    should 'show return names' do
+      get "#{base_url}/names.json"
+      assert_response :success
+    end
+  end
+
   context 'PUT /books/:book_id/pages/:page_id/entries/:id' do
     context 'own entry' do
       setup do
@@ -53,7 +60,7 @@ class EntriesIntegrationTest < IntegrationTest
           put "#{base_url}/#{@entry.to_param}",
               params: { price_entry: { product_name: '' } }
           assert_response :success
-          assert response.body.include?('Edit Entry')
+          assert response.body.include?('Edit')
         end
 
         should 'show error messages' do

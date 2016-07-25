@@ -1,8 +1,10 @@
 describe('EntriesFormSpec', function() {
   var react_dom;
   var dom_node;
+  var remote_url;
 
-  function localBloodhound(l) {
+  function localBloodhound(l,r) {
+    remote_url = r;
     return new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.whitespace,
       queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -19,6 +21,7 @@ describe('EntriesFormSpec', function() {
                      form_action="/save" bloodhoundBuilder={localBloodhound}
                      error_messages={['Message 1']}
                      local_sugesstion={['Bread', 'Oranges', 'Cheese', 'Chicken', 'Carrots', 'Corn', 'Chips']}
+                     entry_names_url="/my_other"
                      selectable_stores={[['Store 1',"1"],['Store 2', "2"]]} />
     );
     dom_node = ReactDOM.findDOMNode(react_dom);
@@ -74,5 +77,9 @@ describe('EntriesFormSpec', function() {
 
   it("sets form#action", function () {
     expect(dom_node.getAttribute('action')).toEqual('/save');
+  });
+
+  it("sets remote_url", function () {
+    expect(remote_url).toEqual('/my_other');
   });
 });

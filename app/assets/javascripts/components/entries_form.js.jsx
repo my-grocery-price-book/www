@@ -9,6 +9,7 @@ var EntriesForm = React.createClass({
     form_method: React.PropTypes.string,
     error_messages:  React.PropTypes.arrayOf(React.PropTypes.string),
     local_suggestions:  React.PropTypes.arrayOf(React.PropTypes.string),
+    entry_names_url: React.PropTypes.string,
     selectable_stores:  React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.string)),
     bloodhoundBuilder: React.PropTypes.func,
     authenticity_token: React.PropTypes.string
@@ -75,7 +76,7 @@ var EntriesForm = React.createClass({
 
   loadBloodhound: function () {
     var bloodhoundBuilder = this.props.bloodhoundBuilder || window.EntriesBloodhound;
-    this.bloodhound = bloodhoundBuilder(this.props.local_suggestions);
+    this.bloodhound = bloodhoundBuilder(this.props.local_suggestions, this.props.entry_names_url);
     this.bloodhound.initialize().done(this.bloodhoundInitialized);
   },
 
