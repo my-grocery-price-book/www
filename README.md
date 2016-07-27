@@ -7,7 +7,7 @@ For development with [vagrant read this](https://github.com/my-grocery-price-boo
 
 ## REQUIREMENTS
 
- * ruby 2.2
+ * ruby 2.3.1
  * PostgreSQL
  * Imagemagick
  
