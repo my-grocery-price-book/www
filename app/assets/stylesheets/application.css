@@ -84,3 +84,12 @@ body {
     opacity: 0.01;
     transition: opacity 300ms ease-in;
 }
+
+.menu-logo {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    overflow: hidden;
+    position: relative;
+    top: -12px;
+}
