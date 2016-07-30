@@ -4,7 +4,7 @@ describe('ShoppingListItem', function() {
 
   beforeEach(function() {
     react_dom = TestUtils.renderIntoDocument(
-        <ShoppingListItem page={{category: 'bakery'}}/>
+        <ShoppingListItem page={{category: 'bakery'}} item={{}}/>
     );
     dom_node = ReactDOM.findDOMNode(react_dom);
   });

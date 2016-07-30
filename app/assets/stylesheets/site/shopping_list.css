@@ -30,5 +30,18 @@
 .shopping-list-item {
     border-radius: 7px;
     margin: 2px;
+    display: table;
+    width: 99%;
 }
 
+.shopping-list-item span {
+    display: table-cell;
+}
+
+.shopping-list-item span.item-name {
+    max-width: 100%;
+}
+
+.shopping-list-item span.shopping-actions {
+    width: 85px;
+}
