@@ -48,27 +48,11 @@
 
 <%= render 'layouts/footer' %>
 
-<noscript id="deferred-styles">
-  <%= stylesheet_link_tag 'vendor', 'application', media: 'all' %>
-</noscript>
-
-<script>
-  var loadDeferredStyles = function() {
-    var addStylesNode = document.getElementById("deferred-styles");
-    var replacement = document.createElement("div");
-    replacement.innerHTML = addStylesNode.textContent;
-    document.body.appendChild(replacement)
-    addStylesNode.parentElement.removeChild(addStylesNode);
-  };
-  var raf = requestAnimationFrame || mozRequestAnimationFrame ||
-      webkitRequestAnimationFrame || msRequestAnimationFrame;
-  if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
-  else window.addEventListener('load', loadDeferredStyles);
-</script>
-
+<%= stylesheet_link_tag 'vendor', 'application', media: 'all' %>
 <%= javascript_include_tag 'vendor' %>
 <%= javascript_include_tag 'application' %>
 
 <%= render 'layouts/ga' unless Rails.env.test? %>
+
 </body>
 </html>
