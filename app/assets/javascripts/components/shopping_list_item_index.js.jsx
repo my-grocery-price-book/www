@@ -111,15 +111,7 @@ var ShoppingListItemIndex = React.createClass({
       return (
           <ShoppingListItem key={"item_" + item.id}
                             page={page}
-                            item_id={item.id}
-                            amount={item.amount}
-                            unit={item.unit}
-                            name={item.name}
-                            purchased_at={item.purchased_at}
-                            update_url={item.update_url}
-                            delete_url={item.delete_url}
-                            purchase_url={item.purchase_url}
-                            unpurchase_url={item.unpurchase_url}
+                            item={item}
                             authenticity_token={props.authenticity_token}/>
       );
     });

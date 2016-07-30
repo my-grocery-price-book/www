@@ -1,15 +1,15 @@
 <%= react_component('ShoppingListItem',
-                    item_id: 0, amount: 1, unit: "KG",
-                    name: "Potatoes", purchase_url: "",
+                    item: { id: 0, amount: 1, unit: "KG",
+                            name: "Potatoes", purchase_url: ""},
                     page: { category: 'fresh' }) %>
 
 <%= react_component('ShoppingListItem',
-                    item_id: 0, amount: nil, title: "",
-                    name: "Bread", purchase_url: "",
+                    item: {id: 0, amount: nil, title: "",
+                           name: "Bread", purchase_url: ""},
                     page: { category: 'bakery' }) %>
 
 <%= react_component('ShoppingListItem',
-                    item_id: 0, amount: nil, title: "",
-                    name: "Bread", purchased_at: Time.current.to_s,
-                    unpurchase_url: "",
+                    item: {id: 0, amount: nil, title: "",
+                           name: "Bread", purchased_at: Time.current.to_s,
+                           unpurchase_url: ""},
                     page: { category: 'bakery' }) %>
