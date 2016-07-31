@@ -2,7 +2,7 @@
     display: inline;
 }
 
-.item-name {
+.item-info {
     padding-left: 5px;
 }
 
@@ -38,8 +38,17 @@
     display: table-cell;
 }
 
-.shopping-list-item span.item-name {
+.shopping-list-item span.item-info {
     max-width: 100%;
+}
+
+.item-unit {
+    padding-right: 5px;
+}
+
+.item-name {
+    font-weight: bolder;
+    padding-right: 5px;
 }
 
 .shopping-list-item span.shopping-actions {

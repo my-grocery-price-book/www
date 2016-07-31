@@ -5,7 +5,7 @@
 #  id               :integer          not null, primary key
 #  shopping_list_id :integer
 #  name             :string
-#  amount           :integer
+#  amount           :integer          default(1), not null
 #  unit             :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null

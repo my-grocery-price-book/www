@@ -58,6 +58,8 @@ class RegionFinder
     select { |region| region.alpha_3_code == alpha_3_code }
   end
 
+  # @param [String] code
+  # @return [RegionFinder::Region]
   def find_by_code(code)
     find { |region| region.code == code }
   end
