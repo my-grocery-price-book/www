@@ -88,11 +88,13 @@ var ShoppingListItemIndex = React.createClass({
     this.page_matches[item.id] = {category: 'Other'};
     var self = this;
 
+    var item_name = item.name.toLowerCase();
+
     this.props.pages.map(function (page) {
-      if(page.name == item.name) {
+      if(page.name.toLowerCase() == item_name) {
         self.page_matches[item.id] = page;
         return;
-      } else if(page.product_names.includes(item.name)) {
+      } else if(page.product_names.includes(item_name)) {
         self.page_matches[item.id] = page;
         return;
       }
