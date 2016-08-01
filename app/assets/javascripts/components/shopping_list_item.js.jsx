@@ -101,13 +101,17 @@ var ShoppingListItem = React.createClass({
              className="col-xs-11">
           <div className={"shopping-list-item " + category_class}>
             <span className={state.purchased_at ? 'item-name item-purchased' : 'item-info' }>
-              <span data-amount className="item-field item-amount">{state.amount}</span>
-              <span data-name className="item-field item-name">{state.name}</span>
-              <span data-size style={show_comparing_price ? null : {display: 'none'} }
+              <div>
+                <span data-amount className="item-field item-amount">{state.amount}</span>
+                <span data-name className="item-field item-name">{state.name}</span>
+              </div>
+              <div>
+                <span data-size style={show_comparing_price ? null : {display: 'none'} }
                     className="item-field item-amount">{best_entry.package_size}</span>
-              <span data-unit className="item-field item-unit">{page.unit}</span>
-              <span data-comparing-price style={show_comparing_price ? null : {display: 'none'} }
-                    className="item-field item-comparing-price">{best_entry.currency_symbol}{best_entry.price_per_unit * best_entry.package_size}</span>
+                <span data-unit className="item-field item-unit">{page.unit}</span>
+                <span data-comparing-price style={show_comparing_price ? null : {display: 'none'} }
+                      className="item-field item-comparing-price">{best_entry.currency_symbol}{best_entry.price_per_unit * best_entry.package_size}</span>
+              </div>
             </span>
             <span className="shopping-actions">
               <form action={props.item.purchase_url}
