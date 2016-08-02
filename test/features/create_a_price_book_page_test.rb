@@ -6,7 +6,7 @@ class CreateAPriceBookPageTest < FeatureTest
     @shopper.sign_up
     @shopper.visit '/price_book_pages'
     assert @shopper.has_content?('Price Book')
-    @shopper.click_link 'New Page'
+    @shopper.click_link 'Add New Page'
     @shopper.fill_in 'Name', with: 'Viennas'
     @shopper.select 'Fresh', from: 'Category'
     @shopper.select 'grams', from: 'Unit'
