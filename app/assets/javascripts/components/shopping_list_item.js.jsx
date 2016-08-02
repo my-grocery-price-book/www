@@ -2,15 +2,7 @@ var ShoppingListItem = React.createClass({
 
   propTypes: {
     page: React.PropTypes.object.isRequired,
-    amount: React.PropTypes.number,
-    unit: React.PropTypes.string,
-    name: React.PropTypes.string,
-    item_id: React.PropTypes.number,
-    purchased_at: React.PropTypes.string,
-    update_url: React.PropTypes.string,
-    delete_url: React.PropTypes.string,
-    purchase_url: React.PropTypes.string,
-    unpurchase_url: React.PropTypes.string,
+    item: React.PropTypes.object.isRequired,
     authenticity_token: React.PropTypes.string
   },
 
@@ -23,36 +15,27 @@ var ShoppingListItem = React.createClass({
   },
 
   getInitialState: function () {
-    return {amount: this.props.amount,
-            unit: this.props.unit,
-            name: this.props.name,
-            purchased_at: this.props.purchased_at,
+    return {amount: this.props.item.amount,
+            unit: this.props.item.unit,
+            name: this.props.item.name,
+            purchased_at: this.props.item.purchased_at,
             is_busy: false,
             is_deleted: false};
   },
 
   componentWillReceiveProps: function (nextProps) {
-    this.setState({amount: nextProps.amount, unit: nextProps.unit,
-                   name: nextProps.name, purchased_at: nextProps.purchased_at});
+    this.setState({purchased_at: nextProps.item.purchased_at});
   },
 
   handleAmountChange: function(e) {
     this.setState({amount: e.target.value});
   },
 
-  handleUnitChange: function(e) {
-    this.setState({unit: e.target.value});
-  },
-
-  handleNameChange: function(e) {
-    this.setState({unit: e.target.value});
-  },
-
   handlePurchasedSubmit: function (button_event) {
     button_event.preventDefault();
     this.setState({is_busy: true});
     $.ajax({
-      url: this.props.purchase_url,
+      url: this.props.item.purchase_url,
       dataType: 'json',
       type: 'POST',
       data: {"authenticity_token": this.props.authenticity_token},
@@ -69,7 +52,7 @@ var ShoppingListItem = React.createClass({
     button_event.preventDefault();
     this.setState({is_busy: true});
     $.ajax({
-      url: this.props.unpurchase_url,
+      url: this.props.item.unpurchase_url,
       dataType: 'json',
       type: 'DELETE',
       data: {"authenticity_token": this.props.authenticity_token},
@@ -84,15 +67,15 @@ var ShoppingListItem = React.createClass({
 
   handleDeleteSubmit: function(submit_event) {
     submit_event.preventDefault();
-    $("#confirmModal" + this.props.item_id).modal('show');
+    $("#confirmModal" + this.props.item.id).modal('show');
   },
 
   handleDelete: function (button_event) {
     button_event.preventDefault();
-    $("#confirmModal" + this.props.item_id).modal('hide');
+    $("#confirmModal" + this.props.item.id).modal('hide');
     this.setState({is_busy: true, show_form: false});
     $.ajax({
-      url: this.props.delete_url,
+      url: this.props.item.delete_url,
       dataType: 'json',
       type: 'DELETE',
       data: {"authenticity_token": this.props.authenticity_token},
@@ -107,48 +90,63 @@ var ShoppingListItem = React.createClass({
 
   render: function () {
     var props = this.props;
+    var page = this.props.page;
     var state = this.state;
-    var category_class = 'category-' + this.dasherize(this.props.page.category);
+    var category_class = 'category-' + this.dasherize(page.category);
+    var show_comparing_price = page.best_entry;
+    var best_entry = page.best_entry || {};
     
     return (
         <div data-item-name={state.name}
              className="col-xs-11">
           <div className={"shopping-list-item " + category_class}>
-            <span className={state.purchased_at ? 'item-name item-purchased' : 'item-name' }>
-            {state.amount} {state.unit} <span data-name>{state.name}</span>
+            <span className={state.purchased_at ? 'item-name item-purchased' : 'item-info' }>
+              <div>
+                <span data-amount className="item-field item-amount">{state.amount}</span>
+                <span data-name className="item-field item-name">{state.name}</span>
+              </div>
+              <div>
+                <span data-size style={show_comparing_price ? null : {display: 'none'} }
+                    className="item-field item-amount">{best_entry.package_size}</span>
+                <span data-unit className="item-field item-unit">{page.unit}</span>
+                <span data-comparing-price style={show_comparing_price ? null : {display: 'none'} }
+                      className="item-field item-comparing-price">{best_entry.currency_symbol}{best_entry.price_per_unit * best_entry.package_size}</span>
+              </div>
             </span>
-            <form action={props.purchase_url}
-                  onSubmit={this.handlePurchasedSubmit}
-                  style={state.purchased_at ? {display: 'none'} : null }
-                  method="post" className="form-inline form-inline-block">
-              <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
-              <button className="btn btn-link" role="button" disabled={state.is_busy || state.is_deleted}>
-                <span className="sr-only">purchased</span>
-                <span className="glyphicon glyphicon-shopping-cart"></span>
-              </button>
-            </form>
-            <form action={props.unpurchase_url}
-                  onSubmit={this.handleUnPurchasedSubmit}
-                  style={state.purchased_at ? null : {display: 'none'} }
-                  method="post" className="form-inline form-inline-block">
-              <input name="_method" value="delete" type="hidden"/>
-              <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
-              <button className="btn btn-link" role="button" disabled={state.is_busy || state.is_deleted}>
-                <span className="sr-only">unpurchased</span>
-                <span className="glyphicon glyphicon-minus"></span>
-              </button>
-            </form>
-            <ConfirmDelete modal_id={"confirmModal" + props.item_id}
-                           ok_handler={this.handleDelete}/>
-            <form onSubmit={this.handleDeleteSubmit}
-                  method="post" className="form-inline form-inline-block">
-              <input name="_method" value="delete" type="hidden"/>
-              <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
-              <button className="btn btn-link" role="button" disabled={state.is_busy || state.is_deleted}>
-                <span className="sr-only">delete</span>
-                <span className="glyphicon glyphicon-remove"></span>
-              </button>
-            </form>
+            <span className="shopping-actions">
+              <form action={props.item.purchase_url}
+                    onSubmit={this.handlePurchasedSubmit}
+                    style={state.purchased_at ? {display: 'none'} : null }
+                    method="post" className="form-inline form-inline-block">
+                <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
+                <button className="btn btn-link" role="button" disabled={state.is_busy || state.is_deleted}>
+                  <span className="sr-only">purchased</span>
+                  <span className="glyphicon glyphicon-shopping-cart"></span>
+                </button>
+              </form>
+              <form action={props.item.unpurchase_url}
+                    onSubmit={this.handleUnPurchasedSubmit}
+                    style={state.purchased_at ? null : {display: 'none'} }
+                    method="post" className="form-inline form-inline-block">
+                <input name="_method" value="delete" type="hidden"/>
+                <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
+                <button className="btn btn-link" role="button" disabled={state.is_busy || state.is_deleted}>
+                  <span className="sr-only">unpurchased</span>
+                  <span className="glyphicon glyphicon-minus"></span>
+                </button>
+              </form>
+              <ConfirmDelete modal_id={"confirmModal" + props.item.id}
+                             ok_handler={this.handleDelete}/>
+              <form onSubmit={this.handleDeleteSubmit} action={props.item.delete_url}
+                    method="post" className="form-inline form-inline-block">
+                <input name="_method" value="delete" type="hidden"/>
+                <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
+                <button className="btn btn-link" role="button" disabled={state.is_busy || state.is_deleted}>
+                  <span className="sr-only">delete</span>
+                  <span className="glyphicon glyphicon-remove"></span>
+                </button>
+              </form>
+            </span>
           </div>
         </div> );
   }

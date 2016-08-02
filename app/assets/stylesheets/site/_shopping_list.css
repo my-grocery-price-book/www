@@ -2,7 +2,7 @@
     display: inline;
 }
 
-.item-name {
+.item-info {
     padding-left: 5px;
 }
 
@@ -30,4 +30,27 @@
 .shopping-list-item {
     border-radius: 7px;
     margin: 2px;
+    display: table;
+    width: 99%;
+}
+
+.shopping-list-item span {
+    display: table-cell;
+}
+
+.shopping-list-item span.item-info {
+    max-width: 100%;
+}
+
+.item-unit {
+    padding-right: 5px;
+}
+
+.item-name {
+    font-weight: bolder;
+    padding-right: 5px;
+}
+
+.shopping-list-item span.shopping-actions {
+    width: 85px;
 }

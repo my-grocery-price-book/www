@@ -22,7 +22,7 @@ class ShoppingListItemsController < ApplicationController
   end
 
   def create
-    @item = shopping_list.items.create!(item_params)
+    @item = shopping_list.create_item!(item_params)
     respond_to do |format|
       format.html { redirect_to shopping_list_items_path(shopping_list) }
       format.json

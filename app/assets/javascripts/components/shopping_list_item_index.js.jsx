@@ -88,11 +88,13 @@ var ShoppingListItemIndex = React.createClass({
     this.page_matches[item.id] = {category: 'Other'};
     var self = this;
 
+    var item_name = item.name.toLowerCase();
+
     this.props.pages.map(function (page) {
-      if(page.name == item.name) {
+      if(page.name.toLowerCase() == item_name) {
         self.page_matches[item.id] = page;
         return;
-      } else if(page.product_names.includes(item.name)) {
+      } else if(page.product_names.includes(item_name)) {
         self.page_matches[item.id] = page;
         return;
       }
@@ -111,15 +113,7 @@ var ShoppingListItemIndex = React.createClass({
       return (
           <ShoppingListItem key={"item_" + item.id}
                             page={page}
-                            item_id={item.id}
-                            amount={item.amount}
-                            unit={item.unit}
-                            name={item.name}
-                            purchased_at={item.purchased_at}
-                            update_url={item.update_url}
-                            delete_url={item.delete_url}
-                            purchase_url={item.purchase_url}
-                            unpurchase_url={item.unpurchase_url}
+                            item={item}
                             authenticity_token={props.authenticity_token}/>
       );
     });
