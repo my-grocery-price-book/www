@@ -52,5 +52,11 @@
 }
 
 .shopping-list-item span.shopping-actions {
-    width: 85px;
+    width: 120px;
+    align-content: center;
+}
+
+.shopping-actions button {
+    padding-right: 6px;
+    padding-left: 6px;
 }

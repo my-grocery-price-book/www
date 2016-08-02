@@ -18,6 +18,10 @@ class ShoppingList < ApplicationRecord
 
   before_save :set__deprecated_shopper_id_migrated
 
+  def ordered_items
+    items.order(:created_at)
+  end
+
   def set__deprecated_shopper_id_migrated
     self._deprecated_shopper_id_migrated = true
   end
