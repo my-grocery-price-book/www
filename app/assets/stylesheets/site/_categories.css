@@ -1,9 +1,9 @@
 .category--bakery {
-    background-color: yellow;
+    background-color: #fcfca6;
 }
 
 .category--fresh {
-    background-color: lightgreen;
+    background-color: #84CA84;
 }
 
 .category--frozen {
@@ -15,7 +15,7 @@
 }
 
 .category--food-cupboard {
-    background-color: rosybrown;
+    background-color: #FCD9A6;
 }
 
 .category--snacks-and-sweets {
@@ -23,7 +23,7 @@
 }
 
 .category--drinks {
-    background-color: dodgerblue;
+    background-color: #7585A9;
 }
 
 .category--household {

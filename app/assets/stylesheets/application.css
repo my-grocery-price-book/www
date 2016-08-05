@@ -12,10 +12,17 @@
  *
  *= require_tree ./site
  *= require_self
+ *
+ *
  */
 
 body {
   padding-top: 50px;
+  font-family: 'Lato', sans-serif;
+}
+
+h1, h2, h3 {
+    font-family: 'Lora', sans-serif;
 }
 
 .btn-logout {
@@ -85,11 +92,29 @@ body {
     transition: opacity 300ms ease-in;
 }
 
-.menu-logo {
-    display: inline-block;
-    vertical-align: middle;
-    position: relative;
-    overflow: hidden;
-    position: relative;
-    top: -12px;
+.navbar-brand {
+    padding: 10px 15px;
+}
+
+.navbar-nav > li > a {
+    font-size: 1.2em;
+}
+
+.page-info {
+    text-transform: uppercase;
+    font-size: 0.8em;
+}
+
+.pages-options {
+    margin-bottom: 20px
+}
+
+.thumbnail, .img-thumbnail {
+    border: 0 none;
+    box-shadow: 2px 4px 8px #ccc;
+    padding: 10px;
+}
+
+h4, .h4 {
+    margin: 0;
 }
