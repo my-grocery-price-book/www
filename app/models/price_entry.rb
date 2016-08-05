@@ -39,7 +39,11 @@ class PriceEntry < ApplicationRecord
   end
 
   def price_per_unit
-    (total_price / (amount * package_size)).to_f
+    total_price / (amount * package_size)
+  end
+
+  def price_per_package
+    total_price / amount
   end
 
   # @param [Array<String>] product_names

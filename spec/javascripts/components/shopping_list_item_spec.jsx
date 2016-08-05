@@ -5,8 +5,7 @@ describe('ShoppingListItem', function() {
   beforeEach(function() {
     react_dom = TestUtils.renderIntoDocument(
         <ShoppingListItem page={{category: 'bakery', unit: 'grams',
-                                 best_entry: {price_per_unit: 0.019928571428571427,
-                                              package_size: 700,
+                                 best_entry: {price_per_package: 13.951356,
                                               currency_symbol: '$'} }}
                           item={{name: 'Brown Bread', amount: 2}}
                           currency_symbol="$" />
