@@ -10,6 +10,7 @@ var Page = React.createClass({
 
   propTypes: {
     page: React.PropTypes.object,
+    visible: React.PropTypes.bool,
     authenticity_token: React.PropTypes.string
   },
 
@@ -32,7 +33,8 @@ var Page = React.createClass({
     }
 
     return (
-        <div className="col-xs-12 col-sm-6 col-md-4">
+        <div className="col-xs-12 col-sm-6 col-md-4"
+             style={this.props.visible ? null : {display: 'none'}}>
           <div className={"thumbnail category-" + this.dasherize(page.category || 'other')}>
             <h4>
               <a href={ page.show_url }>{ page.name }</a>
