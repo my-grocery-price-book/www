@@ -5,10 +5,9 @@ describe('ShoppingListItem', function() {
   beforeEach(function() {
     react_dom = TestUtils.renderIntoDocument(
         <ShoppingListItem page={{category: 'bakery', unit: 'grams',
-                                 best_entry: {price_per_unit: 0.019928571428571427,
-                                              package_size: 700,
+                                 best_entry: {price_per_package: 13.951356,
                                               currency_symbol: '$'} }}
-                          item={{name: 'Brown Bread', amount: '1'}}
+                          item={{name: 'Brown Bread', amount: 2}}
                           currency_symbol="$" />
     );
     dom_node = ReactDOM.findDOMNode(react_dom);
@@ -21,7 +20,7 @@ describe('ShoppingListItem', function() {
   it("shows item amount", function () {
     const div_item = dom_node.querySelector('[data-amount]');
 
-    expect(div_item.innerText).toContain('1');
+    expect(div_item.innerText).toContain('2');
   });
 
   it("shows item name", function () {
@@ -46,5 +45,36 @@ describe('ShoppingListItem', function() {
     const div_item = dom_node.querySelector('.shopping-list-item');
 
     expect(div_item.className).toContain('category-bakery');
+  });
+
+  it("it increases amount", function () {
+    const form = dom_node.querySelector('[data-amount-change="increase"]');
+    expect(form.nodeName).toEqual('FORM');
+
+    TestUtils.Simulate.submit(form);
+
+    const div_item = dom_node.querySelector('[data-amount]');
+    expect(div_item.innerText).toContain('3');
+  });
+
+  it("it decreases amount", function () {
+    const form = dom_node.querySelector('[data-amount-change="decrease"]');
+    expect(form.nodeName).toEqual('FORM');
+
+    TestUtils.Simulate.submit(form);
+
+    const div_item = dom_node.querySelector('[data-amount]');
+    expect(div_item.innerText).toContain('1');
+  });
+
+  it("it wont decreases amount less than 1", function () {
+    const form = dom_node.querySelector('[data-amount-change="decrease"]');
+    expect(form.nodeName).toEqual('FORM');
+
+    TestUtils.Simulate.submit(form);
+    TestUtils.Simulate.submit(form);
+
+    const div_item = dom_node.querySelector('[data-amount]');
+    expect(div_item.innerText).toContain('1');
   });
 });

@@ -19,16 +19,49 @@ var ShoppingListItem = React.createClass({
             unit: this.props.item.unit,
             name: this.props.item.name,
             purchased_at: this.props.item.purchased_at,
+            updated_at: this.props.item.updated_at,
             is_busy: false,
             is_deleted: false};
   },
 
   componentWillReceiveProps: function (nextProps) {
-    this.setState({purchased_at: nextProps.item.purchased_at});
+    if(nextProps.item.updated_at > this.state.updated_at) {
+      this.setState({purchased_at: nextProps.item.purchased_at,
+                           amount: nextProps.item.amount,
+                       updated_at: nextProps.item.updated_at });
+    }
   },
 
-  handleAmountChange: function(e) {
-    this.setState({amount: e.target.value});
+  handleIncreaseAmount: function(event) {
+    event.preventDefault();
+    this.setState(function(previousState) {
+      return {amount: previousState.amount + 1};
+    },this.handleAmountUpdate);
+  },
+
+  handleDecreaseAmount: function(event) {
+    event.preventDefault();
+    this.setState(function(previousState) {
+      if(previousState.amount > 1) {
+        return {amount: previousState.amount - 1};
+      } else {
+        return {amount: previousState.amount};
+      }
+    },this.handleAmountUpdate);
+  },
+
+  handleAmountUpdate: function () {
+    $.ajax({
+      url: this.props.item.update_url,
+      dataType: 'json',
+      type: 'PATCH',
+      data: {"authenticity_token": this.props.authenticity_token,
+             shopping_list_item: {amount: this.state.amount} },
+      success: function (response) {
+        this.setState({updated_at: response.data.updated_at,
+                       purchased_at: response.data.purchased_at});
+      }.bind(this)
+    });
   },
 
   handlePurchasedSubmit: function (button_event) {
@@ -94,26 +127,52 @@ var ShoppingListItem = React.createClass({
     var state = this.state;
     var category_class = 'category-' + this.dasherize(page.category);
     var show_comparing_price = page.best_entry;
-    var best_entry = page.best_entry || {};
+    var best_entry = page.best_entry || {price_per_package: 0};
     
     return (
         <div data-item-name={state.name}
-             className="col-xs-11">
+             className="col-xs-12">
           <div className={"shopping-list-item " + category_class}>
             <span className={state.purchased_at ? 'item-name item-purchased' : 'item-info' }>
-              <div>
-                <span data-amount className="item-field item-amount">{state.amount}</span>
+              <div className="item-name-and-amount">
+                <span data-amount className="item-field">{state.amount}</span>
                 <span data-name className="item-field item-name">{state.name}</span>
               </div>
-              <div>
+              <div className="item-comparing-price">
                 <span data-size style={show_comparing_price ? null : {display: 'none'} }
                     className="item-field item-amount">{best_entry.package_size}</span>
                 <span data-unit className="item-field item-unit">{page.unit}</span>
                 <span data-comparing-price style={show_comparing_price ? null : {display: 'none'} }
-                      className="item-field item-comparing-price">{best_entry.currency_symbol}{best_entry.price_per_unit * best_entry.package_size}</span>
+                      className="item-field item-comparing-price">
+                  {best_entry.currency_symbol}{best_entry.price_per_package.toFixed(2)}
+                </span>
               </div>
             </span>
             <span className="shopping-actions">
+              <form action={props.item.update_url}
+                    onSubmit={this.handleDecreaseAmount}
+                    data-amount-change="decrease"
+                    method="post" className="form-inline form-inline-block">
+                <input name="_method" value="patch" type="hidden"/>
+                <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
+                <input name="shopping_list_item[amount]" value={state.amount - 1} type="hidden"/>
+                <button className="btn btn-link" role="button" title="decrease"
+                        disabled={state.is_busy || state.is_deleted || state.amount <= 1}>
+                  <span className="glyphicon glyphicon-triangle-bottom"></span>
+                </button>
+              </form>
+              <form action={props.item.update_url}
+                    onSubmit={this.handleIncreaseAmount}
+                    data-amount-change="increase"
+                    method="post" className="form-inline form-inline-block">
+                <input name="_method" value="patch" type="hidden"/>
+                <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
+                <input name="shopping_list_item[amount]" value={state.amount + 1} type="hidden"/>
+                <button className="btn btn-link" role="button" title="increase"
+                        disabled={state.is_busy || state.is_deleted}>
+                  <span className="glyphicon glyphicon-triangle-top"></span>
+                </button>
+              </form>
               <form action={props.item.purchase_url}
                     onSubmit={this.handlePurchasedSubmit}
                     style={state.purchased_at ? {display: 'none'} : null }

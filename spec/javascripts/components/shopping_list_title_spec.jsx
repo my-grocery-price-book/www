@@ -1,5 +1,3 @@
-const TestUtils = React.addons.TestUtils;
-
 describe('ShoppingListTitle', function() {
 
   describe('show_form false"', function() {
