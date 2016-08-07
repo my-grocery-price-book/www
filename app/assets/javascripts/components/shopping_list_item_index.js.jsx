@@ -72,10 +72,11 @@ var ShoppingListItemIndex = React.createClass({
       type: 'GET',
       success: function (response) {
         this.setState({items: response.data});
-        setTimeout(this.loadItemsFromServer, 10000);
+        setTimeout(this.loadItemsFromServer, 5000);
       }.bind(this),
-      error: function () {
+      error: function (xhr, ajaxOptions, thrownError) {
         setTimeout(this.loadItemsFromServer, 60000);
+        Rollbar.error("Shopping list sync failed:" + xhr.responseText, thrownError);
       }.bind(this)
     });
   },
