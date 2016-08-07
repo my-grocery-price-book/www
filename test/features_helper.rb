@@ -12,8 +12,8 @@ end
 
 Capybara.default_driver = :poltergeist
 
-require "puma"
-Capybara.register_server("puma") do |app, port|
+require 'puma'
+Capybara.register_server('puma') do |app, port|
   server = Puma::Server.new(app)
   server.add_tcp_listener(Capybara.server_host, port)
   server.run
@@ -35,17 +35,16 @@ class PersonaSession
     visit link_path
   end
 
-  def has_content_with_screenshot?(*args)
-    if has_content_without_screenshot?(*args)
+  def content_with_screenshot?(*args)
+    if content_without_screenshot?(*args)
       true
     else
-      save_screenshot
       false
     end
   end
 
-  alias_method :has_content_without_screenshot?, :has_content?
-  alias_method :has_content?, :has_content_with_screenshot?
+  alias content_without_screenshot? has_content?
+  alias has_content? content_with_screenshot?
 
   def perform(&block)
     instance_exec(&block)

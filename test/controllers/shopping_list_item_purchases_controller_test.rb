@@ -18,6 +18,14 @@ class ShoppingListItemPurchasesControllerTest < ActionController::TestCase
       assert_not_nil(@shopping_list_item.purchased_at)
     end
 
+    should 'update item updated_at to refresh caching' do
+      @shopping_list_item.reload # force time load from database to comparison works
+      updated_at = @shopping_list_item.updated_at
+      post :create, params: { shopping_list_item_id: @shopping_list_item.id }
+      @shopping_list_item.reload
+      assert_not_equal updated_at, @shopping_list_item.updated_at
+    end
+
     should 'redirect to shopping list items for html format' do
       post :create, params: { shopping_list_item_id: @shopping_list_item.id }
       assert_redirected_to shopping_list_items_path(@shopping_list)
@@ -47,6 +55,14 @@ class ShoppingListItemPurchasesControllerTest < ActionController::TestCase
 
       @shopping_list_item.reload
       assert_nil(@shopping_list_item.purchased_at)
+    end
+
+    should 'update item updated_at to refresh caching' do
+      @shopping_list_item.reload # force time load from database to comparison works
+      updated_at = @shopping_list_item.updated_at
+      delete :destroy, params: { shopping_list_item_id: @shopping_list_item.id }
+      @shopping_list_item.reload
+      assert_not_equal updated_at, @shopping_list_item.updated_at
     end
 
     should 'redirect to shopping list items for html format' do

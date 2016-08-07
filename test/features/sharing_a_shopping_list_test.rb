@@ -41,8 +41,32 @@ class SharingAShoppingListTest < FeatureTest
 
     assert @kate.has_content?('bread'), 'bread not visible'
 
-    @grant.using_wait_time(5) do
+    @grant.using_wait_time(6) do
       assert @grant.has_content?('bread'), 'bread not visible'
+    end
+
+    @grant.perform do
+      click_link 'Shopping List'
+      fill_in 'Item name', with: 'apples'
+      click_button 'Add'
+    end
+
+    assert @grant.has_content?('apples'), 'apples not visible'
+
+    @kate.using_wait_time(6) do
+      assert @kate.has_content?('apples'), 'apples not visible'
+    end
+
+    @grant.perform do
+      click_link 'Shopping List'
+      fill_in 'Item name', with: 'black bags'
+      click_button 'Add'
+    end
+
+    assert @grant.has_content?('black bags'), 'black bags not visible'
+
+    @kate.using_wait_time(6) do
+      assert @kate.has_content?('black bags'), 'black bags not visible'
     end
   end
 end
