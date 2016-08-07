@@ -53,6 +53,19 @@
 <%= stylesheet_link_tag 'vendor', 'application', media: 'all' %>
 <%= javascript_include_tag 'vendor' %>
 <%= javascript_include_tag 'application' %>
+<% if current_shopper && Rollbar.configuration.js_enabled %>
+<script>
+  Rollbar.configure({
+    payload: {
+      person: {
+        id: <%= current_shopper.id %>,
+        email: "<%= current_shopper.email %>",
+        guest: "<%= current_shopper.guest %>"
+      }
+    }
+  });
+</script>
+<% end %>
 
 <%= render 'layouts/ga' unless Rails.env.test? %>
 

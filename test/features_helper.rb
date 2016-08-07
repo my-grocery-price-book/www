@@ -12,6 +12,13 @@ end
 
 Capybara.default_driver = :poltergeist
 
+require 'puma'
+Capybara.register_server('puma') do |app, port|
+  server = Puma::Server.new(app)
+  server.add_tcp_listener(Capybara.server_host, port)
+  server.run
+end
+
 class PersonaSession
   include Capybara::DSL
   include Capybara::Email::DSL
@@ -27,6 +34,17 @@ class PersonaSession
     link_path = email.find_link(link_name)[:href].gsub("http://#{host}", '')
     visit link_path
   end
+
+  def content_with_screenshot?(*args)
+    if content_without_screenshot?(*args)
+      true
+    else
+      false
+    end
+  end
+
+  alias content_without_screenshot? has_content?
+  alias has_content? content_with_screenshot?
 
   def perform(&block)
     instance_exec(&block)

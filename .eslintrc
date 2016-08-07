@@ -7,7 +7,8 @@
   "globals": {
     "React": "require('react')",
     "Bloodhound": "require('bloodhound')",
-    "$": "require('jquery')"
+    "$": "require('jquery')",
+    "Rollbar": "require('rollbar')"
   },
   "rules": {
       "react/jsx-no-undef": 0,

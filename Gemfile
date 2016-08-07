@@ -52,5 +52,6 @@ group :test do
   gem 'simplecov', require: false
   gem 'database_cleaner', require: false
   gem 'phantomjs', require: false
+  gem 'puma', require: false
   gem 'rails-controller-testing' # https://github.com/rails/rails-controller-testing
 end

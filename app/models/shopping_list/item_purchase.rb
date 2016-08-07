@@ -9,4 +9,11 @@
 #
 
 class ShoppingList::ItemPurchase < ApplicationRecord
+  after_save do
+    ShoppingList::Item.find(shopping_list_item_id).touch # will expire caching
+  end
+
+  after_destroy do
+    ShoppingList::Item.find(shopping_list_item_id).touch # will expire caching
+  end
 end

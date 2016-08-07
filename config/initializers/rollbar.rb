@@ -16,6 +16,15 @@ Rollbar.configure do |config|
   # config.person_username_method = "my_username"
   # config.person_email_method = "my_email"
 
+  config.js_enabled = false unless Rails.env.production?
+  config.js_options = {
+    accessToken: ENV['ROLLBAR_ACCESS_TOKEN'],
+    captureUncaught: true,
+    payload: {
+      environment: 'production'
+    }
+  }
+
   # If you want to attach custom data to all exception and message reports,
   # provide a lambda like the following. It should return a hash.
   # config.custom_data_method = lambda { {:some_key => "some_value" } }

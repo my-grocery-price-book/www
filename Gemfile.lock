@@ -133,6 +133,7 @@ GEM
       capybara (~> 2.1)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
+    puma (3.6.0)
     rack (2.0.1)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -241,6 +242,7 @@ DEPENDENCIES
   pg
   phantomjs
   poltergeist
+  puma
   rails (~> 5.0.0)
   rails-controller-testing
   react-rails
