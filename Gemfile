@@ -25,7 +25,7 @@ gem 'newrelic_rpm' # app peformance tracking
 gem 'faraday', require: false # for making http request
 gem 'carmen', require: false # for country and region information
 gem 'countries', require: false # for country currency information
-gem 'json', require: false
+gem 'oj'
 gem 'multi_json'
 
 gem 'component_library'

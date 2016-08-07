@@ -2,7 +2,8 @@ namespace :rollbar do
   desc 'Send the deployment notification to Rollbar.'
   task :deploy do
     require 'net/http'
-    require 'json'
+    require 'oj'
+    require 'multi_json'
 
     uri    = URI.parse 'https://api.rollbar.com/api/1/deploy/'
     params = {
@@ -13,7 +14,7 @@ namespace :rollbar do
     }
 
     request      = Net::HTTP::Post.new(uri.request_uri)
-    request.body = ::JSON.dump(params)
+    request.body = MultiJson.dump(params)
 
     Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
       http.request(request)
