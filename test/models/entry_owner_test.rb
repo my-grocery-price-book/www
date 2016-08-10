@@ -63,7 +63,7 @@ describe EntryOwner do
       entry = add_new_entry_to_page(page, product_name: 'Coke')
       EntryOwner.create_for!(shopper: shopper, entry: entry)
       suggestions = EntryOwner.name_suggestions(shopper: shopper)
-      suggestions.must_equal(Set.new ['Coke'])
+      suggestions.must_equal(Set.new(['Coke']))
     end
 
     it 'returns name suggestions case ignoring case' do
@@ -71,7 +71,7 @@ describe EntryOwner do
       entry = add_new_entry_to_page(page, product_name: 'Coke')
       EntryOwner.create_for!(shopper: shopper, entry: entry)
       suggestions = EntryOwner.name_suggestions(shopper: shopper, query: 'coke')
-      suggestions.must_equal(Set.new ['Coke'])
+      suggestions.must_equal(Set.new(['Coke']))
     end
 
     it 'ignores entries older than 6 months' do
