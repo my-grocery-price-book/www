@@ -20,7 +20,7 @@ class EntriesController < ApplicationController
   before_action :load_page
 
   def names
-    @names = EntryOwner.name_suggestions(shopper: current_shopper)
+    @names = EntryOwner.name_suggestions(shopper: current_shopper, query: params[:query])
   end
 
   def new
