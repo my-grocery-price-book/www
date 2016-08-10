@@ -41,13 +41,6 @@ class EntriesIntegrationTest < IntegrationTest
     end
   end
 
-  context 'GET /books/:book_id/pages/:page_id/entries/names' do
-    should 'show return names' do
-      get "#{base_url}/names.json"
-      assert_response :success
-    end
-  end
-
   context 'PUT /books/:book_id/pages/:page_id/entries/:id' do
     context 'own entry' do
       setup do

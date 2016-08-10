@@ -63,7 +63,15 @@ describe EntryOwner do
       entry = add_new_entry_to_page(page, product_name: 'Coke')
       EntryOwner.create_for!(shopper: shopper, entry: entry)
       suggestions = EntryOwner.name_suggestions(shopper: shopper)
-      suggestions.must_equal(['Coke'])
+      suggestions.must_equal(Set.new(['Coke']))
+    end
+
+    it 'returns name suggestions case ignoring case' do
+      page = PriceBook::Page.create!(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Liters')
+      entry = add_new_entry_to_page(page, product_name: 'Coke')
+      EntryOwner.create_for!(shopper: shopper, entry: entry)
+      suggestions = EntryOwner.name_suggestions(shopper: shopper, query: 'coke')
+      suggestions.must_equal(Set.new(['Coke']))
     end
 
     it 'ignores entries older than 6 months' do
@@ -72,7 +80,7 @@ describe EntryOwner do
       entry.update_column(:created_at, 7.months.ago)
       EntryOwner.create_for!(shopper: shopper, entry: entry)
       suggestions = EntryOwner.name_suggestions(shopper: shopper)
-      suggestions.must_equal([])
+      suggestions.must_equal(Set.new)
     end
   end
 

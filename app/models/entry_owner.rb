@@ -25,15 +25,15 @@ class EntryOwner < ApplicationRecord
   end
 
   # @param [Shopper] shopper
-  # @return [Array<String>]
+  # @return [Set<String>]
   def self.name_suggestions(shopper:, query: nil)
     entry_owners = includes(:price_entry).joins(:price_entry).where(shopper_id: shopper.id).limit(1000)
     entry_owners = entry_owners.where('price_entries.created_at > ?', 6.months.ago)
-    suggestions = entry_owners.collect do |entry|
-      entry.price_entry_product_name
+    entry_owners = entry_owners.where('price_entries.product_name ILIKE ?', "%#{query}%")
+    suggestions = Set.new
+    entry_owners.each do |entry|
+      suggestions.add entry.price_entry_product_name
     end
-    suggestions.select! { |name| name.include?(query) } if query
-    suggestions.uniq!
     suggestions
   end
 

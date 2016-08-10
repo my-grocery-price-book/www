@@ -15,12 +15,9 @@ Rails.application.routes.draw do
     resources :invites, only: [:new, :create]
     resources :stores, controller: 'book_stores', only: [:new, :create]
     resources :pages, controller: 'price_book_pages', only: [:index, :show, :new, :create] do
-      resources :entries, only: [:new, :create, :edit, :update] do
-        collection do
-          get 'names'
-        end
-      end
+      resources :entries, only: [:new, :create, :edit, :update]
     end
+    resources :entry_suggestions, only: [:index]
     resources :shopping_items, controller: 'shopping_list_items', only: [] do
       collection do
         get 'names'
