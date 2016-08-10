@@ -19,10 +19,6 @@ class EntriesController < ApplicationController
   before_action :check_if_region_set, only: [:new]
   before_action :load_page
 
-  def names
-    @names = EntryOwner.name_suggestions(shopper: current_shopper, query: params[:query])
-  end
-
   def new
     @entry = EntryOwner.new_entry_for_shopper(current_shopper)
     session[:book_store_create_return] = new_book_page_entry_path

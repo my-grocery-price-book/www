@@ -41,27 +41,6 @@ class EntriesIntegrationTest < IntegrationTest
     end
   end
 
-  context 'GET /books/:book_id/pages/:page_id/entries/names' do
-    should 'show return names' do
-      @entry = FactoryGirl.create(:price_entry, product_name: 'My name')
-      EntryOwner.create!(price_entry: @entry, shopper: @shopper)
-      get "#{base_url}/names.json"
-      assert_response :success
-      assert_includes response.body, 'My name'
-    end
-
-    should 'show return names limit by query' do
-      @entry = FactoryGirl.create(:price_entry, product_name: 'My name')
-      EntryOwner.create!(price_entry: @entry, shopper: @shopper)
-      @entry = FactoryGirl.create(:price_entry, product_name: 'Other name')
-      EntryOwner.create!(price_entry: @entry, shopper: @shopper)
-      get "#{base_url}/names.json", params: { query: 'My' }
-      assert_response :success
-      assert_includes response.body, 'My name'
-      assert_not_includes response.body, 'Other name'
-    end
-  end
-
   context 'PUT /books/:book_id/pages/:page_id/entries/:id' do
     context 'own entry' do
       setup do
