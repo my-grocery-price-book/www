@@ -6,11 +6,13 @@ class PriceBookPagesController < ApplicationController
   # GET /price_book_pages
   def index
     @price_book_pages = PriceBook::Page.for_book(@price_book)
+    session[:book_entry_create_return] = price_book_pages_path
   end
 
   # GET /price_book_pages/1
   def show
     @prices = @price_book_page.entries
+    session[:book_entry_create_return] = price_book_page_path
   end
 
   # GET /price_book_pages/new

@@ -1,10 +1,10 @@
-describe('PagesIndex', function() {
+describe('Book', function() {
   var react_dom;
   var dom_node;
 
   beforeEach(function() {
     react_dom = TestUtils.renderIntoDocument(
-        <PagesIndex pages={[{id: 1, name: 'Bread', category: 'Bakery', unit: 'grams',
+        <Book pages={[{id: 1, name: 'Bread', category: 'Bakery', unit: 'grams',
                              best_entry: {product_name: 'Woolworths White Bread', amount: 1,
                                           package_size: 700, package_unit: 'grams',
                                           price_per_package: 700 * 0.77,
