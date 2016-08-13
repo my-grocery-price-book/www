@@ -25,7 +25,6 @@ ansible/vault_pass.txt
 config/database.yml
 config/public_apis/dev.yml
 
-.ruby-version
 .env
 
 # Elastic Beanstalk Files

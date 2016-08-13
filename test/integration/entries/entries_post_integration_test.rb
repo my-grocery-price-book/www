@@ -16,6 +16,7 @@ class EntriesPostIntegrationTest < IntegrationTest
              params: { price_entry: { date_on: '2016-04-27', store_id: @store.id,
                                       product_name: 'Cans of Coke', amount: '1',
                                       package_size: '340', total_price: '5.59' } }
+        assert_response :redirect
       end
 
       should 'save the record' do
