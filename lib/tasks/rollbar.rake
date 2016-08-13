@@ -16,10 +16,14 @@ namespace :rollbar do
     request      = Net::HTTP::Post.new(uri.request_uri)
     request.body = MultiJson.dump(params)
 
-    Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
-      http.request(request)
-    end
+    begin
+      Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
+        http.request(request)
+      end
 
-    puts 'Rollbar notification complete.'
+      puts 'Rollbar notification complete.'
+    rescue Net::OpenTimeout => e
+      puts "Rollbar notification failed: #{e.message}"
+    end
   end
 end
