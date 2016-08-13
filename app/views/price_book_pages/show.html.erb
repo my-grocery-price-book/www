@@ -26,7 +26,7 @@
           <td><%= price.store.location %></td>
           <td><%= price.product_name %></td>
           <td><%= price.package_size %></td>
-          <td><%= price.price_per_unit %></td>
+          <td><%= price.rounded_price_per_unit %></td>
           <td>
             <% if EntryOwner.can_update?(shopper: current_shopper, entry: price) %>
               <a href="<%= edit_book_page_entry_path(@price_book,@price_book_page,price) %>" title="Edit Entry">

@@ -42,6 +42,10 @@ class PriceEntry < ApplicationRecord
     total_price / (amount * package_size)
   end
 
+  def rounded_price_per_unit
+    BigDecimal.new(price_per_unit, 3)
+  end
+
   def price_per_package
     total_price / amount
   end
