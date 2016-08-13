@@ -21,7 +21,7 @@ class EntriesController < ApplicationController
 
   def new
     @entry = EntryOwner.new_entry_for_shopper(current_shopper)
-    session[:book_store_create_return] = new_book_page_entry_path
+    session[:book_store_create_return] = request.referer
   end
 
   def create
@@ -29,8 +29,8 @@ class EntriesController < ApplicationController
     @entry.package_unit = @page.unit
     if @entry.save
       EntryOwner.create_for!(shopper: current_shopper, entry: @entry)
-      @page.add_product_name!(@entry.product_name)
-      redirect_to book_page_path(book, @page)
+      @page.new_entry_added!(@entry)
+      redirect_to session[:book_store_create_return] || book_page_path(book, @page)
     else
       render 'new'
     end

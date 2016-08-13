@@ -48,6 +48,12 @@ class PriceBook::Page < ApplicationRecord
   end
 
   # @param [PriceEntry] entry
+  def new_entry_added!(entry)
+    self.updated_at = Time.current # make page go to top of book
+    add_product_name!(entry.product_name)
+  end
+
+  # @param [PriceEntry] entry
   # @param [Hash] params
   # @return [Boolean]
   def update_entry(entry, params)
@@ -61,7 +67,7 @@ class PriceBook::Page < ApplicationRecord
   # @param [PriceBook] book
   # @return [Array<PriceBook::Page>]
   def self.for_book(book)
-    where(price_book_id: book.id)
+    where(price_book_id: book.id).order('updated_at DESC')
   end
 
   def self.find_page!(book, id)

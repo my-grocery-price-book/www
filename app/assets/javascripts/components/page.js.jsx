@@ -38,6 +38,9 @@ var Page = React.createClass({
           <div className={"thumbnail category-" + this.dasherize(page.category || 'other')}>
             <h4>
               <a href={ page.show_url }>{ page.name }</a>
+              <a className="btn btn-add-entry" href={page.add_entry_url}>
+                <i className="glyphicon glyphicon-plus"></i>
+              </a>
             </h4>
             { info }
           </div>
