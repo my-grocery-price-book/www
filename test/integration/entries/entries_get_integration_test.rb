@@ -23,7 +23,7 @@ class EntriesGetIntegrationTest < IntegrationTest
 
         should 'set book_store_create_return session' do
           get "/books/#{@price_book.to_param}/pages/#{@page.to_param}/entries/new",
-              headers: {'HTTP_REFERER' => '/my_site'}
+              headers: { 'HTTP_REFERER' => '/my_site' }
           assert_equal '/my_site', session[:book_store_create_return]
         end
       end
