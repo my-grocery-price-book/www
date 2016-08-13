@@ -12,8 +12,8 @@
 
 FactoryGirl.define do
   factory :store do
-    name  'World'
-    location 'Space'
-    region_code 'ZAR-WC'
+    name  { "Random #{rand(11_111)}" }
+    location { "Random #{rand(11_111)}" }
+    region_code { RegionFinder.instance.to_a.sample.code }
   end
 end

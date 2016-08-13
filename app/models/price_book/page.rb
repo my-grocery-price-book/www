@@ -21,6 +21,11 @@ class PriceBook::Page < ApplicationRecord
 
   before_save :uniq_product_names, :reject_blank_names
 
+  UNITS = ['grams', 'kilograms', 'milliliters', 'liters', 'gallons', 'pounds', 'items', 'each',
+           'bags', 'packages', 'sheets', 'rolls', 'centimeters', 'meters', 'inches', 'ounces',
+           'pints', 'yard', 'cubic feet', 'cubic inches', 'cubic meters', 'fluid ounces',
+           'quarts', 'square feet', 'square inch', 'square meter', 'square yard'].freeze
+
   # @param [Store] store
   def add_store_to_book!(store)
     book.add_store!(store)

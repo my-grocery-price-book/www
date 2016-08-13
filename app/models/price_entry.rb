@@ -60,6 +60,6 @@ class PriceEntry < ApplicationRecord
     where(package_unit: unit, store_id: store_ids).where(
       'replace(LOWER(product_name), \' \', \'\') IN (?)',
       matching_names
-    ).limit(100)
+    ).order('date_on DESC').limit(100)
   end
 end
