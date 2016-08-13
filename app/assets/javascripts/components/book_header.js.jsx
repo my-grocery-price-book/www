@@ -1,4 +1,4 @@
-function PagesHeader(props) {
+function BookHeader(props) {
   return(
       <div className="row pages-header pages-options">
         <div className="col-md-12">
@@ -14,7 +14,7 @@ function PagesHeader(props) {
   );
 }
 
-PagesHeader.propTypes = {
+BookHeader.propTypes = {
   set_region_url: React.PropTypes.string,
   edit_book_url: React.PropTypes.string,
   new_page_url: React.PropTypes.string,

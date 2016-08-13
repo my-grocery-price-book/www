@@ -1,4 +1,4 @@
-var PagesIndex = React.createClass({
+var Book = React.createClass({
 
   propTypes: {
     pages: React.PropTypes.arrayOf(React.PropTypes.object),
@@ -33,7 +33,7 @@ var PagesIndex = React.createClass({
 
     return(
         <div>
-          <PagesHeader edit_book_url={props.edit_book_url}
+          <BookHeader edit_book_url={props.edit_book_url}
                   set_region_url={props.set_region_url}
                   invite_url={props.invite_url}
                   new_page_url={props.new_page_url} />
