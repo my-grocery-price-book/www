@@ -8,6 +8,7 @@
   <title>My Grocery Price Book</title>
   <%= csrf_meta_tags %>
   <%= render 'layouts/critical_css' %>
+  <%= render 'layouts/ga' unless Rails.env.test? %>
 </head>
 <body>
 
@@ -66,8 +67,5 @@
   });
 </script>
 <% end %>
-
-<%= render 'layouts/ga' unless Rails.env.test? %>
-
 </body>
 </html>
