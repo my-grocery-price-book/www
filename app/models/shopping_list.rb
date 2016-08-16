@@ -31,8 +31,48 @@ class ShoppingList < ApplicationRecord
     self.price_book_id = PriceBook.default_for_shopper(shopper).id
   end
 
+  # @return [ShoppingList::Item]
   def create_item!(*a)
-    items.create!(*a)
+    item = items.create!(*a)
+    touch
+    item
+  end
+
+  # @return [ShoppingList::Item]
+  def find_item(item_id)
+    items.find(item_id)
+  end
+
+  # @return [ShoppingList::Item]
+  def update_item!(item_id, *a)
+    item = find_item(item_id)
+    item.update!(*a)
+    touch
+    item
+  end
+
+  # @return [ShoppingList::Item]
+  def destroy_item(item_id)
+    item = find_item(item_id)
+    item.destroy
+    touch
+    item
+  end
+
+  # @return [ShoppingList::Item]
+  def purchase_item!(item_id)
+    item = find_item(item_id)
+    item.purchase!
+    touch
+    item
+  end
+
+  # @return [ShoppingList::Item]
+  def unpurchase_item!(item_id)
+    item = find_item(item_id)
+    item.unpurchase!
+    touch
+    item
   end
 
   # @param [Shopper] shopper
@@ -46,12 +86,6 @@ class ShoppingList < ApplicationRecord
   def self.for_shopper(shopper)
     price_book_id = PriceBook.default_for_shopper(shopper).id
     where(price_book_id: price_book_id).order('created_at DESC')
-  end
-
-  # @param [Shopper] shopper
-  def self.items_for_shopper(shopper)
-    shopping_list_ids = for_shopper(shopper).map(&:id)
-    ShoppingList::Item.for_shopping_list_ids(shopping_list_ids)
   end
 
   # @param [PriceBook] book

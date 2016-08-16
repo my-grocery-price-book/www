@@ -7,8 +7,9 @@ class ShoppingListItemsController < ApplicationController
   end
 
   def index
-    shopping_list
-    @pages = PriceBook::Page.for_book(@shopping_list.book)
+    @pages = PriceBook::Page.for_book(shopping_list.book)
+    fresh_when last_modified: shopping_list.updated_at.utc,
+               etag: shopping_list
   end
 
   def latest
@@ -30,19 +31,17 @@ class ShoppingListItemsController < ApplicationController
   end
 
   def update
-    @shopping_list_item = ShoppingList.items_for_shopper(current_shopper).find(params[:id])
-    @shopping_list_item.update!(item_params)
+    @shopping_list_item = shopping_list.update_item!(params[:id], item_params)
     respond_to do |format|
-      format.html { redirect_to shopping_list_items_path(shopping_list_id: @shopping_list_item.shopping_list_id) }
+      format.html { redirect_to shopping_list_items_path(shopping_list) }
       format.json
     end
   end
 
   def destroy
-    @shopping_list_item = ShoppingList.items_for_shopper(current_shopper).find(params[:id])
-    @shopping_list_item.destroy
+    @shopping_list_item = shopping_list.destroy_item(params[:id])
     respond_to do |format|
-      format.html { redirect_to shopping_list_items_path(shopping_list_id: @shopping_list_item.shopping_list_id) }
+      format.html { redirect_to shopping_list_items_path(shopping_list) }
       format.json
     end
   end

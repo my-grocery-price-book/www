@@ -23,6 +23,14 @@ class ShoppingListItemsControllerTest < ActionController::TestCase
       assert_equal(saved_params, @item_params)
     end
 
+    should 'create shopping_list_item using json' do
+      assert_difference('ShoppingList::Item.count') do
+        post :create, params: { shopping_list_id: @shopping_list.to_param,
+                                shopping_list_item: @item_params,
+                                format: 'json' }
+      end
+    end
+
     should 'set shopping_list' do
       post :create, params: { shopping_list_id: @shopping_list.to_param,
                               shopping_list_item: @item_params }

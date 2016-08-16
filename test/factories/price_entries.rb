@@ -17,7 +17,7 @@
 FactoryGirl.define do
   factory :price_entry do
     date_on { rand(365).days.ago }
-    product_name 'Coke'
+    product_name { "Product #{Time.current.to_i}" }
     amount { 1 + rand(100) }
     package_size { 1 + rand(100) }
     package_unit { PriceBook::Page::UNITS.sample }

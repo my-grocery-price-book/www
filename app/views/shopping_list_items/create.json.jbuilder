@@ -1,1 +1,1 @@
-json.partial! 'shopping_list_item', shopping_list_item: @item
+json.partial! 'shopping_list_item', item: @item
