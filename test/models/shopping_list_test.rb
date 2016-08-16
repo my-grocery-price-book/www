@@ -36,7 +36,7 @@ describe ShoppingList do
     end
 
     it 'creates a new item' do
-      saved_attributes = ShoppingList::Item.last.attributes.slice('shopping_list_id','name','amount','unit')
+      saved_attributes = ShoppingList::Item.last.attributes.slice('shopping_list_id', 'name', 'amount', 'unit')
       saved_attributes.must_equal('name' => 'Test', 'amount' => 1, 'unit' => 'kg', 'shopping_list_id' => subject.id)
     end
 

@@ -31,9 +31,16 @@ class ShoppingList < ApplicationRecord
     self.price_book_id = PriceBook.default_for_shopper(shopper).id
   end
 
+  # @return [ShoppingList::Item]
   def create_item!(*a)
-    items.create!(*a)
-    self.touch
+    item = items.create!(*a)
+    touch
+    item
+  end
+
+  # @return [ShoppingList::Item]
+  def find_item(item_id)
+    items.find(item_id)
   end
 
   # @param [Shopper] shopper
