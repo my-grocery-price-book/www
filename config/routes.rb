@@ -36,13 +36,10 @@ Rails.application.routes.draw do
     resources :items, controller: 'shopping_list_items', only: [:index, :create]
   end
 
-  resources :shopping_list_items, only: [] do
+  resources :shopping_list_items, only: [:update, :destroy] do
     collection do
       get 'latest'
     end
-  end
-
-  resources :shopping_list_items, only: [:update, :destroy] do
     resource :purchases, controller: 'shopping_list_item_purchases', only: [:create, :destroy]
   end
 
