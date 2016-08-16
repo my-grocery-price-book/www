@@ -32,7 +32,7 @@ class ShoppingListItemsController < ApplicationController
   def update
     @shopping_list_item = shopping_list.update_item!(params[:id], item_params)
     respond_to do |format|
-      format.html { redirect_to shopping_list_items_path(shopping_list_id: @shopping_list_item.shopping_list_id) }
+      format.html { redirect_to shopping_list_items_path(shopping_list) }
       format.json
     end
   end
@@ -40,7 +40,7 @@ class ShoppingListItemsController < ApplicationController
   def destroy
     @shopping_list_item = shopping_list.destroy_item(params[:id])
     respond_to do |format|
-      format.html { redirect_to shopping_list_items_path(shopping_list_id: @shopping_list_item.shopping_list_id) }
+      format.html { redirect_to shopping_list_items_path(shopping_list) }
       format.json
     end
   end

@@ -32,7 +32,12 @@ describe ShoppingList do
     before do
       subject.reload
       @original_time = subject.updated_at
-      subject.create_item!(name: 'Test', amount: '1', unit: 'kg')
+      @new_item = subject.create_item!(name: 'Test', amount: '1', unit: 'kg')
+    end
+
+    it 'returns newly created item' do
+      @new_item.must_be_kind_of(ShoppingList::Item)
+      @new_item.must_be :persisted?
     end
 
     it 'creates a new item' do
@@ -52,7 +57,12 @@ describe ShoppingList do
       subject.reload
       @original_time = subject.updated_at
       item = FactoryGirl.create(:item, shopping_list_id: subject.id)
-      subject.update_item!(item.id, name: 'Test', amount: '1', unit: 'kg')
+      @updated_item = subject.update_item!(item.id, name: 'Test', amount: '1', unit: 'kg')
+    end
+
+    it 'returns updated item' do
+      @updated_item.must_be_kind_of(ShoppingList::Item)
+      @updated_item.must_be :persisted?
     end
 
     it 'updates the item' do
@@ -71,8 +81,12 @@ describe ShoppingList do
     before do
       subject.reload
       @original_time = subject.updated_at
-      @item = FactoryGirl.create(:item, shopping_list_id: subject.id)
-      subject.destroy_item(@item.id)
+      item = FactoryGirl.create(:item, shopping_list_id: subject.id)
+      @item = subject.destroy_item(item.id)
+    end
+
+    it 'returns destroyed item' do
+      @item.must_be_kind_of(ShoppingList::Item)
     end
 
     it 'destroys item' do

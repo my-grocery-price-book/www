@@ -43,14 +43,20 @@ class ShoppingList < ApplicationRecord
     items.find(item_id)
   end
 
+  # @return [ShoppingList::Item]
   def update_item!(item_id, *a)
-    find_item(item_id).update!(*a)
+    item = find_item(item_id)
+    item.update!(*a)
     touch
+    item
   end
 
+  # @return [ShoppingList::Item]
   def destroy_item(item_id)
-    find_item(item_id).destroy
+    item = find_item(item_id)
+    item.destroy
     touch
+    item
   end
 
   # @param [Shopper] shopper
