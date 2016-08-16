@@ -33,6 +33,7 @@ class ShoppingList < ApplicationRecord
 
   def create_item!(*a)
     items.create!(*a)
+    self.touch
   end
 
   # @param [Shopper] shopper

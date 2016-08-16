@@ -26,6 +26,25 @@ describe ShoppingList do
     end
   end
 
+  describe 'create_item!' do
+    subject { FactoryGirl.create(:shopping_list) }
+
+    before do
+      subject.reload
+      @original_time = subject.updated_at
+      subject.create_item!(name: 'Test', amount: '1', unit: 'kg')
+    end
+
+    it 'creates a new item' do
+      saved_attributes = ShoppingList::Item.last.attributes.slice('shopping_list_id','name','amount','unit')
+      saved_attributes.must_equal('name' => 'Test', 'amount' => 1, 'unit' => 'kg', 'shopping_list_id' => subject.id)
+    end
+
+    it 'should update updated_at' do
+      subject.updated_at.must_be :>, @original_time
+    end
+  end
+
   describe '.item_names_for_book' do
     before do
       @book = PriceBook.create!
