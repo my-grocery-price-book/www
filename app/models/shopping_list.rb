@@ -43,6 +43,16 @@ class ShoppingList < ApplicationRecord
     items.find(item_id)
   end
 
+  def update_item!(item_id, *a)
+    find_item(item_id).update!(*a)
+    touch
+  end
+
+  def destroy_item(item_id)
+    find_item(item_id).destroy
+    touch
+  end
+
   # @param [Shopper] shopper
   # @return [ShoppingList]
   def self.first_for_shopper(shopper)

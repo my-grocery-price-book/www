@@ -30,8 +30,7 @@ class ShoppingListItemsController < ApplicationController
   end
 
   def update
-    @shopping_list_item = shopping_list.find_item(params[:id])
-    @shopping_list_item.update!(item_params)
+    @shopping_list_item = shopping_list.update_item!(params[:id], item_params)
     respond_to do |format|
       format.html { redirect_to shopping_list_items_path(shopping_list_id: @shopping_list_item.shopping_list_id) }
       format.json
@@ -39,8 +38,7 @@ class ShoppingListItemsController < ApplicationController
   end
 
   def destroy
-    @shopping_list_item = shopping_list.find_item(params[:id])
-    @shopping_list_item.destroy
+    @shopping_list_item = shopping_list.destroy_item(params[:id])
     respond_to do |format|
       format.html { redirect_to shopping_list_items_path(shopping_list_id: @shopping_list_item.shopping_list_id) }
       format.json

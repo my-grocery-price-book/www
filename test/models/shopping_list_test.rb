@@ -45,6 +45,47 @@ describe ShoppingList do
     end
   end
 
+  describe 'update_item!' do
+    subject { FactoryGirl.create(:shopping_list) }
+
+    before do
+      subject.reload
+      @original_time = subject.updated_at
+      item = FactoryGirl.create(:item, shopping_list_id: subject.id)
+      subject.update_item!(item.id, name: 'Test', amount: '1', unit: 'kg')
+    end
+
+    it 'updates the item' do
+      saved_attributes = ShoppingList::Item.last.attributes.slice('shopping_list_id', 'name', 'amount', 'unit')
+      saved_attributes.must_equal('name' => 'Test', 'amount' => 1, 'unit' => 'kg', 'shopping_list_id' => subject.id)
+    end
+
+    it 'should update updated_at' do
+      subject.updated_at.must_be :>, @original_time
+    end
+  end
+
+  describe 'destroy_item' do
+    subject { FactoryGirl.create(:shopping_list) }
+
+    before do
+      subject.reload
+      @original_time = subject.updated_at
+      @item = FactoryGirl.create(:item, shopping_list_id: subject.id)
+      subject.destroy_item(@item.id)
+    end
+
+    it 'destroys item' do
+      assert_raises ActiveRecord::RecordNotFound do
+        @item.reload
+      end
+    end
+
+    it 'should update updated_at' do
+      subject.updated_at.must_be :>, @original_time
+    end
+  end
+
   describe '.item_names_for_book' do
     before do
       @book = PriceBook.create!
