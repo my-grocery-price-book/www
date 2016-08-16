@@ -88,12 +88,6 @@ class ShoppingList < ApplicationRecord
     where(price_book_id: price_book_id).order('created_at DESC')
   end
 
-  # @param [Shopper] shopper
-  def self.items_for_shopper(shopper)
-    shopping_list_ids = for_shopper(shopper).map(&:id)
-    ShoppingList::Item.for_shopping_list_ids(shopping_list_ids)
-  end
-
   # @param [PriceBook] book
   # @param [String] query
   # @return [Array<String>]
