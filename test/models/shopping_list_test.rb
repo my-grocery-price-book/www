@@ -75,6 +75,47 @@ describe ShoppingList do
     end
   end
 
+  describe 'purchase_item!' do
+    subject { FactoryGirl.create(:shopping_list) }
+
+    before do
+      subject.reload
+      @original_time = subject.updated_at
+      item = FactoryGirl.create(:item, shopping_list_id: subject.id)
+      @updated_item = subject.purchase_item!(item.id)
+    end
+
+    it 'returns updated item' do
+      @updated_item.must_be_kind_of(ShoppingList::Item)
+      @updated_item.purchased_at.must_be :present?
+    end
+
+    it 'should update updated_at' do
+      subject.updated_at.must_be :>, @original_time
+    end
+  end
+
+  describe 'unpurchase_item!' do
+    subject { FactoryGirl.create(:shopping_list) }
+
+    before do
+      item = FactoryGirl.create(:item, shopping_list_id: subject.id)
+      @updated_item = subject.purchase_item!(item.id)
+      subject.reload
+      @original_time = subject.updated_at
+      @updated_item = subject.unpurchase_item!(item.id)
+    end
+
+    it 'returns updated item' do
+      @updated_item.must_be_kind_of(ShoppingList::Item)
+      @updated_item.purchased_at.must_be :blank?
+    end
+
+    it 'should update updated_at' do
+      subject.updated_at.must_be :>, @original_time
+    end
+  end
+
   describe 'destroy_item' do
     subject { FactoryGirl.create(:shopping_list) }
 

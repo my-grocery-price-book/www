@@ -59,6 +59,22 @@ class ShoppingList < ApplicationRecord
     item
   end
 
+  # @return [ShoppingList::Item]
+  def purchase_item!(item_id)
+    item = find_item(item_id)
+    item.purchase!
+    touch
+    item
+  end
+
+  # @return [ShoppingList::Item]
+  def unpurchase_item!(item_id)
+    item = find_item(item_id)
+    item.unpurchase!
+    touch
+    item
+  end
+
   # @param [Shopper] shopper
   # @return [ShoppingList]
   def self.first_for_shopper(shopper)

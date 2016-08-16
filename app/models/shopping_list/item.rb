@@ -17,9 +17,15 @@ class ShoppingList::Item < ApplicationRecord
           foreign_key: 'shopping_list_item_id',
           dependent: :destroy
 
-  def destroy_purchase
+  def purchase!
+    create_purchase
+    touch
+  end
+
+  def unpurchase!
     purchase.destroy
     reload
+    touch
   end
 
   # @param [Shopper] shopper
