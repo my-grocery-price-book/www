@@ -43,7 +43,7 @@ class PriceEntry < ApplicationRecord
   end
 
   def rounded_price_per_unit
-    BigDecimal.new(price_per_unit, 3)
+    sprintf("%.#{3}e", price_per_unit).to_f
   end
 
   def price_per_package
