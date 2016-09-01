@@ -46,7 +46,6 @@ class SharingAShoppingListTest < FeatureTest
     end
 
     @grant.perform do
-      click_link 'Shopping List'
       fill_in 'Item name', with: 'apples'
       click_button 'Add'
     end
@@ -58,7 +57,6 @@ class SharingAShoppingListTest < FeatureTest
     end
 
     @grant.perform do
-      click_link 'Shopping List'
       fill_in 'Item name', with: 'black bags'
       click_button 'Add'
     end
