@@ -22,7 +22,8 @@ var Book = React.createClass({
     var state = this.state;
 
     var rendered_pages = state.pages.map(function (page) {
-      var page_visible = page.name.indexOf(state.filter_text) != -1 || page.category.indexOf(state.filter_text) != -1;
+      var page_visible = page.name.toLowerCase().indexOf(state.filter_text.toLowerCase()) != -1;
+      page_visible = page_visible || page.category.toLowerCase().indexOf(state.filter_text.toLowerCase()) != -1;
       return (
           <Page key={"page_" + page.id}
                 page={page}
@@ -39,7 +40,7 @@ var Book = React.createClass({
                   new_page_url={props.new_page_url} />
           <div className="row">
             <div className="col-xs-12">
-              <input className="form-control"
+              <input className="form-control" ref="input_filter"
                      value={state.filter_text} onChange={this.handleFilterChange}
                      disabled={props.disabled} placeholder="Filter" />
             </div>

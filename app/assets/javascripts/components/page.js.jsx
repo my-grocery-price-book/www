@@ -34,6 +34,7 @@ var Page = React.createClass({
 
     return (
         <div className="col-xs-12 col-sm-6 col-md-4"
+             data-page-name={page.name}
              style={this.props.visible ? null : {display: 'none'}}>
           <div className={"thumbnail category-" + this.dasherize(page.category || 'other')}>
             <h4>
