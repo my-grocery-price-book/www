@@ -132,7 +132,7 @@ var ShoppingListItem = React.createClass({
     return (
         <div data-item-name={state.name}
              className="col-xs-12">
-          <div className={"shopping-list-item " + category_class}>
+          <div className={"shopping-list-item " + "name-" + state.name + " " + category_class}>
             <span className={state.purchased_at ? 'item-name item-purchased' : 'item-info' }>
               <div className="item-name-and-amount">
                 <span data-amount className="item-field">{state.amount}</span>
