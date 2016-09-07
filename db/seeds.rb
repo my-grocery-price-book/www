@@ -45,3 +45,8 @@ PriceBook::Page.where(price_book_id: nil).each do |page|
   book = PriceBook.find_by!(old_id: page.old_price_book_id)
   page.update_column(:price_book_id, book.id)
 end
+
+EntryOwner.where(price_entry_id: nil).each do |entry_owner|
+  entry = PriceEntry.find_by!(old_id: entry_owner.old_price_entry_id)
+  entry_owner.update_column(:price_entry_id, entry.id)
+end

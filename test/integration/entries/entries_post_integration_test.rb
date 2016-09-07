@@ -20,7 +20,7 @@ class EntriesPostIntegrationTest < IntegrationTest
       end
 
       should 'save the record' do
-        entry = PriceEntry.last.attributes.except('id', 'created_at', 'updated_at')
+        entry = PriceEntry.last.attributes.except('id', 'old_id', 'created_at', 'updated_at')
         assert_equal({ 'date_on' => Date.parse('2016-04-27'), 'store_id' => @store.id,
                        'product_name' => 'Cans of Coke', 'amount' => 1, 'package_size' => 340,
                        'total_price' => 5.59, 'package_unit' => 'grams' },
