@@ -18,6 +18,11 @@ Member.where(price_book_id: nil).each do |member|
   member.update_column(:price_book_id, book.id)
 end
 
+Member.where(shopper_id: nil).each do |member|
+  shopper = Shopper.find_by!(old_id: member.old_shopper_id)
+  member.update_column(:shopper_id, shopper.id)
+end
+
 ShoppingList.where(price_book_id: nil).each do |list|
   book = PriceBook.find_by!(old_id: list.old_price_book_id)
   list.update_column(:price_book_id, book.id)
@@ -31,4 +36,9 @@ end
 EntryOwner.where(price_entry_id: nil).each do |entry_owner|
   entry = PriceEntry.find_by!(old_id: entry_owner.old_price_entry_id)
   entry_owner.update_column(:price_entry_id, entry.id)
+end
+
+EntryOwner.where(shopper_id: nil).each do |entry_owner|
+  shopper = Shopper.find_by!(old_id: entry_owner.old_shopper_id)
+  entry_owner.update_column(:shopper_id, shopper.id)
 end

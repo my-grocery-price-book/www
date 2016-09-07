@@ -4,12 +4,13 @@
 #
 #  old_id            :integer
 #  old_price_book_id :integer
-#  shopper_id        :integer
+#  old_shopper_id    :integer
 #  admin             :boolean          default(FALSE), not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  id                :uuid             not null, primary key
 #  price_book_id     :uuid
+#  shopper_id        :uuid
 #
 
 require 'test_helper'
