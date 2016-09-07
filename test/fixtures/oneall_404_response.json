@@ -1,0 +1,13 @@
+{
+  "response": {
+    "request": {
+      "date": "Mon, 05 Sep 2016 09:17:41 +0200",
+      "resource": "\/connections\/testtoken123.json",
+      "status": {
+        "flag": "error",
+        "code": 404,
+        "info": "We are really sorry, but the resource you are trying to access does not exist. If you are currently implementing our services, then please make sure that your callback_uri points to a file on your server and not on ours."
+      }
+    }
+  }
+}

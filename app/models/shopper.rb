@@ -28,6 +28,15 @@ class Shopper < ApplicationRecord
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  # @param [SocialProfile] social_profile
+  # @return [Shopper]
+  def self.find_or_by_social_profile(social_profile)
+    shopper = find_by(email: social_profile.email)
+    shopper ||= create!(email: social_profile.email, password: SecureRandom.hex)
+    shopper.skip_confirmation!
+    shopper
+  end
+
   def password_required?
     return false if new_creating_guest?
     super || guest?

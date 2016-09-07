@@ -14,6 +14,9 @@ require 'support/match_array'
 require 'capybara'
 require 'capybara/rails'
 
+require 'webmock/minitest'
+WebMock.disable_net_connect!(allow_localhost: true)
+
 class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   self.use_transactional_tests = false

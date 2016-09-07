@@ -1,0 +1,24 @@
+<% if ENV['ONE_ALL_SUBDOMAIN'].present? && !Rails.env.test? %>
+    <script type="text/javascript">
+      var oneall_subdomain = '<%= ENV['ONE_ALL_SUBDOMAIN'] %>';
+
+      /* The library is loaded asynchronously */
+      var oa = document.createElement('script');
+      oa.type = 'text/javascript'; oa.async = true;
+      oa.src = '//' + oneall_subdomain + '.api.oneall.com/socialize/library.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(oa, s);
+    </script>
+
+    <script type="text/javascript">
+
+      /* Replace #your_callback_uri# with the url to your own callback script */
+      var your_callback_script = '<%= oneall_callback_url %>';
+
+      /* Embeds the buttons into the container oa_social_login_container */
+      var _oneall = _oneall || [];
+      _oneall.push(['social_login', 'set_providers', ['facebook', 'google']]);
+      _oneall.push(['social_login', 'set_callback_uri', your_callback_script]);
+      _oneall.push(['social_login', 'do_render_ui', 'oa_social_login_container']);
+    </script>
+<% end %>
