@@ -2,12 +2,13 @@
 #
 # Table name: members
 #
-#  id            :integer          not null, primary key
+#  old_id        :integer
 #  price_book_id :integer
 #  shopper_id    :integer
 #  admin         :boolean          default(FALSE), not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  id            :uuid             not null, primary key
 #
 
 require 'test_helper'
