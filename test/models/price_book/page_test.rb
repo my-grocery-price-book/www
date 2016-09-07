@@ -2,7 +2,7 @@
 #
 # Table name: price_book_pages
 #
-#  id            :integer          not null, primary key
+#  old_id        :integer
 #  name          :string
 #  category      :string
 #  created_at    :datetime         not null
@@ -10,6 +10,7 @@
 #  product_names :text             default([]), is an Array
 #  unit          :string
 #  price_book_id :integer
+#  id            :uuid             not null, primary key
 #
 
 require 'test_helper'
