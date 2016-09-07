@@ -2,12 +2,13 @@
 #
 # Table name: shopping_lists
 #
-#  id                :integer          not null, primary key
+#  old_id            :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  title             :string
 #  old_price_book_id :integer
 #  price_book_id     :uuid
+#  id                :uuid             not null, primary key
 #
 
 class ShoppingList < ApplicationRecord

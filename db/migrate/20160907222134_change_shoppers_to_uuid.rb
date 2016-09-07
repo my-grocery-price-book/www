@@ -1,6 +1,6 @@
 class ChangeShoppersToUuid < ActiveRecord::Migration[5.0]
   def up
-    add_column :shoppers, :uuid, :uuid, default: "uuid_generate_v4()", null: false
+    add_column :shoppers, :uuid, :uuid, default: "uuid_generate_v1mc()", null: false
 
     execute "ALTER TABLE shoppers DROP CONSTRAINT shoppers_pkey CASCADE;"
     change_column :shoppers, :id, :integer, null: true

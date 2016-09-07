@@ -8,6 +8,11 @@ if Shopper.count.zero?
                   confirmed_at: Time.current)
 end
 
+ShoppingList::Item.where(shopping_list_id: nil).each do |item|
+  list = ShoppingList.find_by!(old_id: item.old_shopping_list_id)
+  item.update_column(:shopping_list_id, list.id)
+end
+
 ShoppingList::ItemPurchase.where(shopping_list_item_id: nil).each do |item_purchase|
   item = ShoppingList::Item.find_by!(old_id: item_purchase.old_shopping_list_item_id)
   item_purchase.update_column(:shopping_list_item_id, item.id)
