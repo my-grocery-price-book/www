@@ -1,4 +1,4 @@
-<% if ENV['ONE_ALL_SUBDOMAIN'].present? %>
+<% if ENV['ONE_ALL_SUBDOMAIN'].present? && !Rails.env.test? %>
     <script type="text/javascript">
       var oneall_subdomain = '<%= ENV['ONE_ALL_SUBDOMAIN'] %>';
 
