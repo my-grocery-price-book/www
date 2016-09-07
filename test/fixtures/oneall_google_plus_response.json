@@ -1,0 +1,113 @@
+{
+  "response": {
+    "request": {
+      "date": "Sun, 04 Sep 2016 09:42:22 +0200",
+      "resource": "\/connections\/testtoken123.json",
+      "status": {
+        "flag": "success",
+        "code": 200,
+        "info": "Your request has been processed successfully"
+      }
+    },
+    "result": {
+      "status": {
+        "flag": "success",
+        "code": 200,
+        "info": "The user successfully authenticated"
+      },
+      "data": {
+        "action": "authenticate_user",
+        "plugin": {
+          "key": "social_login",
+          "data": {
+            "action": "login",
+            "operation": "user_profile_read",
+            "reason": "user_authenticated",
+            "status": "success"
+          }
+        },
+        "connection": {
+          "connection_token": "testtoken123",
+          "date_creation": "Sun, 04 Sep 2016 09:42:16 +0200",
+          "callback_uri": "http:\/\/www.groc.dev\/callmeback\/oneall",
+          "status": "succeeded"
+        },
+        "user": {
+          "uuid": "00000000-1111-2222-2222-333333333333",
+          "user_token": "00000000-1111-2222-2222-333333333333",
+          "identity": {
+            "identity_token": "00000000-1111-2222-4444-333333333333",
+            "date_creation": "Sun, 04 Sep 2016 00:10:55 +0200",
+            "date_last_update": "Sun, 04 Sep 2016 09:42:19 +0200",
+            "provider": "google",
+            "provider_identity_uid": "PIUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            "source": {
+              "name": "Google",
+              "key": "google",
+              "access_token": {
+                "key": "xxxx.XXXXXxxxXXXxXXXXXxXXXXXXXXX-c",
+                "date_expiration": "09\/04\/2016 10:42:18"
+              },
+              "refresh_token": {
+                "key": "1\/XXXXxxxXxXXXXXXXXxxxxx"
+              }
+            },
+            "id": "https:\/\/plus.google.com\/0000000000000000000",
+            "displayName": "Jack Black",
+            "name": {
+              "formatted": "Jack Black",
+              "givenName": "Jack",
+              "familyName": "Black"
+            },
+            "preferredUsername": "Jack Black",
+            "profileUrl": "https:\/\/plus.google.com\/0000000000000000000",
+            "pictureUrl": "https:\/\/www.example.com\/normal.jpg",
+            "gender": "male",
+            "emails": [
+              {
+                "value": "test@example.com",
+                "is_verified": true
+              }
+            ],
+            "urls": [
+              {
+                "value": "https:\/\/plus.google.com\/0000000000000000000",
+                "type": "profile"
+              }
+            ],
+            "accounts": [
+              {
+                "domain": "google.com",
+                "userid": "0000000000000000000"
+              }
+            ],
+            "photos": [
+              {
+                "value": "https:\/\/www.example.com\/large.jpg",
+                "size": "5:L"
+              }
+            ],
+            "browser": {
+              "agent": "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/52.0.2743.116 Safari\/537.36",
+              "type": "Chrome",
+              "version": {
+                "major": "52",
+                "full": "52.0.2743.116"
+              },
+              "platform": {
+                "name": "Macintosh",
+                "type": "Desktop"
+              }
+            }
+          },
+          "identities": [
+            {
+              "identity_token": "00000000-1111-2222-4444-333333333333",
+              "provider": "google"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

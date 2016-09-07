@@ -43,6 +43,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'webmock'
   gem 'factory_girl_rails'
   gem 'capybara', require: false
   gem 'capybara-email', require: false

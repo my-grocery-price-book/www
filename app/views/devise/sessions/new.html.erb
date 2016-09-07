@@ -28,7 +28,11 @@
 
     <% end %>
 
-    Or
+    <hr/>
+
+    <div id="oa_social_login_container"></div>
+
+    <hr/>
 
     <form action="<%= guest_login_path %>" method="post">
 
@@ -44,3 +48,5 @@
     <%= render "devise/shared/links" %>
   </div>
 </div>
+
+<%= render "devise/shared/one_all_js" %>
