@@ -67,8 +67,8 @@ CREATE TABLE comfy_cms_blocks (
     id integer NOT NULL,
     identifier character varying NOT NULL,
     content text,
-    blockable_type character varying,
     blockable_id integer,
+    blockable_type character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -415,14 +415,15 @@ ALTER SEQUENCE entry_owners_id_seq OWNED BY entry_owners.old_id;
 --
 
 CREATE TABLE invites (
-    id integer NOT NULL,
+    old_id integer,
     price_book_id integer,
     name character varying,
     email character varying,
     status character varying DEFAULT 'sent'::character varying NOT NULL,
     token character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    id uuid DEFAULT uuid_generate_v1mc() NOT NULL
 );
 
 
@@ -442,7 +443,7 @@ CREATE SEQUENCE invites_id_seq
 -- Name: invites_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE invites_id_seq OWNED BY invites.id;
+ALTER SEQUENCE invites_id_seq OWNED BY invites.old_id;
 
 
 --
@@ -842,10 +843,10 @@ ALTER TABLE ONLY entry_owners ALTER COLUMN old_id SET DEFAULT nextval('entry_own
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY invites ALTER COLUMN id SET DEFAULT nextval('invites_id_seq'::regclass);
+ALTER TABLE ONLY invites ALTER COLUMN old_id SET DEFAULT nextval('invites_id_seq'::regclass);
 
 
 --
@@ -1037,14 +1038,6 @@ ALTER TABLE ONLY price_books
 
 ALTER TABLE ONLY price_entries
     ADD CONSTRAINT price_entries_pkey PRIMARY KEY (id);
-
-
---
--- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY schema_migrations
-    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 
 
 --
@@ -1368,6 +1361,13 @@ CREATE INDEX stores_replace_lower_name_idx ON stores USING btree (replace(lower(
 
 
 --
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
 -- Name: fk_rails_182f20ecae; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1445,6 +1445,6 @@ ALTER TABLE ONLY invites
 
 SET search_path TO "$user",public;
 
-INSERT INTO schema_migrations (version) VALUES ('20150515135324'), ('20150517163242'), ('20150526134610'), ('20150526162500'), ('20150602144258'), ('20150603150915'), ('20150623100624'), ('20150623133041'), ('20150703104544'), ('20150704110603'), ('20150704125425'), ('20150719122747'), ('20150722073017'), ('20150722133633'), ('20150722185828'), ('20150722191719'), ('20150728060734'), ('20150802092633'), ('20150804070800'), ('20150812211210'), ('20150825073302'), ('20150901184909'), ('20150913110243'), ('20150915112020'), ('20151018103303'), ('20151018104004'), ('20151018110108'), ('20160222063236'), ('20160315215629'), ('20160315220121'), ('20160321222045'), ('20160321225104'), ('20160325102353'), ('20160325104640'), ('20160325104938'), ('20160325113925'), ('20160325115200'), ('20160325122950'), ('20160328063823'), ('20160420201023'), ('20160422074848'), ('20160422074934'), ('20160422130026'), ('20160422132605'), ('20160422134223'), ('20160423082705'), ('20160423133138'), ('20160425061130'), ('20160426040101'), ('20160426060238'), ('20160427034514'), ('20160427044309'), ('20160427053838'), ('20160731065137'), ('20160813040420'), ('20160813051712'), ('20160907192939'), ('20160907193348');
+INSERT INTO schema_migrations (version) VALUES ('20150515135324'), ('20150517163242'), ('20150526134610'), ('20150526162500'), ('20150602144258'), ('20150603150915'), ('20150623100624'), ('20150623133041'), ('20150703104544'), ('20150704110603'), ('20150704125425'), ('20150719122747'), ('20150722073017'), ('20150722133633'), ('20150722185828'), ('20150722191719'), ('20150728060734'), ('20150802092633'), ('20150804070800'), ('20150812211210'), ('20150825073302'), ('20150901184909'), ('20150913110243'), ('20150915112020'), ('20151018103303'), ('20151018104004'), ('20151018110108'), ('20160222063236'), ('20160315215629'), ('20160315220121'), ('20160321222045'), ('20160321225104'), ('20160325102353'), ('20160325104640'), ('20160325104938'), ('20160325113925'), ('20160325115200'), ('20160325122950'), ('20160328063823'), ('20160420201023'), ('20160422074848'), ('20160422074934'), ('20160422130026'), ('20160422132605'), ('20160422134223'), ('20160423082705'), ('20160423133138'), ('20160425061130'), ('20160426040101'), ('20160426060238'), ('20160427034514'), ('20160427044309'), ('20160427053838'), ('20160731065137'), ('20160813040420'), ('20160813051712'), ('20160907192939'), ('20160907193348'), ('20160907201400');
 
 

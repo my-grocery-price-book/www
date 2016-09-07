@@ -2,7 +2,7 @@
 #
 # Table name: invites
 #
-#  id            :integer          not null, primary key
+#  old_id        :integer
 #  price_book_id :integer
 #  name          :string
 #  email         :string
@@ -10,6 +10,7 @@
 #  token         :string           not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  id            :uuid             not null, primary key
 #
 
 require 'test_helper'
