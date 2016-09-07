@@ -2,14 +2,16 @@
 #
 # Table name: invites
 #
-#  id            :integer          not null, primary key
-#  price_book_id :integer
-#  name          :string
-#  email         :string
-#  status        :string           default("sent"), not null
-#  token         :string           not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  old_id            :integer
+#  old_price_book_id :integer
+#  name              :string
+#  email             :string
+#  status            :string           default("sent"), not null
+#  token             :string           not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  id                :uuid             not null, primary key
+#  price_book_id     :uuid
 #
 
 require 'securerandom'

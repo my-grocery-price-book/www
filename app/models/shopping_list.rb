@@ -2,13 +2,13 @@
 #
 # Table name: shopping_lists
 #
-#  id                              :integer          not null, primary key
-#  _deprecated_shopper_id          :integer
-#  created_at                      :datetime         not null
-#  updated_at                      :datetime         not null
-#  title                           :string
-#  price_book_id                   :integer
-#  _deprecated_shopper_id_migrated :boolean          default(FALSE), not null
+#  old_id            :integer
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  title             :string
+#  old_price_book_id :integer
+#  price_book_id     :uuid
+#  id                :uuid             not null, primary key
 #
 
 class ShoppingList < ApplicationRecord
@@ -16,14 +16,8 @@ class ShoppingList < ApplicationRecord
   belongs_to :book, class_name: 'PriceBook', foreign_key: 'price_book_id'
   has_many :items, dependent: :destroy
 
-  before_save :set__deprecated_shopper_id_migrated
-
   def ordered_items
     items.order(:created_at)
-  end
-
-  def set__deprecated_shopper_id_migrated
-    self._deprecated_shopper_id_migrated = true
   end
 
   # @param [Shopper] shopper

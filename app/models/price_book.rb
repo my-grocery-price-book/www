@@ -2,14 +2,14 @@
 #
 # Table name: price_books
 #
-#  id                              :integer          not null, primary key
-#  _deprecated_shopper_id          :integer
-#  created_at                      :datetime         not null
-#  updated_at                      :datetime         not null
-#  name                            :string           default("My Price Book"), not null
-#  _deprecated_shopper_id_migrated :boolean          default(FALSE), not null
-#  region_codes                    :string           default([]), is an Array
-#  store_ids                       :integer          default([]), is an Array
+#  old_id        :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  name          :string           default("My Price Book"), not null
+#  region_codes  :string           default([]), is an Array
+#  old_store_ids :integer          default([]), is an Array
+#  id            :uuid             not null, primary key
+#  store_ids     :uuid             default([]), is an Array
 #
 
 class PriceBook < ApplicationRecord
@@ -20,7 +20,6 @@ class PriceBook < ApplicationRecord
   attr_writer :shopper
   after_create :create_member
 
-  before_save :set__deprecated_shopper_id_migrated
   before_destroy :delete_all_pages
 
   private
@@ -43,10 +42,6 @@ class PriceBook < ApplicationRecord
 
   def create_shopping_list!(*a)
     shopping_lists.create(*a)
-  end
-
-  def set__deprecated_shopper_id_migrated
-    self._deprecated_shopper_id_migrated = true
   end
 
   def create_member

@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 9.3.13
--- Dumped by pg_dump version 9.5.3
+-- Dumped by pg_dump version 9.5.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -25,6 +25,20 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+--
+-- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UUIDs)';
 
 
 SET search_path = public, pg_catalog;
@@ -368,11 +382,14 @@ ALTER SEQUENCE comfy_cms_snippets_id_seq OWNED BY comfy_cms_snippets.id;
 --
 
 CREATE TABLE entry_owners (
-    id integer NOT NULL,
-    price_entry_id integer,
-    shopper_id integer,
+    old_id integer,
+    old_price_entry_id integer,
+    old_shopper_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    id uuid DEFAULT uuid_generate_v1mc() NOT NULL,
+    price_entry_id uuid,
+    shopper_id uuid
 );
 
 
@@ -392,7 +409,7 @@ CREATE SEQUENCE entry_owners_id_seq
 -- Name: entry_owners_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE entry_owners_id_seq OWNED BY entry_owners.id;
+ALTER SEQUENCE entry_owners_id_seq OWNED BY entry_owners.old_id;
 
 
 --
@@ -400,14 +417,16 @@ ALTER SEQUENCE entry_owners_id_seq OWNED BY entry_owners.id;
 --
 
 CREATE TABLE invites (
-    id integer NOT NULL,
-    price_book_id integer,
+    old_id integer,
+    old_price_book_id integer,
     name character varying,
     email character varying,
     status character varying DEFAULT 'sent'::character varying NOT NULL,
     token character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    id uuid DEFAULT uuid_generate_v1mc() NOT NULL,
+    price_book_id uuid
 );
 
 
@@ -427,7 +446,7 @@ CREATE SEQUENCE invites_id_seq
 -- Name: invites_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE invites_id_seq OWNED BY invites.id;
+ALTER SEQUENCE invites_id_seq OWNED BY invites.old_id;
 
 
 --
@@ -435,12 +454,15 @@ ALTER SEQUENCE invites_id_seq OWNED BY invites.id;
 --
 
 CREATE TABLE members (
-    id integer NOT NULL,
-    price_book_id integer,
-    shopper_id integer,
+    old_id integer,
+    old_price_book_id integer,
+    old_shopper_id integer,
     admin boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    id uuid DEFAULT uuid_generate_v1mc() NOT NULL,
+    price_book_id uuid,
+    shopper_id uuid
 );
 
 
@@ -460,7 +482,7 @@ CREATE SEQUENCE members_id_seq
 -- Name: members_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE members_id_seq OWNED BY members.id;
+ALTER SEQUENCE members_id_seq OWNED BY members.old_id;
 
 
 --
@@ -468,14 +490,16 @@ ALTER SEQUENCE members_id_seq OWNED BY members.id;
 --
 
 CREATE TABLE price_book_pages (
-    id integer NOT NULL,
+    old_id integer,
     name character varying,
     category character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     product_names text[] DEFAULT '{}'::text[],
     unit character varying,
-    price_book_id integer
+    old_price_book_id integer,
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    price_book_id uuid
 );
 
 
@@ -495,7 +519,7 @@ CREATE SEQUENCE price_book_pages_id_seq
 -- Name: price_book_pages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE price_book_pages_id_seq OWNED BY price_book_pages.id;
+ALTER SEQUENCE price_book_pages_id_seq OWNED BY price_book_pages.old_id;
 
 
 --
@@ -503,14 +527,14 @@ ALTER SEQUENCE price_book_pages_id_seq OWNED BY price_book_pages.id;
 --
 
 CREATE TABLE price_books (
-    id integer NOT NULL,
-    _deprecated_shopper_id integer,
+    old_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     name character varying DEFAULT 'My Price Book'::character varying NOT NULL,
-    _deprecated_shopper_id_migrated boolean DEFAULT false NOT NULL,
     region_codes character varying[] DEFAULT '{}'::character varying[],
-    store_ids integer[] DEFAULT '{}'::integer[]
+    old_store_ids integer[] DEFAULT '{}'::integer[],
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    store_ids uuid[] DEFAULT '{}'::uuid[]
 );
 
 
@@ -530,7 +554,7 @@ CREATE SEQUENCE price_books_id_seq
 -- Name: price_books_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE price_books_id_seq OWNED BY price_books.id;
+ALTER SEQUENCE price_books_id_seq OWNED BY price_books.old_id;
 
 
 --
@@ -538,16 +562,18 @@ ALTER SEQUENCE price_books_id_seq OWNED BY price_books.id;
 --
 
 CREATE TABLE price_entries (
-    id integer NOT NULL,
+    old_id integer,
     date_on date NOT NULL,
-    store_id integer,
+    old_store_id integer,
     product_name character varying NOT NULL,
     amount integer NOT NULL,
     package_size integer NOT NULL,
     package_unit character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    total_price money NOT NULL
+    total_price money NOT NULL,
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    store_id uuid
 );
 
 
@@ -567,7 +593,7 @@ CREATE SEQUENCE price_entries_id_seq
 -- Name: price_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE price_entries_id_seq OWNED BY price_entries.id;
+ALTER SEQUENCE price_entries_id_seq OWNED BY price_entries.old_id;
 
 
 --
@@ -584,7 +610,7 @@ CREATE TABLE schema_migrations (
 --
 
 CREATE TABLE shoppers (
-    id integer NOT NULL,
+    old_id integer,
     email character varying DEFAULT ''::character varying NOT NULL,
     encrypted_password character varying DEFAULT ''::character varying NOT NULL,
     reset_password_token character varying,
@@ -601,7 +627,8 @@ CREATE TABLE shoppers (
     unconfirmed_email character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    guest boolean DEFAULT false NOT NULL
+    guest boolean DEFAULT false NOT NULL,
+    id uuid DEFAULT uuid_generate_v4() NOT NULL
 );
 
 
@@ -621,7 +648,7 @@ CREATE SEQUENCE shoppers_id_seq
 -- Name: shoppers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE shoppers_id_seq OWNED BY shoppers.id;
+ALTER SEQUENCE shoppers_id_seq OWNED BY shoppers.old_id;
 
 
 --
@@ -629,10 +656,12 @@ ALTER SEQUENCE shoppers_id_seq OWNED BY shoppers.id;
 --
 
 CREATE TABLE shopping_list_item_purchases (
-    id integer NOT NULL,
-    shopping_list_item_id integer,
+    old_id integer,
+    old_shopping_list_item_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    id uuid DEFAULT uuid_generate_v1mc() NOT NULL,
+    shopping_list_item_id uuid
 );
 
 
@@ -652,7 +681,7 @@ CREATE SEQUENCE shopping_list_item_purchases_id_seq
 -- Name: shopping_list_item_purchases_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE shopping_list_item_purchases_id_seq OWNED BY shopping_list_item_purchases.id;
+ALTER SEQUENCE shopping_list_item_purchases_id_seq OWNED BY shopping_list_item_purchases.old_id;
 
 
 --
@@ -660,13 +689,15 @@ ALTER SEQUENCE shopping_list_item_purchases_id_seq OWNED BY shopping_list_item_p
 --
 
 CREATE TABLE shopping_list_items (
-    id integer NOT NULL,
-    shopping_list_id integer,
+    old_id integer,
+    old_shopping_list_id integer,
     name character varying,
     amount integer DEFAULT 1 NOT NULL,
     unit character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    shopping_list_id uuid
 );
 
 
@@ -686,7 +717,7 @@ CREATE SEQUENCE shopping_list_items_id_seq
 -- Name: shopping_list_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE shopping_list_items_id_seq OWNED BY shopping_list_items.id;
+ALTER SEQUENCE shopping_list_items_id_seq OWNED BY shopping_list_items.old_id;
 
 
 --
@@ -694,13 +725,13 @@ ALTER SEQUENCE shopping_list_items_id_seq OWNED BY shopping_list_items.id;
 --
 
 CREATE TABLE shopping_lists (
-    id integer NOT NULL,
-    _deprecated_shopper_id integer,
+    old_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     title character varying,
-    price_book_id integer,
-    _deprecated_shopper_id_migrated boolean DEFAULT false NOT NULL
+    old_price_book_id integer,
+    price_book_id uuid,
+    id uuid DEFAULT uuid_generate_v4() NOT NULL
 );
 
 
@@ -720,7 +751,7 @@ CREATE SEQUENCE shopping_lists_id_seq
 -- Name: shopping_lists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE shopping_lists_id_seq OWNED BY shopping_lists.id;
+ALTER SEQUENCE shopping_lists_id_seq OWNED BY shopping_lists.old_id;
 
 
 --
@@ -728,12 +759,13 @@ ALTER SEQUENCE shopping_lists_id_seq OWNED BY shopping_lists.id;
 --
 
 CREATE TABLE stores (
-    id integer NOT NULL,
+    old_id integer,
     name character varying NOT NULL,
     location character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    region_code character varying NOT NULL
+    region_code character varying NOT NULL,
+    id uuid DEFAULT uuid_generate_v4() NOT NULL
 );
 
 
@@ -753,7 +785,7 @@ CREATE SEQUENCE stores_id_seq
 -- Name: stores_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE stores_id_seq OWNED BY stores.id;
+ALTER SEQUENCE stores_id_seq OWNED BY stores.old_id;
 
 
 --
@@ -820,80 +852,80 @@ ALTER TABLE ONLY comfy_cms_snippets ALTER COLUMN id SET DEFAULT nextval('comfy_c
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY entry_owners ALTER COLUMN id SET DEFAULT nextval('entry_owners_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY invites ALTER COLUMN id SET DEFAULT nextval('invites_id_seq'::regclass);
+ALTER TABLE ONLY entry_owners ALTER COLUMN old_id SET DEFAULT nextval('entry_owners_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY members ALTER COLUMN id SET DEFAULT nextval('members_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY price_book_pages ALTER COLUMN id SET DEFAULT nextval('price_book_pages_id_seq'::regclass);
+ALTER TABLE ONLY invites ALTER COLUMN old_id SET DEFAULT nextval('invites_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY price_books ALTER COLUMN id SET DEFAULT nextval('price_books_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY price_entries ALTER COLUMN id SET DEFAULT nextval('price_entries_id_seq'::regclass);
+ALTER TABLE ONLY members ALTER COLUMN old_id SET DEFAULT nextval('members_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY shoppers ALTER COLUMN id SET DEFAULT nextval('shoppers_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY shopping_list_item_purchases ALTER COLUMN id SET DEFAULT nextval('shopping_list_item_purchases_id_seq'::regclass);
+ALTER TABLE ONLY price_book_pages ALTER COLUMN old_id SET DEFAULT nextval('price_book_pages_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY shopping_list_items ALTER COLUMN id SET DEFAULT nextval('shopping_list_items_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY shopping_lists ALTER COLUMN id SET DEFAULT nextval('shopping_lists_id_seq'::regclass);
+ALTER TABLE ONLY price_books ALTER COLUMN old_id SET DEFAULT nextval('price_books_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY stores ALTER COLUMN id SET DEFAULT nextval('stores_id_seq'::regclass);
+ALTER TABLE ONLY price_entries ALTER COLUMN old_id SET DEFAULT nextval('price_entries_id_seq'::regclass);
+
+
+--
+-- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY shoppers ALTER COLUMN old_id SET DEFAULT nextval('shoppers_id_seq'::regclass);
+
+
+--
+-- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY shopping_list_item_purchases ALTER COLUMN old_id SET DEFAULT nextval('shopping_list_item_purchases_id_seq'::regclass);
+
+
+--
+-- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY shopping_list_items ALTER COLUMN old_id SET DEFAULT nextval('shopping_list_items_id_seq'::regclass);
+
+
+--
+-- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY shopping_lists ALTER COLUMN old_id SET DEFAULT nextval('shopping_lists_id_seq'::regclass);
+
+
+--
+-- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY stores ALTER COLUMN old_id SET DEFAULT nextval('stores_id_seq'::regclass);
 
 
 --
@@ -1192,6 +1224,20 @@ CREATE INDEX index_comfy_cms_snippets_on_site_id_and_position ON comfy_cms_snipp
 
 
 --
+-- Name: index_entry_owners_on_old_price_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_entry_owners_on_old_price_entry_id ON entry_owners USING btree (old_price_entry_id);
+
+
+--
+-- Name: index_entry_owners_on_old_shopper_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_entry_owners_on_old_shopper_id ON entry_owners USING btree (old_shopper_id);
+
+
+--
 -- Name: index_entry_owners_on_price_entry_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1203,6 +1249,13 @@ CREATE INDEX index_entry_owners_on_price_entry_id ON entry_owners USING btree (p
 --
 
 CREATE INDEX index_entry_owners_on_shopper_id ON entry_owners USING btree (shopper_id);
+
+
+--
+-- Name: index_invites_on_old_price_book_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_invites_on_old_price_book_id ON invites USING btree (old_price_book_id);
 
 
 --
@@ -1220,6 +1273,20 @@ CREATE INDEX index_invites_on_token ON invites USING btree (token);
 
 
 --
+-- Name: index_members_on_old_price_book_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_members_on_old_price_book_id ON members USING btree (old_price_book_id);
+
+
+--
+-- Name: index_members_on_old_shopper_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_members_on_old_shopper_id ON members USING btree (old_shopper_id);
+
+
+--
 -- Name: index_members_on_price_book_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1231,6 +1298,13 @@ CREATE INDEX index_members_on_price_book_id ON members USING btree (price_book_i
 --
 
 CREATE INDEX index_members_on_shopper_id ON members USING btree (shopper_id);
+
+
+--
+-- Name: index_price_book_pages_on_old_price_book_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_price_book_pages_on_old_price_book_id ON price_book_pages USING btree (old_price_book_id);
 
 
 --
@@ -1248,17 +1322,17 @@ CREATE INDEX index_price_book_pages_on_updated_at ON price_book_pages USING btre
 
 
 --
--- Name: index_price_books_on__deprecated_shopper_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_price_books_on__deprecated_shopper_id ON price_books USING btree (_deprecated_shopper_id);
-
-
---
 -- Name: index_price_entries_on_date_on; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_price_entries_on_date_on ON price_entries USING btree (date_on);
+
+
+--
+-- Name: index_price_entries_on_old_store_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_price_entries_on_old_store_id ON price_entries USING btree (old_store_id);
 
 
 --
@@ -1297,6 +1371,13 @@ CREATE UNIQUE INDEX index_shoppers_on_reset_password_token ON shoppers USING btr
 
 
 --
+-- Name: index_shopping_list_item_purchases_on_old_shopping_list_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_shopping_list_item_purchases_on_old_shopping_list_item_id ON shopping_list_item_purchases USING btree (old_shopping_list_item_id);
+
+
+--
 -- Name: index_shopping_list_item_purchases_on_shopping_list_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1311,10 +1392,17 @@ CREATE INDEX index_shopping_list_items_on_created_at ON shopping_list_items USIN
 
 
 --
--- Name: index_shopping_lists_on__deprecated_shopper_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_shopping_list_items_on_shopping_list_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_shopping_lists_on__deprecated_shopper_id ON shopping_lists USING btree (_deprecated_shopper_id);
+CREATE INDEX index_shopping_list_items_on_shopping_list_id ON shopping_list_items USING btree (shopping_list_id);
+
+
+--
+-- Name: index_shopping_lists_on_old_price_book_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_shopping_lists_on_old_price_book_id ON shopping_lists USING btree (old_price_book_id);
 
 
 --
@@ -1353,83 +1441,11 @@ CREATE INDEX stores_replace_lower_name_idx ON stores USING btree (replace(lower(
 
 
 --
--- Name: fk_rails_182f20ecae; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY shopping_lists
-    ADD CONSTRAINT fk_rails_182f20ecae FOREIGN KEY (price_book_id) REFERENCES price_books(id);
-
-
---
--- Name: fk_rails_26957f8c33; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY entry_owners
-    ADD CONSTRAINT fk_rails_26957f8c33 FOREIGN KEY (price_entry_id) REFERENCES price_entries(id);
-
-
---
--- Name: fk_rails_39170d4e81; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY price_entries
-    ADD CONSTRAINT fk_rails_39170d4e81 FOREIGN KEY (store_id) REFERENCES stores(id);
-
-
---
--- Name: fk_rails_8f738f4b5c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY members
-    ADD CONSTRAINT fk_rails_8f738f4b5c FOREIGN KEY (price_book_id) REFERENCES price_books(id);
-
-
---
--- Name: fk_rails_bf4ff095ea; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY price_book_pages
-    ADD CONSTRAINT fk_rails_bf4ff095ea FOREIGN KEY (price_book_id) REFERENCES price_books(id);
-
-
---
--- Name: fk_rails_e83b3f2d1d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY shopping_list_item_purchases
-    ADD CONSTRAINT fk_rails_e83b3f2d1d FOREIGN KEY (shopping_list_item_id) REFERENCES shopping_list_items(id);
-
-
---
--- Name: fk_rails_ef460209ef; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY members
-    ADD CONSTRAINT fk_rails_ef460209ef FOREIGN KEY (shopper_id) REFERENCES shoppers(id);
-
-
---
--- Name: fk_rails_f40128c16f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY entry_owners
-    ADD CONSTRAINT fk_rails_f40128c16f FOREIGN KEY (shopper_id) REFERENCES shoppers(id);
-
-
---
--- Name: fk_rails_fdfc126295; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY invites
-    ADD CONSTRAINT fk_rails_fdfc126295 FOREIGN KEY (price_book_id) REFERENCES price_books(id);
-
-
---
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user",public;
 
-INSERT INTO schema_migrations (version) VALUES ('20150515135324'), ('20150517163242'), ('20150526134610'), ('20150526162500'), ('20150602144258'), ('20150603150915'), ('20150623100624'), ('20150623133041'), ('20150703104544'), ('20150704110603'), ('20150704125425'), ('20150719122747'), ('20150722073017'), ('20150722133633'), ('20150722185828'), ('20150722191719'), ('20150728060734'), ('20150802092633'), ('20150804070800'), ('20150812211210'), ('20150825073302'), ('20150901184909'), ('20150913110243'), ('20150915112020'), ('20151018103303'), ('20151018104004'), ('20151018110108'), ('20160222063236'), ('20160315215629'), ('20160315220121'), ('20160321222045'), ('20160321225104'), ('20160325102353'), ('20160325104640'), ('20160325104938'), ('20160325113925'), ('20160325115200'), ('20160325122950'), ('20160328063823'), ('20160420201023'), ('20160422074848'), ('20160422074934'), ('20160422130026'), ('20160422132605'), ('20160422134223'), ('20160423082705'), ('20160423133138'), ('20160425061130'), ('20160426040101'), ('20160426060238'), ('20160427034514'), ('20160427044309'), ('20160427053838'), ('20160731065137'), ('20160813040420'), ('20160813051712');
+INSERT INTO schema_migrations (version) VALUES ('20150515135324'), ('20150517163242'), ('20150526134610'), ('20150526162500'), ('20150602144258'), ('20150603150915'), ('20150623100624'), ('20150623133041'), ('20150703104544'), ('20150704110603'), ('20150704125425'), ('20150719122747'), ('20150722073017'), ('20150722133633'), ('20150722185828'), ('20150722191719'), ('20150728060734'), ('20150802092633'), ('20150804070800'), ('20150812211210'), ('20150825073302'), ('20150901184909'), ('20150913110243'), ('20150915112020'), ('20151018103303'), ('20151018104004'), ('20151018110108'), ('20160222063236'), ('20160315215629'), ('20160315220121'), ('20160321222045'), ('20160321225104'), ('20160325102353'), ('20160325104640'), ('20160325104938'), ('20160325113925'), ('20160325115200'), ('20160325122950'), ('20160328063823'), ('20160420201023'), ('20160422074848'), ('20160422074934'), ('20160422130026'), ('20160422132605'), ('20160422134223'), ('20160423082705'), ('20160423133138'), ('20160425061130'), ('20160426040101'), ('20160426060238'), ('20160427034514'), ('20160427044309'), ('20160427053838'), ('20160731065137'), ('20160813040420'), ('20160813051712'), ('20160907192939'), ('20160907193348'), ('20160907201400'), ('20160907201827'), ('20160907202420'), ('20160907203114'), ('20160907203447'), ('20160907213922'), ('20160907220016'), ('20160907221147'), ('20160907221341'), ('20160907222134'), ('20160907222903'), ('20160907223941');
 
 

@@ -4,7 +4,7 @@ var ShoppingList = React.createClass({
     update_url: React.PropTypes.string,
     delete_url: React.PropTypes.string,
     items_url: React.PropTypes.string,
-    item_id: React.PropTypes.number,
+    item_id: React.PropTypes.string,
     title: React.PropTypes.string,
     item_progress: React.PropTypes.string,
     authenticity_token: React.PropTypes.string

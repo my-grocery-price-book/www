@@ -16,6 +16,7 @@ module Project
 
     config.generators do |g|
       g.template_engine :erb
+      g.orm :active_record, primary_key_type: :uuid
     end
 
     Rails.application.config.assets.precompile +=
