@@ -10,6 +10,7 @@ For development with [vagrant read this](https://github.com/my-grocery-price-boo
  * ruby 2.3.1
  * PostgreSQL
  * Imagemagick
+
  
 ```
   cp -vn "config/examples/.env.local" ".env" # then edit .env and insert correct details
