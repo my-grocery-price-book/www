@@ -2,11 +2,12 @@
 #
 # Table name: entry_owners
 #
-#  id             :integer          not null, primary key
+#  old_id         :integer
 #  price_entry_id :integer
 #  shopper_id     :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  id             :uuid             not null, primary key
 #
 
 class EntryOwner < ApplicationRecord
