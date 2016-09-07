@@ -25,3 +25,8 @@ ShoppingList.where(_deprecated_shopper_id_migrated: false).each do |list|
     list.update!(_deprecated_shopper_id_migrated: true)
   end
 end
+
+ShoppingList::ItemPurchase.where(shopping_list_item_id: nil).each do |item_purchase|
+  item = ShoppingList::Item.find_by!(old_id: item_purchase.old_shopping_list_item_id)
+  item_purchase.update_column(:shopping_list_item_id, item.id)
+end

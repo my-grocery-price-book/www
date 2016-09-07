@@ -67,8 +67,8 @@ CREATE TABLE comfy_cms_blocks (
     id integer NOT NULL,
     identifier character varying NOT NULL,
     content text,
-    blockable_id integer,
     blockable_type character varying,
+    blockable_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -648,10 +648,11 @@ ALTER SEQUENCE shoppers_id_seq OWNED BY shoppers.id;
 
 CREATE TABLE shopping_list_item_purchases (
     old_id integer,
-    shopping_list_item_id integer,
+    old_shopping_list_item_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    id uuid DEFAULT uuid_generate_v1mc() NOT NULL
+    id uuid DEFAULT uuid_generate_v1mc() NOT NULL,
+    shopping_list_item_id uuid
 );
 
 
@@ -679,13 +680,14 @@ ALTER SEQUENCE shopping_list_item_purchases_id_seq OWNED BY shopping_list_item_p
 --
 
 CREATE TABLE shopping_list_items (
-    id integer NOT NULL,
+    old_id integer,
     shopping_list_id integer,
     name character varying,
     amount integer DEFAULT 1 NOT NULL,
     unit character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    id uuid DEFAULT uuid_generate_v4() NOT NULL
 );
 
 
@@ -705,7 +707,7 @@ CREATE SEQUENCE shopping_list_items_id_seq
 -- Name: shopping_list_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE shopping_list_items_id_seq OWNED BY shopping_list_items.id;
+ALTER SEQUENCE shopping_list_items_id_seq OWNED BY shopping_list_items.old_id;
 
 
 --
@@ -895,10 +897,10 @@ ALTER TABLE ONLY shopping_list_item_purchases ALTER COLUMN old_id SET DEFAULT ne
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY shopping_list_items ALTER COLUMN id SET DEFAULT nextval('shopping_list_items_id_seq'::regclass);
+ALTER TABLE ONLY shopping_list_items ALTER COLUMN old_id SET DEFAULT nextval('shopping_list_items_id_seq'::regclass);
 
 
 --
@@ -1041,6 +1043,14 @@ ALTER TABLE ONLY price_books
 
 ALTER TABLE ONLY price_entries
     ADD CONSTRAINT price_entries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 
 
 --
@@ -1308,6 +1318,13 @@ CREATE UNIQUE INDEX index_shoppers_on_reset_password_token ON shoppers USING btr
 
 
 --
+-- Name: index_shopping_list_item_purchases_on_old_shopping_list_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_shopping_list_item_purchases_on_old_shopping_list_item_id ON shopping_list_item_purchases USING btree (old_shopping_list_item_id);
+
+
+--
 -- Name: index_shopping_list_item_purchases_on_shopping_list_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1364,13 +1381,6 @@ CREATE INDEX stores_replace_lower_name_idx ON stores USING btree (replace(lower(
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
-
-
---
 -- Name: fk_rails_182f20ecae; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1411,14 +1421,6 @@ ALTER TABLE ONLY price_book_pages
 
 
 --
--- Name: fk_rails_e83b3f2d1d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY shopping_list_item_purchases
-    ADD CONSTRAINT fk_rails_e83b3f2d1d FOREIGN KEY (shopping_list_item_id) REFERENCES shopping_list_items(id);
-
-
---
 -- Name: fk_rails_ef460209ef; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1448,6 +1450,6 @@ ALTER TABLE ONLY invites
 
 SET search_path TO "$user",public;
 
-INSERT INTO schema_migrations (version) VALUES ('20150515135324'), ('20150517163242'), ('20150526134610'), ('20150526162500'), ('20150602144258'), ('20150603150915'), ('20150623100624'), ('20150623133041'), ('20150703104544'), ('20150704110603'), ('20150704125425'), ('20150719122747'), ('20150722073017'), ('20150722133633'), ('20150722185828'), ('20150722191719'), ('20150728060734'), ('20150802092633'), ('20150804070800'), ('20150812211210'), ('20150825073302'), ('20150901184909'), ('20150913110243'), ('20150915112020'), ('20151018103303'), ('20151018104004'), ('20151018110108'), ('20160222063236'), ('20160315215629'), ('20160315220121'), ('20160321222045'), ('20160321225104'), ('20160325102353'), ('20160325104640'), ('20160325104938'), ('20160325113925'), ('20160325115200'), ('20160325122950'), ('20160328063823'), ('20160420201023'), ('20160422074848'), ('20160422074934'), ('20160422130026'), ('20160422132605'), ('20160422134223'), ('20160423082705'), ('20160423133138'), ('20160425061130'), ('20160426040101'), ('20160426060238'), ('20160427034514'), ('20160427044309'), ('20160427053838'), ('20160731065137'), ('20160813040420'), ('20160813051712'), ('20160907192939'), ('20160907193348'), ('20160907201400'), ('20160907201827'), ('20160907202420'), ('20160907203114');
+INSERT INTO schema_migrations (version) VALUES ('20150515135324'), ('20150517163242'), ('20150526134610'), ('20150526162500'), ('20150602144258'), ('20150603150915'), ('20150623100624'), ('20150623133041'), ('20150703104544'), ('20150704110603'), ('20150704125425'), ('20150719122747'), ('20150722073017'), ('20150722133633'), ('20150722185828'), ('20150722191719'), ('20150728060734'), ('20150802092633'), ('20150804070800'), ('20150812211210'), ('20150825073302'), ('20150901184909'), ('20150913110243'), ('20150915112020'), ('20151018103303'), ('20151018104004'), ('20151018110108'), ('20160222063236'), ('20160315215629'), ('20160315220121'), ('20160321222045'), ('20160321225104'), ('20160325102353'), ('20160325104640'), ('20160325104938'), ('20160325113925'), ('20160325115200'), ('20160325122950'), ('20160328063823'), ('20160420201023'), ('20160422074848'), ('20160422074934'), ('20160422130026'), ('20160422132605'), ('20160422134223'), ('20160423082705'), ('20160423133138'), ('20160425061130'), ('20160426040101'), ('20160426060238'), ('20160427034514'), ('20160427044309'), ('20160427053838'), ('20160731065137'), ('20160813040420'), ('20160813051712'), ('20160907192939'), ('20160907193348'), ('20160907201400'), ('20160907201827'), ('20160907202420'), ('20160907203114'), ('20160907203447');
 
 
