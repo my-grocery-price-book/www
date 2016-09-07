@@ -4,7 +4,7 @@
 #
 #  old_id       :integer
 #  date_on      :date             not null
-#  store_id     :integer
+#  old_store_id :integer
 #  product_name :string           not null
 #  amount       :integer          not null
 #  package_size :integer          not null
@@ -13,6 +13,7 @@
 #  updated_at   :datetime         not null
 #  total_price  :money            not null
 #  id           :uuid             not null, primary key
+#  store_id     :uuid
 #
 
 require 'test_helper'

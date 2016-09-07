@@ -47,3 +47,15 @@ EntryOwner.where(shopper_id: nil).each do |entry_owner|
   shopper = Shopper.find_by!(old_id: entry_owner.old_shopper_id)
   entry_owner.update_column(:shopper_id, shopper.id)
 end
+
+PriceEntry.where(store_id: nil).each do |entry|
+  store = Store.find_by!(old_id: entry.old_store_id)
+  entry.update_column(:store_id, store.id)
+end
+
+PriceBook.all.each do |book|
+  if book.store_ids.blank? && book.old_store_ids.present?
+    stores = Store.where(old_id: book.old_store_ids)
+    book.update_column(:store_ids, stores.map(&:id))
+  end
+end

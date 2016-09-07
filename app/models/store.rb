@@ -2,12 +2,13 @@
 #
 # Table name: stores
 #
-#  id          :integer          not null, primary key
+#  old_id      :integer
 #  name        :string           not null
 #  location    :string           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  region_code :string           not null
+#  id          :uuid             not null, primary key
 #
 
 class Store < ApplicationRecord

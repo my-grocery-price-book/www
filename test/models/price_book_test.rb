@@ -2,13 +2,14 @@
 #
 # Table name: price_books
 #
-#  old_id       :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  name         :string           default("My Price Book"), not null
-#  region_codes :string           default([]), is an Array
-#  store_ids    :integer          default([]), is an Array
-#  id           :uuid             not null, primary key
+#  old_id        :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  name          :string           default("My Price Book"), not null
+#  region_codes  :string           default([]), is an Array
+#  old_store_ids :integer          default([]), is an Array
+#  id            :uuid             not null, primary key
+#  store_ids     :uuid             default([]), is an Array
 #
 
 require 'test_helper'
