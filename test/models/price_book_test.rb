@@ -2,7 +2,7 @@
 #
 # Table name: price_books
 #
-#  id                              :integer          not null, primary key
+#  old_id                          :integer
 #  _deprecated_shopper_id          :integer
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
@@ -10,6 +10,7 @@
 #  _deprecated_shopper_id_migrated :boolean          default(FALSE), not null
 #  region_codes                    :string           default([]), is an Array
 #  store_ids                       :integer          default([]), is an Array
+#  id                              :uuid             not null, primary key
 #
 
 require 'test_helper'

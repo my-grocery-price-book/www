@@ -7,8 +7,9 @@
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
 #  title                           :string
-#  price_book_id                   :integer
+#  old_price_book_id               :integer
 #  _deprecated_shopper_id_migrated :boolean          default(FALSE), not null
+#  price_book_id                   :uuid
 #
 
 class ShoppingList < ApplicationRecord

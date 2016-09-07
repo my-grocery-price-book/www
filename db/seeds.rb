@@ -30,3 +30,18 @@ ShoppingList::ItemPurchase.where(shopping_list_item_id: nil).each do |item_purch
   item = ShoppingList::Item.find_by!(old_id: item_purchase.old_shopping_list_item_id)
   item_purchase.update_column(:shopping_list_item_id, item.id)
 end
+
+Member.where(price_book_id: nil).each do |member|
+  book = PriceBook.find_by!(old_id: member.old_price_book_id)
+  member.update_column(:price_book_id, book.id)
+end
+
+ShoppingList.where(price_book_id: nil).each do |list|
+  book = PriceBook.find_by!(old_id: list.old_price_book_id)
+  list.update_column(:price_book_id, book.id)
+end
+
+PriceBook::Page.where(price_book_id: nil).each do |page|
+  book = PriceBook.find_by!(old_id: page.old_price_book_id)
+  page.update_column(:price_book_id, book.id)
+end

@@ -2,15 +2,16 @@
 #
 # Table name: price_book_pages
 #
-#  old_id        :integer
-#  name          :string
-#  category      :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  product_names :text             default([]), is an Array
-#  unit          :string
-#  price_book_id :integer
-#  id            :uuid             not null, primary key
+#  old_id            :integer
+#  name              :string
+#  category          :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  product_names     :text             default([]), is an Array
+#  unit              :string
+#  old_price_book_id :integer
+#  id                :uuid             not null, primary key
+#  price_book_id     :uuid
 #
 
 require 'test_helper'

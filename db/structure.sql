@@ -67,8 +67,8 @@ CREATE TABLE comfy_cms_blocks (
     id integer NOT NULL,
     identifier character varying NOT NULL,
     content text,
-    blockable_type character varying,
     blockable_id integer,
+    blockable_type character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -416,14 +416,15 @@ ALTER SEQUENCE entry_owners_id_seq OWNED BY entry_owners.old_id;
 
 CREATE TABLE invites (
     old_id integer,
-    price_book_id integer,
+    old_price_book_id integer,
     name character varying,
     email character varying,
     status character varying DEFAULT 'sent'::character varying NOT NULL,
     token character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    id uuid DEFAULT uuid_generate_v1mc() NOT NULL
+    id uuid DEFAULT uuid_generate_v1mc() NOT NULL,
+    price_book_id uuid
 );
 
 
@@ -452,12 +453,13 @@ ALTER SEQUENCE invites_id_seq OWNED BY invites.old_id;
 
 CREATE TABLE members (
     old_id integer,
-    price_book_id integer,
+    old_price_book_id integer,
     shopper_id integer,
     admin boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    id uuid DEFAULT uuid_generate_v1mc() NOT NULL
+    id uuid DEFAULT uuid_generate_v1mc() NOT NULL,
+    price_book_id uuid
 );
 
 
@@ -492,8 +494,9 @@ CREATE TABLE price_book_pages (
     updated_at timestamp without time zone NOT NULL,
     product_names text[] DEFAULT '{}'::text[],
     unit character varying,
-    price_book_id integer,
-    id uuid DEFAULT uuid_generate_v4() NOT NULL
+    old_price_book_id integer,
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    price_book_id uuid
 );
 
 
@@ -521,14 +524,15 @@ ALTER SEQUENCE price_book_pages_id_seq OWNED BY price_book_pages.old_id;
 --
 
 CREATE TABLE price_books (
-    id integer NOT NULL,
+    old_id integer,
     _deprecated_shopper_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     name character varying DEFAULT 'My Price Book'::character varying NOT NULL,
     _deprecated_shopper_id_migrated boolean DEFAULT false NOT NULL,
     region_codes character varying[] DEFAULT '{}'::character varying[],
-    store_ids integer[] DEFAULT '{}'::integer[]
+    store_ids integer[] DEFAULT '{}'::integer[],
+    id uuid DEFAULT uuid_generate_v4() NOT NULL
 );
 
 
@@ -548,7 +552,7 @@ CREATE SEQUENCE price_books_id_seq
 -- Name: price_books_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE price_books_id_seq OWNED BY price_books.id;
+ALTER SEQUENCE price_books_id_seq OWNED BY price_books.old_id;
 
 
 --
@@ -720,8 +724,9 @@ CREATE TABLE shopping_lists (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     title character varying,
-    price_book_id integer,
-    _deprecated_shopper_id_migrated boolean DEFAULT false NOT NULL
+    old_price_book_id integer,
+    _deprecated_shopper_id_migrated boolean DEFAULT false NOT NULL,
+    price_book_id uuid
 );
 
 
@@ -869,10 +874,10 @@ ALTER TABLE ONLY price_book_pages ALTER COLUMN old_id SET DEFAULT nextval('price
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY price_books ALTER COLUMN id SET DEFAULT nextval('price_books_id_seq'::regclass);
+ALTER TABLE ONLY price_books ALTER COLUMN old_id SET DEFAULT nextval('price_books_id_seq'::regclass);
 
 
 --
@@ -1043,14 +1048,6 @@ ALTER TABLE ONLY price_books
 
 ALTER TABLE ONLY price_entries
     ADD CONSTRAINT price_entries_pkey PRIMARY KEY (id);
-
-
---
--- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY schema_migrations
-    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 
 
 --
@@ -1227,6 +1224,13 @@ CREATE INDEX index_entry_owners_on_shopper_id ON entry_owners USING btree (shopp
 
 
 --
+-- Name: index_invites_on_old_price_book_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_invites_on_old_price_book_id ON invites USING btree (old_price_book_id);
+
+
+--
 -- Name: index_invites_on_price_book_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1241,6 +1245,13 @@ CREATE INDEX index_invites_on_token ON invites USING btree (token);
 
 
 --
+-- Name: index_members_on_old_price_book_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_members_on_old_price_book_id ON members USING btree (old_price_book_id);
+
+
+--
 -- Name: index_members_on_price_book_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1252,6 +1263,13 @@ CREATE INDEX index_members_on_price_book_id ON members USING btree (price_book_i
 --
 
 CREATE INDEX index_members_on_shopper_id ON members USING btree (shopper_id);
+
+
+--
+-- Name: index_price_book_pages_on_old_price_book_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_price_book_pages_on_old_price_book_id ON price_book_pages USING btree (old_price_book_id);
 
 
 --
@@ -1346,6 +1364,13 @@ CREATE INDEX index_shopping_lists_on__deprecated_shopper_id ON shopping_lists US
 
 
 --
+-- Name: index_shopping_lists_on_old_price_book_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_shopping_lists_on_old_price_book_id ON shopping_lists USING btree (old_price_book_id);
+
+
+--
 -- Name: index_shopping_lists_on_price_book_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1381,11 +1406,10 @@ CREATE INDEX stores_replace_lower_name_idx ON stores USING btree (replace(lower(
 
 
 --
--- Name: fk_rails_182f20ecae; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY shopping_lists
-    ADD CONSTRAINT fk_rails_182f20ecae FOREIGN KEY (price_book_id) REFERENCES price_books(id);
+CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
 
 
 --
@@ -1405,22 +1429,6 @@ ALTER TABLE ONLY price_entries
 
 
 --
--- Name: fk_rails_8f738f4b5c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY members
-    ADD CONSTRAINT fk_rails_8f738f4b5c FOREIGN KEY (price_book_id) REFERENCES price_books(id);
-
-
---
--- Name: fk_rails_bf4ff095ea; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY price_book_pages
-    ADD CONSTRAINT fk_rails_bf4ff095ea FOREIGN KEY (price_book_id) REFERENCES price_books(id);
-
-
---
 -- Name: fk_rails_ef460209ef; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1437,19 +1445,11 @@ ALTER TABLE ONLY entry_owners
 
 
 --
--- Name: fk_rails_fdfc126295; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY invites
-    ADD CONSTRAINT fk_rails_fdfc126295 FOREIGN KEY (price_book_id) REFERENCES price_books(id);
-
-
---
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user",public;
 
-INSERT INTO schema_migrations (version) VALUES ('20150515135324'), ('20150517163242'), ('20150526134610'), ('20150526162500'), ('20150602144258'), ('20150603150915'), ('20150623100624'), ('20150623133041'), ('20150703104544'), ('20150704110603'), ('20150704125425'), ('20150719122747'), ('20150722073017'), ('20150722133633'), ('20150722185828'), ('20150722191719'), ('20150728060734'), ('20150802092633'), ('20150804070800'), ('20150812211210'), ('20150825073302'), ('20150901184909'), ('20150913110243'), ('20150915112020'), ('20151018103303'), ('20151018104004'), ('20151018110108'), ('20160222063236'), ('20160315215629'), ('20160315220121'), ('20160321222045'), ('20160321225104'), ('20160325102353'), ('20160325104640'), ('20160325104938'), ('20160325113925'), ('20160325115200'), ('20160325122950'), ('20160328063823'), ('20160420201023'), ('20160422074848'), ('20160422074934'), ('20160422130026'), ('20160422132605'), ('20160422134223'), ('20160423082705'), ('20160423133138'), ('20160425061130'), ('20160426040101'), ('20160426060238'), ('20160427034514'), ('20160427044309'), ('20160427053838'), ('20160731065137'), ('20160813040420'), ('20160813051712'), ('20160907192939'), ('20160907193348'), ('20160907201400'), ('20160907201827'), ('20160907202420'), ('20160907203114'), ('20160907203447');
+INSERT INTO schema_migrations (version) VALUES ('20150515135324'), ('20150517163242'), ('20150526134610'), ('20150526162500'), ('20150602144258'), ('20150603150915'), ('20150623100624'), ('20150623133041'), ('20150703104544'), ('20150704110603'), ('20150704125425'), ('20150719122747'), ('20150722073017'), ('20150722133633'), ('20150722185828'), ('20150722191719'), ('20150728060734'), ('20150802092633'), ('20150804070800'), ('20150812211210'), ('20150825073302'), ('20150901184909'), ('20150913110243'), ('20150915112020'), ('20151018103303'), ('20151018104004'), ('20151018110108'), ('20160222063236'), ('20160315215629'), ('20160315220121'), ('20160321222045'), ('20160321225104'), ('20160325102353'), ('20160325104640'), ('20160325104938'), ('20160325113925'), ('20160325115200'), ('20160325122950'), ('20160328063823'), ('20160420201023'), ('20160422074848'), ('20160422074934'), ('20160422130026'), ('20160422132605'), ('20160422134223'), ('20160423082705'), ('20160423133138'), ('20160425061130'), ('20160426040101'), ('20160426060238'), ('20160427034514'), ('20160427044309'), ('20160427053838'), ('20160731065137'), ('20160813040420'), ('20160813051712'), ('20160907192939'), ('20160907193348'), ('20160907201400'), ('20160907201827'), ('20160907202420'), ('20160907203114'), ('20160907203447'), ('20160907213922');
 
 
