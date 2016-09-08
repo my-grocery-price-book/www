@@ -38,7 +38,7 @@ class PriceEntry < ApplicationRecord
   end
 
   def strip_spacing
-    product_name.try(:strip!)
+    self.product_name = product_name.strip if product_name.is_a?(String)
   end
 
   def price_per_unit
