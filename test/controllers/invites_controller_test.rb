@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: invites
@@ -37,7 +38,7 @@ class InvitesControllerTest < ActionController::TestCase
                                 invite: { name: 'Joe', email: 'joe@mail.com' } }
       end
 
-      assert_redirected_to price_book_pages_path
+      assert_redirected_to book_pages_path(@price_book)
     end
 
     should 'send an email' do
@@ -70,16 +71,18 @@ class InvitesControllerTest < ActionController::TestCase
       assert response.body.include?('Reject')
     end
 
-    should 'redirect to price_book_pages if accepted' do
+    should 'redirect to root_path if already accepted' do
       @invite.update!(status: 'accepted')
       get :show, params: { id: @invite.to_param }
-      assert_redirected_to price_book_pages_path
+      assert_redirected_to root_path
+      assert_not_nil flash[:alert]
     end
 
-    should 'redirect to price_book_pages if rejected' do
+    should 'redirect to root_path if already rejected' do
       @invite.update!(status: 'rejected')
       get :show, params: { id: @invite.to_param }
-      assert_redirected_to price_book_pages_path
+      assert_redirected_to root_path
+      assert_not_nil flash[:alert]
     end
   end
 
@@ -90,13 +93,10 @@ class InvitesControllerTest < ActionController::TestCase
                                email: 'joe@barber.com')
     end
 
-    should 'redirect to price_book_pages' do
-      patch :accept, params: { id: @invite.to_param }
-      assert_redirected_to price_book_pages_path
-    end
-
     should 'accept the invite' do
       patch :accept, params: { id: @invite.to_param }
+      assert_redirected_to book_pages_path(@price_book)
+      assert_not_nil flash[:notice]
       @invite.reload
       assert_equal 'accepted', @invite.status
     end
@@ -115,13 +115,10 @@ class InvitesControllerTest < ActionController::TestCase
                                email: 'joe@barber.com')
     end
 
-    should 'redirect to price_book_pages' do
-      patch :reject, params: { id: @invite.to_param }
-      assert_redirected_to price_book_pages_path
-    end
-
     should 'reject the invite' do
       patch :reject, params: { id: @invite.to_param }
+      assert_redirected_to root_path
+      assert_not_nil flash[:notice]
       @invite.reload
       assert_equal 'rejected', @invite.status
     end

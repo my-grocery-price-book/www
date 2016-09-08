@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class BookDefaultPages
   # @param [PriceBook] book
   def initialize(book)

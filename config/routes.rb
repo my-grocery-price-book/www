@@ -1,8 +1,11 @@
+# frozen_string_literal: true
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'pages#index'
   get 'contact' => 'pages#contact'
   get 'thank_you' => 'pages#thank_you'
+
+  get 'price_book_pages' => 'menu#price_book_pages'
 
   resources :books, only: [:edit, :update] do
     resources :regions, controller: 'book_regions', only: [] do
@@ -14,7 +17,10 @@ Rails.application.routes.draw do
     end
     resources :invites, only: [:new, :create]
     resources :stores, controller: 'book_stores', only: [:new, :create]
-    resources :pages, controller: 'price_book_pages', only: [:index, :show, :new, :create] do
+    resources :pages, controller: 'price_book_pages' do
+      member do
+        get 'delete'
+      end
       resources :entries, only: [:new, :create, :edit, :update]
     end
     resources :entry_suggestions, only: [:index]
@@ -42,12 +48,6 @@ Rails.application.routes.draw do
   resources :shopping_list_items, only: [] do
     collection do
       get 'latest'
-    end
-  end
-
-  resources :price_book_pages do
-    member do
-      get 'delete'
     end
   end
 

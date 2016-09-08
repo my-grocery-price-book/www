@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: invites
@@ -25,7 +26,7 @@ class InvitesController < ApplicationController
     @invite.price_book = price_book
     if @invite.save
       ShopperMailer.invite(@invite).deliver_later
-      redirect_to price_book_pages_path, notice: 'Invite successfully sent'
+      redirect_to book_pages_path, notice: 'Invite successfully sent'
     else
       render :new
     end
@@ -45,24 +46,24 @@ class InvitesController < ApplicationController
   public
 
   def show
-    redirect_to price_book_pages_path, alert: 'Token expired' if invite.token_invalid?
+    redirect_to root_path, alert: 'Token expired' if invite.token_invalid?
   end
 
   def accept
     if invite.token_valid?
       invite.accept_by(current_shopper)
-      redirect_to price_book_pages_path, notice: 'Invite accepted'
+      redirect_to book_pages_path(invite.price_book), notice: 'Invite accepted'
     else
-      redirect_to price_book_pages_path, alert: 'Token expired'
+      redirect_to root_path, alert: 'Token expired'
     end
   end
 
   def reject
     if invite.token_valid?
       invite.reject
-      redirect_to price_book_pages_path, notice: 'Invite rejected'
+      redirect_to root_path, notice: 'Invite rejected'
     else
-      redirect_to price_book_pages_path, alert: 'Token expired'
+      redirect_to root_path, alert: 'Token expired'
     end
   end
 

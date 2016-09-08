@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module BookHelper
   def book_region_options(regions)
     regions.map do |r|

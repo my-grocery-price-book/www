@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 IntercomRails.config do |config|
   # == Intercom app_id
   #

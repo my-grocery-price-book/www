@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 namespace :rollbar do
   desc 'Send the deployment notification to Rollbar.'
   task :deploy do

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'test_helper'
 require 'capybara'
 require 'capybara/rails'
@@ -35,16 +36,49 @@ class PersonaSession
     visit link_path
   end
 
+  # rubocop:disable Lint/Debugger
   def content_with_screenshot?(*args)
     if content_without_screenshot?(*args)
       true
     else
+      save_screenshot
       false
     end
   end
 
   alias content_without_screenshot? has_content?
   alias has_content? content_with_screenshot?
+
+  def fill_in_with_screenshot(*args)
+    fill_in_without_screenshot(*args)
+  rescue Capybara::ElementNotFound
+    save_screenshot
+    raise
+  end
+
+  alias fill_in_without_screenshot fill_in
+  alias fill_in fill_in_with_screenshot
+
+  def click_link_with_screenshot(*args)
+    click_link_without_screenshot(*args)
+  rescue Capybara::ElementNotFound
+    save_screenshot
+    raise
+  end
+
+  alias click_link_without_screenshot click_link
+  alias click_link click_link_with_screenshot
+
+  def click_on_with_screenshot(*args)
+    click_on_without_screenshot(*args)
+  rescue Capybara::ElementNotFound
+    save_screenshot
+    raise
+  end
+
+  alias click_on_without_screenshot click_on
+  alias click_on click_on_with_screenshot
+  # rubocop:enable Lint/Debugger
 
   def perform(&block)
     instance_exec(&block)

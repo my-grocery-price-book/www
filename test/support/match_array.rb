@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module MiniTest::Assertions
   ##
   # Fails unless <tt>exp</tt> and <tt>act</tt> are both arrays and
