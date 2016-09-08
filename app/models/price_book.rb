@@ -54,7 +54,7 @@ class PriceBook < ApplicationRecord
   end
 
   def self.default_for_shopper(shopper)
-    book = for_shopper(shopper).order('price_books.id DESC').first
+    book = for_shopper(shopper).order('price_books.created_at DESC').first
     return book if book
     new(shopper: shopper).tap do |new_book|
       new_book.save!
