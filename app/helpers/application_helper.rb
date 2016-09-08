@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module ApplicationHelper
   def react_server(component_name, args)
     react_component(component_name, args, prerender: true)

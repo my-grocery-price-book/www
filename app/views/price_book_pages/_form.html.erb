@@ -1,4 +1,4 @@
-<%= form_for(page) do |f| %>
+<%= form_for(page, url: page.new_record? ? book_pages_path(params[:book_id]) : book_page_path) do |f| %>
   <%= render 'error_messages', error_messages: page.errors %>
   <div class="form-group">
     <%= f.label :name %>

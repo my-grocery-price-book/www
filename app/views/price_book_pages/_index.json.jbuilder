@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 json.pages do
   json.partial! 'price_book_pages/pages', pages: pages
 end

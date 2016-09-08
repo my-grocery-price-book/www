@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'test_helper'
 
 class OneallIntegrationTest < IntegrationTest
@@ -13,7 +14,7 @@ class OneallIntegrationTest < IntegrationTest
 
       should 'redirect to book' do
         post '/callmeback/oneall', params: { connection_token: @token }
-        assert_redirected_to(price_book_pages_path)
+        assert_redirected_to(book_pages_path(PriceBook.first))
       end
 
       should 'set flash notice' do
@@ -36,9 +37,9 @@ class OneallIntegrationTest < IntegrationTest
                      body: File.read("#{Rails.root}/test/fixtures/oneall_404_response.json"))
       end
 
-      should 'redirect to book' do
+      should 'redirect to new_shopper_session_path' do
         post '/callmeback/oneall', params: { connection_token: @token }
-        assert_redirected_to(price_book_pages_path)
+        assert_redirected_to(new_shopper_session_path)
       end
 
       should 'set not_flash notice' do

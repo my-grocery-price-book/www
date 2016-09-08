@@ -2,8 +2,8 @@
   <div class="col-md-12">
     <h1><%= @price_book_page.category %>: <%= @price_book_page.name %></h1>
     <a class="btn btn-primary" href="<%= new_book_page_entry_path(@price_book,@price_book_page) %>">New Price</a>
-    <a class="btn btn-default" href="<%= edit_price_book_page_path(@price_book_page) %>">Edit</a>
-    <a class="btn btn-default" href="<%= price_book_pages_path %>">Back</a>
+    <a class="btn btn-default" href="<%= edit_book_page_path(@price_book,@price_book_page) %>">Edit</a>
+    <a class="btn btn-default" href="<%= book_pages_path %>">Back</a>
 
     <table class='table table-striped'>
       <thead>

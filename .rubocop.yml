@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.1
+  TargetRubyVersion: 2.3
   Exclude:
     - 'bin/**/*'
     - 'vendor/**/*'
@@ -21,13 +21,16 @@ Style/ClassAndModuleChildren:
 Style/SymbolProc:
   Enabled: false
 
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Performance/RedundantMerge:
+  Enabled: false
+
 Documentation:
   Enabled: false
 
 Rails/Validation:
-  Enabled: false
-
-Performance/RedundantMerge:
   Enabled: false
 
 Rails/Delegate:

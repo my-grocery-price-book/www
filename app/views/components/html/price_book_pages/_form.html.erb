@@ -1,2 +1,3 @@
 <% page = PriceBook::Page.new %>
+<% params[:book_id] = 'dummy' %>
 <%= render 'price_book_pages/form', page: page, back_href: '#' %>

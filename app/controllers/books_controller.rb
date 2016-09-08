@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class BooksController < ApplicationController
   before_action :authenticate_shopper!
 
@@ -7,7 +8,7 @@ class BooksController < ApplicationController
 
   def update
     if book.update(book_params)
-      redirect_to (session[:book_update_return] || price_book_pages_path), notice: 'Update successful'
+      redirect_to (session[:book_update_return] || book_pages_path(book)), notice: 'Update successful'
       session[:book_update_return] = nil
     else
       render :edit

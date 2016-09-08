@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'test_helper'
 
 class BooksIntegrationTest < IntegrationTest
@@ -30,9 +31,9 @@ class BooksIntegrationTest < IntegrationTest
         assert_equal('New Name', @price_book.name)
       end
 
-      should 'redirect to price_book_pages_path' do
+      should 'redirect to book_pages_path' do
         patch "/books/#{@price_book.to_param}", params: { price_book: { name: 'New Name' } }
-        assert_redirected_to(price_book_pages_path)
+        assert_redirected_to(book_pages_path(@price_book))
       end
     end
 

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 namespace :eslint do
   desc 'run eslint against app/assets/javascripts'
   task :run do

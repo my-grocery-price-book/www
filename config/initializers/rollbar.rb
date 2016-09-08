@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rollbar/rails'
 Rollbar.configure do |config|
   # Without configuration, Rollbar is enabled in all environments.

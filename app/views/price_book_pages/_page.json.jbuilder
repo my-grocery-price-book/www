@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 json.call(page, :id, :name, :category, :unit)
 json.product_names do
   json.array! page.product_names
@@ -7,5 +8,5 @@ json.best_entry do
 end if page.best_entry
 json.add_entry_url new_book_page_entry_path(page.price_book_id, page)
 json.show_url book_page_url(page.price_book_id, page)
-json.edit_url edit_price_book_page_url(page)
-json.delete_url delete_price_book_page_url(page)
+json.edit_url edit_book_page_url(page.price_book_id, page)
+json.delete_url delete_book_page_url(page.price_book_id, page)
