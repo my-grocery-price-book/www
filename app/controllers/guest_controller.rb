@@ -15,10 +15,7 @@ class GuestController < ApplicationController
   def do_register
     @shopper = current_shopper
     if @shopper.update(shopper_params)
-      sign_out(@shopper)
-      @shopper.send_confirmation_instructions
-      @shopper.update_attribute(:guest, false)
-      sign_in(@shopper)
+      resign_in_and_send_confirmation
       redirect_to session[:guest_register_return] || root_path, notice: 'You have registered successfully.'
     else
       render :register
@@ -26,6 +23,13 @@ class GuestController < ApplicationController
   end
 
   private
+
+  def resign_in_and_send_confirmation
+    sign_out(@shopper)
+    @shopper.send_confirmation_instructions
+    @shopper.update_attribute(:guest, false)
+    sign_in(@shopper)
+  end
 
   # Only allow a trusted parameter "white item" through.
   def shopper_params

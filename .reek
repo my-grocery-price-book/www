@@ -1,46 +1,6 @@
 ---
 TooManyStatements:
-  max_statements: 7
-  exclude:
-  - initialize
-  - EntriesController#create
-  - GuestController#do_register
-  - ShoppingListsController#update
-  - DeviseCustomFailure#to_shopper_registration
-  - EntryOwner#self.name_suggestions
-  - ShoppingList#self.item_names_for_book
-  - SocialProfile#oneall_token_response
-  - CreatePurchaseItems#change
-  - DeviseCreateShoppers#change
-  - CreateCms#self.down
-  - CreateCms#self.up
-  - CreatePriceBooks#change
-  - CreateShoppingListItems#change
-  - CreateInvites#change
-  - CreatePriceEntries#change
-  - ChangeEntryOwnersToUuid#down
-  - ChangeEntryOwnersToUuid#up
-  - ChangeInvitesToUuid#down
-  - ChangeInvitesToUuid#up
-  - ChangeMembersToUuid#down
-  - ChangeMembersToUuid#up
-  - ChangePriceBookPagesToUuid#down
-  - ChangePriceBookPagesToUuid#up
-  - ChangeShoppingListItemPurchasesToUuid#down
-  - ChangeShoppingListItemPurchasesToUuid#up
-  - ChangeShoppingListItemsToUuid#down
-  - ChangeShoppingListItemsToUuid#up
-  - ChangePriceBooksToUuid#down
-  - ChangePriceBooksToUuid#up
-  - ChangePriceEntriesToUuid#down
-  - ChangePriceEntriesToUuid#up
-  - ChangeShoppersToUuid#down
-  - ChangeShoppersToUuid#up
-  - ChangeShoppingListsToUuid#down
-  - ChangeShoppingListsToUuid#up
-  - ChangeStoresToUuid#down
-  - ChangeStoresToUuid#up
-  - BuildShoppingListTest#create_shopping_list
+  max_statements: 6
 TooManyInstanceVariables:
   exclude:
   - ShoppingListItemsController
