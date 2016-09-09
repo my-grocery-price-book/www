@@ -117,6 +117,7 @@ UncommunicativeVariableName:
   - ChangeStoresToUuid#up_dependent_table
   - ShoppingListItemPurchasesControllerTest
 UtilityFunction:
+  public_methods_only: true
   exclude:
   - BookHelper#book_region_options
   - EntriesHelper#stores_options_for_book
@@ -248,3 +249,17 @@ FeatureEnvy:
 LongParameterList:
   exclude:
   - add_new_entry_to_page
+InstanceVariableAssumption:
+  exclude:
+  - BookRegionsController
+  - BookStoresController
+  - EntriesController
+  - GuestController
+  - InvitesController
+  - PriceBookPagesController
+  - ShoppingListItemsController
+  - PriceBook
+  - SocialProfile
+  - PersonaSession
+  - EntriesIntegrationTest
+  - EntrySuggestionsIntegrationTest
