@@ -17,7 +17,7 @@ Rollbar.configure do |config|
   # config.person_username_method = "my_username"
   # config.person_email_method = "my_email"
 
-  config.js_enabled = Rails.env.production? || ENV['CI'].present?
+  config.js_enabled = Rails.env.production?
   config.js_options = {
     accessToken: ENV['ROLLBAR_ACCESS_TOKEN'],
     captureUncaught: true,
