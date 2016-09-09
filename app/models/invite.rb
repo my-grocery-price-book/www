@@ -55,4 +55,8 @@ class Invite < ApplicationRecord
   def reject
     update(status: 'rejected')
   end
+
+  def no_shopper_exists?
+    Shopper.where(email: email).empty?
+  end
 end

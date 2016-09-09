@@ -38,7 +38,7 @@ class RegionFinder
     end
   end
 
-  def countries
+  def self.countries
     Carmen::World.instance.subregions.sort_by(&:name)
   end
 

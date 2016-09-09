@@ -16,10 +16,6 @@
 require 'test_helper'
 
 describe PriceBook do
-  def add_page!(price_book, attrs)
-    PriceBook::Page.create!(attrs.merge(book: price_book))
-  end
-
   describe 'Defaults' do
     it 'has a default name for a price book' do
       PriceBook.new.name.must_equal('My Price Book')
@@ -75,7 +71,7 @@ describe PriceBook do
     end
 
     it 'allows to destroy when pages exist' do
-      page = add_page!(subject, name: 'Soda', category: 'Drinks', unit: 'Liters')
+      page = FactoryGirl.create(:page, book: subject)
       subject.destroy
       -> { page.reload }.must_raise(ActiveRecord::RecordNotFound)
       -> { subject.reload }.must_raise(ActiveRecord::RecordNotFound)

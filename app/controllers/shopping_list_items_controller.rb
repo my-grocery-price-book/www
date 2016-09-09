@@ -2,11 +2,6 @@
 class ShoppingListItemsController < ApplicationController
   before_action :authenticate_shopper!
 
-  def names
-    @book = PriceBook.find_for_shopper(current_shopper, params[:book_id])
-    @names = ShoppingList.item_names_for_book(@book, query: params[:query])
-  end
-
   def index
     @pages = PriceBook::Page.for_book(shopping_list.book)
     fresh_when last_modified: shopping_list.updated_at.utc,
@@ -24,7 +19,7 @@ class ShoppingListItemsController < ApplicationController
   end
 
   def create
-    @item = shopping_list.create_item!(item_params)
+    @shopping_list_item = shopping_list.create_item!(item_params)
     respond_to do |format|
       format.html { redirect_to shopping_list_items_path(shopping_list) }
       format.json

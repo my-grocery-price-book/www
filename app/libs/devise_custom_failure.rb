@@ -13,13 +13,9 @@ class DeviseCustomFailure < Devise::FailureApp
     return nil unless controller_params[:controller] == 'invites'
 
     invite = Invite.find_by(token: controller_params[:id])
-    return nil unless shopper_exists?(invite)
+    return nil unless invite.try(:no_shopper_exists?)
 
     new_shopper_registration_path(name: invite.name, email: invite.email)
-  end
-
-  def shopper_exists?(invite)
-    invite && !Shopper.find_by(email: invite.email)
   end
 
   public
