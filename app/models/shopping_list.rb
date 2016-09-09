@@ -96,8 +96,8 @@ class ShoppingList < ApplicationRecord
   end
 
   def title
-    t = super
-    t.present? ? t : created_at.try(:to_date)
+    saved_title = super
+    saved_title.present? ? saved_title : created_at.try(:to_date)
   end
 
   def to_s

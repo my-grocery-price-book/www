@@ -15,9 +15,9 @@ module Project
 
     config.active_record.schema_format = :sql
 
-    config.generators do |g|
-      g.template_engine :erb
-      g.orm :active_record, primary_key_type: :uuid
+    config.generators do |generator|
+      generator.template_engine :erb
+      generator.orm :active_record, primary_key_type: :uuid
     end
 
     Rails.application.config.assets.precompile +=
