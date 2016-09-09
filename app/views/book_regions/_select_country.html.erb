@@ -2,7 +2,7 @@
 <label for="country_select_filter">Filter:</label>
 <input id="country_select_filter">
 <ul class="list-unstyled">
-  <% RegionFinder.instance.countries.each do |country| %>
+  <% RegionFinder.countries.each do |country| %>
     <li data-country-item>
       <a href="<%= new_book_regions_path(book,country.alpha_3_code) %>">
         <%= country.name %>
