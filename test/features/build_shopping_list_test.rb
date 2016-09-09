@@ -1,53 +1,67 @@
 require 'features_helper'
 
 class BuildShoppingListTest < FeatureTest
-  def create_shopping_list(shopper)
-    assert shopper.has_text?('Shopping List')
-    shopper.perform do
+  module ShoppingListManager
+    def create_shopping_list(assertor)
+      assertor.assert has_text?('Shopping List')
       click_on 'New Shopping List'
-      fill_in 'Item name', with: 'bread'
+    end
+
+    def add_items_to_shopping_list(assertor)
+      add_items('bread','eggs','milk')
+      %w(bread eggs milk).each do |item_name|
+        assertor.assert has_text?(item_name)
+      end
+    end
+
+    def update_items_on_shopping_list(assertor)
+      purchase_bread
+      delete_eggs
+
+      using_wait_time(5) do
+        assertor.assert has_no_text?('eggs')
+        %w(bread milk).each do |item_name|
+          assertor.assert has_text?(item_name)
+        end
+      end
+    end
+
+    private
+
+    def add_items(*item_names)
+      item_names.each do |item_name|
+        add_item(item_name)
+      end
+    end
+
+    def add_item(item_name)
+      fill_in 'Item name', with: item_name
       click_button 'Add'
     end
 
-    assert shopper.has_text?('bread')
-
-    shopper.perform do
-      fill_in 'Item name', with: 'eggs'
-      click_button 'Add'
-    end
-
-    assert shopper.has_text?('bread')
-    assert shopper.has_text?('eggs')
-
-    shopper.perform do
-      fill_in 'Item name', with: 'milk'
-      click_button 'Add'
-    end
-
-    assert shopper.has_text?('bread')
-    assert shopper.has_text?('eggs')
-    assert shopper.has_text?('milk')
-
-    shopper.perform do
+    def purchase_bread
       within('[data-item-name="bread"]') do
         click_on 'purchased'
       end
+    end
 
+    def delete_eggs
       within('[data-item-name="eggs"]') do
         click_on 'delete'
         click_on 'OK' # confirm the delete
       end
     end
+  end
 
-    shopper.using_wait_time(5) do
-      assert shopper.has_no_text?('eggs')
-      assert shopper.has_text?('bread')
-      assert shopper.has_text?('milk')
-    end
+  def create_shopping_list(shopper)
+    shopper.create_shopping_list(self)
+    shopper.add_items_to_shopping_list(self)
+    shopper.update_items_on_shopping_list(self)
   end
 
   test 'create shopping list as logged in shopper' do
-    @shopper = ShopperPersonaSession.new(email: 'shopper@example.com')
+    @shopper = ShopperPersonaSession.new(email: 'shopper@example.com').extend(ShoppingListManager)
+
     @shopper.sign_up
     @shopper.perform do
       visit '/shopping_lists'
@@ -56,7 +70,7 @@ class BuildShoppingListTest < FeatureTest
   end
 
   test 'create shopping list as guest' do
-    @guest = ShopperPersonaSession.new
+    @guest = ShopperPersonaSession.new.extend(ShoppingListManager)
     @guest.perform do
       visit '/shopping_lists'
       click_button 'Log in as Guest'

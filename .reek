@@ -1,12 +1,6 @@
 ---
-DuplicateMethodCall:
-  exclude:
-  - BookRegionsController#new
-  - ProfilesController#update
-  - Shopper#self.find_or_by_social_profile
-  - CreateCms#self.up
-  - BuildShoppingListTest#create_shopping_list
 TooManyStatements:
+  max_statements: 7
   exclude:
   - initialize
   - EntriesController#create

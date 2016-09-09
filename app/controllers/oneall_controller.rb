@@ -5,7 +5,7 @@ class OneallController < ApplicationController
   def callback
     social_profile = SocialProfile.new(params[:connection_token])
     if social_profile.authenticated?
-      shopper = Shopper.find_or_by_social_profile(social_profile)
+      shopper = Shopper.find_or_create_for_social_profile(social_profile)
       sign_in shopper
       redirect_to stored_location_for(:shopper) || book_pages_path(PriceBook.default_for_shopper(shopper)),
                   notice: 'Successfully logged in'

@@ -7,9 +7,10 @@ class BookRegionsController < ApplicationController
   end
 
   def new
-    @regions = RegionFinder.instance.for_alpha_3_code(params[:country_code])
+    country_code = params[:country_code]
+    @regions = RegionFinder.instance.for_alpha_3_code(country_code)
     if @regions.empty?
-      Rollbar.warn("No Regions Found in #{params[:country_code]}")
+      Rollbar.warn("No Regions Found in #{country_code}")
       redirect_to(select_country_book_regions_path, alert: 'no regions found')
     else
       book
