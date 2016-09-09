@@ -2,22 +2,26 @@
 require 'test_helper'
 
 class EntriesIntegrationTest < IntegrationTest
+  attr_reader :current_page
+  attr_reader :current_price_book
+  attr_reader :current_shopper
+
   setup do
-    @shopper = FactoryGirl.create(:shopper)
-    login_shopper(@shopper)
-    @price_book = PriceBook.create!(shopper: @shopper)
-    @page = FactoryGirl.create(:page, book: @price_book)
+    @current_shopper = FactoryGirl.create(:shopper)
+    login_shopper(@current_shopper)
+    @current_price_book = PriceBook.create!(shopper: @current_shopper)
+    @current_page = FactoryGirl.create(:page, book: @current_price_book)
   end
 
   def base_url
-    "/books/#{@price_book.to_param}/pages/#{@page.to_param}/entries"
+    "/books/#{current_price_book.to_param}/pages/#{current_page.to_param}/entries"
   end
 
   context 'GET /books/:book_id/pages/:page_id/entries/:id/edit' do
     context 'own entry' do
       should 'show edit page' do
         entry = FactoryGirl.create(:price_entry)
-        EntryOwner.create!(price_entry: entry, shopper: @shopper)
+        EntryOwner.create!(price_entry: entry, shopper: current_shopper)
         get "#{base_url}/#{entry.to_param}/edit"
         assert_response :success
         assert response.body.include?('Edit')
@@ -46,7 +50,7 @@ class EntriesIntegrationTest < IntegrationTest
     context 'own entry' do
       setup do
         @entry = FactoryGirl.create(:price_entry)
-        EntryOwner.create!(price_entry: @entry, shopper: @shopper)
+        EntryOwner.create!(price_entry: @entry, shopper: current_shopper)
       end
 
       context 'validation failed' do
@@ -69,7 +73,7 @@ class EntriesIntegrationTest < IntegrationTest
         should 'redirects' do
           put "#{base_url}/#{@entry.to_param}",
               params: { price_entry: { product_name: 'New Name' } }
-          assert_redirected_to book_page_path(@price_book, @page)
+          assert_redirected_to book_page_path(current_price_book, current_page)
         end
 
         should 'update entry' do

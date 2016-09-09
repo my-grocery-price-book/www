@@ -5,6 +5,9 @@
 "test/support":
   UtilityFunction:
     enabled: false
+"app/controllers":
+  InstanceVariableAssumption:
+    enabled: false
 TooManyStatements:
   max_statements: 6
 UtilityFunction:
@@ -28,36 +31,6 @@ UncommunicativeParameterName:
   - PriceBook#create_shopping_list!
   - ShoppingList#create_item!
   - ShoppingList#update_item!
-FeatureEnvy:
-  exclude:
-  - CreatePurchases#change
-  - CreatePurchaseItems#change
-  - DeviseCreateShoppers#change
-  - CreateRegularLists#change
-  - CreateShopperApiKeys#change
-  - CreatePriceBooks#change
-  - CreateShoppingLists#change
-  - CreateShoppingListItems#change
-  - CreateShoppingListItemPurchases#change
-  - CreateMembers#change
-  - CreateInvites#change
-  - CreateStores#change
-  - CreatePriceEntries#change
-  - CreateEntryOwners#change
 LongParameterList:
   exclude:
   - add_new_entry_to_page
-InstanceVariableAssumption:
-  exclude:
-  - BookRegionsController
-  - BookStoresController
-  - EntriesController
-  - GuestController
-  - InvitesController
-  - PriceBookPagesController
-  - ShoppingListItemsController
-  - PriceBook
-  - SocialProfile
-  - PersonaSession
-  - EntriesIntegrationTest
-  - EntrySuggestionsIntegrationTest
