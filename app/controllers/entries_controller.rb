@@ -30,7 +30,7 @@ class EntriesController < ApplicationController
     @entry.package_unit = @page.unit
     if @entry.save
       EntryOwner.create_for!(shopper: current_shopper, entry: @entry)
-      @page.new_entry_added!(@entry)
+      @page.new_entry_added(@entry)
       redirect_to session[:book_entry_create_return] || book_page_path(book, @page)
     else
       render 'new'

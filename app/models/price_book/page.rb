@@ -30,8 +30,8 @@ class PriceBook::Page < ApplicationRecord
            'quarts', 'square feet', 'square inch', 'square meter', 'square yard'].freeze
 
   # @param [Store] store
-  def add_store_to_book!(store)
-    book.add_store!(store)
+  def add_store_to_book(store)
+    book.add_store(store)
   end
 
   # @return [PriceEntry]
@@ -45,15 +45,15 @@ class PriceBook::Page < ApplicationRecord
   end
 
   # @param [String] name
-  def add_product_name!(name)
+  def add_product_name(name)
     product_names << name
     save!
   end
 
   # @param [PriceEntry] entry
-  def new_entry_added!(entry)
+  def new_entry_added(entry)
     self.updated_at = Time.current # make page go to top of book
-    add_product_name!(entry.product_name)
+    add_product_name(entry.product_name)
   end
 
   # @param [PriceEntry] entry
@@ -62,7 +62,7 @@ class PriceBook::Page < ApplicationRecord
   def update_entry(entry, params)
     self.class.transaction do
       entry.attributes = params
-      add_product_name!(entry.product_name)
+      add_product_name(entry.product_name)
       entry.save
     end
   end

@@ -36,13 +36,13 @@ class PriceBook < ApplicationRecord
   end
 
   # @param [Store] store
-  def add_store!(store)
+  def add_store(store)
     store_ids << store.id
     save!
   end
 
-  def create_shopping_list!(*a)
-    shopping_lists.create(*a)
+  def create_shopping_list(*args)
+    shopping_lists.create(*args)
   end
 
   def create_member

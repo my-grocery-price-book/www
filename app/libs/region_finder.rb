@@ -44,10 +44,18 @@ class RegionFinder
 
   def initialize
     @all = Carmen::World.instance.subregions.flat_map do |country|
-      country.subregions.map { |region| Region.new(country, region) }
+      regions_for_country(country)
     end
     @all.sort_by!(&:name)
   end
+
+  private
+
+  def regions_for_country(country)
+    country.subregions.map { |region| Region.new(country, region) }
+  end
+
+  public
 
   def each
     @all.each do |item|

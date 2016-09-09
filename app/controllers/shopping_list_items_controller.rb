@@ -19,7 +19,7 @@ class ShoppingListItemsController < ApplicationController
   end
 
   def create
-    @shopping_list_item = shopping_list.create_item!(item_params)
+    @shopping_list_item = shopping_list.create_item(item_params)
     respond_to do |format|
       format.html { redirect_to shopping_list_items_path(shopping_list) }
       format.json
@@ -27,7 +27,7 @@ class ShoppingListItemsController < ApplicationController
   end
 
   def update
-    @shopping_list_item = shopping_list.update_item!(params[:id], item_params)
+    @shopping_list_item = shopping_list.update_item(params[:id], item_params)
     respond_to do |format|
       format.html { redirect_to shopping_list_items_path(shopping_list) }
       format.json

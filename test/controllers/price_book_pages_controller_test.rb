@@ -65,8 +65,8 @@ class PriceBookPagesControllerTest < ActionController::TestCase
 
     should 'shows prices' do
       @store = Store.create(name: 'Test', location: 'Test', region_code: 'ZAR-WC')
-      @price_book.add_store!(@store)
-      @price_book_page.add_product_name!('Red Apples')
+      @price_book.add_store(@store)
+      @price_book_page.add_product_name('Red Apples')
       PriceEntry.create!(date_on: Date.current, store: @store, product_name: 'red apples',
                          amount: 42, package_size: 100, package_unit: 'grams', total_price: '508.66')
 

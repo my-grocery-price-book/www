@@ -14,15 +14,6 @@ UtilityFunction:
   public_methods_only: true
 IrresponsibleModule:
   enabled: false
-NestedIterators:
-  exclude:
-  - RegionFinder#initialize
-PrimaDonnaMethod:
-  exclude:
-  - PriceBook::Page
-  - PriceBook
-  - ShoppingList::Item
-  - ShoppingList
 Attribute:
   exclude:
   - PriceBook#shopper

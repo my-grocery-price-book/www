@@ -9,7 +9,7 @@ class BookStoresController < ApplicationController
   def create
     @store = Store.find_or_initialize(store_params)
     if @store.save
-      @book.add_store!(@store)
+      @book.add_store(@store)
       redirect_to session[:book_store_create_return] || book_pages_path
       session[:book_store_create_return] = nil
     else
