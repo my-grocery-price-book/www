@@ -1,0 +1,250 @@
+---
+DuplicateMethodCall:
+  exclude:
+  - BookRegionsController#new
+  - ProfilesController#update
+  - Shopper#self.find_or_by_social_profile
+  - CreateCms#self.up
+  - BuildShoppingListTest#create_shopping_list
+TooManyStatements:
+  exclude:
+  - initialize
+  - EntriesController#create
+  - GuestController#do_register
+  - ShoppingListsController#update
+  - DeviseCustomFailure#to_shopper_registration
+  - EntryOwner#self.name_suggestions
+  - ShoppingList#self.item_names_for_book
+  - SocialProfile#oneall_token_response
+  - CreatePurchaseItems#change
+  - DeviseCreateShoppers#change
+  - CreateCms#self.down
+  - CreateCms#self.up
+  - CreatePriceBooks#change
+  - CreateShoppingListItems#change
+  - CreateInvites#change
+  - CreatePriceEntries#change
+  - ChangeEntryOwnersToUuid#down
+  - ChangeEntryOwnersToUuid#up
+  - ChangeInvitesToUuid#down
+  - ChangeInvitesToUuid#up
+  - ChangeMembersToUuid#down
+  - ChangeMembersToUuid#up
+  - ChangePriceBookPagesToUuid#down
+  - ChangePriceBookPagesToUuid#up
+  - ChangeShoppingListItemPurchasesToUuid#down
+  - ChangeShoppingListItemPurchasesToUuid#up
+  - ChangeShoppingListItemsToUuid#down
+  - ChangeShoppingListItemsToUuid#up
+  - ChangePriceBooksToUuid#down
+  - ChangePriceBooksToUuid#up
+  - ChangePriceEntriesToUuid#down
+  - ChangePriceEntriesToUuid#up
+  - ChangeShoppersToUuid#down
+  - ChangeShoppersToUuid#up
+  - ChangeShoppingListsToUuid#down
+  - ChangeShoppingListsToUuid#up
+  - ChangeStoresToUuid#down
+  - ChangeStoresToUuid#up
+  - BuildShoppingListTest#create_shopping_list
+TooManyInstanceVariables:
+  exclude:
+  - ShoppingListItemsController
+UncommunicativeVariableName:
+  exclude:
+  - BookHelper#book_region_options
+  - EntriesHelper#stores_options_for_book
+  - StoresHelper#regions_for_book
+  - ShoppingList#title
+  - Project::Application
+  - CreatePurchases#change
+  - CreatePurchaseItems#change
+  - DeviseCreateShoppers#change
+  - AddShopperIdToPurchases#change
+  - CreateCms#self.up
+  - AddCategoryToPurchaseItems#change
+  - CreateRegularLists#change
+  - AddCurrentRegionToShoppers#change
+  - AddShopperIdToRegularItems#change
+  - AddRegularNameToPurchaseItems#change
+  - AddProductNamesToRegularItems#change
+  - AddUnitToPriceBookPages#change
+  - RenameQuanityToQuantityOnPurchaseItems#change
+  - AddCompletedAtToPurchases#change
+  - CreateShopperApiKeys#change
+  - CreatePriceBooks#change
+  - CreateShoppingLists#change
+  - CreateShoppingListItems#change
+  - CreateShoppingListItemPurchases#change
+  - CreateMembers#change
+  - CreateInvites#change
+  - CreateStores#change
+  - CreatePriceEntries#change
+  - AddRegionsToPriceBooks#change
+  - AddStoreIdsToPriceBooks#change
+  - CreateEntryOwners#change
+  - ChangeEntryOwnersToUuid#down
+  - ChangeEntryOwnersToUuid#up
+  - ChangeInvitesToUuid#down
+  - ChangeInvitesToUuid#up
+  - ChangeMembersToUuid#down
+  - ChangeMembersToUuid#up
+  - ChangePriceBookPagesToUuid#down
+  - ChangePriceBookPagesToUuid#up
+  - ChangeShoppingListItemPurchasesToUuid#down
+  - ChangeShoppingListItemPurchasesToUuid#up
+  - ChangeShoppingListItemsToUuid#down
+  - ChangeShoppingListItemsToUuid#up
+  - ChangePriceBooksToUuid#down
+  - ChangePriceBooksToUuid#down_dependent_table
+  - ChangePriceBooksToUuid#up
+  - ChangePriceBooksToUuid#up_dependent_table
+  - ChangePriceEntriesToUuid#down
+  - ChangePriceEntriesToUuid#down_dependent_table
+  - ChangePriceEntriesToUuid#up
+  - ChangePriceEntriesToUuid#up_dependent_table
+  - ChangeShoppersToUuid#down
+  - ChangeShoppersToUuid#down_dependent_table
+  - ChangeShoppersToUuid#up
+  - ChangeShoppersToUuid#up_dependent_table
+  - ChangeShoppingListsToUuid#down
+  - ChangeShoppingListsToUuid#down_dependent_table
+  - ChangeShoppingListsToUuid#up
+  - ChangeShoppingListsToUuid#up_dependent_table
+  - ChangeStoresToUuid#down
+  - ChangeStoresToUuid#down_dependent_table
+  - ChangeStoresToUuid#up
+  - ChangeStoresToUuid#up_dependent_table
+  - ShoppingListItemPurchasesControllerTest
+UtilityFunction:
+  exclude:
+  - BookHelper#book_region_options
+  - EntriesHelper#stores_options_for_book
+  - StoresHelper#regions_for_book
+  - DeviseCustomFailure#shopper_exists?
+  - RegionFinder#countries
+  - SocialProfile#oneall_token_response
+  - add_page!
+  - add_new_entry_to_page
+  - create_shopper
+IrresponsibleModule:
+  exclude:
+  - RegionFinder
+  - RegionFinder::Region
+  - Invite
+  - SocialProfile
+  - CreatePurchases
+  - CreatePurchaseItems
+  - DeviseCreateShoppers
+  - AddShopperIdToPurchases
+  - CreateCms
+  - AddCategoryToPurchaseItems
+  - RemoveColumnsFromPurchasesItems
+  - CreateRegularLists
+  - AddCurrentRegionToShoppers
+  - RenameRegularListsToRegularItems
+  - AddShopperIdToRegularItems
+  - AddRegularNameToPurchaseItems
+  - RemoveForeignKeyFromPurchaseItems
+  - AddProductNamesToRegularItems
+  - RenameRegularItemsToPriceBookPages
+  - AddUnitToPriceBookPages
+  - RenameQuanityToQuantityOnPurchaseItems
+  - AddCompletedAtToPurchases
+  - CreateShopperApiKeys
+  - RenameApiUrlToApiDomainOnShopperApiKey
+  - CreatePriceBooks
+  - ChangeQuantityColumnTypeOnPurchaseItems
+  - CreateShoppingLists
+  - CreateShoppingListItems
+  - RemoveShopperIdKeyConstraintOnPriceBooks
+  - RemoveShopperIdKeyConstraintOnShoppingLists
+  - RemoveShopperIdKeyConstraintOnPurchases
+  - AddTitleToShoppingLists
+  - DropDoneFromShoppingListItems
+  - CreateShoppingListItemPurchases
+  - AddGuestToShoppers
+  - DropUniqueEmailIndexOnShoppers
+  - CreateMembers
+  - DeprecateShopperIdOnPriceBooks
+  - AddNameToPriceBook
+  - AddShopperIdMigratedToPriceBook
+  - AddPriceBookToShoppingList
+  - DeprecateShopperIdOnShoppingList
+  - CreateInvites
+  - AddIndexOnCreatedAtForShoppingListItems
+  - CreateStores
+  - CreatePriceEntries
+  - DropCurrentPublicApiFromShoppers
+  - DropShopperApiKeys
+  - DropPurchasesAndItems
+  - AddRegionsToPriceBooks
+  - RenamePricePerPackageInCentsToTotalPriceInCentsOnPriceEntries
+  - AddTotalPriceUsingMoneyToPriceEntries
+  - AddRegionToStores
+  - AddStoreIdsToPriceBooks
+  - AddIndexesToStores
+  - CreateEntryOwners
+  - AddIndexesToPriceEntries
+  - AddDefaultAmountToShoppingListItems
+  - AddIndexToPriceEntriesForDateOn
+  - AddIndexToPriceBookPagesUpdatedAt
+  - EnableUuidOssp
+  - ChangeEntryOwnersToUuid
+  - ChangeInvitesToUuid
+  - ChangeMembersToUuid
+  - ChangePriceBookPagesToUuid
+  - ChangeShoppingListItemPurchasesToUuid
+  - ChangeShoppingListItemsToUuid
+  - ChangePriceBooksToUuid
+  - ChangePriceEntriesToUuid
+  - DropPriceBooksDeprecatedColumns
+  - DropShoppingListDeprecatedColumns
+  - ChangeShoppersToUuid
+  - ChangeShoppingListsToUuid
+  - ChangeStoresToUuid
+  - BuildShoppingListTest
+  - FeatureTest
+  - PersonaSession
+  - ShopperPersonaSession
+  - EntriesIntegrationTest
+  - EntrySuggestionsIntegrationTest
+  - ShoppingList::ItemTest
+  - ActionDispatch::IntegrationTest
+  - IntegrationTest
+NestedIterators:
+  exclude:
+  - RegionFinder#initialize
+PrimaDonnaMethod:
+  exclude:
+  - PriceBook::Page
+  - PriceBook
+  - ShoppingList::Item
+  - ShoppingList
+Attribute:
+  exclude:
+  - PriceBook#shopper
+UncommunicativeParameterName:
+  exclude:
+  - PriceBook#create_shopping_list!
+  - ShoppingList#create_item!
+  - ShoppingList#update_item!
+FeatureEnvy:
+  exclude:
+  - CreatePurchases#change
+  - CreatePurchaseItems#change
+  - DeviseCreateShoppers#change
+  - CreateRegularLists#change
+  - CreateShopperApiKeys#change
+  - CreatePriceBooks#change
+  - CreateShoppingLists#change
+  - CreateShoppingListItems#change
+  - CreateShoppingListItemPurchases#change
+  - CreateMembers#change
+  - CreateInvites#change
+  - CreateStores#change
+  - CreatePriceEntries#change
+  - CreateEntryOwners#change
+LongParameterList:
+  exclude:
+  - add_new_entry_to_page
