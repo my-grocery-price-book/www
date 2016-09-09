@@ -34,11 +34,9 @@ class EntryOwner < ApplicationRecord
     entry_owners = includes(:price_entry).joins(:price_entry).where(shopper_id: shopper.id).limit(1000)
     entry_owners = entry_owners.where('price_entries.created_at > ?', 6.months.ago)
     entry_owners = entry_owners.where('price_entries.product_name ILIKE ?', "%#{query}%")
-    suggestions = Set.new
-    entry_owners.each do |entry|
+    entry_owners.each_with_object(Set.new) do |entry, suggestions|
       suggestions.add entry.price_entry_product_name
     end
-    suggestions
   end
 
   # @param [Shopper] shopper
