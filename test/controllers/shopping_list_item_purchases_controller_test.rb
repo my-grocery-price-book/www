@@ -37,8 +37,8 @@ class ShoppingListItemPurchasesControllerTest < ActionController::TestCase
     end
 
     should 'redirect to shopping list items for html format with multiple items' do
-      shopping_list_item2 = @shopping_list.items.create!(name: 'Bread')
-      post :create, params: { item_id: shopping_list_item2.id,
+      another_list_item = @shopping_list.items.create!(name: 'Bread')
+      post :create, params: { item_id: another_list_item.id,
                               shopping_list_id: @shopping_list.to_param }
       assert_redirected_to shopping_list_items_path(@shopping_list)
     end
@@ -83,9 +83,9 @@ class ShoppingListItemPurchasesControllerTest < ActionController::TestCase
     end
 
     should 'redirect to shopping list items for html format with multiple items' do
-      shopping_list_item2 = @shopping_list.items.create!(name: 'Bread')
-      shopping_list_item2.create_purchase
-      delete :destroy, params: { item_id: shopping_list_item2.to_param,
+      another_list_item = @shopping_list.items.create!(name: 'Bread')
+      another_list_item.create_purchase
+      delete :destroy, params: { item_id: another_list_item.to_param,
                                  shopping_list_id: @shopping_list.to_param }
       assert_redirected_to shopping_list_items_path(@shopping_list)
     end
