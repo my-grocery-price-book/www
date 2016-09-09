@@ -32,11 +32,16 @@ class Shopper < ApplicationRecord
 
   # @param [SocialProfile] social_profile
   # @return [Shopper]
-  def self.find_or_by_social_profile(social_profile)
-    shopper = find_by(email: social_profile.email)
-    shopper ||= create!(email: social_profile.email, password: SecureRandom.hex)
-    shopper.skip_confirmation!
-    shopper
+  def self.find_or_create_for_social_profile(social_profile)
+    find_or_initialize_by(email: social_profile.email).tap do |shopper|
+      shopper.create_for_social_profile
+    end
+  end
+
+  def create_for_social_profile
+    self.password = SecureRandom.hex if new_record?
+    skip_confirmation! unless confirmed?
+    save!
   end
 
   def password_required?
