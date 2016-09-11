@@ -74,5 +74,4 @@ class EntriesEditIntegrationTest < EntriesIntegrationTest
       end
     end
   end
-
 end

@@ -37,7 +37,8 @@ class EntriesNewIntegrationTest < EntriesIntegrationTest
       context 'page belongs to another book' do
         should 'raise ActiveRecord::RecordNotFound error' do
           another_book = PriceBook.create!
-          another_page = PriceBook::Page.create!(book: another_book, name: 'Beans', category: 'Cupboard Food', unit: 'grams')
+          another_page = PriceBook::Page.create!(book: another_book, name: 'Beans',
+                                                 category: 'Cupboard Food', unit: 'grams')
           assert_raises(ActiveRecord::RecordNotFound) do
             get "/books/#{price_book.to_param}/pages/#{another_page.to_param}/entries/new"
           end
