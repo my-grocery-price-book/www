@@ -33,7 +33,7 @@ describe ShoppingList do
     before do
       subject.reload
       @original_time = subject.updated_at
-      @new_item = subject.create_item!(name: 'Test', amount: '1', unit: 'kg')
+      @new_item = subject.create_item(name: 'Test', amount: '1', unit: 'kg')
     end
 
     it 'returns newly created item' do
@@ -58,7 +58,7 @@ describe ShoppingList do
       subject.reload
       @original_time = subject.updated_at
       item = FactoryGirl.create(:item, shopping_list_id: subject.id)
-      @updated_item = subject.update_item!(item.id, name: 'Test', amount: '1', unit: 'kg')
+      @updated_item = subject.update_item(item.id, name: 'Test', amount: '1', unit: 'kg')
     end
 
     it 'returns updated item' do
@@ -83,7 +83,7 @@ describe ShoppingList do
       subject.reload
       @original_time = subject.updated_at
       item = FactoryGirl.create(:item, shopping_list_id: subject.id)
-      @updated_item = subject.purchase_item!(item.id)
+      @updated_item = subject.purchase_item(item.id)
     end
 
     it 'returns updated item' do
@@ -101,10 +101,10 @@ describe ShoppingList do
 
     before do
       item = FactoryGirl.create(:item, shopping_list_id: subject.id)
-      @updated_item = subject.purchase_item!(item.id)
+      @updated_item = subject.purchase_item(item.id)
       subject.reload
       @original_time = subject.updated_at
-      @updated_item = subject.unpurchase_item!(item.id)
+      @updated_item = subject.unpurchase_item(item.id)
     end
 
     it 'returns updated item' do
@@ -145,52 +145,52 @@ describe ShoppingList do
   describe '.item_names_for_book' do
     before do
       @book = PriceBook.create!
-      @shopping_list = @book.create_shopping_list!
+      @shopping_list = @book.create_shopping_list
     end
 
     it 'returns all item names' do
-      @shopping_list.create_item!(name: 'Cheese')
+      @shopping_list.create_item(name: 'Cheese')
       names = ShoppingList.item_names_for_book(@book, query: nil)
       assert_equal(['Cheese'], names)
     end
 
     it 'returns them in alphabetical order' do
-      @shopping_list.create_item!(name: 'Cheese')
-      @shopping_list.create_item!(name: 'Meat')
-      @shopping_list.create_item!(name: 'Apples')
+      @shopping_list.create_item(name: 'Cheese')
+      @shopping_list.create_item(name: 'Meat')
+      @shopping_list.create_item(name: 'Apples')
       names = ShoppingList.item_names_for_book(@book, query: nil)
       assert_equal(%w(Apples Cheese Meat), names)
     end
 
     it 'returns items filtered' do
-      @shopping_list.create_item!(name: 'Cheese')
-      @shopping_list.create_item!(name: 'Meat')
-      @shopping_list.create_item!(name: 'Apples')
+      @shopping_list.create_item(name: 'Cheese')
+      @shopping_list.create_item(name: 'Meat')
+      @shopping_list.create_item(name: 'Apples')
       names = ShoppingList.item_names_for_book(@book, query: 's')
       assert_equal(%w(Apples Cheese), names)
     end
 
     it 'ignores duplicates' do
-      @shopping_list.create_item!(name: 'Cheese')
-      @shopping_list.create_item!(name: 'Cheese')
+      @shopping_list.create_item(name: 'Cheese')
+      @shopping_list.create_item(name: 'Cheese')
       names = ShoppingList.item_names_for_book(@book, query: nil)
       assert_equal(['Cheese'], names)
     end
 
     it 'ignores case duplicates' do
-      @shopping_list.create_item!(name: 'Cheese')
-      @shopping_list.create_item!(name: 'cheese')
-      @shopping_list.create_item!(name: 'apples')
-      @shopping_list.create_item!(name: 'appleS')
+      @shopping_list.create_item(name: 'Cheese')
+      @shopping_list.create_item(name: 'cheese')
+      @shopping_list.create_item(name: 'apples')
+      @shopping_list.create_item(name: 'appleS')
       names = ShoppingList.item_names_for_book(@book, query: nil)
       assert_equal(%w(apples cheese), names)
     end
 
     it 'ignores items of other books' do
       other_book = PriceBook.create!
-      other_shopping_list = other_book.create_shopping_list!
+      other_shopping_list = other_book.create_shopping_list
 
-      other_shopping_list.create_item!(name: 'Bread')
+      other_shopping_list.create_item(name: 'Bread')
 
       names = ShoppingList.item_names_for_book(@book, query: nil)
       assert_equal([], names)
@@ -199,10 +199,10 @@ describe ShoppingList do
     it 'limits to ten results' do
       results = ('a'..'z')
       results.each do |r|
-        @shopping_list.create_item!(name: r)
+        @shopping_list.create_item(name: r)
       end
       ('A'..'Z').each do |r|
-        @shopping_list.create_item!(name: r)
+        @shopping_list.create_item(name: r)
       end
 
       names = ShoppingList.item_names_for_book(@book, query: nil)
@@ -210,8 +210,8 @@ describe ShoppingList do
     end
 
     it 'ignores items older than 6 months' do
-      @shopping_list.create_item!(name: 'Butter', created_at: 6.months.ago - 1.day)
-      @shopping_list.create_item!(name: 'Bread', created_at: 6.months.ago + 1.day)
+      @shopping_list.create_item(name: 'Butter', created_at: 6.months.ago - 1.day)
+      @shopping_list.create_item(name: 'Bread', created_at: 6.months.ago + 1.day)
 
       names = ShoppingList.item_names_for_book(@book, query: nil)
       assert_equal(['Bread'], names)

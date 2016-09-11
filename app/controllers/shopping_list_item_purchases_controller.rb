@@ -3,7 +3,7 @@ class ShoppingListItemPurchasesController < ApplicationController
   before_action :authenticate_shopper!
 
   def create
-    @shopping_list_item = shopping_list.purchase_item!(params[:item_id])
+    @shopping_list_item = shopping_list.purchase_item(params[:item_id])
     respond_to do |format|
       format.html do
         redirect_to shopping_list_items_path(shopping_list)
@@ -13,7 +13,7 @@ class ShoppingListItemPurchasesController < ApplicationController
   end
 
   def destroy
-    @shopping_list_item = shopping_list.unpurchase_item!(params[:item_id])
+    @shopping_list_item = shopping_list.unpurchase_item(params[:item_id])
     respond_to do |format|
       format.html do
         redirect_to shopping_list_items_path(shopping_list)

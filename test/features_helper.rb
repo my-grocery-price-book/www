@@ -29,13 +29,6 @@ class PersonaSession
     @page ||= Capybara::Session.new(Capybara.current_driver, Capybara.app)
   end
 
-  def click_link_in_email(link_name)
-    email = open_email(@email)
-    host = Rails.configuration.action_mailer.default_url_options[:host]
-    link_path = email.find_link(link_name)[:href].gsub("http://#{host}", '')
-    visit link_path
-  end
-
   # rubocop:disable Lint/Debugger
   def content_with_screenshot?(*args)
     if content_without_screenshot?(*args)
@@ -90,6 +83,13 @@ class ShopperPersonaSession < PersonaSession
     super()
     @email = email
     @password = 'password'
+  end
+
+  def click_link_in_email(link_name)
+    email = open_email(@email)
+    host = Rails.configuration.action_mailer.default_url_options[:host]
+    link_path = email.find_link(link_name)[:href].gsub("http://#{host}", '')
+    visit link_path
   end
 
   def sign_up

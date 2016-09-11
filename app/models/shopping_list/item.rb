@@ -20,12 +20,12 @@ class ShoppingList::Item < ApplicationRecord
           foreign_key: 'shopping_list_item_id',
           dependent: :destroy
 
-  def purchase!
+  def purchase_it
     create_purchase
     touch
   end
 
-  def unpurchase!
+  def unpurchase_it
     purchase.destroy
     reload
     touch

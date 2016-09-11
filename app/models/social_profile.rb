@@ -2,9 +2,38 @@
 require 'faraday'
 
 class SocialProfile
+  class OneAllReponse
+    def initialize(raw_response)
+      @response = MultiJson.load(raw_response.body).fetch('response')
+    end
+
+    def success?
+      @response.dig('request', 'status', 'code') == 200
+    end
+
+    def email
+      emails = identity['emails'] || [{}]
+      emails.first['value']
+    end
+
+    def provider
+      identity['provider']
+    end
+
+    private
+
+    def identity
+      @response.dig('result', 'data', 'user', 'identity')
+    end
+  end
+
+  attr_reader :authenticated
+  attr_reader :email
+  attr_reader :provider
+
   def initialize(token)
     response = oneall_token_response(token)
-    parse_response(response)
+    parse_response(OneAllReponse.new(response))
   end
 
   private
@@ -19,12 +48,14 @@ class SocialProfile
     conn.get("/connections/#{token}.json")
   end
 
+  # @param [OneAllReponse] response
   def parse_response(response)
-    response = MultiJson.load(response.body).fetch('response')
-    @authenticated = response.dig('request', 'status', 'code') == 200
-    if @authenticated
-      @identity = response.dig('result', 'data', 'user', 'identity')
+    if response.success?
+      @email = response.email
+      @provider = response.provider
+      @authenticated = true
     else
+      @authenticated = false
       Rollbar.warn('Authentication Failed', response: response)
     end
   end
@@ -33,17 +64,6 @@ class SocialProfile
 
   # @return [true,false]
   def authenticated?
-    @authenticated
-  end
-
-  # @return [String]
-  def email
-    emails = @identity['emails'] || [{}]
-    emails.first['value']
-  end
-
-  # @return [Provider]
-  def provider
-    @identity['provider']
+    authenticated
   end
 end

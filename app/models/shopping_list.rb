@@ -27,8 +27,8 @@ class ShoppingList < ApplicationRecord
   end
 
   # @return [ShoppingList::Item]
-  def create_item!(*a)
-    item = items.create!(*a)
+  def create_item(*item_args)
+    item = items.create!(*item_args)
     touch
     item
   end
@@ -39,9 +39,9 @@ class ShoppingList < ApplicationRecord
   end
 
   # @return [ShoppingList::Item]
-  def update_item!(item_id, *a)
+  def update_item(item_id, *item_args)
     item = find_item(item_id)
-    item.update!(*a)
+    item.update!(*item_args)
     touch
     item
   end
@@ -55,17 +55,17 @@ class ShoppingList < ApplicationRecord
   end
 
   # @return [ShoppingList::Item]
-  def purchase_item!(item_id)
+  def purchase_item(item_id)
     item = find_item(item_id)
-    item.purchase!
+    item.purchase_it
     touch
     item
   end
 
   # @return [ShoppingList::Item]
-  def unpurchase_item!(item_id)
+  def unpurchase_item(item_id)
     item = find_item(item_id)
-    item.unpurchase!
+    item.unpurchase_it
     touch
     item
   end
