@@ -18,7 +18,7 @@ class BuildShoppingListTest < FeatureTest
       purchase_bread
       delete_eggs
 
-      using_wait_time(5) do
+      using_wait_time(6) do
         assertor.assert has_no_text?('eggs')
         %w(bread milk).each do |item_name|
           assertor.assert has_text?(item_name)
