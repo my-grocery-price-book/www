@@ -1,31 +1,38 @@
 require 'features_helper'
 
 class TrackingPricesTest < FeatureTest
-  setup do
-    @grant = ShopperPersonaSession.new(email: 'grant@example.com')
-    @grant.sign_up
-    @pat = ShopperPersonaSession.new(email: 'pat@example.com')
-    @pat.sign_up
-  end
-
-  test 'Grant tracks price of Sugar for the first time and Pat sees it' do
-    @grant.perform do
+  module TrackingShopper
+    def add_sugar_entry
       click_link 'Price Book'
       click_on 'Sugar'
       click_on 'New Price'
 
       # need to select a region first
+      set_book_region
+
+      # need to create a new store first
+      create_pick_n_pay_store
+
+      # start filling in the price
+      complete_sugar_entry
+    end
+
+    private
+
+    def set_book_region
       click_on 'South Africa'
       select 'Western Cape', from: 'Region'
       click_on 'Save'
+    end
 
-      # need to create a new store first
+    def create_pick_n_pay_store
       click_link 'New Store'
       fill_in 'Name', with: 'Pick n Pay'
       fill_in 'Location', with: 'Canal Walk'
       click_on 'Save'
+    end
 
-      # start filling in the price
+    def complete_sugar_entry
       select 'Pick n Pay - Canal Walk', from: 'Store'
       fill_in 'Product name', with: 'White Sugar'
       fill_in 'Amount', with: '1'
@@ -33,6 +40,17 @@ class TrackingPricesTest < FeatureTest
       fill_in 'Total price', with: '10'
       click_on 'Save'
     end
+  end
+
+  setup do
+    @grant = ShopperPersonaSession.new(email: 'grant@example.com').extend(TrackingShopper)
+    @grant.sign_up
+    @pat = ShopperPersonaSession.new(email: 'pat@example.com').extend(TrackingShopper)
+    @pat.sign_up
+  end
+
+  test 'Grant tracks price of Sugar for the first time and Pat sees it' do
+    @grant.add_sugar_entry
 
     assert @grant.has_content?('White Sugar')
     assert @grant.has_content?('410')
@@ -75,33 +93,10 @@ class TrackingPricesTest < FeatureTest
   end
 
   test 'Grant tracks price of Sugar incorrectly and needs to edit it' do
-    @grant.perform do
-      click_link 'Price Book'
-      click_on 'Sugar'
-      click_on 'New Price'
-
-      # need to select a region first
-      click_on 'South Africa'
-      select 'Western Cape', from: 'Region'
-      click_on 'Save'
-
-      # need to create a new store first
-      click_link 'New Store'
-      fill_in 'Name', with: 'Pick n Pay'
-      fill_in 'Location', with: 'Canal Walk'
-      click_on 'Save'
-
-      # start filling in the price
-      select 'Pick n Pay - Canal Walk', from: 'Store'
-      fill_in 'Product name', with: 'Sugar'
-      fill_in 'Amount', with: '1'
-      fill_in 'Package size', with: '4100'
-      fill_in 'Total price', with: '10'
-      click_on 'Save'
-    end
+    @grant.add_sugar_entry
 
     assert @grant.has_content?('Sugar')
-    assert @grant.has_content?('4100')
+    assert @grant.has_content?('410')
 
     @grant.perform do
       click_link 'Edit Entry'

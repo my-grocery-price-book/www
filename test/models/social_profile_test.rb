@@ -7,13 +7,21 @@ describe SocialProfile do
     @token = 'testtoken123'
   end
 
+  attr_reader :token
+
+  def stub_url
+    "https://#{ENV['ONE_ALL_SUBDOMAIN']}.api.oneall.com/connections/#{token}.json"
+  end
+
+  def stub_one_all_request_to_return(args)
+    stub_request(:get, stub_url).to_return(args)
+  end
+
   describe 'connects successfully' do
     describe 'with facebook' do
       before do
-        stub_url = "https://#{ENV['ONE_ALL_SUBDOMAIN']}.api.oneall.com/connections/#{@token}.json"
-        stub_request(:get, stub_url)
-          .to_return(status: 200, headers: {},
-                     body: File.read("#{Rails.root}/test/fixtures/oneall_facebook_response.json"))
+        stub_one_all_request_to_return(status: 200, headers: {},
+                                       body: File.read("#{Rails.root}/test/fixtures/oneall_facebook_response.json"))
       end
 
       it 'must be authenticated' do
@@ -31,10 +39,8 @@ describe SocialProfile do
 
     describe 'with google plus' do
       before do
-        stub_url = "https://#{ENV['ONE_ALL_SUBDOMAIN']}.api.oneall.com/connections/#{@token}.json"
-        stub_request(:get, stub_url)
-          .to_return(status: 200, headers: {},
-                     body: File.read("#{Rails.root}/test/fixtures/oneall_google_plus_response.json"))
+        stub_one_all_request_to_return(status: 200, headers: {},
+                                       body: File.read("#{Rails.root}/test/fixtures/oneall_google_plus_response.json"))
       end
 
       it 'with google plus' do
@@ -54,10 +60,8 @@ describe SocialProfile do
   describe 'connects 404' do
     describe 'with facebook' do
       before do
-        stub_url = "https://#{ENV['ONE_ALL_SUBDOMAIN']}.api.oneall.com/connections/#{@token}.json"
-        stub_request(:get, stub_url)
-          .to_return(status: 404, headers: {},
-                     body: File.read("#{Rails.root}/test/fixtures/oneall_404_response.json"))
+        stub_one_all_request_to_return(status: 404, headers: {},
+                                       body: File.read("#{Rails.root}/test/fixtures/oneall_404_response.json"))
       end
 
       it 'must be authenticated' do
