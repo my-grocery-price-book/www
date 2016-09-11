@@ -96,7 +96,7 @@ class TrackingPricesTest < FeatureTest
     @grant.add_sugar_entry
 
     assert @grant.has_content?('Sugar')
-    assert @grant.has_content?('4100')
+    assert @grant.has_content?('410')
 
     @grant.perform do
       click_link 'Edit Entry'

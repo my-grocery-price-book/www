@@ -38,14 +38,14 @@ class BookStoresIntegrationTest < IntegrationTest
     end
   end
 
+  def post_stores(params)
+    post "/books/#{price_book.to_param}/stores", params: params
+  end
+
   context 'POST /books/:book_id/stores' do
     context 'book region codes set' do
       setup do
         price_book.update!(region_codes: [RegionFinder.instance.first_code])
-      end
-
-      def post_stores(params)
-        post "/books/#{price_book.to_param}/stores", params: params
       end
 
       context 'success' do
