@@ -15,13 +15,4 @@ UtilityFunction:
 IrresponsibleModule:
   enabled: false
 Attribute:
-  exclude:
-  - PriceBook#shopper
-UncommunicativeParameterName:
-  exclude:
-  - PriceBook#create_shopping_list!
-  - ShoppingList#create_item!
-  - ShoppingList#update_item!
-LongParameterList:
-  exclude:
-  - add_new_entry_to_page
+  enabled: false

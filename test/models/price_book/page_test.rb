@@ -105,20 +105,34 @@ describe PriceBook::Page do
     end
 
     it 'find no entries' do
-      entry = add_new_entry_to_page(subject)
+      entry = add_entry(page: subject)
       subject.best_entry.must_equal(entry)
     end
 
     it 'find cheaper entry' do
-      add_new_entry_to_page(subject, amount: 1, package_size: 1, total_price: 2)
-      entry = add_new_entry_to_page(subject, amount: 1, package_size: 1, total_price: 1)
-      subject.best_entry.must_equal(entry)
+      expensive_entry = FactoryGirl.create(:price_entry, amount: 1, package_size: 1, total_price: 2,
+                                                         package_unit: subject.unit)
+      add_entry(page: subject, entry: expensive_entry)
+
+      cheap_entry = FactoryGirl.create(:price_entry, amount: 1, package_size: 1, total_price: 1,
+                                                     package_unit: subject.unit)
+      add_entry(page: subject, entry: cheap_entry)
+
+      subject.best_entry.wont_equal(expensive_entry)
+      subject.best_entry.must_equal(cheap_entry)
     end
 
     it 'find cheapest price_per_unit entry' do
-      add_new_entry_to_page(subject, amount: 1, package_size: 1, total_price: 2)
-      entry = add_new_entry_to_page(subject, amount: 3, package_size: 1, total_price: 4)
-      subject.best_entry.must_equal(entry)
+      expensive_entry = FactoryGirl.create(:price_entry, amount: 1, package_size: 1, total_price: 2,
+                                                         package_unit: subject.unit)
+      add_entry(page: subject, entry: expensive_entry)
+
+      cheap_entry = FactoryGirl.create(:price_entry, amount: 3, package_size: 1, total_price: 4,
+                                                     package_unit: subject.unit)
+      add_entry(page: subject, entry: cheap_entry)
+
+      subject.best_entry.wont_equal(expensive_entry)
+      subject.best_entry.must_equal(cheap_entry)
     end
   end
 end

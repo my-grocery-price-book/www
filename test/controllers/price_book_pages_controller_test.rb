@@ -15,9 +15,10 @@ class PriceBookPagesControllerTest < ActionController::TestCase
     end
 
     should 'be success with price entry' do
-      add_new_entry_to_page(@price_book_page,
-                            store_name: 'Checkers', location: 'George Mall',
-                            product_name: 'Coke')
+      store = FactoryGirl.create(:store, name: 'Checkers', location: 'George Mall')
+      entry = FactoryGirl.create(:price_entry, product_name: 'Coke', store: store,
+                                               package_unit: @price_book_page.unit)
+      add_entry(page: @price_book_page, entry: entry, shopper: @shopper)
       get :index, params: { book_id: @price_book }
       assert_response :success
       assert response.body.include?('Coke')

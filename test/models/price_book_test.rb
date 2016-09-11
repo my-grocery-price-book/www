@@ -37,6 +37,7 @@ describe PriceBook do
 
   describe '#default_for_shopper' do
     let(:shopper) { create_shopper }
+
     let(:default_pages) do
       %w(Apples Bread Cabbage Cheese Chicken Soda Eggs Flour Maize Margarine Milk
          Mince Rice Sugar Tea Coffee)

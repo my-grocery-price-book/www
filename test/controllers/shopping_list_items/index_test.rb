@@ -32,7 +32,7 @@ class ShoppingListItemsControllerTest < ActionController::TestCase
 
     should 'be success with item, matching page and best price' do
       page = FactoryGirl.create(:page, book: @price_book, name: 'Flour')
-      entry = add_new_entry_to_page(page)
+      entry = add_entry(page: page, shopper: @shopper)
       @shopping_list.create_item(name: page.name)
 
       get :index, params: { shopping_list_id: @shopping_list.to_param }

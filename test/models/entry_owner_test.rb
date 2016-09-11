@@ -63,7 +63,8 @@ describe EntryOwner do
 
     it 'returns name suggestions' do
       page = PriceBook::Page.create!(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Liters')
-      entry = add_new_entry_to_page(page, product_name: 'Coke')
+      entry = FactoryGirl.create(:price_entry, product_name: 'Coke', package_unit: page.unit)
+      add_entry(page: page, entry: entry, shopper: shopper)
       EntryOwner.create_for!(shopper: shopper, entry: entry)
       suggestions = EntryOwner.name_suggestions(shopper: shopper)
       suggestions.must_equal(Set.new(['Coke']))
@@ -71,7 +72,8 @@ describe EntryOwner do
 
     it 'returns name suggestions case ignoring case' do
       page = PriceBook::Page.create!(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Liters')
-      entry = add_new_entry_to_page(page, product_name: 'Coke')
+      entry = FactoryGirl.create(:price_entry, product_name: 'Coke', package_unit: page.unit)
+      add_entry(page: page, entry: entry, shopper: shopper)
       EntryOwner.create_for!(shopper: shopper, entry: entry)
       suggestions = EntryOwner.name_suggestions(shopper: shopper, query: 'coke')
       suggestions.must_equal(Set.new(['Coke']))
@@ -79,7 +81,8 @@ describe EntryOwner do
 
     it 'ignores entries older than 6 months' do
       page = PriceBook::Page.create!(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Liters')
-      entry = add_new_entry_to_page(page, product_name: 'Coke')
+      entry = FactoryGirl.create(:price_entry, product_name: 'Coke', package_unit: page.unit)
+      add_entry(page: page, entry: entry, shopper: shopper)
       entry.update_column(:created_at, 7.months.ago)
       EntryOwner.create_for!(shopper: shopper, entry: entry)
       suggestions = EntryOwner.name_suggestions(shopper: shopper)
