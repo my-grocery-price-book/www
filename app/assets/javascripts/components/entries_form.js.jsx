@@ -4,6 +4,7 @@ var EntriesForm = React.createClass({
     entry: React.PropTypes.object,
     package_unit: React.PropTypes.string,
     back_href: React.PropTypes.string,
+    currency_symbol: React.PropTypes.string,
     new_store_href: React.PropTypes.string,
     form_action: React.PropTypes.string,
     form_method: React.PropTypes.string,
@@ -180,10 +181,13 @@ var EntriesForm = React.createClass({
       </div>
       <div className="form-group">
         <label className="sr-only" htmlFor="total_price">Total price</label>
-        <input name="price_entry[total_price]" className="form-control"
-               value={state.total_price} onChange={this.handleTotalPriceChange}
-               id="total_price" type="number" min="0" step="0.01" required
-               placeholder="Total price"/>
+        <div className="input-group">
+          <div className="input-group-addon">{props.currency_symbol}</div>
+          <input name="price_entry[total_price]" className="form-control"
+                 value={state.total_price} onChange={this.handleTotalPriceChange}
+                 id="total_price" type="number" min="0" step="0.01" required
+                 placeholder="Total price"/>
+        </div>
       </div>
       <button className="btn btn-primary">Save</button>
       <a href={props.back_href} className="btn btn-default">Back</a>

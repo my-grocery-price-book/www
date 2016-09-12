@@ -80,6 +80,10 @@ class PriceBook < ApplicationRecord
     region_codes.select(&:present?).any?
   end
 
+  def currency_symbols
+    RegionFinder.instance.find_by_codes(region_codes).map(&:currency_symbol)
+  end
+
   def to_s
     "<PriceBook id:#{id} name:#{name} member_count:#{members.count} />"
   end
