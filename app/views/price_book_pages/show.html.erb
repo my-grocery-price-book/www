@@ -20,7 +20,7 @@
 
       <tbody>
       <% @prices.each do |price| %>
-        <tr>
+        <tr <% if @price_book_page.best_entry == price %>class="success"<% end %>>
           <td><%= price.date_on %></td>
           <td><%= price.store.name %></td>
           <td><%= price.store.location %></td>
