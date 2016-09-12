@@ -5,6 +5,7 @@
                          product_name: @entry.product_name || "", amount: @entry.amount || "",
                          package_size: @entry.package_size || "", store_id: @entry.store_id || ""},
                  back_href: session[:book_store_create_return] || book_page_url(@book, @page),
+                 currency_symbol: @book.currency_symbols.first,
                  new_store_href: new_book_store_url(@book),
                  form_action: book_page_entries_path(@book, @page),
                  form_method: 'post',
