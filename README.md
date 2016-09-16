@@ -13,6 +13,7 @@ For development with [vagrant read this](https://github.com/my-grocery-price-boo
 
  
 ```
+  gem install overcommit rubocop brakeman reek flay
   cp -vn "config/examples/.env.local" ".env" # then edit .env and insert correct details
   bin/setup 
 ```
