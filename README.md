@@ -12,12 +12,16 @@ For development with [vagrant read this](https://github.com/my-grocery-price-boo
  * Imagemagick
 
  
+### Setup
+ 
 ```
+  gem install overcommit rubocop brakeman reek flay # not recommended to be added to Gemfile
+  overcommit --install && overcommit --sign && overcommit --sign pre-commit
   cp -vn "config/examples/.env.local" ".env" # then edit .env and insert correct details
   bin/setup 
 ```
 
-# Development
+### Development
 
 ```
   ./run.sh # starts the server
@@ -25,7 +29,7 @@ For development with [vagrant read this](https://github.com/my-grocery-price-boo
   bin/teaspoon spec # run javascript tests
 ```
 
-catching email
+#### catching email
 
 ```
   gem install mailcatcher # don't add to Gemfile, this step is already done for vagrant/ansible
