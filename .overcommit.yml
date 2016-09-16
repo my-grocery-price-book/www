@@ -16,12 +16,39 @@
 # Uncomment the following lines to make the configuration take effect.
 
 PreCommit:
+  ALL:
+    requires_files: true
+    exclude: &default_excludes
+      - 'vendor/**/*'
+
   RuboCop:
     enabled: true
     on_warn: fail # Treat all warnings as failures
+    install_command: 'gem install rubocop'
 
   Reek:
     enabled: true
+    include:
+      - 'app/**/*'
+      - 'lib/**/*'
+      - 'test/**/*.rb'
+      - 'config/**/*.rb'
+    command: ['reek', 'app', 'lib' ,'test', 'config']
+    install_command: 'gem install reek'
+
+  Flay:
+    enabled: true
+    required_executable: 'flay'
+    install_command: 'gem install flay'
+
+CommitMsg:
+  EmptyMessage:
+    enabled: false
+
+PrePush:
+  Brakeman:
+    enabled: true
+    install_command: 'gem install brakeman'
 #
 #  TrailingWhitespace:
 #    enabled: true
