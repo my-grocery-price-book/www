@@ -4,7 +4,7 @@ describe('ShoppingList', function() {
 
   beforeEach(function() {
     react_dom = TestUtils.renderIntoDocument(
-        <ShoppingList item_id={1} title="My Shopping" item_progress=""/>
+        <ShoppingList item_id={"1"} title="My Shopping" item_progress=""/>
     );
     dom_node = ReactDOM.findDOMNode(react_dom);
   });
