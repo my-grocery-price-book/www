@@ -24,6 +24,9 @@ Style/SymbolProc:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/VariableNumber:
+  Enabled: false
+
 Performance/RedundantMerge:
   Enabled: false
 
