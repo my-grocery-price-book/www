@@ -28,11 +28,6 @@ PreCommit:
 
   Reek:
     enabled: true
-    include:
-      - 'app/**/*'
-      - 'lib/**/*'
-      - 'test/**/*.rb'
-      - 'config/**/*.rb'
     command: ['reek', 'app', 'lib' ,'test', 'config']
     install_command: 'gem install reek'
 
