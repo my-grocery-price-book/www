@@ -1,14 +1,7 @@
-GIT
-  remote: git://github.com/my-grocery-price-book/guard-reek.git
-  revision: 0eb896b0eb3f428f9d8307b3d6a400ce6e60f8b6
-  specs:
-    guard-reek (2.0.0)
-      guard-compat (~> 1.1)
-      reek
-
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.4.0)
     ast (2.3.0)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
@@ -17,11 +10,12 @@ GEM
     brakeman (3.4.0)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
-    codeclimate-engine-rb (0.3.1)
+    codeclimate-engine-rb (0.4.0)
       virtus (~> 1.0)
     coderay (1.1.1)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
+    colorize (0.8.1)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     equalizer (0.0.11)
@@ -32,6 +26,10 @@ GEM
       path_expander (~> 1.0)
       ruby_parser (~> 3.0)
       sexp_processor (~> 4.0)
+    flog (4.4.0)
+      path_expander (~> 1.0)
+      ruby_parser (~> 3.1, > 3.1.0)
+      sexp_processor (~> 4.4)
     formatador (0.2.5)
     guard (2.14.0)
       formatador (>= 0.2.4)
@@ -43,11 +41,16 @@ GEM
       shellany (~> 0.0)
       thor (>= 0.18.1)
     guard-compat (1.2.1)
+    guard-reek (1.0.2)
+      guard-compat (~> 1.1)
+      reek
     guard-rubocop (1.2.0)
       guard (~> 2.0)
       rubocop (~> 0.20)
     ice_nine (0.11.2)
     iniparse (1.4.2)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -58,10 +61,10 @@ GEM
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
-    overcommit (0.36.0)
+    overcommit (0.37.0)
       childprocess (~> 0.5.8)
       iniparse (~> 1.4)
-    parser (2.3.1.3)
+    parser (2.3.1.2)
       ast (~> 2.2)
     path_expander (1.0.0)
     powerpack (0.1.1)
@@ -73,20 +76,29 @@ GEM
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
-    reek (4.4.1)
-      codeclimate-engine-rb (~> 0.3.1)
+    reek (4.5.1)
+      codeclimate-engine-rb (~> 0.4.0)
       parser (~> 2.3.1, >= 2.3.1.2)
       rainbow (~> 2.0)
-    rubocop (0.43.0)
+    rubocop (0.44.1)
       parser (>= 2.3.1.1, < 3.0)
       powerpack (~> 0.1)
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.8.1)
-    ruby_dep (1.4.0)
-    ruby_parser (3.8.2)
+    ruby_dep (1.5.0)
+    ruby_parser (3.8.3)
       sexp_processor (~> 4.1)
+    rubycritic (2.9.4)
+      colorize
+      flay (~> 2.8)
+      flog (~> 4.4)
+      launchy (= 2.4.3)
+      parser (= 2.3.1.2)
+      reek (~> 4.4)
+      ruby_parser (~> 3.8)
+      virtus (~> 1.0)
     sexp_processor (4.7.0)
     shellany (0.0.1)
     slop (3.6.0)
@@ -106,11 +118,12 @@ DEPENDENCIES
   brakeman
   flay
   guard
-  guard-reek!
+  guard-reek
   guard-rubocop
   overcommit
   reek
   rubocop
+  rubycritic
 
 BUNDLED WITH
    1.13.1
