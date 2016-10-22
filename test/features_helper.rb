@@ -52,6 +52,16 @@ class PersonaSession
   alias fill_in_without_screenshot fill_in
   alias fill_in fill_in_with_screenshot
 
+  def select_with_screenshot(*args)
+    select_without_screenshot(*args)
+  rescue Capybara::ElementNotFound
+    save_screenshot
+    raise
+  end
+
+  alias select_without_screenshot select
+  alias select select_with_screenshot
+
   def click_link_with_screenshot(*args)
     click_link_without_screenshot(*args)
   rescue Capybara::ElementNotFound

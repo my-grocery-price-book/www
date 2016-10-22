@@ -31,11 +31,20 @@ class EntriesController < ApplicationController
     if @entry.save
       EntryOwner.create_for!(shopper: current_shopper, entry: @entry)
       @page.new_entry_added(@entry)
-      redirect_to session[:book_entry_create_return] || book_page_path(book, @page)
+      return_for_book_entry_create
     else
       render 'new'
     end
   end
+
+  private
+
+  def return_for_book_entry_create
+    redirect_to session[:book_entry_create_return] || book_page_path(book, @page)
+    session[:book_entry_create_return] = nil
+  end
+
+  public
 
   def edit
     @entry = EntryOwner.find_entry_for_shopper(current_shopper, id: params[:id])
