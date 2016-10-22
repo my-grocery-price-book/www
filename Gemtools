@@ -7,6 +7,7 @@ gem 'brakeman'
 gem 'reek'
 gem 'flay'
 gem 'rubycritic'
+gem 'bundler-audit'
 
 group :guard do
   gem 'guard'

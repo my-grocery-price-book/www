@@ -8,6 +8,9 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     brakeman (3.4.0)
+    bundler-audit (0.5.0)
+      bundler (~> 1.2)
+      thor (~> 0.18)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     codeclimate-engine-rb (0.4.0)
@@ -116,6 +119,7 @@ PLATFORMS
 
 DEPENDENCIES
   brakeman
+  bundler-audit
   flay
   guard
   guard-reek
