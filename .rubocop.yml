@@ -15,6 +15,9 @@ Metrics/ParameterLists:
   Max: 7
   CountKeywordArgs: true
 
+Metrics/BlockLength:
+  Max: 165
+
 Style/ClassAndModuleChildren:
   Enabled: false
 
@@ -22,6 +25,9 @@ Style/SymbolProc:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/VariableNumber:
   Enabled: false
 
 Performance/RedundantMerge:

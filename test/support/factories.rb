@@ -21,9 +21,8 @@ class PageEntryAdder < SimpleDelegator
   private
 
   def check_entry_unit_match(entry_package_unit)
-    if entry_package_unit != unit
-      raise StandardError, "page (#{unit}) and entry (#{entry_package_unit}) unit do not match"
-    end
+    return if entry_package_unit == unit
+    raise StandardError, "page (#{unit}) and entry (#{entry_package_unit}) unit do not match"
   end
 end
 

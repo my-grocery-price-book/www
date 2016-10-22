@@ -1,0 +1,16 @@
+# frozen_string_literal: true
+source 'https://rubygems.org'
+
+gem 'overcommit'
+gem 'rubocop'
+gem 'brakeman'
+gem 'reek'
+gem 'flay'
+gem 'rubycritic'
+gem 'bundler-audit'
+
+group :guard do
+  gem 'guard'
+  gem 'guard-rubocop'
+  gem 'guard-reek'
+end

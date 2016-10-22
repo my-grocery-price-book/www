@@ -8,6 +8,15 @@
 "app/controllers":
   InstanceVariableAssumption:
     enabled: false
+"db/migrate":
+  UncommunicativeVariableName:
+    enabled: false
+  FeatureEnvy:
+    enabled: false
+  TooManyStatements:
+    enabled: false
+  DuplicateMethodCall:
+    enabled: false
 TooManyStatements:
   max_statements: 6
 UtilityFunction:
