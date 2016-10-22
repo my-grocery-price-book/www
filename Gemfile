@@ -11,6 +11,7 @@ gem 'sprockets'
 gem 'jbuilder'
 gem 'pg'
 
+gem 'turbolinks'
 gem 'react-rails'
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 
