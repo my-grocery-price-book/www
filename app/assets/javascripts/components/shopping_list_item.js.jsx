@@ -127,7 +127,8 @@ var ShoppingListItem = React.createClass({
     var state = this.state;
     var category_class = 'category-' + this.dasherize(page.category);
     var show_comparing_price = page.best_entry;
-    var best_entry = page.best_entry || {price_per_package: 0};
+    var best_entry = page.best_entry || {price_per_package: 0, amount: 1};
+    var showing_comparing_amount = best_entry.amount > 1
     
     return (
         <div data-item-name={state.name}
@@ -139,8 +140,10 @@ var ShoppingListItem = React.createClass({
                 <span data-name className="item-field item-name">{state.name}</span>
               </div>
               <div className="item-comparing-price">
+                <span data-amount style={showing_comparing_amount ? null : {display: 'none'} }
+                      className="item-field item-amount">{best_entry.amount + ' x '}</span>
                 <span data-size style={show_comparing_price ? null : {display: 'none'} }
-                    className="item-field item-amount">{best_entry.package_size}</span>
+                    className="item-field item-size">{best_entry.package_size}</span>
                 <span data-unit className="item-field item-unit">{page.unit}</span>
                 <span data-comparing-price style={show_comparing_price ? null : {display: 'none'} }
                       className="item-field item-comparing-price">
