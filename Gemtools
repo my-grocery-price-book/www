@@ -4,12 +4,13 @@ source 'https://rubygems.org'
 gem 'overcommit'
 gem 'rubocop'
 gem 'brakeman'
-gem 'reek'
+gem 'reek', '3.11' # support ruby 2.0
 gem 'flay'
-gem 'rubycritic'
+gem 'rubycritic', '2.8.0' # support ruby 2.0
 gem 'bundler-audit'
 
 group :guard do
+  gem 'listen', '3.0.8' # support ruby 2.0
   gem 'guard'
   gem 'guard-rubocop'
   gem 'guard-reek'
