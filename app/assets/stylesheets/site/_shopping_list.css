@@ -42,13 +42,18 @@
     max-width: 100%;
 }
 
-.item-unit {
+.shopping-list-item .item-unit {
     padding-right: 5px;
     padding-left: 2px;
 }
 
-.item-name {
+.shopping-list-item .item-name {
     font-weight: bolder;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.shopping-list-item .item-store {
     padding-right: 5px;
 }
 
