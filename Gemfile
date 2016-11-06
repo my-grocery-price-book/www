@@ -31,6 +31,8 @@ gem 'multi_json'
 
 gem 'component_library'
 
+gem 'puma', require: false
+
 group :development do
   gem 'annotate', require: false
 end
@@ -54,6 +56,5 @@ group :test do
   gem 'simplecov', require: false
   gem 'database_cleaner', require: false
   gem 'phantomjs', require: false
-  gem 'puma', require: false
   gem 'rails-controller-testing' # https://github.com/rails/rails-controller-testing
 end
