@@ -5,9 +5,6 @@
 "test/support":
   UtilityFunction:
     enabled: false
-"app/controllers":
-  InstanceVariableAssumption:
-    enabled: false
 "db/migrate":
   UncommunicativeVariableName:
     enabled: false
