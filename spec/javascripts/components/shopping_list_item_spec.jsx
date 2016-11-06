@@ -7,6 +7,7 @@ describe('ShoppingListItem', function() {
         <ShoppingListItem page={{category: 'bakery', unit: 'grams',
                                  best_entry: {price_per_package: 13.951356,
                                               price_per_unit: 13.951356,
+                                              store_name: 'Mr Buy',
                                               amount: 1,
                                               currency_symbol: '$'} }}
                           item={{name: 'Brown Bread', amount: 2}} />
@@ -30,8 +31,14 @@ describe('ShoppingListItem', function() {
     expect(div_item.innerText).toContain('Brown Bread');
   });
 
+  it("shows comparing store", function () {
+    const div_item = dom_node.querySelector('[data-comparing-store]');
+
+    expect(div_item.innerText).toContain('Mr Buy');
+  });
+
   it("shows page unit", function () {
-    const div_item = dom_node.querySelector('[data-unit]');
+    const div_item = dom_node.querySelector('[data-comparing-unit]');
 
     expect(div_item.innerText).toContain('grams');
   });
