@@ -29,7 +29,7 @@
         "connection": {
           "connection_token": "testtoken123",
           "date_creation": "Sun, 04 Sep 2016 10:06:37 +0200",
-          "callback_uri": "http:\/\/www.groc.dev\/callmeback\/oneall",
+          "callback_uri": "http:\/\/dev.groc.vm\/callmeback\/oneall",
           "status": "succeeded"
         },
         "user": {
