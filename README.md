@@ -18,7 +18,6 @@ For development with [vagrant read this](https://github.com/my-grocery-price-boo
   BUNDLE_GEMFILE=Gemtools bundle install # not recommended to be added to Gemfile
   overcommit --install && overcommit --sign && overcommit --sign pre-commit
   cp -vn "config/examples/.env.local" ".env" # then edit .env and insert correct details
-  bundle install
   bin/setup 
 ```
 
