@@ -6,6 +6,7 @@ group :development, :test do
 end
 
 gem 'rails', '~> 5.0.0'
+gem 'react_on_rails', '~> 6'
 
 gem 'sprockets'
 gem 'jbuilder'
