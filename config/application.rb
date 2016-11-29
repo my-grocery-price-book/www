@@ -21,12 +21,6 @@ module Project
     end
 
     Rails.application.config.assets.precompile +=
-      ['react-server.js', 'shims.js', 'components.js', 'vendor.js', 'vendor.css']
-
-    config.react.addons = true # defaults to false
-    config.react.server_renderer_options = {
-      files: ['react-server.js', 'components.js', 'shims.js'], # files to load for prerendering
-      replay_console: true, # if true, console.* will be replayed client-side
-    }
+      ['shims.js', 'components.js', 'vendor.js', 'vendor.css']
   end
 end
