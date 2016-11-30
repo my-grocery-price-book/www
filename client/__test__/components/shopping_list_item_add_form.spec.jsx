@@ -51,7 +51,6 @@ describe('ShoppingListItemAddForm', function() {
 
   it("enables input", function () {
     const input = react_dom.find('#shopping_list_item_name');
-    console.log(input.debug());
 
     expect(input.prop('disabled')).toBeFalsy();
   });

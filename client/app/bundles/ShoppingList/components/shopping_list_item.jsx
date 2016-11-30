@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
+const axios = require('axios');
 
 import ConfirmDelete from '../../../lib/confirm_delete';
 
@@ -19,90 +20,89 @@ const ShoppingListItem = React.createClass({
   },
 
   getInitialState: function () {
-    return {amount: this.props.item.amount,
-            unit: this.props.item.unit,
-            name: this.props.item.name,
-            purchased_at: this.props.item.purchased_at,
-            updated_at: this.props.item.updated_at,
-            is_busy: false,
-            is_deleted: false};
+    return {
+      amount: this.props.item.amount,
+      unit: this.props.item.unit,
+      name: this.props.item.name,
+      purchased_at: this.props.item.purchased_at,
+      updated_at: this.props.item.updated_at,
+      is_busy: false,
+      is_deleted: false
+    };
   },
 
   componentWillReceiveProps: function (nextProps) {
-    if(nextProps.item.updated_at > this.state.updated_at) {
-      this.setState({purchased_at: nextProps.item.purchased_at,
-                           amount: nextProps.item.amount,
-                       updated_at: nextProps.item.updated_at });
+    if (nextProps.item.updated_at > this.state.updated_at) {
+      this.setState({
+        purchased_at: nextProps.item.purchased_at,
+        amount: nextProps.item.amount,
+        updated_at: nextProps.item.updated_at
+      });
     }
   },
 
-  handleIncreaseAmount: function(event) {
+  handleIncreaseAmount: function (event) {
     event.preventDefault();
-    this.setState(function(previousState) {
+    this.setState(function (previousState) {
       return {amount: previousState.amount + 1};
-    },this.handleAmountUpdate);
+    }, this.handleAmountUpdate);
   },
 
-  handleDecreaseAmount: function(event) {
+  handleDecreaseAmount: function (event) {
     event.preventDefault();
-    this.setState(function(previousState) {
-      if(previousState.amount > 1) {
+    this.setState(function (previousState) {
+      if (previousState.amount > 1) {
         return {amount: previousState.amount - 1};
       } else {
         return {amount: previousState.amount};
       }
-    },this.handleAmountUpdate);
+    }, this.handleAmountUpdate);
   },
 
   handleAmountUpdate: function () {
-    $.ajax({
-      url: this.props.item.update_url,
-      dataType: 'json',
-      type: 'PATCH',
-      data: {"authenticity_token": this.props.authenticity_token,
-             shopping_list_item: {amount: this.state.amount} },
-      success: function (response) {
-        this.setState({updated_at: response.data.updated_at,
-                       purchased_at: response.data.purchased_at});
-      }.bind(this)
+    var self = this;
+    axios.patch(this.props.item.update_url, {
+      authenticity_token: this.props.authenticity_token,
+      shopping_list_item: {amount: this.state.amount}
+    }).then(function (response) {
+      self.setState({
+        updated_at: response.data.updated_at,
+        purchased_at: response.data.purchased_at
+      });
+    }).catch(function (error) {
+      Rollbar.error(error);
     });
   },
 
   handlePurchasedSubmit: function (button_event) {
     button_event.preventDefault();
     this.setState({is_busy: true});
-    $.ajax({
-      url: this.props.item.purchase_url,
-      dataType: 'json',
-      type: 'POST',
-      data: {"authenticity_token": this.props.authenticity_token},
-      success: function (response) {
-        this.setState({purchased_at: response.data.purchased_at, is_busy: false});
-      }.bind(this),
-      error: function () {
-        this.setState({is_busy: false});
-      }.bind(this)
+    var self = this;
+    axios.post(this.props.item.purchase_url, {
+      authenticity_token: this.props.authenticity_token,
+    }).then(function (response) {
+      self.setState({purchased_at: response.data.purchased_at, is_busy: false});
+    }).catch(function (error) {
+      self.setState({is_busy: false});
+      Rollbar.error(error);
     });
   },
 
   handleUnPurchasedSubmit: function (button_event) {
     button_event.preventDefault();
     this.setState({is_busy: true});
-    $.ajax({
-      url: this.props.item.unpurchase_url,
-      dataType: 'json',
-      type: 'DELETE',
-      data: {"authenticity_token": this.props.authenticity_token},
-      success: function (response) {
-        this.setState({purchased_at: response.data.purchased_at, is_busy: false});
-      }.bind(this),
-      error: function () {
-        this.setState({is_busy: false});
-      }.bind(this)
+    var self = this;
+    axios.post(this.props.item.unpurchase_url, {
+      authenticity_token: this.props.authenticity_token,
+    }).then(function (response) {
+      self.setState({purchased_at: response.data.purchased_at, is_busy: false});
+    }).catch(function (error) {
+      self.setState({is_busy: false});
+      Rollbar.error(error);
     });
   },
 
-  handleDeleteSubmit: function(submit_event) {
+  handleDeleteSubmit: function (submit_event) {
     submit_event.preventDefault();
     $("#confirmModal" + this.props.item.id).modal('show');
   },
@@ -111,17 +111,14 @@ const ShoppingListItem = React.createClass({
     button_event.preventDefault();
     $("#confirmModal" + this.props.item.id).modal('hide');
     this.setState({is_busy: true, show_form: false});
-    $.ajax({
-      url: this.props.item.delete_url,
-      dataType: 'json',
-      type: 'DELETE',
-      data: {"authenticity_token": this.props.authenticity_token},
-      success: function () {
-        this.setState({is_deleted: true, is_busy: false});
-      }.bind(this),
-      error: function () {
-        this.setState({is_busy: false});
-      }.bind(this)
+    var self = this;
+    axios.delete(this.props.item.delete_url, {
+      authenticity_token: this.props.authenticity_token,
+    }).then(function (response) {
+      self.setState({is_deleted: true, is_busy: false});
+    }).catch(function (error) {
+      self.setState({is_busy: false});
+      Rollbar.error(error);
     });
   },
 
@@ -133,11 +130,11 @@ const ShoppingListItem = React.createClass({
     var show_comparing_price = page.best_entry;
     var best_entry = page.best_entry || {price_per_package: 0, amount: 1};
     var showing_comparing_amount = best_entry.amount > 1;
-    
+
     return (
-        <div data-item-name={state.name}
-             className="col-xs-12">
-          <div className={"shopping-list-item " + "name-" + state.name + " " + category_class}>
+      <div data-item-name={state.name}
+           className="col-xs-12">
+        <div className={"shopping-list-item " + "name-" + state.name + " " + category_class}>
             <span className={state.purchased_at ? 'item-name item-purchased' : 'item-info' }>
               <div className="item-name-and-amount">
                 <span data-amount className="item-field">{state.amount}</span>
@@ -145,7 +142,7 @@ const ShoppingListItem = React.createClass({
               </div>
               <div className="item-comparing-price">
                 <span data-comparing-store style={show_comparing_price ? null : {display: 'none'} }
-                        className="item-field item-store">
+                      className="item-field item-store">
                   {best_entry.store_name}
                 </span>
                 <span data-comparing-amount style={showing_comparing_amount ? null : {display: 'none'} }
@@ -153,7 +150,7 @@ const ShoppingListItem = React.createClass({
                 <span style={showing_comparing_amount ? null : {display: 'none'} }
                       className="item-field item-x">x</span>
                 <span data-comparing-size style={show_comparing_price ? null : {display: 'none'} }
-                    className="item-field item-size">{best_entry.package_size}</span>
+                      className="item-field item-size">{best_entry.package_size}</span>
                 <span data-comparing-unit className="item-field item-unit">{page.unit}</span>
                 <span data-comparing-price style={show_comparing_price ? null : {display: 'none'} }
                       className="item-field item-price">
@@ -161,7 +158,7 @@ const ShoppingListItem = React.createClass({
                 </span>
               </div>
             </span>
-            <span className="shopping-actions">
+          <span className="shopping-actions">
               <form action={props.item.update_url}
                     onSubmit={this.handleDecreaseAmount}
                     data-amount-change="decrease"
@@ -219,8 +216,8 @@ const ShoppingListItem = React.createClass({
                 </button>
               </form>
             </span>
-          </div>
-        </div> );
+        </div>
+      </div> );
   }
 });
 
