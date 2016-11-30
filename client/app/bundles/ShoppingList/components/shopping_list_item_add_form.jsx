@@ -13,7 +13,6 @@ const ShoppingListItemAddForm = React.createClass({
     disabled: React.PropTypes.bool
   },
 
-
   getInitialState: function () {
     return {
       name: "", suggestions: [],

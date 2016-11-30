@@ -1,16 +1,18 @@
+import React from 'react';
+import { mount } from 'enzyme';
+import ShoppingListItemIndex from '../../app/bundles/ShoppingList/components/shopping_list_item_index';
+
 describe('ShoppingListItemIndex', function() {
   var react_dom;
-  var dom_node;
 
   beforeEach(function() {
-    react_dom = TestUtils.renderIntoDocument(
+    react_dom = mount(
         <ShoppingListItemIndex initial_items={[]}
                                shopping_list={{name: 'My List', price_book_pages_url: '/'}} />
     );
-    dom_node = ReactDOM.findDOMNode(react_dom);
   });
 
   it("works", function () {
-    expect(dom_node.nodeName).toEqual('DIV');
+    expect(react_dom.name()).toEqual('ShoppingListItemIndex');
   });
 });
