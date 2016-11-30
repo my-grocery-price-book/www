@@ -45,7 +45,9 @@
   },
   "devDependencies": {
     "babel-jest": "^17.0.2",
+    "babel-plugin-transform-async-to-generator": "^6.16.0",
     "babel-polyfill": "^6.16.0",
+    "babel-preset-stage-3": "^6.17.0",
     "enzyme": "^2.6.0",
     "jest": "^17.0.3",
     "react-addons-test-utils": "^15.4.1",

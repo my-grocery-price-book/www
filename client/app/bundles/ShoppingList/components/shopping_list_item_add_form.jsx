@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+var Bloodhound = require('bloodhound-js');
 
 const ShoppingListItemAddForm = React.createClass({
 
@@ -22,13 +23,11 @@ const ShoppingListItemAddForm = React.createClass({
 
   handleNameChange: function (e) {
     this.findSuggestions(e.target.value);
-    console.log('Change: ' + e.target.value);
     this.setState({name: e.target.value});
   },
 
   findSuggestions: function (name) {
     if (this.state.bloodhound_initialized) {
-      console.log('findSuggestions#search: ' + name);
       this.bloodhound.search(name,
         this.handleNameSuggestions,
         this.handleAdditionalNameSuggestions)
@@ -72,15 +71,12 @@ const ShoppingListItemAddForm = React.createClass({
   },
 
   loadBloodhound: function () {
-    console.log('loadBloodhound');
     var bloodhoundBuilder = this.props.bloodhoundBuilder || this.ShoppingListItemsBloodhound;
     this.bloodhound = bloodhoundBuilder(this.props.price_book_pages_url, this.props.item_names_url);
     this.bloodhound.initialize().then(this.bloodhoundInitialized);
-    console.log('Waiting for bloodhoundInitialized');
   },
 
   bloodhoundInitialized: function () {
-    console.log('bloodhoundInitialized');
     this.setState({bloodhound_initialized: true});
   },
 
