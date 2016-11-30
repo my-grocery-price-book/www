@@ -8,16 +8,18 @@ describe('ShoppingListItemAddForm', function() {
   var names_added;
   var prefetch_url;
   var remote_url;
+  var local_bloodhound;
 
   function localBloodhound(p,r) {
     prefetch_url = p;
-    remote_url = r
-    return new Bloodhound({
+    remote_url = r;
+    local_bloodhound = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.whitespace,
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       sufficient: 3,
       local: ['Bread', 'Oranges', 'Cheese', 'Chicken', 'Carrots', 'Corn', 'Chips']
     });
+    return local_bloodhound;
   }
 
   function stubAdd(name) {
@@ -49,14 +51,15 @@ describe('ShoppingListItemAddForm', function() {
 
   it("enables input", function () {
     const input = react_dom.find('#shopping_list_item_name');
+    console.log(input.debug());
 
-    expect(input.prop('disabled')).toEqual(false);
+    expect(input.prop('disabled')).toBeFalsy();
   });
 
   it("enables button", function () {
     const button = react_dom.find('button');
 
-    expect(button.prop('disabled')).toEqual(false);
+    expect(button.prop('disabled')).toBeFalsy();
   });
 
   it("adds the item", function () {
@@ -64,57 +67,54 @@ describe('ShoppingListItemAddForm', function() {
     const form = react_dom.find('form');
 
     input.simulate('change', {target: {value: 'Cheese'}});
-    form.simulate('submit')
+    form.simulate('submit');
 
     expect(names_added).toEqual(["Cheese"]);
   });
 
-  fit("adds the item from suggestion", function () {
-    const input = react_dom.find('#shopping_list_item_name');
+  describe('suggestions', function() {
+    beforeEach(async function() {
+      await local_bloodhound.initialize();
+    });
 
-    input.value = 'Br';
-    input.simulate('change', {target: {value: 'Br'}});
+    it("adds the item from suggestion", function () {
+      const input = react_dom.find('#shopping_list_item_name');
+      input.value = 'Br';
+      input.simulate('change', {target: {value: 'Br'}});
 
-    const button = react_dom.find('button.name-suggestion');
-    button.simulate('click');
+      const first_suggestion = react_dom.find('button.name-suggestion').at(0);
+      first_suggestion.simulate('click');
 
-    expect(names_added).toEqual(["Bread"]);
-  });
+      expect(names_added).toEqual(["Bread"]);
+    });
 
-  it("shows only 3 suggestions", function () {
-    const input = react_dom.querySelector('#shopping_list_item_name');
+    it("shows only 3 suggestions", function () {
+      const input = react_dom.find('#shopping_list_item_name');
+      expect(react_dom.state().bloodhound_initialized).toEqual(true);
 
-    input.value = 'C';
-    TestUtils.Simulate.change(input);
+      input.simulate('change', {target: {value: 'C'}});
 
-    const buttons = react_dom.querySelectorAll('button.name-suggestion');
+      const buttons = react_dom.find('button.name-suggestion');
 
-    expect(buttons.length).toEqual(3);
+      expect(buttons.length).toEqual(3);
+    });
   });
 
   describe('disabled', function() {
     beforeEach(function() {
-      react_dom = TestUtils.renderIntoDocument(
-          <ShoppingListItemAddForm handleAdd={stubAdd}
-                                   bloodhoundBuilder={localBloodhound}
-                                   price_book_pages_url="/my_url"
-                                   item_names_url="/my_other"
-                                   authenticity_token="asd"
-                                   disabled={true} />
-      );
-      dom_node = ReactDOM.findDOMNode(react_dom);
+      react_dom.setProps({disabled: true});
     });
 
     it("disables input", function () {
-      const input = react_dom.querySelector('#shopping_list_item_name');
+      const input = react_dom.find('#shopping_list_item_name');
 
-      expect(input.disabled).toEqual(true);
+      expect(input.prop('disabled')).toBeTruthy();
     });
 
     it("disables button", function () {
-      const button = react_dom.querySelector('button');
+      const button = react_dom.find('button');
 
-      expect(button.disabled).toEqual(true);
+      expect(button.prop('disabled')).toBeTruthy();
     });
   });
 });
