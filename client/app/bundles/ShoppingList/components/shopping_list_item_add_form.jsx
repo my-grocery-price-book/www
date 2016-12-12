@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react';
-var Bloodhound = require('bloodhound-js');
 
 const ShoppingListItemAddForm = React.createClass({
 
@@ -46,6 +45,7 @@ const ShoppingListItemAddForm = React.createClass({
   },
 
   ShoppingListItemsBloodhound: function (prefetch_url, remote_url) {
+    var Bloodhound = require('bloodhound-js');
     return new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.whitespace,
       queryTokenizer: Bloodhound.tokenizers.whitespace,

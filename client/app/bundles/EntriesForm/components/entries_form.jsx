@@ -1,5 +1,4 @@
 import React from 'react';
-var Bloodhound = require('bloodhound-js');
 
 var EntriesForm = React.createClass({
 
@@ -81,6 +80,7 @@ var EntriesForm = React.createClass({
   },
 
   EntriesBloodhound: function (local_suggestions, remote_url) {
+    var Bloodhound = require('bloodhound-js');
     return new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.whitespace,
       queryTokenizer: Bloodhound.tokenizers.whitespace,

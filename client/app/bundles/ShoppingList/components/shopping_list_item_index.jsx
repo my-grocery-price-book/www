@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+const axios = require('axios');
 
 import ShoppingListItemAddForm from '../components/shopping_list_item_add_form';
 import ShoppingListTitle from '../components/shopping_list_title';
@@ -33,57 +34,45 @@ const ShoppingListItemIndex = React.createClass({
     setTimeout(this.loadItemsFromServer, 5000);
   },
 
-
   addItem: function (name) {
     this.setState({is_busy: true});
-    $.ajax({
-      url: this.props.create_url,
-      dataType: 'json',
-      type: 'POST',
-      data: {
-        authenticity_token: this.props.authenticity_token,
-        shopping_list_item: {name: name}
-      },
-      success: function (response) {
-        var new_items = this.state.items.slice();
-        new_items.push(response.data);
-        this.setState({is_busy: false, items: new_items});
-      }.bind(this),
-      error: function () {
-        this.setState({is_busy: false});
-      }.bind(this)
+    var self = this;
+    axios.post(this.props.create_url,
+      { authenticity_token: this.props.authenticity_token,
+        shopping_list_item: {name: name} }
+    ).then(function (response) {
+      var new_items = this.state.items.slice();
+      new_items.push(response.data);
+      self.setState({is_busy: false, items: new_items});
+    }).catch(function (error) {
+      self.setState({is_busy: false});
+      Rollbar.error(error);
     });
   },
 
   reloadItems: function (click_event) {
     click_event.preventDefault();
     this.setState({is_busy: true});
-    $.ajax({
-      url: this.props.shopping_list.items_url,
-      dataType: 'json',
-      type: 'GET',
-      success: function (response) {
-        this.setState({items: response.data, is_busy: false});
-      }.bind(this),
-      error: function () {
-        location.reload();
-      }.bind(this)
+    var self = this;
+    axios.get(this.props.shopping_list.items_url,
+      { }
+    ).then(function (response) {
+      self.setState({items: response.data, is_busy: false});
+    }).catch(function (error) {
+      self.setState({is_busy: false});
+      Rollbar.error(error);
     });
   },
 
   loadItemsFromServer: function () {
-    $.ajax({
-      url: this.props.shopping_list.items_url,
-      dataType: 'json',
-      type: 'GET',
-      success: function (response) {
-        this.setState({items: response.data});
-        setTimeout(this.loadItemsFromServer, 5000);
-      }.bind(this),
-      error: function (xhr, ajaxOptions, thrownError) {
-        setTimeout(this.loadItemsFromServer, 60000);
-        Rollbar.error("Shopping list sync failed:" + xhr.responseText, thrownError);
-      }.bind(this)
+    var self = this;
+    axios.get(this.props.shopping_list.items_url, {}
+    ).then(function (response) {
+      self.setState({items: response.data});
+      setTimeout(self.loadItemsFromServer, 5000);
+    }).catch(function (error) {
+      setTimeout(self.loadItemsFromServer, 30000);
+      Rollbar.error(error);
     });
   },
 

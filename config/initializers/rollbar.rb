@@ -17,13 +17,11 @@ Rollbar.configure do |config|
   # config.person_username_method = "my_username"
   # config.person_email_method = "my_email"
 
-  config.js_enabled = Rails.env.production?
+  config.js_enabled = true
   config.js_options = {
     accessToken: ENV['ROLLBAR_ACCESS_TOKEN'],
     captureUncaught: true,
-    payload: {
-      environment: 'production'
-    }
+    payload: { environment: Rails.env.to_s }
   }
 
   # If you want to attach custom data to all exception and message reports,

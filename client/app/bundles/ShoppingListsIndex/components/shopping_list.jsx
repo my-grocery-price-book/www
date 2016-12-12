@@ -29,30 +29,25 @@ var ShoppingList = React.createClass({
 
   handleDeleteSubmit: function (submit_event) {
     submit_event.preventDefault();
-    $("#confirmModal" + this.props.item_id).modal('show');
+    // $("#confirmModal" + this.props.item_id).modal('show');
   },
 
   handleDelete: function (button_event) {
     button_event.preventDefault();
-    $("#confirmModal" + this.props.item_id).modal('hide');
+    // $("#confirmModal" + this.props.item_id).modal('hide');
     this.setState({is_busy: true, show_form: false},this.doDelete);
   },
 
   doDelete: function() {
-    $.ajax({
-      url: this.props.delete_url,
-      dataType: 'json',
-      type: 'DELETE',
-      data: {"authenticity_token": this.props.authenticity_token}
-    }).done(this.deleteSuccesful).fail(this.deleteFailed);
-  },
-
-  deleteSuccesful: function () {
-    this.setState({is_deleted: true, is_busy: false});
-  },
-
-  deleteFailed: function () {
-    this.setState({is_busy: false});
+    var self = this;
+    axios.delete(this.props.delete_url,
+      { authenticity_token: this.props.authenticity_token }
+    ).then(function (response) {
+      self.setState({is_deleted: true, is_busy: false});
+    }).catch(function (error) {
+      self.setState({is_busy: false});
+      Rollbar.error(error);
+    });
   },
 
   render: function () {

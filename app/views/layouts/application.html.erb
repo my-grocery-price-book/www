@@ -53,7 +53,7 @@
 
 <%= javascript_include_tag 'vendor' %>
 <%= javascript_include_tag 'application' %>
-<% if current_shopper && Rollbar.configuration.js_enabled %>
+<% if current_shopper %>
 <script>
   Rollbar.configure({
     payload: {

@@ -24,16 +24,15 @@ var ShoppingListTitle = React.createClass({
   },
 
   updateTitle: function() {
-    $.ajax({
-      url: this.props.update_url,
-      dataType: 'json',
-      method: 'PATCH',
-      data: { authenticity_token: this.props.authenticity_token, shopping_list: { title: this.state.title } }
-    }).done(function(response) {
-      this.setState({title: response.data.title, is_updating: false},this.props.onDone());
-    }.bind(this)).fail(function() {
-      this.setState({is_updating: false, update_failed: true},this.props.onDone());
-    }.bind(this));
+    var self = this;
+    axios.patch(this.props.update_url,
+      { authenticity_token: this.props.authenticity_token, shopping_list: { title: this.state.title } }
+    ).then(function (response) {
+      self.setState({title: response.data.title, is_updating: false},self.props.onDone());
+    }).catch(function (error) {
+      self.setState({is_updating: false, update_failed: true},self.props.onDone());
+      Rollbar.error(error);
+    });
   },
 
   render: function () {
