@@ -25,10 +25,10 @@ var ShoppingListTitle = React.createClass({
 
   updateTitle: function() {
     var self = this;
-    axios.patch(this.props.update_url,
-      { authenticity_token: this.props.authenticity_token, shopping_list: { title: this.state.title } }
-    ).then(function (response) {
-      self.setState({title: response.data.title, is_updating: false},self.props.onDone());
+    axios.patch(this.props.update_url, {
+      authenticity_token: this.props.authenticity_token, shopping_list: {title: this.state.title}
+    }).then(function (response) {
+      self.setState({title: response.data.data.title, is_updating: false},self.props.onDone());
     }).catch(function (error) {
       self.setState({is_updating: false, update_failed: true},self.props.onDone());
       Rollbar.error(error);

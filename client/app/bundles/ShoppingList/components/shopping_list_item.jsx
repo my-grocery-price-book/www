@@ -1,5 +1,7 @@
 import React, {PropTypes} from 'react';
 const axios = require('axios');
+axios.defaults.headers.common['Content-Type'] = 'application/json';
+axios.defaults.headers.common['Accept'] = 'application/json';
 
 import ConfirmDelete from '../../../lib/confirm_delete';
 
@@ -41,47 +43,14 @@ const ShoppingListItem = React.createClass({
     }
   },
 
-  handleIncreaseAmount: function (event) {
-    event.preventDefault();
-    this.setState(function (previousState) {
-      return {amount: previousState.amount + 1};
-    }, this.handleAmountUpdate);
-  },
-
-  handleDecreaseAmount: function (event) {
-    event.preventDefault();
-    this.setState(function (previousState) {
-      if (previousState.amount > 1) {
-        return {amount: previousState.amount - 1};
-      } else {
-        return {amount: previousState.amount};
-      }
-    }, this.handleAmountUpdate);
-  },
-
-  handleAmountUpdate: function () {
-    var self = this;
-    axios.patch(this.props.item.update_url, {
-      authenticity_token: this.props.authenticity_token,
-      shopping_list_item: {amount: this.state.amount}
-    }).then(function (response) {
-      self.setState({
-        updated_at: response.data.updated_at,
-        purchased_at: response.data.purchased_at
-      });
-    }).catch(function (error) {
-      Rollbar.error(error);
-    });
-  },
-
   handlePurchasedSubmit: function (button_event) {
     button_event.preventDefault();
     this.setState({is_busy: true});
     var self = this;
     axios.post(this.props.item.purchase_url, {
-      authenticity_token: this.props.authenticity_token,
+      authenticity_token: this.props.authenticity_token
     }).then(function (response) {
-      self.setState({purchased_at: response.data.purchased_at, is_busy: false});
+      self.setState({purchased_at: response.data.data.purchased_at, is_busy: false});
     }).catch(function (error) {
       self.setState({is_busy: false});
       Rollbar.error(error);
@@ -92,10 +61,10 @@ const ShoppingListItem = React.createClass({
     button_event.preventDefault();
     this.setState({is_busy: true});
     var self = this;
-    axios.post(this.props.item.unpurchase_url, {
-      authenticity_token: this.props.authenticity_token,
+    axios.delete(this.props.item.unpurchase_url, {
+      data: { authenticity_token: this.props.authenticity_token }
     }).then(function (response) {
-      self.setState({purchased_at: response.data.purchased_at, is_busy: false});
+      self.setState({purchased_at: response.data.data.purchased_at, is_busy: false});
     }).catch(function (error) {
       self.setState({is_busy: false});
       Rollbar.error(error);
@@ -113,7 +82,7 @@ const ShoppingListItem = React.createClass({
     this.setState({is_busy: true, show_form: false});
     var self = this;
     axios.delete(this.props.item.delete_url, {
-      authenticity_token: this.props.authenticity_token,
+      data: { authenticity_token: this.props.authenticity_token }
     }).then(function (response) {
       self.setState({is_deleted: true, is_busy: false});
     }).catch(function (error) {
@@ -159,30 +128,6 @@ const ShoppingListItem = React.createClass({
               </div>
             </span>
           <span className="shopping-actions">
-              <form action={props.item.update_url}
-                    onSubmit={this.handleDecreaseAmount}
-                    data-amount-change="decrease"
-                    method="post" className="form-inline form-inline-block">
-                <input name="_method" value="patch" type="hidden"/>
-                <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
-                <input name="shopping_list_item[amount]" value={state.amount - 1} type="hidden"/>
-                <button className="btn btn-link" role="button" title="decrease"
-                        disabled={state.is_busy || state.is_deleted || state.amount <= 1}>
-                  <span className="glyphicon glyphicon-triangle-bottom"></span>
-                </button>
-              </form>
-              <form action={props.item.update_url}
-                    onSubmit={this.handleIncreaseAmount}
-                    data-amount-change="increase"
-                    method="post" className="form-inline form-inline-block">
-                <input name="_method" value="patch" type="hidden"/>
-                <input name="authenticity_token" value={props.authenticity_token} type="hidden"/>
-                <input name="shopping_list_item[amount]" value={state.amount + 1} type="hidden"/>
-                <button className="btn btn-link" role="button" title="increase"
-                        disabled={state.is_busy || state.is_deleted}>
-                  <span className="glyphicon glyphicon-triangle-top"></span>
-                </button>
-              </form>
               <form action={props.item.purchase_url}
                     onSubmit={this.handlePurchasedSubmit}
                     style={state.purchased_at ? {display: 'none'} : null }

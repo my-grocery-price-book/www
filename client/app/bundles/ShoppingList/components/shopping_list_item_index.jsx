@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 const axios = require('axios');
+axios.defaults.headers.common['Content-Type'] = 'application/json';
+axios.defaults.headers.common['Accept'] = 'application/json';
 
 import ShoppingListItemAddForm from '../components/shopping_list_item_add_form';
 import ShoppingListTitle from '../components/shopping_list_title';
@@ -36,28 +38,29 @@ const ShoppingListItemIndex = React.createClass({
 
   addItem: function (name) {
     this.setState({is_busy: true});
-    var self = this;
-    axios.post(this.props.create_url,
-      { authenticity_token: this.props.authenticity_token,
-        shopping_list_item: {name: name} }
-    ).then(function (response) {
-      var new_items = this.state.items.slice();
-      new_items.push(response.data);
-      self.setState({is_busy: false, items: new_items});
-    }).catch(function (error) {
-      self.setState({is_busy: false});
-      Rollbar.error(error);
-    });
+    axios.post(this.props.create_url, {
+      authenticity_token: this.props.authenticity_token,
+      shopping_list_item: { name: name }
+    }).then(this.itemAddedSuccessfully).catch(this.itemAddFailed);
+  },
+
+  itemAddedSuccessfully: function (response) {
+    var new_items = this.state.items.slice();
+    new_items.push(response.data.data);
+    this.setState({is_busy: false, items: new_items});
+  },
+
+  itemAddFailed: function (error) {
+    this.setState({is_busy: false});
+    Rollbar.error(error);
   },
 
   reloadItems: function (click_event) {
     click_event.preventDefault();
     this.setState({is_busy: true});
     var self = this;
-    axios.get(this.props.shopping_list.items_url,
-      { }
-    ).then(function (response) {
-      self.setState({items: response.data, is_busy: false});
+    axios.get(this.props.shopping_list.items_url, {}).then(function (response) {
+      self.setState({items: response.data.data, is_busy: false});
     }).catch(function (error) {
       self.setState({is_busy: false});
       Rollbar.error(error);
@@ -66,9 +69,8 @@ const ShoppingListItemIndex = React.createClass({
 
   loadItemsFromServer: function () {
     var self = this;
-    axios.get(this.props.shopping_list.items_url, {}
-    ).then(function (response) {
-      self.setState({items: response.data});
+    axios.get(this.props.shopping_list.items_url, {}).then(function (response) {
+      self.setState({items: response.data.data});
       setTimeout(self.loadItemsFromServer, 5000);
     }).catch(function (error) {
       setTimeout(self.loadItemsFromServer, 30000);

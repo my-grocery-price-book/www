@@ -40,9 +40,9 @@ var ShoppingList = React.createClass({
 
   doDelete: function() {
     var self = this;
-    axios.delete(this.props.delete_url,
-      { authenticity_token: this.props.authenticity_token }
-    ).then(function (response) {
+    axios.delete(this.props.delete_url, {
+      authenticity_token: this.props.authenticity_token
+    }).then(function (response) {
       self.setState({is_deleted: true, is_busy: false});
     }).catch(function (error) {
       self.setState({is_busy: false});

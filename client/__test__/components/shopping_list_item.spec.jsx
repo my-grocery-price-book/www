@@ -56,32 +56,4 @@ describe('ShoppingListItem', function() {
 
     expect(div_item.hasClass('category-bakery')).toEqual(true);
   });
-
-  it("it increases amount", function () {
-    const form = react_dom.find('[data-amount-change="increase"]');
-
-    form.simulate('submit');
-
-    const div_item = react_dom.find('[data-amount]');
-    expect(div_item.text()).toContain('3');
-  });
-
-  it("it decreases amount", function () {
-    const form = react_dom.find('[data-amount-change="decrease"]');
-
-    form.simulate('submit');
-
-    const div_item = react_dom.find('[data-amount]');
-    expect(div_item.text()).toContain('1');
-  });
-
-  it("it wont decreases amount less than 1", function () {
-    const form = react_dom.find('[data-amount-change="decrease"]');
-
-    form.simulate('submit');
-    form.simulate('submit');
-
-    const div_item = react_dom.find('[data-amount]');
-    expect(div_item.text()).toContain('1');
-  });
 });
