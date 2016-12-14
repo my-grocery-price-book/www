@@ -5,7 +5,7 @@ class ShoppingListItemsController < ApplicationController
   def index
     @pages = PriceBook::Page.for_book(shopping_list.book)
     fresh_when last_modified: shopping_list.updated_at.utc,
-               etag: shopping_list
+               etag: [shopping_list, request.format]
   end
 
   def latest
