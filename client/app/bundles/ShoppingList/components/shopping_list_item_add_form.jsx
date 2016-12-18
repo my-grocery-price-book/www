@@ -51,7 +51,7 @@ const ShoppingListItemAddForm = React.createClass({
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       sufficient: 3,
       prefetch: {
-        url: prefetch_url,
+        url: prefetch_url + ".json",
         cache: false,
         transform: function (response) {
           return response.data.map(function (value) {
