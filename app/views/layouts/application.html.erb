@@ -61,7 +61,7 @@
     captureUncaught: true,
     captureUnhandledRejections: true,
     payload: {
-      environment: "<%= Rails.env.to_s %>"
+      environment: "<%= ENV['ROLLBAR_ENV'] || Rails.env.to_s %>"
       <% if current_shopper %>
       ,
       person: {
