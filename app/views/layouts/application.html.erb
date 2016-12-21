@@ -7,7 +7,7 @@
 
   <title>My Grocery Price Book</title>
   <%= csrf_meta_tags %>
-  <%= stylesheet_link_tag 'vendor', 'application', media: 'all' %>
+  <%= stylesheet_link_tag 'vendor', 'application', media: 'all', 'data-turbolinks-track' => true %>
   <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
   <%= render 'layouts/ga' unless Rails.env.test? %>
@@ -51,8 +51,8 @@
 
 <%= render 'layouts/footer' %>
 
-<%= javascript_include_tag 'vendor' %>
-<%= javascript_include_tag 'application' %>
+<%= javascript_include_tag 'vendor', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 <%= render 'layouts/rollbar' %>
 
 </body>
