@@ -10,6 +10,7 @@ describe('ShoppingListItem', function() {
         <ShoppingListItem page={{category: 'bakery', unit: 'grams',
                                  best_entry: {price_per_package: 13.951356,
                                               price_per_unit: 13.951356,
+                                              total_price: 13.951356,
                                               store_name: 'Mr Buy',
                                               amount: 1,
                                               currency_symbol: '$'} }}
