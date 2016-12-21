@@ -1,0 +1,12 @@
+<%= props_component 'EntriesFormApp',
+                    entry: {total_price: 100, date_on: Date.current, product_name: 'Hello',
+                            amount: 10, package_size: 2, store_id: "t"},
+                    currency_symbol: '$$',
+                    create_url: "#",
+                    back_href: "#",
+                    new_store_href: "#",
+                    error_messages: [],
+                    local_suggestions: ["Beans", "Bread", "Tomatoes"],
+                    entry_names_url: '/components_json/item_names_url.json',
+                    selectable_stores: [['Pick n Pay - Canal Walk', 't'],['Checkers - Canal Walk', 'tt']],
+                    package_unit: "grams" %>

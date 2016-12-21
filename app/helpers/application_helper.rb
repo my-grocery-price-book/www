@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 module ApplicationHelper
   def react_server(component_name, args)
-    react_component(component_name, args, prerender: true)
+    react_component(component_name, props: args, prerender: true)
+  end
+
+  def props_component(component_name, props)
+    react_component(component_name, props: props)
   end
 
   def react_render(args)

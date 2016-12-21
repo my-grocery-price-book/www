@@ -6,16 +6,16 @@ group :development, :test do
 end
 
 gem 'rails', '~> 5.0.0'
+gem 'react_on_rails', '~> 6'
 
 gem 'sprockets'
 gem 'jbuilder'
 gem 'pg'
 
 gem 'turbolinks'
-gem 'react-rails'
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 
-gem 'therubyracer', platforms: :ruby # See https://github.com/rails/execjs#readme for more supported runtimes
+gem 'mini_racer', platforms: :ruby # See https://github.com/rails/execjs#readme for more supported runtimes
 
 gem 'devise' # handle authenticaton, register , forgot password, etc
 gem 'intercom-rails' # monitor shoppers
@@ -41,9 +41,6 @@ group :development, :test do
   # gem 'byebug' # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'spring', require: false # Spring speeds up development by keeping your application running in the background
   gem 'spring-commands-testunit', require: false
-  gem 'spring-commands-teaspoon', require: false
-  gem 'teaspoon-jasmine'
-  gem 'coffee-script' # needed for teaspoon-jasmine https://github.com/modeset/teaspoon/issues/405
 end
 
 group :test do

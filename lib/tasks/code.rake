@@ -5,4 +5,18 @@ namespace :code do
       system 'overcommit --run'
     end
   end
+
+  desc 'run foreman'
+  task :foreman do
+    Bundler.with_clean_env do
+      exec 'foreman start'
+    end
+  end
+
+  desc 'tail'
+  task :tail do
+    Bundler.with_clean_env do
+      exec 'tail -f log/development.log'
+    end
+  end
 end

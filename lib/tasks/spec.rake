@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 namespace :spec do
-  desc 'run teaspoon tests'
+  desc 'run javascript tests'
   task :javascript do
-    Rake::Task['teaspoon'].invoke
+    exec 'npm run test'
   end
 end

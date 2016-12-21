@@ -34,7 +34,7 @@ class RegionFinder
     end
 
     def currency_symbol
-      @currency.symbol
+      @currency.try(:symbol) || ''
     end
   end
 

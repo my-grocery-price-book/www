@@ -38,4 +38,20 @@ class ShoppingListItemsIndexActionTest < ShoppingListItemsControllerTest
     assert_includes response.body, entry.currency_symbol.to_s
     assert_includes response.body, entry.price_per_package.to_s
   end
+
+  should 'be 304 when requesting with same etag' do
+    get :index, params: { shopping_list_id: shopping_list.to_param }
+    etag = response.headers['ETag']
+    request.env['HTTP_IF_NONE_MATCH'] = etag
+    get :index, params: { shopping_list_id: shopping_list.to_param }
+    assert_response 304
+  end
+
+  should 'give different etags for different formats' do
+    get :index, params: { shopping_list_id: shopping_list.to_param }
+    html_etag = response.headers['ETag']
+    get :index, params: { shopping_list_id: shopping_list.to_param, format: 'json' }
+    json_etag = response.headers['ETag']
+    assert_not_equal html_etag, json_etag
+  end
 end
