@@ -123,7 +123,7 @@ const ShoppingListItem = React.createClass({
                 <span data-comparing-unit className="item-field item-unit">{page.unit}</span>
                 <span data-comparing-price style={show_comparing_price ? null : {display: 'none'} }
                       className="item-field item-price">
-                  {best_entry.currency_symbol}{best_entry.price_per_package.toFixed(2)}
+                  {best_entry.currency_symbol}{best_entry.total_price.toFixed(2)}
                 </span>
               </div>
             </span>
