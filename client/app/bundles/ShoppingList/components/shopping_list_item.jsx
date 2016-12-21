@@ -97,7 +97,7 @@ const ShoppingListItem = React.createClass({
     var state = this.state;
     var category_class = 'category-' + this.dasherize(page.category);
     var show_comparing_price = page.best_entry;
-    var best_entry = page.best_entry || {price_per_package: 0, amount: 1};
+    var best_entry = page.best_entry || {price_per_package: 0, amount: 1, total_price: 0};
     var showing_comparing_amount = best_entry.amount > 1;
 
     return (
