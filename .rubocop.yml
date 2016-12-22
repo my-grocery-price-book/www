@@ -41,3 +41,6 @@ Rails/Validation:
 
 Rails/Delegate:
   Enabled: false
+
+Bundler/OrderedGems:
+  Enabled: false

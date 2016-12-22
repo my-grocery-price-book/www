@@ -2,8 +2,7 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_shopper!
 
-  def show
-  end
+  def show; end
 
   def edit
     @shopper = current_shopper

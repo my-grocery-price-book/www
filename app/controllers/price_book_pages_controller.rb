@@ -22,8 +22,7 @@ class PriceBookPagesController < ApplicationController
   end
 
   # GET /books/:book_id/price_book_pages/1/delete
-  def delete
-  end
+  def delete; end
 
   # GET /books/:book_id/price_book_pages/1/edit
   def edit
