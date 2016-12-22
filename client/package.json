@@ -17,7 +17,7 @@
     "test": "jest",
     "build:test": "webpack --config webpack.config.js",
     "build:production": "NODE_ENV=production webpack --config webpack.config.js",
-    "build:development": "webpack -w --watch-poll --config webpack.config.js"
+    "build:development": "webpack -w --config webpack.config.js"
   },
   "cacheDirectories": [
     "node_modules",
