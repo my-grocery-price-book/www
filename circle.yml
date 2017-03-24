@@ -1,0 +1,13 @@
+machine:
+  environment:
+    RAILS_ENV: test
+
+dependencies:
+  post:
+   - bundle install:
+       environment:
+         BUNDLE_GEMFILE: Gemtools
+
+test:
+  pre:
+    - bundle exec rake assets:precompile  
