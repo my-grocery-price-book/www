@@ -1,3 +1,3 @@
 #!/bin/sh
 bin/update
-foreman start
+bundle exec puma

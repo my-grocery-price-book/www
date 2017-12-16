@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 json.call(page, :id, :name, :category, :unit)
 json.product_names do
   json.array! page.product_names

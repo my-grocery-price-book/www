@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module ApplicationHelper
   def react_server(component_name, args)
     react_component(component_name, props: args, prerender: true)
@@ -14,7 +15,6 @@ module ApplicationHelper
 
   # def embedded_svg(filename, options = {})
   #   # Cache the result of the parsing svg for next render
-  #   # rubocop:disable Rails/OutputSafety
   #   Rails.cache.fetch("embedded_#{filename}_#{options.hash}") do
   #     file = File.read(Rails.root.join('app', 'assets', 'images', filename))
   #     doc = Nokogiri::HTML::DocumentFragment.parse file

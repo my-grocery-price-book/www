@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: shopping_lists
@@ -159,7 +160,7 @@ describe ShoppingList do
       @shopping_list.create_item(name: 'Meat')
       @shopping_list.create_item(name: 'Apples')
       names = ShoppingList.item_names_for_book(@book, query: nil)
-      assert_equal(%w(Apples Cheese Meat), names)
+      assert_equal(%w[Apples Cheese Meat], names)
     end
 
     it 'returns items filtered' do
@@ -167,7 +168,7 @@ describe ShoppingList do
       @shopping_list.create_item(name: 'Meat')
       @shopping_list.create_item(name: 'Apples')
       names = ShoppingList.item_names_for_book(@book, query: 's')
-      assert_equal(%w(Apples Cheese), names)
+      assert_equal(%w[Apples Cheese], names)
     end
 
     it 'ignores duplicates' do
@@ -183,7 +184,7 @@ describe ShoppingList do
       @shopping_list.create_item(name: 'apples')
       @shopping_list.create_item(name: 'appleS')
       names = ShoppingList.item_names_for_book(@book, query: nil)
-      assert_equal(%w(apples cheese), names)
+      assert_equal(%w[apples cheese], names)
     end
 
     it 'ignores items of other books' do

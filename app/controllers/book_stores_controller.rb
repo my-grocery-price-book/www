@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class BookStoresController < ApplicationController
   before_action :authenticate_shopper!, :check_if_region_set
 

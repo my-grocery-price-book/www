@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class OneallController < ApplicationController
   include Devise::Controllers::Rememberable
   skip_before_action :verify_authenticity_token

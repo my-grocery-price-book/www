@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module EntriesHelper
   def stores_options_for_book(book)
     book.stores.map do |store|

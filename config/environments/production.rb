@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -62,9 +63,9 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   # SMTP settings for mailgun
   config.action_mailer.smtp_settings = {
-    address: 'smtp.mailgun.org',
+    address: ENV['SMTP_ADDRESS'],
     port: 587,
-    domain: 'my-grocery-price-book.co.za',
+    domain: ENV['SMTP_DOMAIN'],
     user_name: ENV['SMTP_USER_NAME'],
     password: ENV['SMTP_PASSWORD'],
     authentication: 'plain',

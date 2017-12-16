@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class MenuController < ApplicationController
   before_action :authenticate_shopper!
 

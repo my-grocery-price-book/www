@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: price_book_pages
@@ -20,7 +21,7 @@ class PriceBook::Page < ApplicationRecord
   validates :name, :category, :unit, presence: true
   # on update only allows build pages for an unsaved PriceBook
   validates :price_book_id, presence: true, on: :update
-  validates_uniqueness_of :name, scope: [:price_book_id, :unit]
+  validates_uniqueness_of :name, scope: %i[price_book_id unit]
 
   before_save :uniq_product_names, :reject_blank_names
 

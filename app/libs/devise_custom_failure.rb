@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class DeviseCustomFailure < Devise::FailureApp
   def redirect_url
     to_shopper_registration || super

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'test_helper'
 
 class ShoppingItemNamesIntegrationTest < IntegrationTest
@@ -20,7 +21,7 @@ class ShoppingItemNamesIntegrationTest < IntegrationTest
       get "/books/#{@book.to_param}/shopping_item_names.json"
       assert_response :success
       parsed_body = MultiJson.load(response.body)
-      assert_equal(%w(Bread Cheese Eggs), parsed_body['data'])
+      assert_equal(%w[Bread Cheese Eggs], parsed_body['data'])
     end
 
     should 'return filtered item' do

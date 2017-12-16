@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class BookDefaultPages
   # @param [PriceBook] book
   def initialize(book)
@@ -32,9 +33,9 @@ class BookDefaultPages
   end
 
   def create_default_fresh_pages
-    [%w(Apples grams), %w(Cabbage cabbages), %w(Cheese grams), %w(Eggs dozens),
-     %w(Milk milliliters), %w(Margarine grams), %w(Mince grams),
-     %w(Chicken grams)].each do |name, unit|
+    [%w[Apples grams], %w[Cabbage cabbages], %w[Cheese grams], %w[Eggs dozens],
+     %w[Milk milliliters], %w[Margarine grams], %w[Mince grams],
+     %w[Chicken grams]].each do |name, unit|
       PriceBook::Page.create(book: @book, name: name, category: 'Fresh', unit: unit)
     end
   end

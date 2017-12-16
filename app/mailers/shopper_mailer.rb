@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ShopperMailer < ApplicationMailer
   # @param [Invite] invite
   def invite(invite)

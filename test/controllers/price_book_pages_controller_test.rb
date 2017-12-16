@@ -95,9 +95,9 @@ class PriceBookPagesControllerTest < ActionController::TestCase
 
     should 'update price_book_page product_names' do
       patch :update, params: { id: @price_book_page, book_id: @price_book,
-                               price_book_page: { product_names: %w(U1 C1) } }
+                               price_book_page: { product_names: %w[U1 C1] } }
       @price_book_page.reload
-      assert_equal(%w(U1 C1), @price_book_page.product_names)
+      assert_equal(%w[U1 C1], @price_book_page.product_names)
     end
 
     should 'fail to update price_book_page' do

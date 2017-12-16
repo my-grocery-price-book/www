@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class GuestController < ApplicationController
   def login
     @shopper = Shopper.create!(guest: true)

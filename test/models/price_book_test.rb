@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: price_books
@@ -39,8 +40,8 @@ describe PriceBook do
     let(:shopper) { create_shopper }
 
     let(:default_pages) do
-      %w(Apples Bread Cabbage Cheese Chicken Soda Eggs Flour Maize Margarine Milk
-         Mince Rice Sugar Tea Coffee)
+      %w[Apples Bread Cabbage Cheese Chicken Soda Eggs Flour Maize Margarine Milk
+         Mince Rice Sugar Tea Coffee]
     end
 
     it 'creates a new book' do

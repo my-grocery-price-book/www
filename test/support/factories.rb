@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # @param [Hash] shopper_args
 # @return [Shopper]
 def create_shopper(shopper_args = {})

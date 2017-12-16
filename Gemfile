@@ -1,7 +1,8 @@
 # frozen_string_literal: true
+
 source 'https://rubygems.org'
 
-ruby '2.3.3'
+ruby '2.3.4'
 
 group :development, :test do
   gem 'dotenv-rails' # load before other gems
