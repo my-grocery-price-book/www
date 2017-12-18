@@ -2,16 +2,12 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.3.14
--- Dumped by pg_dump version 9.5.5
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
-SET row_security = off;
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
@@ -48,7 +44,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE ar_internal_metadata (
@@ -60,7 +56,7 @@ CREATE TABLE ar_internal_metadata (
 
 
 --
--- Name: comfy_cms_blocks; Type: TABLE; Schema: public; Owner: -
+-- Name: comfy_cms_blocks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE comfy_cms_blocks (
@@ -94,7 +90,7 @@ ALTER SEQUENCE comfy_cms_blocks_id_seq OWNED BY comfy_cms_blocks.id;
 
 
 --
--- Name: comfy_cms_categories; Type: TABLE; Schema: public; Owner: -
+-- Name: comfy_cms_categories; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE comfy_cms_categories (
@@ -125,7 +121,7 @@ ALTER SEQUENCE comfy_cms_categories_id_seq OWNED BY comfy_cms_categories.id;
 
 
 --
--- Name: comfy_cms_categorizations; Type: TABLE; Schema: public; Owner: -
+-- Name: comfy_cms_categorizations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE comfy_cms_categorizations (
@@ -156,7 +152,7 @@ ALTER SEQUENCE comfy_cms_categorizations_id_seq OWNED BY comfy_cms_categorizatio
 
 
 --
--- Name: comfy_cms_files; Type: TABLE; Schema: public; Owner: -
+-- Name: comfy_cms_files; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE comfy_cms_files (
@@ -194,7 +190,7 @@ ALTER SEQUENCE comfy_cms_files_id_seq OWNED BY comfy_cms_files.id;
 
 
 --
--- Name: comfy_cms_layouts; Type: TABLE; Schema: public; Owner: -
+-- Name: comfy_cms_layouts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE comfy_cms_layouts (
@@ -234,7 +230,7 @@ ALTER SEQUENCE comfy_cms_layouts_id_seq OWNED BY comfy_cms_layouts.id;
 
 
 --
--- Name: comfy_cms_pages; Type: TABLE; Schema: public; Owner: -
+-- Name: comfy_cms_pages; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE comfy_cms_pages (
@@ -276,7 +272,7 @@ ALTER SEQUENCE comfy_cms_pages_id_seq OWNED BY comfy_cms_pages.id;
 
 
 --
--- Name: comfy_cms_revisions; Type: TABLE; Schema: public; Owner: -
+-- Name: comfy_cms_revisions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE comfy_cms_revisions (
@@ -308,7 +304,7 @@ ALTER SEQUENCE comfy_cms_revisions_id_seq OWNED BY comfy_cms_revisions.id;
 
 
 --
--- Name: comfy_cms_sites; Type: TABLE; Schema: public; Owner: -
+-- Name: comfy_cms_sites; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE comfy_cms_sites (
@@ -342,7 +338,7 @@ ALTER SEQUENCE comfy_cms_sites_id_seq OWNED BY comfy_cms_sites.id;
 
 
 --
--- Name: comfy_cms_snippets; Type: TABLE; Schema: public; Owner: -
+-- Name: comfy_cms_snippets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE comfy_cms_snippets (
@@ -378,7 +374,7 @@ ALTER SEQUENCE comfy_cms_snippets_id_seq OWNED BY comfy_cms_snippets.id;
 
 
 --
--- Name: entry_owners; Type: TABLE; Schema: public; Owner: -
+-- Name: entry_owners; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE entry_owners (
@@ -413,7 +409,7 @@ ALTER SEQUENCE entry_owners_id_seq OWNED BY entry_owners.old_id;
 
 
 --
--- Name: invites; Type: TABLE; Schema: public; Owner: -
+-- Name: invites; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE invites (
@@ -450,7 +446,7 @@ ALTER SEQUENCE invites_id_seq OWNED BY invites.old_id;
 
 
 --
--- Name: members; Type: TABLE; Schema: public; Owner: -
+-- Name: members; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE members (
@@ -486,7 +482,7 @@ ALTER SEQUENCE members_id_seq OWNED BY members.old_id;
 
 
 --
--- Name: price_book_pages; Type: TABLE; Schema: public; Owner: -
+-- Name: price_book_pages; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE price_book_pages (
@@ -523,7 +519,7 @@ ALTER SEQUENCE price_book_pages_id_seq OWNED BY price_book_pages.old_id;
 
 
 --
--- Name: price_books; Type: TABLE; Schema: public; Owner: -
+-- Name: price_books; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE price_books (
@@ -558,7 +554,7 @@ ALTER SEQUENCE price_books_id_seq OWNED BY price_books.old_id;
 
 
 --
--- Name: price_entries; Type: TABLE; Schema: public; Owner: -
+-- Name: price_entries; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE price_entries (
@@ -597,7 +593,7 @@ ALTER SEQUENCE price_entries_id_seq OWNED BY price_entries.old_id;
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE schema_migrations (
@@ -606,7 +602,7 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: shoppers; Type: TABLE; Schema: public; Owner: -
+-- Name: shoppers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE shoppers (
@@ -652,7 +648,7 @@ ALTER SEQUENCE shoppers_id_seq OWNED BY shoppers.old_id;
 
 
 --
--- Name: shopping_list_item_purchases; Type: TABLE; Schema: public; Owner: -
+-- Name: shopping_list_item_purchases; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE shopping_list_item_purchases (
@@ -685,7 +681,7 @@ ALTER SEQUENCE shopping_list_item_purchases_id_seq OWNED BY shopping_list_item_p
 
 
 --
--- Name: shopping_list_items; Type: TABLE; Schema: public; Owner: -
+-- Name: shopping_list_items; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE shopping_list_items (
@@ -721,7 +717,7 @@ ALTER SEQUENCE shopping_list_items_id_seq OWNED BY shopping_list_items.old_id;
 
 
 --
--- Name: shopping_lists; Type: TABLE; Schema: public; Owner: -
+-- Name: shopping_lists; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE shopping_lists (
@@ -755,7 +751,7 @@ ALTER SEQUENCE shopping_lists_id_seq OWNED BY shopping_lists.old_id;
 
 
 --
--- Name: stores; Type: TABLE; Schema: public; Owner: -
+-- Name: stores; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE stores (
@@ -929,7 +925,7 @@ ALTER TABLE ONLY stores ALTER COLUMN old_id SET DEFAULT nextval('stores_id_seq':
 
 
 --
--- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY ar_internal_metadata
@@ -937,7 +933,7 @@ ALTER TABLE ONLY ar_internal_metadata
 
 
 --
--- Name: comfy_cms_blocks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: comfy_cms_blocks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY comfy_cms_blocks
@@ -945,7 +941,7 @@ ALTER TABLE ONLY comfy_cms_blocks
 
 
 --
--- Name: comfy_cms_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: comfy_cms_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY comfy_cms_categories
@@ -953,7 +949,7 @@ ALTER TABLE ONLY comfy_cms_categories
 
 
 --
--- Name: comfy_cms_categorizations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: comfy_cms_categorizations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY comfy_cms_categorizations
@@ -961,7 +957,7 @@ ALTER TABLE ONLY comfy_cms_categorizations
 
 
 --
--- Name: comfy_cms_files_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: comfy_cms_files_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY comfy_cms_files
@@ -969,7 +965,7 @@ ALTER TABLE ONLY comfy_cms_files
 
 
 --
--- Name: comfy_cms_layouts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: comfy_cms_layouts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY comfy_cms_layouts
@@ -977,7 +973,7 @@ ALTER TABLE ONLY comfy_cms_layouts
 
 
 --
--- Name: comfy_cms_pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: comfy_cms_pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY comfy_cms_pages
@@ -985,7 +981,7 @@ ALTER TABLE ONLY comfy_cms_pages
 
 
 --
--- Name: comfy_cms_revisions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: comfy_cms_revisions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY comfy_cms_revisions
@@ -993,7 +989,7 @@ ALTER TABLE ONLY comfy_cms_revisions
 
 
 --
--- Name: comfy_cms_sites_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: comfy_cms_sites_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY comfy_cms_sites
@@ -1001,7 +997,7 @@ ALTER TABLE ONLY comfy_cms_sites
 
 
 --
--- Name: comfy_cms_snippets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: comfy_cms_snippets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY comfy_cms_snippets
@@ -1009,7 +1005,7 @@ ALTER TABLE ONLY comfy_cms_snippets
 
 
 --
--- Name: entry_owners_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: entry_owners_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY entry_owners
@@ -1017,7 +1013,7 @@ ALTER TABLE ONLY entry_owners
 
 
 --
--- Name: invites_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: invites_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY invites
@@ -1025,7 +1021,7 @@ ALTER TABLE ONLY invites
 
 
 --
--- Name: members_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: members_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY members
@@ -1033,7 +1029,7 @@ ALTER TABLE ONLY members
 
 
 --
--- Name: price_book_pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: price_book_pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY price_book_pages
@@ -1041,7 +1037,7 @@ ALTER TABLE ONLY price_book_pages
 
 
 --
--- Name: price_books_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: price_books_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY price_books
@@ -1049,7 +1045,7 @@ ALTER TABLE ONLY price_books
 
 
 --
--- Name: price_entries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: price_entries_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY price_entries
@@ -1057,7 +1053,7 @@ ALTER TABLE ONLY price_entries
 
 
 --
--- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY schema_migrations
@@ -1065,7 +1061,7 @@ ALTER TABLE ONLY schema_migrations
 
 
 --
--- Name: shoppers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: shoppers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY shoppers
@@ -1073,7 +1069,7 @@ ALTER TABLE ONLY shoppers
 
 
 --
--- Name: shopping_list_item_purchases_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: shopping_list_item_purchases_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY shopping_list_item_purchases
@@ -1081,7 +1077,7 @@ ALTER TABLE ONLY shopping_list_item_purchases
 
 
 --
--- Name: shopping_list_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: shopping_list_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY shopping_list_items
@@ -1089,7 +1085,7 @@ ALTER TABLE ONLY shopping_list_items
 
 
 --
--- Name: shopping_lists_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: shopping_lists_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY shopping_lists
@@ -1097,7 +1093,7 @@ ALTER TABLE ONLY shopping_lists
 
 
 --
--- Name: stores_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: stores_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY stores
@@ -1105,336 +1101,336 @@ ALTER TABLE ONLY stores
 
 
 --
--- Name: index_cms_categories_on_site_id_and_cat_type_and_label; Type: INDEX; Schema: public; Owner: -
+-- Name: index_cms_categories_on_site_id_and_cat_type_and_label; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_cms_categories_on_site_id_and_cat_type_and_label ON comfy_cms_categories USING btree (site_id, categorized_type, label);
 
 
 --
--- Name: index_cms_categorizations_on_cat_id_and_catd_type_and_catd_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_cms_categorizations_on_cat_id_and_catd_type_and_catd_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_cms_categorizations_on_cat_id_and_catd_type_and_catd_id ON comfy_cms_categorizations USING btree (category_id, categorized_type, categorized_id);
 
 
 --
--- Name: index_cms_revisions_on_rtype_and_rid_and_created_at; Type: INDEX; Schema: public; Owner: -
+-- Name: index_cms_revisions_on_rtype_and_rid_and_created_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_cms_revisions_on_rtype_and_rid_and_created_at ON comfy_cms_revisions USING btree (record_type, record_id, created_at);
 
 
 --
--- Name: index_comfy_cms_blocks_on_blockable_id_and_blockable_type; Type: INDEX; Schema: public; Owner: -
+-- Name: index_comfy_cms_blocks_on_blockable_id_and_blockable_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_comfy_cms_blocks_on_blockable_id_and_blockable_type ON comfy_cms_blocks USING btree (blockable_id, blockable_type);
 
 
 --
--- Name: index_comfy_cms_blocks_on_identifier; Type: INDEX; Schema: public; Owner: -
+-- Name: index_comfy_cms_blocks_on_identifier; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_comfy_cms_blocks_on_identifier ON comfy_cms_blocks USING btree (identifier);
 
 
 --
--- Name: index_comfy_cms_files_on_site_id_and_block_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_comfy_cms_files_on_site_id_and_block_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_comfy_cms_files_on_site_id_and_block_id ON comfy_cms_files USING btree (site_id, block_id);
 
 
 --
--- Name: index_comfy_cms_files_on_site_id_and_file_file_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_comfy_cms_files_on_site_id_and_file_file_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_comfy_cms_files_on_site_id_and_file_file_name ON comfy_cms_files USING btree (site_id, file_file_name);
 
 
 --
--- Name: index_comfy_cms_files_on_site_id_and_label; Type: INDEX; Schema: public; Owner: -
+-- Name: index_comfy_cms_files_on_site_id_and_label; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_comfy_cms_files_on_site_id_and_label ON comfy_cms_files USING btree (site_id, label);
 
 
 --
--- Name: index_comfy_cms_files_on_site_id_and_position; Type: INDEX; Schema: public; Owner: -
+-- Name: index_comfy_cms_files_on_site_id_and_position; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_comfy_cms_files_on_site_id_and_position ON comfy_cms_files USING btree (site_id, "position");
 
 
 --
--- Name: index_comfy_cms_layouts_on_parent_id_and_position; Type: INDEX; Schema: public; Owner: -
+-- Name: index_comfy_cms_layouts_on_parent_id_and_position; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_comfy_cms_layouts_on_parent_id_and_position ON comfy_cms_layouts USING btree (parent_id, "position");
 
 
 --
--- Name: index_comfy_cms_layouts_on_site_id_and_identifier; Type: INDEX; Schema: public; Owner: -
+-- Name: index_comfy_cms_layouts_on_site_id_and_identifier; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_comfy_cms_layouts_on_site_id_and_identifier ON comfy_cms_layouts USING btree (site_id, identifier);
 
 
 --
--- Name: index_comfy_cms_pages_on_parent_id_and_position; Type: INDEX; Schema: public; Owner: -
+-- Name: index_comfy_cms_pages_on_parent_id_and_position; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_comfy_cms_pages_on_parent_id_and_position ON comfy_cms_pages USING btree (parent_id, "position");
 
 
 --
--- Name: index_comfy_cms_pages_on_site_id_and_full_path; Type: INDEX; Schema: public; Owner: -
+-- Name: index_comfy_cms_pages_on_site_id_and_full_path; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_comfy_cms_pages_on_site_id_and_full_path ON comfy_cms_pages USING btree (site_id, full_path);
 
 
 --
--- Name: index_comfy_cms_sites_on_hostname; Type: INDEX; Schema: public; Owner: -
+-- Name: index_comfy_cms_sites_on_hostname; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_comfy_cms_sites_on_hostname ON comfy_cms_sites USING btree (hostname);
 
 
 --
--- Name: index_comfy_cms_sites_on_is_mirrored; Type: INDEX; Schema: public; Owner: -
+-- Name: index_comfy_cms_sites_on_is_mirrored; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_comfy_cms_sites_on_is_mirrored ON comfy_cms_sites USING btree (is_mirrored);
 
 
 --
--- Name: index_comfy_cms_snippets_on_site_id_and_identifier; Type: INDEX; Schema: public; Owner: -
+-- Name: index_comfy_cms_snippets_on_site_id_and_identifier; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_comfy_cms_snippets_on_site_id_and_identifier ON comfy_cms_snippets USING btree (site_id, identifier);
 
 
 --
--- Name: index_comfy_cms_snippets_on_site_id_and_position; Type: INDEX; Schema: public; Owner: -
+-- Name: index_comfy_cms_snippets_on_site_id_and_position; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_comfy_cms_snippets_on_site_id_and_position ON comfy_cms_snippets USING btree (site_id, "position");
 
 
 --
--- Name: index_entry_owners_on_old_price_entry_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_entry_owners_on_old_price_entry_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_entry_owners_on_old_price_entry_id ON entry_owners USING btree (old_price_entry_id);
 
 
 --
--- Name: index_entry_owners_on_old_shopper_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_entry_owners_on_old_shopper_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_entry_owners_on_old_shopper_id ON entry_owners USING btree (old_shopper_id);
 
 
 --
--- Name: index_entry_owners_on_price_entry_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_entry_owners_on_price_entry_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_entry_owners_on_price_entry_id ON entry_owners USING btree (price_entry_id);
 
 
 --
--- Name: index_entry_owners_on_shopper_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_entry_owners_on_shopper_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_entry_owners_on_shopper_id ON entry_owners USING btree (shopper_id);
 
 
 --
--- Name: index_invites_on_old_price_book_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_invites_on_old_price_book_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_invites_on_old_price_book_id ON invites USING btree (old_price_book_id);
 
 
 --
--- Name: index_invites_on_price_book_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_invites_on_price_book_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_invites_on_price_book_id ON invites USING btree (price_book_id);
 
 
 --
--- Name: index_invites_on_token; Type: INDEX; Schema: public; Owner: -
+-- Name: index_invites_on_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_invites_on_token ON invites USING btree (token);
 
 
 --
--- Name: index_members_on_old_price_book_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_members_on_old_price_book_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_members_on_old_price_book_id ON members USING btree (old_price_book_id);
 
 
 --
--- Name: index_members_on_old_shopper_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_members_on_old_shopper_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_members_on_old_shopper_id ON members USING btree (old_shopper_id);
 
 
 --
--- Name: index_members_on_price_book_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_members_on_price_book_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_members_on_price_book_id ON members USING btree (price_book_id);
 
 
 --
--- Name: index_members_on_shopper_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_members_on_shopper_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_members_on_shopper_id ON members USING btree (shopper_id);
 
 
 --
--- Name: index_price_book_pages_on_old_price_book_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_price_book_pages_on_old_price_book_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_price_book_pages_on_old_price_book_id ON price_book_pages USING btree (old_price_book_id);
 
 
 --
--- Name: index_price_book_pages_on_price_book_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_price_book_pages_on_price_book_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_price_book_pages_on_price_book_id ON price_book_pages USING btree (price_book_id);
 
 
 --
--- Name: index_price_book_pages_on_updated_at; Type: INDEX; Schema: public; Owner: -
+-- Name: index_price_book_pages_on_updated_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_price_book_pages_on_updated_at ON price_book_pages USING btree (updated_at);
 
 
 --
--- Name: index_price_entries_on_date_on; Type: INDEX; Schema: public; Owner: -
+-- Name: index_price_entries_on_date_on; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_price_entries_on_date_on ON price_entries USING btree (date_on);
 
 
 --
--- Name: index_price_entries_on_old_store_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_price_entries_on_old_store_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_price_entries_on_old_store_id ON price_entries USING btree (old_store_id);
 
 
 --
--- Name: index_price_entries_on_package_unit; Type: INDEX; Schema: public; Owner: -
+-- Name: index_price_entries_on_package_unit; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_price_entries_on_package_unit ON price_entries USING btree (package_unit);
 
 
 --
--- Name: index_price_entries_on_store_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_price_entries_on_store_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_price_entries_on_store_id ON price_entries USING btree (store_id);
 
 
 --
--- Name: index_shoppers_on_confirmation_token; Type: INDEX; Schema: public; Owner: -
+-- Name: index_shoppers_on_confirmation_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_shoppers_on_confirmation_token ON shoppers USING btree (confirmation_token);
 
 
 --
--- Name: index_shoppers_on_email; Type: INDEX; Schema: public; Owner: -
+-- Name: index_shoppers_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_shoppers_on_email ON shoppers USING btree (email);
 
 
 --
--- Name: index_shoppers_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
+-- Name: index_shoppers_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_shoppers_on_reset_password_token ON shoppers USING btree (reset_password_token);
 
 
 --
--- Name: index_shopping_list_item_purchases_on_old_shopping_list_item_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_shopping_list_item_purchases_on_old_shopping_list_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_shopping_list_item_purchases_on_old_shopping_list_item_id ON shopping_list_item_purchases USING btree (old_shopping_list_item_id);
 
 
 --
--- Name: index_shopping_list_item_purchases_on_shopping_list_item_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_shopping_list_item_purchases_on_shopping_list_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_shopping_list_item_purchases_on_shopping_list_item_id ON shopping_list_item_purchases USING btree (shopping_list_item_id);
 
 
 --
--- Name: index_shopping_list_items_on_created_at; Type: INDEX; Schema: public; Owner: -
+-- Name: index_shopping_list_items_on_created_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_shopping_list_items_on_created_at ON shopping_list_items USING btree (created_at);
 
 
 --
--- Name: index_shopping_list_items_on_shopping_list_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_shopping_list_items_on_shopping_list_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_shopping_list_items_on_shopping_list_id ON shopping_list_items USING btree (shopping_list_id);
 
 
 --
--- Name: index_shopping_lists_on_old_price_book_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_shopping_lists_on_old_price_book_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_shopping_lists_on_old_price_book_id ON shopping_lists USING btree (old_price_book_id);
 
 
 --
--- Name: index_shopping_lists_on_price_book_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_shopping_lists_on_price_book_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_shopping_lists_on_price_book_id ON shopping_lists USING btree (price_book_id);
 
 
 --
--- Name: index_stores_on_region_code; Type: INDEX; Schema: public; Owner: -
+-- Name: index_stores_on_region_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_stores_on_region_code ON stores USING btree (region_code);
 
 
 --
--- Name: price_entries_replace_lower_product_name_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: price_entries_replace_lower_product_name_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX price_entries_replace_lower_product_name_idx ON price_entries USING btree (replace(lower((product_name)::text), ' '::text, ''::text));
 
 
 --
--- Name: stores_replace_lower_loc_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: stores_replace_lower_loc_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX stores_replace_lower_loc_idx ON stores USING btree (replace(lower((location)::text), ' '::text, ''::text));
 
 
 --
--- Name: stores_replace_lower_name_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: stores_replace_lower_name_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX stores_replace_lower_name_idx ON stores USING btree (replace(lower((name)::text), ' '::text, ''::text));
@@ -1446,6 +1442,76 @@ CREATE INDEX stores_replace_lower_name_idx ON stores USING btree (replace(lower(
 
 SET search_path TO "$user",public;
 
-INSERT INTO schema_migrations (version) VALUES ('20150515135324'), ('20150517163242'), ('20150526134610'), ('20150526162500'), ('20150602144258'), ('20150603150915'), ('20150623100624'), ('20150623133041'), ('20150703104544'), ('20150704110603'), ('20150704125425'), ('20150719122747'), ('20150722073017'), ('20150722133633'), ('20150722185828'), ('20150722191719'), ('20150728060734'), ('20150802092633'), ('20150804070800'), ('20150812211210'), ('20150825073302'), ('20150901184909'), ('20150913110243'), ('20150915112020'), ('20151018103303'), ('20151018104004'), ('20151018110108'), ('20160222063236'), ('20160315215629'), ('20160315220121'), ('20160321222045'), ('20160321225104'), ('20160325102353'), ('20160325104640'), ('20160325104938'), ('20160325113925'), ('20160325115200'), ('20160325122950'), ('20160328063823'), ('20160420201023'), ('20160422074848'), ('20160422074934'), ('20160422130026'), ('20160422132605'), ('20160422134223'), ('20160423082705'), ('20160423133138'), ('20160425061130'), ('20160426040101'), ('20160426060238'), ('20160427034514'), ('20160427044309'), ('20160427053838'), ('20160731065137'), ('20160813040420'), ('20160813051712'), ('20160907192939'), ('20160907193348'), ('20160907201400'), ('20160907201827'), ('20160907202420'), ('20160907203114'), ('20160907203447'), ('20160907213922'), ('20160907220016'), ('20160907221147'), ('20160907221341'), ('20160907222134'), ('20160907222903'), ('20160907223941');
+INSERT INTO "schema_migrations" (version) VALUES
+('20150515135324'),
+('20150517163242'),
+('20150526134610'),
+('20150526162500'),
+('20150602144258'),
+('20150603150915'),
+('20150623100624'),
+('20150623133041'),
+('20150703104544'),
+('20150704110603'),
+('20150704125425'),
+('20150719122747'),
+('20150722073017'),
+('20150722133633'),
+('20150722185828'),
+('20150722191719'),
+('20150728060734'),
+('20150802092633'),
+('20150804070800'),
+('20150812211210'),
+('20150825073302'),
+('20150901184909'),
+('20150913110243'),
+('20150915112020'),
+('20151018103303'),
+('20151018104004'),
+('20151018110108'),
+('20160222063236'),
+('20160315215629'),
+('20160315220121'),
+('20160321222045'),
+('20160321225104'),
+('20160325102353'),
+('20160325104640'),
+('20160325104938'),
+('20160325113925'),
+('20160325115200'),
+('20160325122950'),
+('20160328063823'),
+('20160420201023'),
+('20160422074848'),
+('20160422074934'),
+('20160422130026'),
+('20160422132605'),
+('20160422134223'),
+('20160423082705'),
+('20160423133138'),
+('20160425061130'),
+('20160426040101'),
+('20160426060238'),
+('20160427034514'),
+('20160427044309'),
+('20160427053838'),
+('20160731065137'),
+('20160813040420'),
+('20160813051712'),
+('20160907192939'),
+('20160907193348'),
+('20160907201400'),
+('20160907201827'),
+('20160907202420'),
+('20160907203114'),
+('20160907203447'),
+('20160907213922'),
+('20160907220016'),
+('20160907221147'),
+('20160907221341'),
+('20160907222134'),
+('20160907222903'),
+('20160907223941');
 
 
