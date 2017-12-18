@@ -1,0 +1,39 @@
+version: '2'
+
+volumes:
+  postgres-9-4-data:
+    driver: local
+  bundle-data:
+    driver: local
+
+services:
+  db:
+    image: postgres:9.4
+    volumes:
+      - postgres-9-4-data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    environment:
+      - RAILS_ENV=test
+      - DATABASE_URL=postgres://postgres@db/app
+    volumes:
+      - .:/usr/src/app
+      - bundle-data:/usr/local/bundle
+    depends_on:
+      - db
+
+  web:
+    build: .
+    environment:
+      - RAILS_ENV=development
+      - DATABASE_URL=postgres://postgres@db/web
+      - RAILS_MAX_THREADS=1
+    command: ./run.sh
+    volumes:
+      - .:/usr/src/app
+      - bundle-data:/usr/local/bundle
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
