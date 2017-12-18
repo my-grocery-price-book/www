@@ -2,14 +2,14 @@
 
 source 'https://rubygems.org'
 
-ruby '2.3.4'
+ruby '2.4.2'
 
 group :development, :test do
   gem 'dotenv-rails' # load before other gems
 end
 
 gem 'rails', '~> 5.0.0'
-gem 'react_on_rails', '~> 6'
+gem 'react_on_rails', '~> 8.0'
 
 gem 'sprockets'
 gem 'jbuilder'
