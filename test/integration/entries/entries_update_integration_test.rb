@@ -31,7 +31,7 @@ class EntriesEditIntegrationTest < EntriesIntegrationTest
           put "#{base_url}/#{@entry.to_param}",
               params: { price_entry: { product_name: '' } }
           assert_response :success
-          assert page.has_content?('Product name can\'t be blank')
+          assert response.body.include?('error_messages')
         end
       end
 

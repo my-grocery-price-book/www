@@ -52,8 +52,7 @@ class EntriesCreateIntegrationTest < EntriesIntegrationTest
              params: { price_entry: { date_on: '', store_id: '', product_name: '', amount: '',
                                       package_size: '', total_price: '' } }
         assert_response :success
-        assert response.body.include?('<form'), 'does not contain form'
-        assert response.body.include?('error-explanation'), 'does not contain errors'
+        assert response.body.include?('error_messages')
       end
     end
   end
