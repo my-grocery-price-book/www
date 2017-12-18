@@ -6,6 +6,7 @@
 
   <%= stylesheet_link_tag ComponentLibrary.stylesheet_path, media: 'all' %>
   <%= javascript_include_tag 'vendor', ComponentLibrary.javascript_path %>
+  <%= render 'layouts/rollbar' %>
 </head>
 <body>
 
@@ -23,5 +24,6 @@
     });
   });
 </script>
+<%= javascript_pack_tag('main') %>
 </body>
 </html>

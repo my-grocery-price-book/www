@@ -1,13 +1,26 @@
 {
-  "name": "react-webpack-rails-my-grocery-book",
-  "version": "0.0.1",
-  "private": true,
-  "engines": {
-    "node": "5.10.0",
-    "npm": "3.5.0"
+  "dependencies": {
+    "@rails/webpacker": "^3.2.0",
+    "axios": "^0.17.1",
+    "babel-loader": "^6.4.1",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-react": "^6.24.1",
+    "bloodhound-js": "^1.2.2",
+    "create-react-class": "^15.6.2",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "webpacker-react": "^0.3.2"
   },
-  "scripts": {
-    "postinstall": "cd client && npm install",
-    "test": "cd client && npm run test"
+  "devDependencies": {
+    "babel-jest": "^21.2.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-16": "^1.1.0",
+    "jest": "^21.2.1",
+    "raf": "^3.4.0",
+    "react-addons-test-utils": "^15.6.2",
+    "react-test-renderer": "^16.2.0",
+    "webpack-dev-server": "^2.9.7"
   }
 }

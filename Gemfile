@@ -9,15 +9,14 @@ group :development, :test do
 end
 
 gem 'rails', '~> 5.0.0'
-gem 'react_on_rails', '~> 8.0'
+gem 'webpacker'
+gem 'webpacker-react', '~> 0.3.2'
 
 gem 'sprockets'
 gem 'jbuilder'
 gem 'pg'
 
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
-
-gem 'mini_racer', platforms: :ruby # See https://github.com/rails/execjs#readme for more supported runtimes
 
 gem 'devise' # handle authenticaton, register , forgot password, etc
 gem 'intercom-rails' # monitor shoppers

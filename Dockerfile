@@ -7,10 +7,16 @@ RUN apt-get update -q && \
     libpq-dev \
     postgresql-client
 
-# for nodejs
+# for nodejs && yarn
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt-get update && \
-    apt-get install -y --no-install-recommends nodejs
+    apt-get install -y --no-install-recommends nodejs yarn
+
+# add phantomjs
+RUN curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
+RUN chmod a+x /usr/local/bin/phantomjs
 
 # 2: We'll set the application path as the working directory
 WORKDIR /usr/src/app

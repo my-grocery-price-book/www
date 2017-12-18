@@ -7,6 +7,7 @@ AllCops:
     - 'db/schema.rb'
     - 'Vagrantfile'
     - 'test/features/**/*'
+    - 'node_modules/**/*'
 
 Metrics/LineLength:
   Max: 120

@@ -2,11 +2,11 @@
 
 module ApplicationHelper
   def react_server(component_name, args)
-    react_component(component_name, props: args, prerender: true)
+    react_component(component_name, args)
   end
 
   def props_component(component_name, props)
-    react_component(component_name, props: props)
+    react_component(component_name, props)
   end
 
   def react_render(args)

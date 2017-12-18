@@ -7,6 +7,8 @@ For development with [vagrant read this](https://github.com/my-grocery-price-boo
 ## REQUIREMENTS
 
  * ruby 2.4.2
+ * NodeJS
+ * yarn
  * PostgreSQL
  * Imagemagick
 
@@ -23,14 +25,14 @@ For development with [vagrant read this](https://github.com/my-grocery-price-boo
 ### Development
 
 ```
-  ./run.sh # starts the server
-  bin/spring testunit test # run tests
-  bin/teaspoon spec # run javascript tests
+  ./run.sh # starts the server visit http://127.0.0.1:3000/
+  bundle exec rake test # run tests
+  yarn run jest spec # run javascript tests
 ```
 
 #### catching email
 
 ```
-  gem install mailcatcher # don't add to Gemfile, this step is already done for vagrant/ansible
-  mailcatcher --http-ip 0.0.0.0 # vagrant visit: http://192.168.30.15:1080/, local visit http://127.0.0.1:1080/
+  gem install mailcatcher # don't add to Gemfile
+  mailcatcher --http-ip 0.0.0.0 # visit http://127.0.0.1:1080/
 ```

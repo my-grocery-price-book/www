@@ -23,7 +23,7 @@ services:
     depends_on:
       - db
 
-  web:
+  web_rails:
     build: .
     environment:
       - RAILS_ENV=development
@@ -37,3 +37,12 @@ services:
       - "3000:3000"
     depends_on:
       - db
+
+  webpack_dev:
+    build: .
+    environment:
+      - RAILS_ENV=development
+    command: webpack --colors --progress --watch
+    volumes:
+      - .:/usr/src/app
+      - bundle-data:/usr/local/bundle

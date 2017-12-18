@@ -1,3 +1,3 @@
 #!/bin/sh
 bin/update
-bundle exec puma
+bundle exec puma -p 3000
