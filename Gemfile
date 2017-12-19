@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '2.4.2'
+ruby '2.4.3'
 
 group :development, :test do
   gem 'dotenv-rails' # load before other gems

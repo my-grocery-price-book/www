@@ -1,5 +1,5 @@
-# 1: Use ruby 2.4.2 as base:
-FROM ruby:2.4.2
+# 1: Use ruby 2.4.3 as base:
+FROM ruby:2.4.3
 
 RUN apt-get update -q && \
     apt-get install -y \
