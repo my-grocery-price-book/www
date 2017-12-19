@@ -64,7 +64,7 @@ jobs:
 
       - run:
           name: Database setup
-          command: bin/rails db:structure:load db:migrate --trace
+          command: bin/rails db:create db:structure:load db:migrate --trace
 
       - type: shell
         command: |
