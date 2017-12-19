@@ -68,7 +68,7 @@ jobs:
 
       - run:
           name: Run ruby tests
-          command: bin/rails test
+          command: bundle exec rails test
 
       - run:
           name: Run javascript tests
