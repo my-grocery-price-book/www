@@ -12,6 +12,7 @@ coverage/*
 
 # Ignore all logfiles and tempfiles.
 /log/*
+/yarn-error.log
 !/log/.keep
 /tmp
 .DS_Store
