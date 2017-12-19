@@ -1,2 +1,2 @@
 #!/usr/bin/env ruby
-exec "docker-compose run --rm app bin/bundle #{ARGV.join(' ')}"
+exec "docker-compose run --rm app bundle #{ARGV.join(' ')}"
