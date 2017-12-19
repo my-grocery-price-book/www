@@ -67,5 +67,5 @@ jobs:
 
       - run:
           name: Run ruby tests
-          command: bundle exec rails test
+          command: bundle exec rake test
 
