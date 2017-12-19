@@ -12,6 +12,7 @@ jobs:
           PGHOST: 127.0.0.1
           PGUSER: circleci-demo-ruby
           RAILS_ENV: test
+          DATABASE_URL: postgres://postgres@localhost/app
       - image: circleci/postgres:9.5-alpine
         environment:
           POSTGRES_USER: circleci-demo-ruby
@@ -63,7 +64,10 @@ jobs:
           name: Database setup
           command: bin/rails db:structure:load --trace
 
-      # Run rspec in parallel
       - type: shell
         command: |
           bundle exec rspec --profile 10 --format progress
+
+      - type: shell
+        command: |
+          yarn run jest
