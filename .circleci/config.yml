@@ -67,7 +67,7 @@ jobs:
 
       - run:
           name: compile test assets
-          command: bundle exec rake assets:compile
+          command: bundle exec rake assets:precompile
 
       - run:
           name: Run ruby tests
