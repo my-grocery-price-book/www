@@ -110,6 +110,19 @@ class ShopperPersonaSession < PersonaSession
     fill_in 'Password confirmation', with: @password
     click_button 'Sign up'
   end
+
+  def set_book_region
+    click_on 'South Africa'
+    select 'Western Cape', from: 'Region'
+    click_on 'Save'
+  end
+
+  def create_pick_n_pay_store
+    click_link 'New Store'
+    fill_in 'Name', with: 'Pick n Pay'
+    fill_in 'Location', with: 'Canal Walk'
+    click_on 'Save'
+  end
 end
 
 class FeatureTest < ActionDispatch::IntegrationTest
