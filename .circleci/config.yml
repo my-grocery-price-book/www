@@ -66,10 +66,10 @@ jobs:
           name: Database setup
           command: bin/rails db:create db:structure:load db:migrate --trace
 
-      - type: shell
-        command: |
-          bundle exec rspec --profile 10 --format progress
+      - run:
+          name: Run ruby tests
+          command: bin/rails test
 
-      - type: shell
-        command: |
-          yarn run jest
+     - run:
+          name: Run javascript tests
+          command: yarn run jest
