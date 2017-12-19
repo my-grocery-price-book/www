@@ -88,10 +88,10 @@ class ShoppingList < ApplicationRecord
   # @param [String] query
   # @return [Array<String>]
   def self.item_names_for_book(book, query:)
-    items = ShoppingList::Item.where(shopping_list_id: book.shopping_lists.map(&:id)).order(:name)
+    items = ShoppingList::Item.where(shopping_list_id: book.shopping_lists.map(&:id))
     filtered_items = items.where('name iLIKE ?', "%#{query}%").where('created_at > ?', 6.months.ago)
     filtered_items = filtered_items.select(:name).distinct.limit(100) # improve performance
-    all_names = filtered_items.map(&:name)
+    all_names = filtered_items.map(&:name).sort
     all_names.uniq!(&:downcase) # remove duplicates ignoring case
     all_names.first(10)
   end

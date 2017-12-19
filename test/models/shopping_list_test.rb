@@ -182,9 +182,9 @@ describe ShoppingList do
       @shopping_list.create_item(name: 'Cheese')
       @shopping_list.create_item(name: 'cheese')
       @shopping_list.create_item(name: 'apples')
-      @shopping_list.create_item(name: 'appleS')
+      @shopping_list.create_item(name: 'AppleS')
       names = ShoppingList.item_names_for_book(@book, query: nil)
-      assert_equal(%w[apples cheese], names)
+      assert_equal(%w[AppleS Cheese], names)
     end
 
     it 'ignores items of other books' do
@@ -198,11 +198,11 @@ describe ShoppingList do
     end
 
     it 'limits to ten results' do
-      results = ('a'..'z')
+      results = ('A'..'Z')
       results.each do |r|
         @shopping_list.create_item(name: r)
       end
-      ('A'..'Z').each do |r|
+      ('a'..'z').each do |r|
         @shopping_list.create_item(name: r)
       end
 
