@@ -70,6 +70,6 @@ jobs:
           name: Run ruby tests
           command: bin/rails test
 
-     - run:
+      - run:
           name: Run javascript tests
           command: yarn run jest
