@@ -67,9 +67,10 @@ jobs:
           command: bin/rails db:create db:structure:load db:migrate --trace
 
       - run:
-          name: Run ruby tests
-          command: bundle exec rails test
-
-      - run:
           name: Run javascript tests
           command: yarn run jest
+
+      - run:
+          name: Run ruby tests
+          command: bundle install && bundle exec rails test
+
