@@ -12,7 +12,7 @@ describe RegionFinder do
   describe 'all' do
     it 'loads all regions' do
       all = RegionFinder.instance
-      all.size.must_equal(3776)
+      all.size.must_equal(3549)
     end
   end
 end
