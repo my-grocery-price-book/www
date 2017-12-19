@@ -1,6 +1,6 @@
 # My Grocery Price Book Rails app
 [![CircleCI](https://circleci.com/gh/my-grocery-price-book/www.svg?style=svg)](https://circleci.com/gh/my-grocery-price-book/www)
-[![Stories in Ready](https://badge.waffle.io/my-grocery-price-book/www.png?label=ready&title=Ready)](https://waffle.io/my-grocery-price-book/www)
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/my-grocery-price-book/www.svg?columns=all)](https://waffle.io/my-grocery-price-book/www)
 
 For development with [vagrant read this](https://github.com/my-grocery-price-book/www-infrastructure#setting-up-a-development-enviroment-with-vagrant-and-ansible)
 
