@@ -66,6 +66,10 @@ jobs:
           command: yarn run jest
 
       - run:
+          name: compile test assets
+          command: bundle exec rake assets:compile
+
+      - run:
           name: Run ruby tests
           command: bundle exec rake test
 
