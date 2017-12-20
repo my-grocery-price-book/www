@@ -34,11 +34,10 @@ const Book = createReactClass({
       var page_visible = page.name.toLowerCase().indexOf(state.filter_text.toLowerCase()) != -1;
       page_visible = page_visible || page.category.toLowerCase().indexOf(state.filter_text.toLowerCase()) != -1;
       return (
-        <ErrorBoundary>
-          <Page key={"page_" + page.id}
-                  page={page}
-                  visible={page_visible}
-                  authenticity_token={props.authenticity_token}/>
+        <ErrorBoundary key={"page_" + page.id}>
+          <Page page={page}
+                visible={page_visible}
+                authenticity_token={props.authenticity_token}/>
         </ErrorBoundary>
       );
     });
