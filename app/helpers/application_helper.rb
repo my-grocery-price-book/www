@@ -13,6 +13,10 @@ module ApplicationHelper
     MultiJson.load(render(args.merge(formats: [:json])))
   end
 
+  def safe_float_for_json(amount)
+    Float(format('%.12g', amount))
+  end
+
   # def embedded_svg(filename, options = {})
   #   # Cache the result of the parsing svg for next render
   #   Rails.cache.fetch("embedded_#{filename}_#{options.hash}") do
