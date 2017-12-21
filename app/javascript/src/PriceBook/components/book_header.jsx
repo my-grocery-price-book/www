@@ -11,6 +11,7 @@ function BookHeader(props) {
             <a href={props.edit_book_url} title="Edit Book" className="btn btn-default btn-sm">Edit</a>
             <a href={props.set_region_url} title="Set Region" className="btn btn-default btn-sm">Region</a>
             <a href={props.invite_url} title="Invite User to this Book" className="btn btn-default btn-sm">Invite</a>
+            <a href={props.new_book_store_url} title="New Store" className="btn btn-default btn-sm">New Store</a>
           </div>
         </div>
       </div>

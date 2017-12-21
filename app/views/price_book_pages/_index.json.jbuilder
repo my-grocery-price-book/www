@@ -7,4 +7,5 @@ json.set_region_url select_country_book_regions_url(book)
 json.edit_book_url edit_book_url(book)
 json.new_page_url new_book_page_url(book)
 json.invite_url new_book_invite_url(book)
+json.new_book_store_url new_book_store_url(book)
 json.authenticity_token form_authenticity_token

@@ -14,6 +14,7 @@ const Book = createReactClass({
     set_region_url: PropTypes.string,
     edit_book_url: PropTypes.string,
     new_page_url: PropTypes.string,
+    new_book_store_url: PropTypes.string,
     invite_url: PropTypes.string,
     authenticity_token: PropTypes.string
   },
@@ -45,9 +46,10 @@ const Book = createReactClass({
     return(
         <div>
           <BookHeader edit_book_url={props.edit_book_url}
-                  set_region_url={props.set_region_url}
-                  invite_url={props.invite_url}
-                  new_page_url={props.new_page_url} />
+                      set_region_url={props.set_region_url}
+                      invite_url={props.invite_url}
+                      new_page_url={props.new_page_url}
+                      new_book_store_url={props.new_book_store_url} />
           <div className="row">
             <div className="col-xs-12">
               <input className="form-control" ref="input_filter"
