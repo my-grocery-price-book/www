@@ -3,29 +3,8 @@ require 'features_helper'
 class BuildShoppingListTest < FeatureTest
   module TrackingShopper
     def add_eggs_entry
-      click_link 'Price Book'
-      click_on 'Eggs'
-      click_on 'New Price'
-
-      # need to select a region first
-      set_book_region
-
-      # need to create a new store first
-      create_pick_n_pay_store
-
-      # start filling in the price
-      complete_sugar_entry
-    end
-
-    private
-
-    def complete_sugar_entry
-      select 'Pick n Pay - Canal Walk', from: 'Store'
-      fill_in 'Product name', with: 'White Eggs'
-      fill_in 'Amount', with: '1'
-      fill_in 'Package size', with: '1'
-      fill_in 'Total price', with: '3.5'
-      click_on 'Save'
+      add_entry_to_book('Eggs', product_name: 'White Eggs', amount: '1',
+                                package_size: '410', total_price: '3.5')
     end
   end
 

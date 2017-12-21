@@ -25,3 +25,5 @@ IrresponsibleModule:
   enabled: false
 Attribute:
   enabled: false
+LongParameterList:
+  max_params: 5

@@ -3,29 +3,8 @@ require 'features_helper'
 class TrackingPricesTest < FeatureTest
   module TrackingShopper
     def add_sugar_entry
-      click_link 'Price Book'
-      click_on 'Sugar'
-      click_on 'New Price'
-
-      # need to select a region first
-      set_book_region
-
-      # need to create a new store first
-      create_pick_n_pay_store
-
-      # start filling in the price
-      complete_sugar_entry
-    end
-
-    private
-
-    def complete_sugar_entry
-      select 'Pick n Pay - Canal Walk', from: 'Store'
-      fill_in 'Product name', with: 'White Sugar'
-      fill_in 'Amount', with: '1'
-      fill_in 'Package size', with: '410'
-      fill_in 'Total price', with: '10'
-      click_on 'Save'
+      add_entry_to_book('Sugar', product_name: 'White Sugar', amount: '1',
+                                 package_size: '410', total_price: '10')
     end
   end
 
@@ -44,34 +23,20 @@ class TrackingPricesTest < FeatureTest
 
     @pat.perform do
       click_link 'Price Book'
-
       click_on 'Region'
+    end
 
-      # need to select a region first
-      click_on 'South Africa'
-      select 'Western Cape', from: 'Region'
-      click_on 'Save'
+    @pat.set_book_region
+    @pat.create_pick_n_pay_store
 
+    @pat.perform do
       click_on 'Sugar'
       click_on 'Edit'
       fill_in 'Following product', with: 'White Sugar'
       click_on 'Update Page'
-
-      click_on 'New Price'
-      # need to create a new store first
-      click_link 'New Store'
-      fill_in 'Name', with: 'Pick n Pay'
-      fill_in 'Location', with: 'Canal Walk'
-      click_on 'Save'
-
-      # start filling in the price
-      select 'Pick n Pay - Canal Walk', from: 'Store'
-      fill_in 'Product name', with: 'Brown Sugar'
-      fill_in 'Amount', with: '1'
-      fill_in 'Package size', with: '400'
-      fill_in 'Total price', with: '9.5'
-      click_on 'Save'
     end
+
+    @pat.add_entry_to_book('Sugar', product_name: 'Brown Sugar', package_size: '400')
 
     assert @pat.has_content?('Brown Sugar')
     assert @pat.has_content?('400')
@@ -105,5 +70,14 @@ class TrackingPricesTest < FeatureTest
     assert @grant.has_content?('Langa')
     assert @grant.has_content?('White Sugar')
     assert @grant.has_content?('888')
+  end
+
+  test 'Grant tracks price of multiple items' do
+    @grant.add_sugar_entry
+
+    assert @grant.has_content?('White Sugar')
+    assert @grant.has_content?('410')
+
+
   end
 end

@@ -111,6 +111,29 @@ class ShopperPersonaSession < PersonaSession
     click_button 'Sign up'
   end
 
+  def add_entry_to_book(name, **entry_details)
+    click_link 'Price Book' unless page.has_link?(name)
+    click_on name
+    click_on 'New Price'
+
+    if page.has_link?('South Africa')
+      set_book_region
+      create_pick_n_pay_store
+    end
+
+    complete_entry(entry_details)
+  end
+
+  def complete_entry(store: 'Pick n Pay - Canal Walk', product_name: 'White Sugar',
+                     amount: '1', package_size: '410', total_price: '10')
+    select store, from: 'Store'
+    fill_in 'Product name', with: product_name
+    fill_in 'Amount', with: amount
+    fill_in 'Package size', with: package_size
+    fill_in 'Total price', with: total_price
+    click_on 'Save'
+  end
+
   def set_book_region
     click_on 'South Africa'
     select 'Western Cape', from: 'Region'

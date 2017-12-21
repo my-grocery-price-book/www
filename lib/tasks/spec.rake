@@ -3,6 +3,6 @@
 namespace :spec do
   desc 'run javascript tests'
   task :javascript do
-    exec 'npm run test'
+    exec 'yarn run jest'
   end
 end
