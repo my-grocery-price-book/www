@@ -13,6 +13,7 @@ module ApplicationHelper
     MultiJson.load(render(args.merge(formats: [:json])))
   end
 
+  # make sure json formats it as a float and not a string
   def safe_float_for_json(amount)
     Float(format('%.12g', amount))
   end
