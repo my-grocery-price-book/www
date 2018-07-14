@@ -14,13 +14,6 @@ end
 
 Capybara.default_driver = :poltergeist
 
-require 'puma'
-Capybara.register_server('puma') do |app, port|
-  server = Puma::Server.new(app)
-  server.add_tcp_listener(Capybara.server_host, port)
-  server.run
-end
-
 class PersonaSession
   include Capybara::DSL
   include Capybara::Email::DSL
