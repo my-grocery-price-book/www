@@ -18,16 +18,15 @@ For development with [vagrant read this](https://github.com/my-grocery-price-boo
 ```
   BUNDLE_GEMFILE=Gemtools bundle install # not recommended to be added to Gemfile
   overcommit --install && overcommit --sign && overcommit --sign pre-commit
-  cp -vn "config/examples/.env.local" ".env" # then edit .env and insert correct details
-  bin/setup 
+  docker-compose run --rm app bin/setup
 ```
 
 ### Development
 
 ```
-  ./run.sh # starts the server visit http://127.0.0.1:3000/
-  bundle exec rake test # run tests
-  yarn run jest spec # run javascript tests
+  docker-compose up # starts the server visit http://127.0.0.1:3000/
+  docker-compose run --rm app bundle exec rake test # run tests
+  docker-compose run --rm app yarn run jest spec # run javascript tests
 ```
 
 #### catching email

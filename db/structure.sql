@@ -6,6 +6,7 @@ SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
@@ -37,8 +38,6 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
 COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UUIDs)';
 
 
-SET search_path = public, pg_catalog;
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -47,7 +46,7 @@ SET default_with_oids = false;
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE ar_internal_metadata (
+CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
     created_at timestamp without time zone NOT NULL,
@@ -59,7 +58,7 @@ CREATE TABLE ar_internal_metadata (
 -- Name: comfy_cms_blocks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE comfy_cms_blocks (
+CREATE TABLE public.comfy_cms_blocks (
     id integer NOT NULL,
     identifier character varying NOT NULL,
     content text,
@@ -74,7 +73,7 @@ CREATE TABLE comfy_cms_blocks (
 -- Name: comfy_cms_blocks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE comfy_cms_blocks_id_seq
+CREATE SEQUENCE public.comfy_cms_blocks_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -86,14 +85,14 @@ CREATE SEQUENCE comfy_cms_blocks_id_seq
 -- Name: comfy_cms_blocks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE comfy_cms_blocks_id_seq OWNED BY comfy_cms_blocks.id;
+ALTER SEQUENCE public.comfy_cms_blocks_id_seq OWNED BY public.comfy_cms_blocks.id;
 
 
 --
 -- Name: comfy_cms_categories; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE comfy_cms_categories (
+CREATE TABLE public.comfy_cms_categories (
     id integer NOT NULL,
     site_id integer NOT NULL,
     label character varying NOT NULL,
@@ -105,7 +104,7 @@ CREATE TABLE comfy_cms_categories (
 -- Name: comfy_cms_categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE comfy_cms_categories_id_seq
+CREATE SEQUENCE public.comfy_cms_categories_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -117,14 +116,14 @@ CREATE SEQUENCE comfy_cms_categories_id_seq
 -- Name: comfy_cms_categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE comfy_cms_categories_id_seq OWNED BY comfy_cms_categories.id;
+ALTER SEQUENCE public.comfy_cms_categories_id_seq OWNED BY public.comfy_cms_categories.id;
 
 
 --
 -- Name: comfy_cms_categorizations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE comfy_cms_categorizations (
+CREATE TABLE public.comfy_cms_categorizations (
     id integer NOT NULL,
     category_id integer NOT NULL,
     categorized_type character varying NOT NULL,
@@ -136,7 +135,7 @@ CREATE TABLE comfy_cms_categorizations (
 -- Name: comfy_cms_categorizations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE comfy_cms_categorizations_id_seq
+CREATE SEQUENCE public.comfy_cms_categorizations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -148,14 +147,14 @@ CREATE SEQUENCE comfy_cms_categorizations_id_seq
 -- Name: comfy_cms_categorizations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE comfy_cms_categorizations_id_seq OWNED BY comfy_cms_categorizations.id;
+ALTER SEQUENCE public.comfy_cms_categorizations_id_seq OWNED BY public.comfy_cms_categorizations.id;
 
 
 --
 -- Name: comfy_cms_files; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE comfy_cms_files (
+CREATE TABLE public.comfy_cms_files (
     id integer NOT NULL,
     site_id integer NOT NULL,
     block_id integer,
@@ -174,7 +173,7 @@ CREATE TABLE comfy_cms_files (
 -- Name: comfy_cms_files_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE comfy_cms_files_id_seq
+CREATE SEQUENCE public.comfy_cms_files_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -186,14 +185,14 @@ CREATE SEQUENCE comfy_cms_files_id_seq
 -- Name: comfy_cms_files_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE comfy_cms_files_id_seq OWNED BY comfy_cms_files.id;
+ALTER SEQUENCE public.comfy_cms_files_id_seq OWNED BY public.comfy_cms_files.id;
 
 
 --
 -- Name: comfy_cms_layouts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE comfy_cms_layouts (
+CREATE TABLE public.comfy_cms_layouts (
     id integer NOT NULL,
     site_id integer NOT NULL,
     parent_id integer,
@@ -214,7 +213,7 @@ CREATE TABLE comfy_cms_layouts (
 -- Name: comfy_cms_layouts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE comfy_cms_layouts_id_seq
+CREATE SEQUENCE public.comfy_cms_layouts_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -226,14 +225,14 @@ CREATE SEQUENCE comfy_cms_layouts_id_seq
 -- Name: comfy_cms_layouts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE comfy_cms_layouts_id_seq OWNED BY comfy_cms_layouts.id;
+ALTER SEQUENCE public.comfy_cms_layouts_id_seq OWNED BY public.comfy_cms_layouts.id;
 
 
 --
 -- Name: comfy_cms_pages; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE comfy_cms_pages (
+CREATE TABLE public.comfy_cms_pages (
     id integer NOT NULL,
     site_id integer NOT NULL,
     layout_id integer,
@@ -256,7 +255,7 @@ CREATE TABLE comfy_cms_pages (
 -- Name: comfy_cms_pages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE comfy_cms_pages_id_seq
+CREATE SEQUENCE public.comfy_cms_pages_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -268,14 +267,14 @@ CREATE SEQUENCE comfy_cms_pages_id_seq
 -- Name: comfy_cms_pages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE comfy_cms_pages_id_seq OWNED BY comfy_cms_pages.id;
+ALTER SEQUENCE public.comfy_cms_pages_id_seq OWNED BY public.comfy_cms_pages.id;
 
 
 --
 -- Name: comfy_cms_revisions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE comfy_cms_revisions (
+CREATE TABLE public.comfy_cms_revisions (
     id integer NOT NULL,
     record_type character varying NOT NULL,
     record_id integer NOT NULL,
@@ -288,7 +287,7 @@ CREATE TABLE comfy_cms_revisions (
 -- Name: comfy_cms_revisions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE comfy_cms_revisions_id_seq
+CREATE SEQUENCE public.comfy_cms_revisions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -300,14 +299,14 @@ CREATE SEQUENCE comfy_cms_revisions_id_seq
 -- Name: comfy_cms_revisions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE comfy_cms_revisions_id_seq OWNED BY comfy_cms_revisions.id;
+ALTER SEQUENCE public.comfy_cms_revisions_id_seq OWNED BY public.comfy_cms_revisions.id;
 
 
 --
 -- Name: comfy_cms_sites; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE comfy_cms_sites (
+CREATE TABLE public.comfy_cms_sites (
     id integer NOT NULL,
     label character varying NOT NULL,
     identifier character varying NOT NULL,
@@ -322,7 +321,7 @@ CREATE TABLE comfy_cms_sites (
 -- Name: comfy_cms_sites_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE comfy_cms_sites_id_seq
+CREATE SEQUENCE public.comfy_cms_sites_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -334,14 +333,14 @@ CREATE SEQUENCE comfy_cms_sites_id_seq
 -- Name: comfy_cms_sites_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE comfy_cms_sites_id_seq OWNED BY comfy_cms_sites.id;
+ALTER SEQUENCE public.comfy_cms_sites_id_seq OWNED BY public.comfy_cms_sites.id;
 
 
 --
 -- Name: comfy_cms_snippets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE comfy_cms_snippets (
+CREATE TABLE public.comfy_cms_snippets (
     id integer NOT NULL,
     site_id integer NOT NULL,
     label character varying NOT NULL,
@@ -358,7 +357,7 @@ CREATE TABLE comfy_cms_snippets (
 -- Name: comfy_cms_snippets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE comfy_cms_snippets_id_seq
+CREATE SEQUENCE public.comfy_cms_snippets_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -370,20 +369,20 @@ CREATE SEQUENCE comfy_cms_snippets_id_seq
 -- Name: comfy_cms_snippets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE comfy_cms_snippets_id_seq OWNED BY comfy_cms_snippets.id;
+ALTER SEQUENCE public.comfy_cms_snippets_id_seq OWNED BY public.comfy_cms_snippets.id;
 
 
 --
 -- Name: entry_owners; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE entry_owners (
+CREATE TABLE public.entry_owners (
     old_id integer,
     old_price_entry_id integer,
     old_shopper_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    id uuid DEFAULT uuid_generate_v1mc() NOT NULL,
+    id uuid DEFAULT public.uuid_generate_v1mc() NOT NULL,
     price_entry_id uuid,
     shopper_id uuid
 );
@@ -393,7 +392,7 @@ CREATE TABLE entry_owners (
 -- Name: entry_owners_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE entry_owners_id_seq
+CREATE SEQUENCE public.entry_owners_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -405,14 +404,14 @@ CREATE SEQUENCE entry_owners_id_seq
 -- Name: entry_owners_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE entry_owners_id_seq OWNED BY entry_owners.old_id;
+ALTER SEQUENCE public.entry_owners_id_seq OWNED BY public.entry_owners.old_id;
 
 
 --
 -- Name: invites; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE invites (
+CREATE TABLE public.invites (
     old_id integer,
     old_price_book_id integer,
     name character varying,
@@ -421,7 +420,7 @@ CREATE TABLE invites (
     token character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    id uuid DEFAULT uuid_generate_v1mc() NOT NULL,
+    id uuid DEFAULT public.uuid_generate_v1mc() NOT NULL,
     price_book_id uuid
 );
 
@@ -430,7 +429,7 @@ CREATE TABLE invites (
 -- Name: invites_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE invites_id_seq
+CREATE SEQUENCE public.invites_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -442,21 +441,21 @@ CREATE SEQUENCE invites_id_seq
 -- Name: invites_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE invites_id_seq OWNED BY invites.old_id;
+ALTER SEQUENCE public.invites_id_seq OWNED BY public.invites.old_id;
 
 
 --
 -- Name: members; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE members (
+CREATE TABLE public.members (
     old_id integer,
     old_price_book_id integer,
     old_shopper_id integer,
     admin boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    id uuid DEFAULT uuid_generate_v1mc() NOT NULL,
+    id uuid DEFAULT public.uuid_generate_v1mc() NOT NULL,
     price_book_id uuid,
     shopper_id uuid
 );
@@ -466,7 +465,7 @@ CREATE TABLE members (
 -- Name: members_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE members_id_seq
+CREATE SEQUENCE public.members_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -478,14 +477,14 @@ CREATE SEQUENCE members_id_seq
 -- Name: members_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE members_id_seq OWNED BY members.old_id;
+ALTER SEQUENCE public.members_id_seq OWNED BY public.members.old_id;
 
 
 --
 -- Name: price_book_pages; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE price_book_pages (
+CREATE TABLE public.price_book_pages (
     old_id integer,
     name character varying,
     category character varying,
@@ -494,7 +493,7 @@ CREATE TABLE price_book_pages (
     product_names text[] DEFAULT '{}'::text[],
     unit character varying,
     old_price_book_id integer,
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     price_book_id uuid
 );
 
@@ -503,7 +502,7 @@ CREATE TABLE price_book_pages (
 -- Name: price_book_pages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE price_book_pages_id_seq
+CREATE SEQUENCE public.price_book_pages_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -515,21 +514,21 @@ CREATE SEQUENCE price_book_pages_id_seq
 -- Name: price_book_pages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE price_book_pages_id_seq OWNED BY price_book_pages.old_id;
+ALTER SEQUENCE public.price_book_pages_id_seq OWNED BY public.price_book_pages.old_id;
 
 
 --
 -- Name: price_books; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE price_books (
+CREATE TABLE public.price_books (
     old_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     name character varying DEFAULT 'My Price Book'::character varying NOT NULL,
     region_codes character varying[] DEFAULT '{}'::character varying[],
     old_store_ids integer[] DEFAULT '{}'::integer[],
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     store_ids uuid[] DEFAULT '{}'::uuid[]
 );
 
@@ -538,7 +537,7 @@ CREATE TABLE price_books (
 -- Name: price_books_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE price_books_id_seq
+CREATE SEQUENCE public.price_books_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -550,14 +549,14 @@ CREATE SEQUENCE price_books_id_seq
 -- Name: price_books_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE price_books_id_seq OWNED BY price_books.old_id;
+ALTER SEQUENCE public.price_books_id_seq OWNED BY public.price_books.old_id;
 
 
 --
 -- Name: price_entries; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE price_entries (
+CREATE TABLE public.price_entries (
     old_id integer,
     date_on date NOT NULL,
     old_store_id integer,
@@ -568,7 +567,7 @@ CREATE TABLE price_entries (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     total_price money NOT NULL,
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     store_id uuid
 );
 
@@ -577,7 +576,7 @@ CREATE TABLE price_entries (
 -- Name: price_entries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE price_entries_id_seq
+CREATE SEQUENCE public.price_entries_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -589,14 +588,14 @@ CREATE SEQUENCE price_entries_id_seq
 -- Name: price_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE price_entries_id_seq OWNED BY price_entries.old_id;
+ALTER SEQUENCE public.price_entries_id_seq OWNED BY public.price_entries.old_id;
 
 
 --
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE schema_migrations (
+CREATE TABLE public.schema_migrations (
     version character varying NOT NULL
 );
 
@@ -605,7 +604,7 @@ CREATE TABLE schema_migrations (
 -- Name: shoppers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE shoppers (
+CREATE TABLE public.shoppers (
     old_id integer,
     email character varying DEFAULT ''::character varying NOT NULL,
     encrypted_password character varying DEFAULT ''::character varying NOT NULL,
@@ -624,7 +623,7 @@ CREATE TABLE shoppers (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     guest boolean DEFAULT false NOT NULL,
-    id uuid DEFAULT uuid_generate_v4() NOT NULL
+    id uuid DEFAULT public.uuid_generate_v4() NOT NULL
 );
 
 
@@ -632,7 +631,7 @@ CREATE TABLE shoppers (
 -- Name: shoppers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE shoppers_id_seq
+CREATE SEQUENCE public.shoppers_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -644,19 +643,19 @@ CREATE SEQUENCE shoppers_id_seq
 -- Name: shoppers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE shoppers_id_seq OWNED BY shoppers.old_id;
+ALTER SEQUENCE public.shoppers_id_seq OWNED BY public.shoppers.old_id;
 
 
 --
 -- Name: shopping_list_item_purchases; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE shopping_list_item_purchases (
+CREATE TABLE public.shopping_list_item_purchases (
     old_id integer,
     old_shopping_list_item_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    id uuid DEFAULT uuid_generate_v1mc() NOT NULL,
+    id uuid DEFAULT public.uuid_generate_v1mc() NOT NULL,
     shopping_list_item_id uuid
 );
 
@@ -665,7 +664,7 @@ CREATE TABLE shopping_list_item_purchases (
 -- Name: shopping_list_item_purchases_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE shopping_list_item_purchases_id_seq
+CREATE SEQUENCE public.shopping_list_item_purchases_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -677,14 +676,14 @@ CREATE SEQUENCE shopping_list_item_purchases_id_seq
 -- Name: shopping_list_item_purchases_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE shopping_list_item_purchases_id_seq OWNED BY shopping_list_item_purchases.old_id;
+ALTER SEQUENCE public.shopping_list_item_purchases_id_seq OWNED BY public.shopping_list_item_purchases.old_id;
 
 
 --
 -- Name: shopping_list_items; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE shopping_list_items (
+CREATE TABLE public.shopping_list_items (
     old_id integer,
     old_shopping_list_id integer,
     name character varying,
@@ -692,7 +691,7 @@ CREATE TABLE shopping_list_items (
     unit character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     shopping_list_id uuid
 );
 
@@ -701,7 +700,7 @@ CREATE TABLE shopping_list_items (
 -- Name: shopping_list_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE shopping_list_items_id_seq
+CREATE SEQUENCE public.shopping_list_items_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -713,21 +712,21 @@ CREATE SEQUENCE shopping_list_items_id_seq
 -- Name: shopping_list_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE shopping_list_items_id_seq OWNED BY shopping_list_items.old_id;
+ALTER SEQUENCE public.shopping_list_items_id_seq OWNED BY public.shopping_list_items.old_id;
 
 
 --
 -- Name: shopping_lists; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE shopping_lists (
+CREATE TABLE public.shopping_lists (
     old_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     title character varying,
     old_price_book_id integer,
     price_book_id uuid,
-    id uuid DEFAULT uuid_generate_v4() NOT NULL
+    id uuid DEFAULT public.uuid_generate_v4() NOT NULL
 );
 
 
@@ -735,7 +734,7 @@ CREATE TABLE shopping_lists (
 -- Name: shopping_lists_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE shopping_lists_id_seq
+CREATE SEQUENCE public.shopping_lists_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -747,21 +746,21 @@ CREATE SEQUENCE shopping_lists_id_seq
 -- Name: shopping_lists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE shopping_lists_id_seq OWNED BY shopping_lists.old_id;
+ALTER SEQUENCE public.shopping_lists_id_seq OWNED BY public.shopping_lists.old_id;
 
 
 --
 -- Name: stores; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE stores (
+CREATE TABLE public.stores (
     old_id integer,
     name character varying NOT NULL,
     location character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     region_code character varying NOT NULL,
-    id uuid DEFAULT uuid_generate_v4() NOT NULL
+    id uuid DEFAULT public.uuid_generate_v4() NOT NULL
 );
 
 
@@ -769,7 +768,7 @@ CREATE TABLE stores (
 -- Name: stores_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE stores_id_seq
+CREATE SEQUENCE public.stores_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -781,154 +780,154 @@ CREATE SEQUENCE stores_id_seq
 -- Name: stores_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE stores_id_seq OWNED BY stores.old_id;
+ALTER SEQUENCE public.stores_id_seq OWNED BY public.stores.old_id;
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY comfy_cms_blocks ALTER COLUMN id SET DEFAULT nextval('comfy_cms_blocks_id_seq'::regclass);
+ALTER TABLE ONLY public.comfy_cms_blocks ALTER COLUMN id SET DEFAULT nextval('public.comfy_cms_blocks_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY comfy_cms_categories ALTER COLUMN id SET DEFAULT nextval('comfy_cms_categories_id_seq'::regclass);
+ALTER TABLE ONLY public.comfy_cms_categories ALTER COLUMN id SET DEFAULT nextval('public.comfy_cms_categories_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY comfy_cms_categorizations ALTER COLUMN id SET DEFAULT nextval('comfy_cms_categorizations_id_seq'::regclass);
+ALTER TABLE ONLY public.comfy_cms_categorizations ALTER COLUMN id SET DEFAULT nextval('public.comfy_cms_categorizations_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY comfy_cms_files ALTER COLUMN id SET DEFAULT nextval('comfy_cms_files_id_seq'::regclass);
+ALTER TABLE ONLY public.comfy_cms_files ALTER COLUMN id SET DEFAULT nextval('public.comfy_cms_files_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY comfy_cms_layouts ALTER COLUMN id SET DEFAULT nextval('comfy_cms_layouts_id_seq'::regclass);
+ALTER TABLE ONLY public.comfy_cms_layouts ALTER COLUMN id SET DEFAULT nextval('public.comfy_cms_layouts_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY comfy_cms_pages ALTER COLUMN id SET DEFAULT nextval('comfy_cms_pages_id_seq'::regclass);
+ALTER TABLE ONLY public.comfy_cms_pages ALTER COLUMN id SET DEFAULT nextval('public.comfy_cms_pages_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY comfy_cms_revisions ALTER COLUMN id SET DEFAULT nextval('comfy_cms_revisions_id_seq'::regclass);
+ALTER TABLE ONLY public.comfy_cms_revisions ALTER COLUMN id SET DEFAULT nextval('public.comfy_cms_revisions_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY comfy_cms_sites ALTER COLUMN id SET DEFAULT nextval('comfy_cms_sites_id_seq'::regclass);
+ALTER TABLE ONLY public.comfy_cms_sites ALTER COLUMN id SET DEFAULT nextval('public.comfy_cms_sites_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY comfy_cms_snippets ALTER COLUMN id SET DEFAULT nextval('comfy_cms_snippets_id_seq'::regclass);
+ALTER TABLE ONLY public.comfy_cms_snippets ALTER COLUMN id SET DEFAULT nextval('public.comfy_cms_snippets_id_seq'::regclass);
 
 
 --
 -- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY entry_owners ALTER COLUMN old_id SET DEFAULT nextval('entry_owners_id_seq'::regclass);
+ALTER TABLE ONLY public.entry_owners ALTER COLUMN old_id SET DEFAULT nextval('public.entry_owners_id_seq'::regclass);
 
 
 --
 -- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY invites ALTER COLUMN old_id SET DEFAULT nextval('invites_id_seq'::regclass);
+ALTER TABLE ONLY public.invites ALTER COLUMN old_id SET DEFAULT nextval('public.invites_id_seq'::regclass);
 
 
 --
 -- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY members ALTER COLUMN old_id SET DEFAULT nextval('members_id_seq'::regclass);
+ALTER TABLE ONLY public.members ALTER COLUMN old_id SET DEFAULT nextval('public.members_id_seq'::regclass);
 
 
 --
 -- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY price_book_pages ALTER COLUMN old_id SET DEFAULT nextval('price_book_pages_id_seq'::regclass);
+ALTER TABLE ONLY public.price_book_pages ALTER COLUMN old_id SET DEFAULT nextval('public.price_book_pages_id_seq'::regclass);
 
 
 --
 -- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY price_books ALTER COLUMN old_id SET DEFAULT nextval('price_books_id_seq'::regclass);
+ALTER TABLE ONLY public.price_books ALTER COLUMN old_id SET DEFAULT nextval('public.price_books_id_seq'::regclass);
 
 
 --
 -- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY price_entries ALTER COLUMN old_id SET DEFAULT nextval('price_entries_id_seq'::regclass);
+ALTER TABLE ONLY public.price_entries ALTER COLUMN old_id SET DEFAULT nextval('public.price_entries_id_seq'::regclass);
 
 
 --
 -- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY shoppers ALTER COLUMN old_id SET DEFAULT nextval('shoppers_id_seq'::regclass);
+ALTER TABLE ONLY public.shoppers ALTER COLUMN old_id SET DEFAULT nextval('public.shoppers_id_seq'::regclass);
 
 
 --
 -- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY shopping_list_item_purchases ALTER COLUMN old_id SET DEFAULT nextval('shopping_list_item_purchases_id_seq'::regclass);
+ALTER TABLE ONLY public.shopping_list_item_purchases ALTER COLUMN old_id SET DEFAULT nextval('public.shopping_list_item_purchases_id_seq'::regclass);
 
 
 --
 -- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY shopping_list_items ALTER COLUMN old_id SET DEFAULT nextval('shopping_list_items_id_seq'::regclass);
+ALTER TABLE ONLY public.shopping_list_items ALTER COLUMN old_id SET DEFAULT nextval('public.shopping_list_items_id_seq'::regclass);
 
 
 --
 -- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY shopping_lists ALTER COLUMN old_id SET DEFAULT nextval('shopping_lists_id_seq'::regclass);
+ALTER TABLE ONLY public.shopping_lists ALTER COLUMN old_id SET DEFAULT nextval('public.shopping_lists_id_seq'::regclass);
 
 
 --
 -- Name: old_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY stores ALTER COLUMN old_id SET DEFAULT nextval('stores_id_seq'::regclass);
+ALTER TABLE ONLY public.stores ALTER COLUMN old_id SET DEFAULT nextval('public.stores_id_seq'::regclass);
 
 
 --
 -- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY ar_internal_metadata
+ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
 
 
@@ -936,7 +935,7 @@ ALTER TABLE ONLY ar_internal_metadata
 -- Name: comfy_cms_blocks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY comfy_cms_blocks
+ALTER TABLE ONLY public.comfy_cms_blocks
     ADD CONSTRAINT comfy_cms_blocks_pkey PRIMARY KEY (id);
 
 
@@ -944,7 +943,7 @@ ALTER TABLE ONLY comfy_cms_blocks
 -- Name: comfy_cms_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY comfy_cms_categories
+ALTER TABLE ONLY public.comfy_cms_categories
     ADD CONSTRAINT comfy_cms_categories_pkey PRIMARY KEY (id);
 
 
@@ -952,7 +951,7 @@ ALTER TABLE ONLY comfy_cms_categories
 -- Name: comfy_cms_categorizations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY comfy_cms_categorizations
+ALTER TABLE ONLY public.comfy_cms_categorizations
     ADD CONSTRAINT comfy_cms_categorizations_pkey PRIMARY KEY (id);
 
 
@@ -960,7 +959,7 @@ ALTER TABLE ONLY comfy_cms_categorizations
 -- Name: comfy_cms_files_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY comfy_cms_files
+ALTER TABLE ONLY public.comfy_cms_files
     ADD CONSTRAINT comfy_cms_files_pkey PRIMARY KEY (id);
 
 
@@ -968,7 +967,7 @@ ALTER TABLE ONLY comfy_cms_files
 -- Name: comfy_cms_layouts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY comfy_cms_layouts
+ALTER TABLE ONLY public.comfy_cms_layouts
     ADD CONSTRAINT comfy_cms_layouts_pkey PRIMARY KEY (id);
 
 
@@ -976,7 +975,7 @@ ALTER TABLE ONLY comfy_cms_layouts
 -- Name: comfy_cms_pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY comfy_cms_pages
+ALTER TABLE ONLY public.comfy_cms_pages
     ADD CONSTRAINT comfy_cms_pages_pkey PRIMARY KEY (id);
 
 
@@ -984,7 +983,7 @@ ALTER TABLE ONLY comfy_cms_pages
 -- Name: comfy_cms_revisions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY comfy_cms_revisions
+ALTER TABLE ONLY public.comfy_cms_revisions
     ADD CONSTRAINT comfy_cms_revisions_pkey PRIMARY KEY (id);
 
 
@@ -992,7 +991,7 @@ ALTER TABLE ONLY comfy_cms_revisions
 -- Name: comfy_cms_sites_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY comfy_cms_sites
+ALTER TABLE ONLY public.comfy_cms_sites
     ADD CONSTRAINT comfy_cms_sites_pkey PRIMARY KEY (id);
 
 
@@ -1000,7 +999,7 @@ ALTER TABLE ONLY comfy_cms_sites
 -- Name: comfy_cms_snippets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY comfy_cms_snippets
+ALTER TABLE ONLY public.comfy_cms_snippets
     ADD CONSTRAINT comfy_cms_snippets_pkey PRIMARY KEY (id);
 
 
@@ -1008,7 +1007,7 @@ ALTER TABLE ONLY comfy_cms_snippets
 -- Name: entry_owners_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY entry_owners
+ALTER TABLE ONLY public.entry_owners
     ADD CONSTRAINT entry_owners_pkey PRIMARY KEY (id);
 
 
@@ -1016,7 +1015,7 @@ ALTER TABLE ONLY entry_owners
 -- Name: invites_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY invites
+ALTER TABLE ONLY public.invites
     ADD CONSTRAINT invites_pkey PRIMARY KEY (id);
 
 
@@ -1024,7 +1023,7 @@ ALTER TABLE ONLY invites
 -- Name: members_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY members
+ALTER TABLE ONLY public.members
     ADD CONSTRAINT members_pkey PRIMARY KEY (id);
 
 
@@ -1032,7 +1031,7 @@ ALTER TABLE ONLY members
 -- Name: price_book_pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY price_book_pages
+ALTER TABLE ONLY public.price_book_pages
     ADD CONSTRAINT price_book_pages_pkey PRIMARY KEY (id);
 
 
@@ -1040,7 +1039,7 @@ ALTER TABLE ONLY price_book_pages
 -- Name: price_books_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY price_books
+ALTER TABLE ONLY public.price_books
     ADD CONSTRAINT price_books_pkey PRIMARY KEY (id);
 
 
@@ -1048,7 +1047,7 @@ ALTER TABLE ONLY price_books
 -- Name: price_entries_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY price_entries
+ALTER TABLE ONLY public.price_entries
     ADD CONSTRAINT price_entries_pkey PRIMARY KEY (id);
 
 
@@ -1056,7 +1055,7 @@ ALTER TABLE ONLY price_entries
 -- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY schema_migrations
+ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 
 
@@ -1064,7 +1063,7 @@ ALTER TABLE ONLY schema_migrations
 -- Name: shoppers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY shoppers
+ALTER TABLE ONLY public.shoppers
     ADD CONSTRAINT shoppers_pkey PRIMARY KEY (id);
 
 
@@ -1072,7 +1071,7 @@ ALTER TABLE ONLY shoppers
 -- Name: shopping_list_item_purchases_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY shopping_list_item_purchases
+ALTER TABLE ONLY public.shopping_list_item_purchases
     ADD CONSTRAINT shopping_list_item_purchases_pkey PRIMARY KEY (id);
 
 
@@ -1080,7 +1079,7 @@ ALTER TABLE ONLY shopping_list_item_purchases
 -- Name: shopping_list_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY shopping_list_items
+ALTER TABLE ONLY public.shopping_list_items
     ADD CONSTRAINT shopping_list_items_pkey PRIMARY KEY (id);
 
 
@@ -1088,7 +1087,7 @@ ALTER TABLE ONLY shopping_list_items
 -- Name: shopping_lists_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY shopping_lists
+ALTER TABLE ONLY public.shopping_lists
     ADD CONSTRAINT shopping_lists_pkey PRIMARY KEY (id);
 
 
@@ -1096,7 +1095,7 @@ ALTER TABLE ONLY shopping_lists
 -- Name: stores_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY stores
+ALTER TABLE ONLY public.stores
     ADD CONSTRAINT stores_pkey PRIMARY KEY (id);
 
 
@@ -1104,336 +1103,336 @@ ALTER TABLE ONLY stores
 -- Name: index_cms_categories_on_site_id_and_cat_type_and_label; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX index_cms_categories_on_site_id_and_cat_type_and_label ON comfy_cms_categories USING btree (site_id, categorized_type, label);
+CREATE UNIQUE INDEX index_cms_categories_on_site_id_and_cat_type_and_label ON public.comfy_cms_categories USING btree (site_id, categorized_type, label);
 
 
 --
 -- Name: index_cms_categorizations_on_cat_id_and_catd_type_and_catd_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX index_cms_categorizations_on_cat_id_and_catd_type_and_catd_id ON comfy_cms_categorizations USING btree (category_id, categorized_type, categorized_id);
+CREATE UNIQUE INDEX index_cms_categorizations_on_cat_id_and_catd_type_and_catd_id ON public.comfy_cms_categorizations USING btree (category_id, categorized_type, categorized_id);
 
 
 --
 -- Name: index_cms_revisions_on_rtype_and_rid_and_created_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_cms_revisions_on_rtype_and_rid_and_created_at ON comfy_cms_revisions USING btree (record_type, record_id, created_at);
+CREATE INDEX index_cms_revisions_on_rtype_and_rid_and_created_at ON public.comfy_cms_revisions USING btree (record_type, record_id, created_at);
 
 
 --
 -- Name: index_comfy_cms_blocks_on_blockable_id_and_blockable_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_comfy_cms_blocks_on_blockable_id_and_blockable_type ON comfy_cms_blocks USING btree (blockable_id, blockable_type);
+CREATE INDEX index_comfy_cms_blocks_on_blockable_id_and_blockable_type ON public.comfy_cms_blocks USING btree (blockable_id, blockable_type);
 
 
 --
 -- Name: index_comfy_cms_blocks_on_identifier; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_comfy_cms_blocks_on_identifier ON comfy_cms_blocks USING btree (identifier);
+CREATE INDEX index_comfy_cms_blocks_on_identifier ON public.comfy_cms_blocks USING btree (identifier);
 
 
 --
 -- Name: index_comfy_cms_files_on_site_id_and_block_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_comfy_cms_files_on_site_id_and_block_id ON comfy_cms_files USING btree (site_id, block_id);
+CREATE INDEX index_comfy_cms_files_on_site_id_and_block_id ON public.comfy_cms_files USING btree (site_id, block_id);
 
 
 --
 -- Name: index_comfy_cms_files_on_site_id_and_file_file_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_comfy_cms_files_on_site_id_and_file_file_name ON comfy_cms_files USING btree (site_id, file_file_name);
+CREATE INDEX index_comfy_cms_files_on_site_id_and_file_file_name ON public.comfy_cms_files USING btree (site_id, file_file_name);
 
 
 --
 -- Name: index_comfy_cms_files_on_site_id_and_label; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_comfy_cms_files_on_site_id_and_label ON comfy_cms_files USING btree (site_id, label);
+CREATE INDEX index_comfy_cms_files_on_site_id_and_label ON public.comfy_cms_files USING btree (site_id, label);
 
 
 --
 -- Name: index_comfy_cms_files_on_site_id_and_position; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_comfy_cms_files_on_site_id_and_position ON comfy_cms_files USING btree (site_id, "position");
+CREATE INDEX index_comfy_cms_files_on_site_id_and_position ON public.comfy_cms_files USING btree (site_id, "position");
 
 
 --
 -- Name: index_comfy_cms_layouts_on_parent_id_and_position; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_comfy_cms_layouts_on_parent_id_and_position ON comfy_cms_layouts USING btree (parent_id, "position");
+CREATE INDEX index_comfy_cms_layouts_on_parent_id_and_position ON public.comfy_cms_layouts USING btree (parent_id, "position");
 
 
 --
 -- Name: index_comfy_cms_layouts_on_site_id_and_identifier; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX index_comfy_cms_layouts_on_site_id_and_identifier ON comfy_cms_layouts USING btree (site_id, identifier);
+CREATE UNIQUE INDEX index_comfy_cms_layouts_on_site_id_and_identifier ON public.comfy_cms_layouts USING btree (site_id, identifier);
 
 
 --
 -- Name: index_comfy_cms_pages_on_parent_id_and_position; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_comfy_cms_pages_on_parent_id_and_position ON comfy_cms_pages USING btree (parent_id, "position");
+CREATE INDEX index_comfy_cms_pages_on_parent_id_and_position ON public.comfy_cms_pages USING btree (parent_id, "position");
 
 
 --
 -- Name: index_comfy_cms_pages_on_site_id_and_full_path; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_comfy_cms_pages_on_site_id_and_full_path ON comfy_cms_pages USING btree (site_id, full_path);
+CREATE INDEX index_comfy_cms_pages_on_site_id_and_full_path ON public.comfy_cms_pages USING btree (site_id, full_path);
 
 
 --
 -- Name: index_comfy_cms_sites_on_hostname; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_comfy_cms_sites_on_hostname ON comfy_cms_sites USING btree (hostname);
+CREATE INDEX index_comfy_cms_sites_on_hostname ON public.comfy_cms_sites USING btree (hostname);
 
 
 --
 -- Name: index_comfy_cms_sites_on_is_mirrored; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_comfy_cms_sites_on_is_mirrored ON comfy_cms_sites USING btree (is_mirrored);
+CREATE INDEX index_comfy_cms_sites_on_is_mirrored ON public.comfy_cms_sites USING btree (is_mirrored);
 
 
 --
 -- Name: index_comfy_cms_snippets_on_site_id_and_identifier; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX index_comfy_cms_snippets_on_site_id_and_identifier ON comfy_cms_snippets USING btree (site_id, identifier);
+CREATE UNIQUE INDEX index_comfy_cms_snippets_on_site_id_and_identifier ON public.comfy_cms_snippets USING btree (site_id, identifier);
 
 
 --
 -- Name: index_comfy_cms_snippets_on_site_id_and_position; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_comfy_cms_snippets_on_site_id_and_position ON comfy_cms_snippets USING btree (site_id, "position");
+CREATE INDEX index_comfy_cms_snippets_on_site_id_and_position ON public.comfy_cms_snippets USING btree (site_id, "position");
 
 
 --
 -- Name: index_entry_owners_on_old_price_entry_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_entry_owners_on_old_price_entry_id ON entry_owners USING btree (old_price_entry_id);
+CREATE INDEX index_entry_owners_on_old_price_entry_id ON public.entry_owners USING btree (old_price_entry_id);
 
 
 --
 -- Name: index_entry_owners_on_old_shopper_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_entry_owners_on_old_shopper_id ON entry_owners USING btree (old_shopper_id);
+CREATE INDEX index_entry_owners_on_old_shopper_id ON public.entry_owners USING btree (old_shopper_id);
 
 
 --
 -- Name: index_entry_owners_on_price_entry_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_entry_owners_on_price_entry_id ON entry_owners USING btree (price_entry_id);
+CREATE INDEX index_entry_owners_on_price_entry_id ON public.entry_owners USING btree (price_entry_id);
 
 
 --
 -- Name: index_entry_owners_on_shopper_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_entry_owners_on_shopper_id ON entry_owners USING btree (shopper_id);
+CREATE INDEX index_entry_owners_on_shopper_id ON public.entry_owners USING btree (shopper_id);
 
 
 --
 -- Name: index_invites_on_old_price_book_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_invites_on_old_price_book_id ON invites USING btree (old_price_book_id);
+CREATE INDEX index_invites_on_old_price_book_id ON public.invites USING btree (old_price_book_id);
 
 
 --
 -- Name: index_invites_on_price_book_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_invites_on_price_book_id ON invites USING btree (price_book_id);
+CREATE INDEX index_invites_on_price_book_id ON public.invites USING btree (price_book_id);
 
 
 --
 -- Name: index_invites_on_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_invites_on_token ON invites USING btree (token);
+CREATE INDEX index_invites_on_token ON public.invites USING btree (token);
 
 
 --
 -- Name: index_members_on_old_price_book_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_members_on_old_price_book_id ON members USING btree (old_price_book_id);
+CREATE INDEX index_members_on_old_price_book_id ON public.members USING btree (old_price_book_id);
 
 
 --
 -- Name: index_members_on_old_shopper_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_members_on_old_shopper_id ON members USING btree (old_shopper_id);
+CREATE INDEX index_members_on_old_shopper_id ON public.members USING btree (old_shopper_id);
 
 
 --
 -- Name: index_members_on_price_book_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_members_on_price_book_id ON members USING btree (price_book_id);
+CREATE INDEX index_members_on_price_book_id ON public.members USING btree (price_book_id);
 
 
 --
 -- Name: index_members_on_shopper_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_members_on_shopper_id ON members USING btree (shopper_id);
+CREATE INDEX index_members_on_shopper_id ON public.members USING btree (shopper_id);
 
 
 --
 -- Name: index_price_book_pages_on_old_price_book_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_price_book_pages_on_old_price_book_id ON price_book_pages USING btree (old_price_book_id);
+CREATE INDEX index_price_book_pages_on_old_price_book_id ON public.price_book_pages USING btree (old_price_book_id);
 
 
 --
 -- Name: index_price_book_pages_on_price_book_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_price_book_pages_on_price_book_id ON price_book_pages USING btree (price_book_id);
+CREATE INDEX index_price_book_pages_on_price_book_id ON public.price_book_pages USING btree (price_book_id);
 
 
 --
 -- Name: index_price_book_pages_on_updated_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_price_book_pages_on_updated_at ON price_book_pages USING btree (updated_at);
+CREATE INDEX index_price_book_pages_on_updated_at ON public.price_book_pages USING btree (updated_at);
 
 
 --
 -- Name: index_price_entries_on_date_on; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_price_entries_on_date_on ON price_entries USING btree (date_on);
+CREATE INDEX index_price_entries_on_date_on ON public.price_entries USING btree (date_on);
 
 
 --
 -- Name: index_price_entries_on_old_store_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_price_entries_on_old_store_id ON price_entries USING btree (old_store_id);
+CREATE INDEX index_price_entries_on_old_store_id ON public.price_entries USING btree (old_store_id);
 
 
 --
 -- Name: index_price_entries_on_package_unit; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_price_entries_on_package_unit ON price_entries USING btree (package_unit);
+CREATE INDEX index_price_entries_on_package_unit ON public.price_entries USING btree (package_unit);
 
 
 --
 -- Name: index_price_entries_on_store_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_price_entries_on_store_id ON price_entries USING btree (store_id);
+CREATE INDEX index_price_entries_on_store_id ON public.price_entries USING btree (store_id);
 
 
 --
 -- Name: index_shoppers_on_confirmation_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX index_shoppers_on_confirmation_token ON shoppers USING btree (confirmation_token);
+CREATE UNIQUE INDEX index_shoppers_on_confirmation_token ON public.shoppers USING btree (confirmation_token);
 
 
 --
 -- Name: index_shoppers_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_shoppers_on_email ON shoppers USING btree (email);
+CREATE INDEX index_shoppers_on_email ON public.shoppers USING btree (email);
 
 
 --
 -- Name: index_shoppers_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX index_shoppers_on_reset_password_token ON shoppers USING btree (reset_password_token);
+CREATE UNIQUE INDEX index_shoppers_on_reset_password_token ON public.shoppers USING btree (reset_password_token);
 
 
 --
 -- Name: index_shopping_list_item_purchases_on_old_shopping_list_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_shopping_list_item_purchases_on_old_shopping_list_item_id ON shopping_list_item_purchases USING btree (old_shopping_list_item_id);
+CREATE INDEX index_shopping_list_item_purchases_on_old_shopping_list_item_id ON public.shopping_list_item_purchases USING btree (old_shopping_list_item_id);
 
 
 --
 -- Name: index_shopping_list_item_purchases_on_shopping_list_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_shopping_list_item_purchases_on_shopping_list_item_id ON shopping_list_item_purchases USING btree (shopping_list_item_id);
+CREATE INDEX index_shopping_list_item_purchases_on_shopping_list_item_id ON public.shopping_list_item_purchases USING btree (shopping_list_item_id);
 
 
 --
 -- Name: index_shopping_list_items_on_created_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_shopping_list_items_on_created_at ON shopping_list_items USING btree (created_at);
+CREATE INDEX index_shopping_list_items_on_created_at ON public.shopping_list_items USING btree (created_at);
 
 
 --
 -- Name: index_shopping_list_items_on_shopping_list_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_shopping_list_items_on_shopping_list_id ON shopping_list_items USING btree (shopping_list_id);
+CREATE INDEX index_shopping_list_items_on_shopping_list_id ON public.shopping_list_items USING btree (shopping_list_id);
 
 
 --
 -- Name: index_shopping_lists_on_old_price_book_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_shopping_lists_on_old_price_book_id ON shopping_lists USING btree (old_price_book_id);
+CREATE INDEX index_shopping_lists_on_old_price_book_id ON public.shopping_lists USING btree (old_price_book_id);
 
 
 --
 -- Name: index_shopping_lists_on_price_book_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_shopping_lists_on_price_book_id ON shopping_lists USING btree (price_book_id);
+CREATE INDEX index_shopping_lists_on_price_book_id ON public.shopping_lists USING btree (price_book_id);
 
 
 --
 -- Name: index_stores_on_region_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_stores_on_region_code ON stores USING btree (region_code);
+CREATE INDEX index_stores_on_region_code ON public.stores USING btree (region_code);
 
 
 --
 -- Name: price_entries_replace_lower_product_name_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX price_entries_replace_lower_product_name_idx ON price_entries USING btree (replace(lower((product_name)::text), ' '::text, ''::text));
+CREATE INDEX price_entries_replace_lower_product_name_idx ON public.price_entries USING btree (replace(lower((product_name)::text), ' '::text, ''::text));
 
 
 --
 -- Name: stores_replace_lower_loc_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX stores_replace_lower_loc_idx ON stores USING btree (replace(lower((location)::text), ' '::text, ''::text));
+CREATE INDEX stores_replace_lower_loc_idx ON public.stores USING btree (replace(lower((location)::text), ' '::text, ''::text));
 
 
 --
 -- Name: stores_replace_lower_name_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX stores_replace_lower_name_idx ON stores USING btree (replace(lower((name)::text), ' '::text, ''::text));
+CREATE INDEX stores_replace_lower_name_idx ON public.stores USING btree (replace(lower((name)::text), ' '::text, ''::text));
 
 
 --
