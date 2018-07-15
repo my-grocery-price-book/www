@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@rails/webpacker": "^3.2.0",
+    "@rails/webpacker": "3.5",
     "axios": "^0.17.1",
     "babel-loader": "^6.4.1",
     "babel-polyfill": "^6.26.0",
@@ -21,6 +21,6 @@
     "raf": "^3.4.0",
     "react-addons-test-utils": "^15.6.2",
     "react-test-renderer": "^16.2.0",
-    "webpack-dev-server": "^2.9.7"
+    "webpack-dev-server": "2.11.2"
   }
 }
