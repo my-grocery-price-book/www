@@ -8,7 +8,7 @@ if ENV['COVERAGE']
 end
 require 'bundler/setup'
 require 'minitest/spec'
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../config/environment', __dir__)
 require 'rails/test_help'
 require 'support/load_database_cleaner'
 require 'support/factories'

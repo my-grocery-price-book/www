@@ -8,6 +8,7 @@ AllCops:
     - 'Vagrantfile'
     - 'test/features/**/*'
     - 'node_modules/**/*'
+    - '.git-hooks/**/*'
 
 Metrics/LineLength:
   Max: 120
@@ -28,7 +29,7 @@ Style/SymbolProc:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Style/VariableNumber:
+Naming/VariableNumber:
   Enabled: false
 
 Performance/RedundantMerge:
