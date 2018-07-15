@@ -9,6 +9,7 @@ group :development, :test do
 end
 
 gem 'rails', '~> 5.0.0'
+gem 'bootsnap', require: false
 gem 'webpacker'
 gem 'webpacker-react', '~> 0.3.2'
 
