@@ -77,3 +77,9 @@ jobs:
       - run:
           name: Run cypress tests
           command: ./run_cypress.sh
+
+      - store_artifacts:
+          path: test/cypress/videos
+
+      - store_artifacts:
+          path: test/cypress/screenshots
