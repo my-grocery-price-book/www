@@ -43,6 +43,7 @@ group :development, :test do
   # gem 'byebug' # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'spring', require: false # Spring speeds up development by keeping your application running in the background
   gem 'spring-commands-testunit', require: false
+  gem 'cypress-on-rails', '~> 1.0'
 end
 
 group :test do

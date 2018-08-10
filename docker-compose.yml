@@ -34,6 +34,21 @@ services:
     depends_on:
       - db
 
+  web_cypress:
+    build: .
+    environment:
+    - RAILS_ENV=test
+    - RAILS_MAX_THREADS=1
+    - PORT=5002
+    command: ./run.sh
+    volumes:
+    - .:/usr/src/app
+    - bundle-data:/usr/local/bundle
+    ports:
+    - "5002:5002"
+    depends_on:
+    - db
+
   webpack_dev:
     build: .
     environment:
