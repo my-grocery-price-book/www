@@ -8,7 +8,9 @@ group :development, :test do
   gem 'dotenv-rails' # load before other gems
 end
 
-gem 'rails', '~> 5.0.0'
+rails_version = @next_upgrade ? '~> 5.1.0' : '~> 5.0.0'
+gem 'rails', rails_version
+
 gem 'bootsnap', require: false
 gem 'webpacker'
 gem 'webpacker-react', '~> 0.3.2'
