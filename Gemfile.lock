@@ -73,6 +73,8 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
+    cypress-on-rails (1.1.1)
+      rack
     database_cleaner (1.7.0)
     devise (4.4.3)
       bcrypt (~> 3.0)
@@ -236,6 +238,7 @@ DEPENDENCIES
   carmen
   component_library
   countries
+  cypress-on-rails (~> 1.0)
   database_cleaner
   devise
   dotenv-rails

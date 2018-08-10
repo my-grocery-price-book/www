@@ -13,6 +13,7 @@ jobs:
           PGUSER: circleci-demo-ruby
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres@localhost/app
+          CI: true
       - image: circleci/postgres:9.4-alpine
         environment:
           POSTGRES_USER: circleci-demo-ruby
@@ -73,3 +74,6 @@ jobs:
           name: Run ruby tests
           command: bundle exec rake test
 
+      - run:
+          name: Run cypress tests
+          command: run_cypress.sh
