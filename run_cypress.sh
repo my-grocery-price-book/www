@@ -6,4 +6,5 @@ bundle exec ./bin/rails server -p 5002 -e test &
 sleep 2 # give rails a chance to start up correctly
 
 echo '-- cypress run'
-~/.cache/yarn/.bin/cypress run -P test
+yarn run cypress install
+yarn run cypress run -P test
