@@ -144,7 +144,7 @@ jobs:
 
     - run:
         name: Database setup
-        command: bin/rails db:create db:migrate --trace
+        command: bin/rails db:create db:structure:load db:migrate --trace
 
     - run:
         name: Run javascript tests
