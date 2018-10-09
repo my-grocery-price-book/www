@@ -4,6 +4,8 @@
 
 For development with [vagrant read this](https://github.com/my-grocery-price-book/www-infrastructure#setting-up-a-development-enviroment-with-vagrant-and-ansible)
 
+Currently hosted on heroku: http://my-grocery-price-book.herokuapp.com/
+
 ## REQUIREMENTS
 
  * ruby 2.4.2
