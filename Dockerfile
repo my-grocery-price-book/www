@@ -1,18 +1,26 @@
 # 1: Use ruby base:
 FROM ruby:2.4.4
 
-RUN apt-get update -q && \
-    apt-get install -y \
-    build-essential \
-    libpq-dev \
-    postgresql-client
+ARG UNAME=dev
+ARG UID=1000
+ARG GID=1000
 
-# for nodejs && yarn
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
+
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
+    echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" >> /etc/apt/sources.list.d/pgdg.list && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends nodejs yarn
+    apt-get update  -q --fix-missing && \
+    apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    postgresql-client-12 \
+    nodejs \
+    yarn \
+    cmake \
+    && apt-get clean
 
 # add phantomjs
 RUN curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
@@ -28,3 +36,7 @@ ENV PATH=/usr/src/app/bin:$PATH
 # development via `bundle install` or `bundle update`:
 # ADD Gemfile* /usr/src/app/
 # RUN set -ex && bundle install --jobs 2 --retry 3 --clean
+
+RUN groupadd -g $GID -o $UNAME
+RUN useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
+USER $UNAME

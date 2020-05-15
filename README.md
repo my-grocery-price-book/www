@@ -19,7 +19,8 @@ Currently hosted on heroku: http://my-grocery-price-book.herokuapp.com/
  
 ```
   BUNDLE_GEMFILE=Gemtools bundle install # not recommended to be added to Gemfile
-  overcommit --install && overcommit --sign && overcommit --sign pre-commit
+  gem install overcommit && overcommit --install && overcommit --sign && overcommit --sign pre-commit
+  docker-compose build --build-arg UID=$(id -u) --build-arg GID=$(id -g)
   docker-compose run --rm app bin/setup
 ```
 
