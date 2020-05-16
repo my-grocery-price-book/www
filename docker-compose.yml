@@ -16,6 +16,8 @@ services:
 
   app:
     build: .
+    environment:
+      - OPENSSL_CONF=/etc/ssl/
     volumes:
       - .:/usr/src/app
       - bundle-data:/usr/local/bundle
