@@ -1,18 +1,18 @@
 version: '3.2'
 
 volumes:
-  postgres-12-data:
+  postgres-11-data:
     driver: local
   bundle-data:
     driver: local
 
 services:
   db:
-    image: postgres:12
+    image: postgres:11
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
-      - postgres-12-data:/var/lib/postgresql/data
+      - postgres-11-data:/var/lib/postgresql/data
 
   app:
     build: .

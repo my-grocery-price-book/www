@@ -16,7 +16,7 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     apt-get install -y --no-install-recommends \
     build-essential \
     libpq-dev \
-    postgresql-client-12 \
+    postgresql-client-11 \
     nodejs \
     yarn \
     cmake \
