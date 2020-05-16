@@ -78,6 +78,15 @@ jobs:
           command: bundle exec rake test
 
       - run:
+          name: Start server
+          command: bundle exec ./bin/rails server -p 5002 -e test
+          background: true
+  
+      - run:
+          name: Wait for Rails server
+          command: dockerize -wait tcp://localhost:5002 -timeout 1m
+
+      - run:
           name: Run cypress tests
           command: ./run_cypress.sh
 
