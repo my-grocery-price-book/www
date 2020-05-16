@@ -2,6 +2,7 @@
 
 require 'carmen'
 require 'countries'
+ISO3166.configuration.enable_currency_extension!
 
 class RegionFinder
   include Singleton

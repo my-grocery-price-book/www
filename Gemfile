@@ -11,7 +11,7 @@ end
 gem 'rails', '~> 5.0.0'
 gem 'bootsnap', require: false
 gem 'webpacker'
-gem 'webpacker-react', '~> 0.3.2'
+gem 'webpacker-react', '>= 0.3.2'
 
 gem 'sprockets'
 gem 'jbuilder'
@@ -28,6 +28,8 @@ gem 'newrelic_rpm' # app peformance tracking
 gem 'faraday', require: false # for making http request
 gem 'carmen', require: false # for country and region information
 gem 'countries', require: false # for country currency information
+gem 'money', '>= 6.9', require: false
+
 gem 'oj'
 gem 'multi_json'
 
@@ -44,6 +46,7 @@ group :development, :test do
   gem 'spring', require: false # Spring speeds up development by keeping your application running in the background
   gem 'spring-commands-testunit', require: false
   gem 'cypress-on-rails', '~> 1.0'
+  gem 'devise-bootstrapped'
 end
 
 group :test do

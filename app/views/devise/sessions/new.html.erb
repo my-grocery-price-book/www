@@ -1,52 +1,29 @@
-<h2>Log in</h2>
-
 <div class="row">
-  <div class="col-sm-6">
+  <div class="col-sm-4 col-sm-offset-4">
+    <h1 class="text-center">Log in</h1>
+    <hr>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="form-group">
-          <%= f.label :email %>
-          <%= f.email_field :email, autofocus: true, class: "form-control" %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :password %>
-          <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
-        </div>
-
-        <% if devise_mapping.rememberable? -%>
-            <div class="form-group">
-              <label>
-                <%= f.check_box :remember_me %> Remember me
-              </label>
-            </div>
-        <% end -%>
-
-        <div class="btn-group" role="group">
-          <button class="btn btn-primary">Log in</button>
-        </div>
-
-
-    <% end %>
-
-    <hr/>
-
-    <div id="oa_social_login_container"></div>
-
-    <hr/>
-
-    <form action="<%= guest_login_path %>" method="post">
-
-      <div class="btn-group" role="group">
-          <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden"/>
-          <button class="btn btn-default">Log in as Guest</button>
+      <div class="form-group">
+        <%= f.email_field :email, autofocus: true, placeholder: 'Email Address', class: 'form-control' %>
       </div>
 
-    </form>
+      <div class="form-group">
+        <%= f.password_field :password, autocomplete: "off", placeholder: 'Password', class: 'form-control' %>
+      </div>
 
-  </div>
-  <div class="col-sm-6">
-    <%= render "devise/shared/links" %>
-  </div>
+      <% if devise_mapping.rememberable? -%>
+        <div class="form-group">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end -%>
+
+      <div class="form-group">
+          <%= f.submit "Log in", class: "btn btn-primary btn-block btn-lg" %>
+      </div>
+    <% end %>
+      <div class="text-center">
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
 </div>
-
-<%= render "devise/shared/one_all_js" %>
