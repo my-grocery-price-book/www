@@ -10,13 +10,13 @@ jobs:
           BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
           PGHOST: 127.0.0.1
-          PGUSER: circleci-demo-ruby
+          PGUSER: circleci-ruby
           RAILS_ENV: test
-          DATABASE_URL: postgres://postgres@localhost/app
+          DATABASE_URL: postgres://circleci-ruby@localhost/app
           CI: true
       - image: circleci/postgres:12-alpine
         environment:
-          POSTGRES_USER: circleci-demo-ruby
+          POSTGRES_USER: circleci-ruby
           POSTGRES_DB: test_db
           POSTGRES_PASSWORD: ""
     steps:
