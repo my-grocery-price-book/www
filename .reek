@@ -14,9 +14,6 @@
     enabled: false
   DuplicateMethodCall:
     enabled: false
-"app/controllers":
-  InstanceVariableAssumption:
-    enabled: false
 TooManyStatements:
   max_statements: 6
 UtilityFunction:

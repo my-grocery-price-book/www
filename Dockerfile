@@ -1,5 +1,5 @@
 # 1: Use ruby base:
-FROM ruby:2.4.4
+FROM ruby:2.4.10
 
 ARG UNAME=dev
 ARG UID=1000
