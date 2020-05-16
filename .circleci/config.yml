@@ -27,10 +27,11 @@ jobs:
       - restore_cache:
           keys:
             - rails-gemfile-cache-{{ checksum "Gemfile.lock" }}
+            - rails-gemfile-cache-
 
       - run:
           name: Bundle Install
-          command: bundle install --path vendor/bundle
+          command: bundle install --clean
 
       # Store bundle cache
       - save_cache:
@@ -42,6 +43,7 @@ jobs:
       - restore_cache:
           keys:
             - rails-yarn-cache-{{ checksum "yarn.lock" }}
+            - rails-yarn-cache-
 
       - run:
           name: Yarn Install
