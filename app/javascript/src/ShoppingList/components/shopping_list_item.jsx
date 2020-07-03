@@ -36,7 +36,7 @@ const ShoppingListItem = createReactClass({
     };
   },
 
-  componentWillReceiveProps: function (nextProps) {
+  UNSAFE_componentWillReceiveProps: function (nextProps) {
     if (nextProps.item.updated_at > this.state.updated_at) {
       this.setState({
         purchased_at: nextProps.item.purchased_at,
