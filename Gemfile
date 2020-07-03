@@ -8,7 +8,7 @@ group :development, :test do
   gem 'dotenv-rails' # load before other gems
 end
 
-gem 'rails', '~> 5.0.0'
+gem 'rails', '~> 5.1.0'
 gem 'bootsnap', require: false
 gem 'webpacker'
 gem 'webpacker-react', '>= 0.3.2'
@@ -43,6 +43,7 @@ end
 
 group :development, :test do
   # gem 'byebug' # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'listen'
   gem 'spring', require: false # Spring speeds up development by keeping your application running in the background
   gem 'spring-commands-testunit', require: false
   gem 'cypress-on-rails', '~> 1.0'
