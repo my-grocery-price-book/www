@@ -33,8 +33,9 @@ config/public_apis/dev.yml
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 
-# ignore rubymine files
+# ignore editor config files
 /.idea
+/.vscode
 
 # Generated js bundles
 /public/packs
