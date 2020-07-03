@@ -18,15 +18,15 @@ require 'test_helper'
 describe Store do
   describe 'Validation' do
     it 'requires name' do
-      Store.create.errors[:name].wont_be_empty
+      _(Store.create.errors[:name]).wont_be_empty
     end
 
     it 'requires price_book_id' do
-      Store.create.errors[:location].wont_be_empty
+      _(Store.create.errors[:location]).wont_be_empty
     end
 
     it 'requires region' do
-      Store.create.errors[:region_code].wont_be_empty
+      _(Store.create.errors[:region_code]).wont_be_empty
     end
   end
 

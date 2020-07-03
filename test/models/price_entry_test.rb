@@ -33,43 +33,43 @@ describe PriceEntry do
     end
 
     it 'requires date_on' do
-      PriceEntry.create.errors[:date_on].wont_be_empty
+      _(PriceEntry.create.errors[:date_on]).wont_be_empty
     end
 
     it 'requires product_name' do
-      PriceEntry.create.errors[:product_name].wont_be_empty
+      _(PriceEntry.create.errors[:product_name]).wont_be_empty
     end
 
     it 'requires amount' do
-      PriceEntry.create.errors[:amount].wont_be_empty
+      _(PriceEntry.create.errors[:amount]).wont_be_empty
     end
 
     it 'requires amount to be positive' do
-      PriceEntry.create(amount: 0).errors[:amount].wont_be_empty
+      _(PriceEntry.create(amount: 0).errors[:amount]).wont_be_empty
     end
 
     it 'requires package_size' do
-      PriceEntry.create.errors[:package_size].wont_be_empty
+      _(PriceEntry.create.errors[:package_size]).wont_be_empty
     end
 
     it 'requires package_size to be positive' do
-      PriceEntry.create(package_size: 0).errors[:package_size].wont_be_empty
+      _(PriceEntry.create(package_size: 0).errors[:package_size]).wont_be_empty
     end
 
     it 'requires package_unit' do
-      PriceEntry.create.errors[:package_unit].wont_be_empty
+      _(PriceEntry.create.errors[:package_unit]).wont_be_empty
     end
 
     it 'requires total_price' do
-      PriceEntry.create.errors[:total_price].wont_be_empty
+      _(PriceEntry.create.errors[:total_price]).wont_be_empty
     end
 
     it 'requires total_price to be positive' do
-      PriceEntry.create(total_price: 0).errors[:total_price].wont_be_empty
+      _(PriceEntry.create(total_price: 0).errors[:total_price]).wont_be_empty
     end
 
     it 'requires store_id' do
-      PriceEntry.create.errors[:store_id].wont_be_empty
+      _(PriceEntry.create.errors[:store_id]).wont_be_empty
     end
   end
 
@@ -90,7 +90,7 @@ describe PriceEntry do
                                                      date_on: Date.current, package_unit: 'grams')
       entries = PriceEntry.for_product_names(['White Milk'],
                                              unit: 'grams', store_ids: [@store.id])
-      entries.must_equal([apple_entry])
+      _(entries).must_equal([apple_entry])
     end
 
     it 'sorts by date desc' do
@@ -103,7 +103,7 @@ describe PriceEntry do
 
       entries = PriceEntry.for_product_names(['Red Apples', 'Green Peas', 'Yellow Bananas'],
                                              unit: 'grams', store_ids: [@store.id])
-      entries.must_equal([entry_1_days, entry_2_days, entry_3_days])
+      _(entries).must_equal([entry_1_days, entry_2_days, entry_3_days])
     end
   end
 end

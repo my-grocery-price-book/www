@@ -26,15 +26,15 @@ describe SocialProfile do
       end
 
       it 'must be authenticated' do
-        subject.must_be :authenticated?
+        _(subject).must_be :authenticated?
       end
 
       it 'must have facebook provider' do
-        subject.provider.must_equal 'facebook'
+        _(subject.provider).must_equal 'facebook'
       end
 
       it 'must have email' do
-        subject.email.must_equal 'joebarber@example.com'
+        _(subject.email).must_equal 'joebarber@example.com'
       end
     end
 
@@ -45,15 +45,15 @@ describe SocialProfile do
       end
 
       it 'with google plus' do
-        subject.must_be :authenticated?
+        _(subject).must_be :authenticated?
       end
 
       it 'must have google provider' do
-        subject.provider.must_equal 'google'
+        _(subject.provider).must_equal 'google'
       end
 
       it 'must have email' do
-        subject.email.must_equal 'test@example.com'
+        _(subject.email).must_equal 'test@example.com'
       end
     end
   end
@@ -66,7 +66,7 @@ describe SocialProfile do
       end
 
       it 'must be authenticated' do
-        subject.wont_be :authenticated?
+        _(subject).wont_be :authenticated?
       end
     end
   end

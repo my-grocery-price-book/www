@@ -19,20 +19,20 @@ require 'test_helper'
 describe PriceBook do
   describe 'Defaults' do
     it 'has a default name for a price book' do
-      PriceBook.new.name.must_equal('My Price Book')
+      _(PriceBook.new.name).must_equal('My Price Book')
     end
   end
 
   describe 'Validation' do
     it 'can create a new book' do
       book = PriceBook.create!(name: 'A Price Book', shopper: create_shopper)
-      book.name.must_equal('A Price Book')
+      _(book.name).must_equal('A Price Book')
     end
 
     it 'requires name' do
       book = PriceBook.new(name: '')
       book.save
-      book.errors[:name].wont_be_empty
+      _(book.errors[:name]).wont_be_empty
     end
   end
 
@@ -47,20 +47,20 @@ describe PriceBook do
     it 'creates a new book' do
       book = PriceBook.default_for_shopper(shopper)
       book.reload
-      book.must_be :persisted?
+      _(book).must_be :persisted?
     end
 
     it 'builds default_pages for new book' do
       book = PriceBook.default_for_shopper(shopper)
       book.reload
-      PriceBook::Page.for_book(book).map(&:name).sort.must_equal(default_pages.sort)
+      _(PriceBook::Page.for_book(book).map(&:name).sort).must_equal(default_pages.sort)
     end
 
     it 'wont add pages for existing book' do
       PriceBook.create!(shopper: shopper)
       book = PriceBook.default_for_shopper(shopper)
       book.reload
-      PriceBook::Page.for_book(book).map(&:name).must_equal([])
+      _(PriceBook::Page.for_book(book).map(&:name)).must_equal([])
     end
   end
 
@@ -69,14 +69,14 @@ describe PriceBook do
 
     it 'allows to destroy' do
       subject.destroy
-      -> { subject.reload }.must_raise(ActiveRecord::RecordNotFound)
+      _(-> { subject.reload }).must_raise(ActiveRecord::RecordNotFound)
     end
 
     it 'allows to destroy when pages exist' do
       page = FactoryGirl.create(:page, book: subject)
       subject.destroy
-      -> { page.reload }.must_raise(ActiveRecord::RecordNotFound)
-      -> { subject.reload }.must_raise(ActiveRecord::RecordNotFound)
+      _(-> { page.reload }).must_raise(ActiveRecord::RecordNotFound)
+      _(-> { subject.reload }).must_raise(ActiveRecord::RecordNotFound)
     end
   end
 

@@ -24,38 +24,38 @@ describe PriceBook::Page do
   describe 'Validation' do
     it 'can create a new page' do
       page = PriceBook::Page.create!(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Liters')
-      page.must_be :persisted?
+      _(page).must_be :persisted?
     end
 
     it 'requires name' do
-      PriceBook::Page.create.errors[:name].wont_be_empty
+      _(PriceBook::Page.create.errors[:name]).wont_be_empty
     end
 
     it 'requires category' do
-      PriceBook::Page.create.errors[:category].wont_be_empty
+      _(PriceBook::Page.create.errors[:category]).wont_be_empty
     end
 
     it 'requires unit' do
-      PriceBook::Page.create.errors[:unit].wont_be_empty
+      _(PriceBook::Page.create.errors[:unit]).wont_be_empty
     end
 
     it 'requires price_book_id when updating' do
       page = PriceBook::Page.create!(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Liters')
       page.price_book_id = nil
       page.valid?
-      page.errors[:price_book_id].wont_be_empty
+      _(page.errors[:price_book_id]).wont_be_empty
     end
 
     it 'require a uniq name per unit and book' do
       PriceBook::Page.create!(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Liters')
       page = PriceBook::Page.create(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Liters')
-      page.errors[:name].wont_be_empty
+      _(page.errors[:name]).wont_be_empty
     end
 
     it 'allows a same name in another unit and book' do
       PriceBook::Page.create!(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Liters')
       page = PriceBook::Page.create(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Cans')
-      page.must_be :persisted?
+      _(page).must_be :persisted?
     end
   end
 
@@ -65,7 +65,7 @@ describe PriceBook::Page do
     it 'saves unique product_names' do
       subject.product_names = ['Coke Lite', 'Fanta', 'Coke Lite']
       subject.save!
-      subject.product_names.must_equal(['Coke Lite', 'Fanta'])
+      _(subject.product_names).must_equal(['Coke Lite', 'Fanta'])
     end
   end
 
@@ -74,7 +74,7 @@ describe PriceBook::Page do
 
     it 'saves unique product_names' do
       subject.update!(product_names: ['Sasko Bread', 'Woolworths Bread', 'Woolworths Bread'])
-      subject.product_names.must_equal(['Sasko Bread', 'Woolworths Bread'])
+      _(subject.product_names).must_equal(['Sasko Bread', 'Woolworths Bread'])
     end
   end
 
@@ -89,12 +89,12 @@ describe PriceBook::Page do
 
     it 'can find a page' do
       page = add_page!(name: 'Soda', category: 'Drinks', unit: 'Liters')
-      PriceBook::Page.find_page!(@book, page.id).info.must_equal(name: 'Soda', category: 'Drinks', unit: 'Liters')
+      _(PriceBook::Page.find_page!(@book, page.id).info).must_equal(name: 'Soda', category: 'Drinks', unit: 'Liters')
     end
 
     it 'raises error if cant find' do
       add_page!(name: 'Soda', category: 'Drinks', unit: 'Liters')
-      -> { PriceBook::Page.find_page!(@book, '0') }.must_raise(ActiveRecord::RecordNotFound)
+      _(-> { PriceBook::Page.find_page!(@book, '0') }).must_raise(ActiveRecord::RecordNotFound)
     end
   end
 
@@ -102,38 +102,36 @@ describe PriceBook::Page do
     subject { PriceBook::Page.create!(book: price_book, name: 'Soda', category: 'Drinks', unit: 'Liters') }
 
     it 'find no entries' do
-      subject.best_entry.must_be_nil
+      _(subject.best_entry).must_be_nil
     end
 
     it 'find no entries' do
       entry = add_entry(page: subject)
-      subject.best_entry.must_equal(entry)
+      _(subject.best_entry).must_equal(entry)
     end
 
-    it 'find cheaper entry' do
-      expensive_entry = FactoryGirl.create(:price_entry, amount: 1, package_size: 1, total_price: 2,
-                                                         package_unit: subject.unit)
-      add_entry(page: subject, entry: expensive_entry)
+    describe 'context with item' do
+      before do
+        expensive_entry = FactoryGirl.create(:price_entry, amount: 1, package_size: 1, total_price: 2,
+                                                           package_unit: subject.unit)
+        add_entry(page: subject, entry: expensive_entry)
+      end
 
-      cheap_entry = FactoryGirl.create(:price_entry, amount: 1, package_size: 1, total_price: 1,
-                                                     package_unit: subject.unit)
-      add_entry(page: subject, entry: cheap_entry)
+      it 'find cheaper entry' do
+        cheap_entry = FactoryGirl.create(:price_entry, amount: 1, package_size: 1, total_price: 1,
+                                                       package_unit: subject.unit)
+        add_entry(page: subject, entry: cheap_entry)
 
-      subject.best_entry.wont_equal(expensive_entry)
-      subject.best_entry.must_equal(cheap_entry)
-    end
+        _(subject.best_entry).must_equal(cheap_entry)
+      end
 
-    it 'find cheapest price_per_unit entry' do
-      expensive_entry = FactoryGirl.create(:price_entry, amount: 1, package_size: 1, total_price: 2,
-                                                         package_unit: subject.unit)
-      add_entry(page: subject, entry: expensive_entry)
+      it 'find cheapest price_per_unit entry' do
+        cheap_entry = FactoryGirl.create(:price_entry, amount: 3, package_size: 1, total_price: 4,
+                                                       package_unit: subject.unit)
+        add_entry(page: subject, entry: cheap_entry)
 
-      cheap_entry = FactoryGirl.create(:price_entry, amount: 3, package_size: 1, total_price: 4,
-                                                     package_unit: subject.unit)
-      add_entry(page: subject, entry: cheap_entry)
-
-      subject.best_entry.wont_equal(expensive_entry)
-      subject.best_entry.must_equal(cheap_entry)
+        _(subject.best_entry).must_equal(cheap_entry)
+      end
     end
   end
 end

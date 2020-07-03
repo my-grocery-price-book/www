@@ -29,8 +29,6 @@ PreCommit:
 
   Reek:
     enabled: true
-    exclude:
-      - '.git-hooks/**/*'
     command: ['bin/reek', 'app', 'lib' ,'test', 'config']
 
   Flay:

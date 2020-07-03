@@ -17,11 +17,11 @@ require 'test_helper'
 describe EntryOwner do
   describe 'Validation' do
     it 'requires price_entry_id' do
-      EntryOwner.create.errors[:price_entry_id].wont_be_empty
+      _(EntryOwner.create.errors[:price_entry_id]).wont_be_empty
     end
 
     it 'requires shopper_id' do
-      EntryOwner.create.errors[:shopper_id].wont_be_empty
+      _(EntryOwner.create.errors[:shopper_id]).wont_be_empty
     end
   end
 
@@ -30,13 +30,13 @@ describe EntryOwner do
       entry = FactoryGirl.create(:price_entry)
       shopper = FactoryGirl.create(:shopper)
       EntryOwner.create!(price_entry: entry, shopper: shopper)
-      EntryOwner.must_be :can_update?, entry: entry, shopper: shopper
+      _(EntryOwner).must_be :can_update?, entry: entry, shopper: shopper
     end
 
     it 'is false when not owner' do
       entry = FactoryGirl.create(:price_entry)
       shopper = FactoryGirl.create(:shopper)
-      EntryOwner.wont_be :can_update?, entry: entry, shopper: shopper
+      _(EntryOwner).wont_be :can_update?, entry: entry, shopper: shopper
     end
 
     it 'is false when owner of another entry' do
@@ -44,7 +44,7 @@ describe EntryOwner do
       shopper = FactoryGirl.create(:shopper)
       EntryOwner.create!(price_entry: FactoryGirl.create(:price_entry),
                          shopper: shopper)
-      EntryOwner.wont_be :can_update?, entry: entry, shopper: shopper
+      _(EntryOwner).wont_be :can_update?, entry: entry, shopper: shopper
     end
 
     it 'is false when entry has another owner' do
@@ -52,7 +52,7 @@ describe EntryOwner do
       shopper = FactoryGirl.create(:shopper)
       EntryOwner.create!(price_entry: entry,
                          shopper: FactoryGirl.create(:shopper))
-      EntryOwner.wont_be :can_update?, entry: entry, shopper: shopper
+      _(EntryOwner).wont_be :can_update?, entry: entry, shopper: shopper
     end
   end
 
@@ -67,7 +67,7 @@ describe EntryOwner do
       add_entry(page: page, entry: entry, shopper: shopper)
       EntryOwner.create_for!(shopper: shopper, entry: entry)
       suggestions = EntryOwner.name_suggestions(shopper: shopper)
-      suggestions.must_equal(Set.new(['Coke']))
+      _(suggestions).must_equal(Set.new(['Coke']))
     end
 
     it 'returns name suggestions case ignoring case' do
@@ -76,7 +76,7 @@ describe EntryOwner do
       add_entry(page: page, entry: entry, shopper: shopper)
       EntryOwner.create_for!(shopper: shopper, entry: entry)
       suggestions = EntryOwner.name_suggestions(shopper: shopper, query: 'coke')
-      suggestions.must_equal(Set.new(['Coke']))
+      _(suggestions).must_equal(Set.new(['Coke']))
     end
 
     it 'ignores entries older than 6 months' do
@@ -86,7 +86,7 @@ describe EntryOwner do
       entry.update_column(:created_at, 7.months.ago)
       EntryOwner.create_for!(shopper: shopper, entry: entry)
       suggestions = EntryOwner.name_suggestions(shopper: shopper)
-      suggestions.must_equal(Set.new)
+      _(suggestions).must_equal(Set.new)
     end
   end
 
@@ -112,17 +112,17 @@ describe EntryOwner do
 
       it 'sets amount to 1' do
         entry = subject.new_entry_for_shopper(shopper)
-        entry.amount.must_equal(1)
+        _(entry.amount).must_equal(1)
       end
 
       it 'sets date_on to Date.current' do
         entry = subject.new_entry_for_shopper(shopper)
-        entry.date_on.must_equal(Date.current)
+        _(entry.date_on).must_equal(Date.current)
       end
 
       it 'sets store_id to nil' do
         entry = subject.new_entry_for_shopper(shopper)
-        entry.store_id.must_be_nil
+        _(entry.store_id).must_be_nil
       end
     end
 
@@ -135,17 +135,17 @@ describe EntryOwner do
 
       it 'sets amount to 1' do
         entry = subject.new_entry_for_shopper(shopper)
-        entry.amount.must_equal(1)
+        _(entry.amount).must_equal(1)
       end
 
       it 'sets date_on to Date.current' do
         entry = subject.new_entry_for_shopper(shopper)
-        entry.date_on.must_equal(Date.yesterday)
+        _(entry.date_on).must_equal(Date.yesterday)
       end
 
       it 'sets store to last entry' do
         entry = subject.new_entry_for_shopper(shopper)
-        entry.store.must_equal(store)
+        _(entry.store).must_equal(store)
       end
     end
   end

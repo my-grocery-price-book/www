@@ -21,11 +21,11 @@ require 'test_helper'
 describe Invite do
   describe 'Validation' do
     it 'requires shopper_id' do
-      Invite.create.errors[:price_book_id].wont_be_empty
+      _(Invite.create.errors[:price_book_id]).wont_be_empty
     end
 
     it 'requires email' do
-      Invite.create.errors[:email].wont_be_empty
+      _(Invite.create.errors[:email]).wont_be_empty
     end
   end
 end

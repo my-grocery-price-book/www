@@ -18,7 +18,7 @@ require 'test_helper'
 describe ShoppingList do
   describe 'Validation' do
     it 'requires price_book_id' do
-      ShoppingList.create.errors[:price_book_id].wont_be_empty
+      _(ShoppingList.create.errors[:price_book_id]).wont_be_empty
     end
   end
 
@@ -38,17 +38,17 @@ describe ShoppingList do
     end
 
     it 'returns newly created item' do
-      @new_item.must_be_kind_of(ShoppingList::Item)
-      @new_item.must_be :persisted?
+      _(@new_item).must_be_kind_of(ShoppingList::Item)
+      _(@new_item).must_be :persisted?
     end
 
     it 'creates a new item' do
       saved_attributes = ShoppingList::Item.last.attributes.slice('shopping_list_id', 'name', 'amount', 'unit')
-      saved_attributes.must_equal('name' => 'Test', 'amount' => 1, 'unit' => 'kg', 'shopping_list_id' => subject.id)
+      _(saved_attributes).must_equal('name' => 'Test', 'amount' => 1, 'unit' => 'kg', 'shopping_list_id' => subject.id)
     end
 
     it 'should update updated_at' do
-      subject.updated_at.must_be :>, @original_time
+      _(subject.updated_at).must_be :>, @original_time
     end
   end
 
@@ -63,17 +63,17 @@ describe ShoppingList do
     end
 
     it 'returns updated item' do
-      @updated_item.must_be_kind_of(ShoppingList::Item)
-      @updated_item.must_be :persisted?
+      _(@updated_item).must_be_kind_of(ShoppingList::Item)
+      _(@updated_item).must_be :persisted?
     end
 
     it 'updates the item' do
       saved_attributes = ShoppingList::Item.last.attributes.slice('shopping_list_id', 'name', 'amount', 'unit')
-      saved_attributes.must_equal('name' => 'Test', 'amount' => 1, 'unit' => 'kg', 'shopping_list_id' => subject.id)
+      _(saved_attributes).must_equal('name' => 'Test', 'amount' => 1, 'unit' => 'kg', 'shopping_list_id' => subject.id)
     end
 
     it 'should update updated_at' do
-      subject.updated_at.must_be :>, @original_time
+      _(subject.updated_at).must_be :>, @original_time
     end
   end
 
@@ -88,12 +88,12 @@ describe ShoppingList do
     end
 
     it 'returns updated item' do
-      @updated_item.must_be_kind_of(ShoppingList::Item)
-      @updated_item.purchased_at.must_be :present?
+      _(@updated_item).must_be_kind_of(ShoppingList::Item)
+      _(@updated_item.purchased_at).must_be :present?
     end
 
     it 'should update updated_at' do
-      subject.updated_at.must_be :>, @original_time
+      _(subject.updated_at).must_be :>, @original_time
     end
   end
 
@@ -109,12 +109,12 @@ describe ShoppingList do
     end
 
     it 'returns updated item' do
-      @updated_item.must_be_kind_of(ShoppingList::Item)
-      @updated_item.purchased_at.must_be :blank?
+      _(@updated_item).must_be_kind_of(ShoppingList::Item)
+      _(@updated_item.purchased_at).must_be :blank?
     end
 
     it 'should update updated_at' do
-      subject.updated_at.must_be :>, @original_time
+      _(subject.updated_at).must_be :>, @original_time
     end
   end
 
@@ -129,7 +129,7 @@ describe ShoppingList do
     end
 
     it 'returns destroyed item' do
-      @item.must_be_kind_of(ShoppingList::Item)
+      _(@item).must_be_kind_of(ShoppingList::Item)
     end
 
     it 'destroys item' do
@@ -139,7 +139,7 @@ describe ShoppingList do
     end
 
     it 'should update updated_at' do
-      subject.updated_at.must_be :>, @original_time
+      _(subject.updated_at).must_be :>, @original_time
     end
   end
 
