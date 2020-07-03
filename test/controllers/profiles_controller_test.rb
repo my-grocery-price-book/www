@@ -23,13 +23,6 @@ class ProfilesControllerTest < ActionController::TestCase
       assert_response :success
     end
 
-    should 'assign shopper when signed in' do
-      shopper = create_shopper
-      sign_in shopper, scope: :shopper
-      get :edit
-      assert_equal assigns[:shopper], shopper
-    end
-
     should 'redirect new_shopper_session when signed out' do
       get :edit
       assert_redirected_to(new_shopper_session_path)

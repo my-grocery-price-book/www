@@ -14,13 +14,6 @@ class ShoppingListsControllerTest < ActionController::TestCase
       get :index
       assert_response :success
     end
-
-    should 'assign own shopping_lists' do
-      ShoppingList.create!(shopper: create_shopper)
-      list = ShoppingList.create!(shopper: @shopper)
-      get :index
-      assert_equal([list], assigns(:shopping_lists))
-    end
   end
 
   context 'PATCH update' do
