@@ -1,7 +1,7 @@
 # This is loaded once before the first command is executed
 
 require 'database_cleaner'
-require 'factory_bot_rails'
+require 'factory_girl_rails'
 require 'cypress_on_rails/smart_factory_wrapper'
 
 CypressOnRails::SmartFactoryWrapper.configure(
