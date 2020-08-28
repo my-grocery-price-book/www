@@ -8898,10 +8898,10 @@ react-addons-test-utils@^15.6.2:
   resolved "https://registry.yarnpkg.com/react-addons-test-utils/-/react-addons-test-utils-15.6.2.tgz#c12b6efdc2247c10da7b8770d185080a7b047156"
   integrity sha1-wStu/cIkfBDae4dw0YUICnsEcVY=
 
-react-codemod@^5.2.1:
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/react-codemod/-/react-codemod-5.2.1.tgz#bd868204877d1ae1d329bdc83046cb6f227a3fb0"
-  integrity sha512-HzcAtpd0I269oYxHR4LJnA5QZIeWluo6f+EMUqXj08CaKVxljTgwYBKayorWsZ7uqhTpdELG/G/XwshbCMAZRg==
+react-codemod@^5.2.2:
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/react-codemod/-/react-codemod-5.2.2.tgz#b63808ced1a2096b5767882e5182769be15855e7"
+  integrity sha512-TtTT+SdLNTYU7LTHYJio362lrDbfaL3BjKml6vwoh81WLXOnYZYczohONR8c2keGFfB7jad4Xp2bXx8AhFlFVA==
   dependencies:
     chalk "^2.4.2"
     eslint "^6.6.0"
