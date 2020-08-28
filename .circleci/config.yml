@@ -96,4 +96,7 @@ jobs:
           path: test/cypress/videos
 
       - store_artifacts:
+          path: test/cypress/videos
+
+      - store_artifacts:
           path: test/cypress/screenshots

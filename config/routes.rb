@@ -50,7 +50,6 @@ Rails.application.routes.draw do
 
   get 'auth/:provider/callback', to: 'shopper_session#create'
   post 'auth/:provider/callback', to: 'shopper_session#create'
-  get 'auth/failure' => 'shopper_session#failure'
   post 'auth/force_login', to: 'shopper_session#force_login' unless Rails.env.production?
 
   resource :profile, except: %i[new create destroy]

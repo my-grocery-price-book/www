@@ -14,11 +14,6 @@ class ShopperSessionController < ApplicationController
     end
   end
 
-  def failure
-    # show a failure page or redirect to an error page
-    redirect_to root_path, alert: request.params['message']
-  end
-
   def logout
     reset_session
     redirect_to logout_url.to_s
