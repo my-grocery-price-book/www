@@ -5,16 +5,30 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_book
+  protected
 
-  def current_book
+  helper_method def current_book
     PriceBook.for_shopper(current_shopper).find_by(id: params[:book_id]) ||
-      PriceBook.default_for_shopper(current_shopper)
+    PriceBook.default_for_shopper(current_shopper)
   end
 
-  # before_action :slow_down_if_xhr
+  def authenticate_shopper
+    return true if shopper_signed_in?
 
-  # def slow_down_if_xhr
-  #   sleep(3) if request.xhr?
-  # end
+    session[:return_to_path] = request.path
+    redirect_to shopper_login_path, alert: 'please login'
+    false
+  end
+
+  helper_method def current_shopper
+    Shopper.find_by(id: session[:shopper_id])
+  end
+
+  helper_method def shopper_signed_in?
+    current_shopper.present?
+  end
+
+  def sign_in(shopper)
+    session[:shopper_id] = shopper.id
+  end
 end

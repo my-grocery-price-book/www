@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ShoppingListItemPurchasesController < ApplicationController
-  before_action :authenticate_shopper!
+  before_action :authenticate_shopper
 
   def create
     @shopping_list_item = shopping_list.purchase_item(params[:item_id])

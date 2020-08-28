@@ -19,8 +19,10 @@ gem 'pg'
 
 gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
 
-gem 'devise' # handle authenticaton, register , forgot password, etc
 gem 'intercom-rails' # monitor shoppers
+
+gem 'omniauth'
+gem 'omniauth-auth0'
 
 gem 'rollbar' # for error collecting
 gem 'newrelic_rpm' # app peformance tracking
@@ -42,7 +44,7 @@ group :development do
 end
 
 group :development, :test do
-  # gem 'byebug' # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug' # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'listen'
   gem 'spring', require: false # Spring speeds up development by keeping your application running in the background
   gem 'spring-commands-testunit', require: false

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class BookRegionsController < ApplicationController
-  before_action :authenticate_shopper!
+  before_action :authenticate_shopper
 
   def select_country
     book

@@ -26,45 +26,13 @@
 #
 
 class Shopper < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+  self.ignored_columns = %w[old_id encrypted_password reset_password_token reset_password_sent_at
+                            remember_created_at sign_in_count current_sign_in_at last_sign_in_at current_sign_in_ip last
+                            sign_in_ip confirmation_token confirmed_at confirmation_sent_at unconfirmed_email]
 
-  # @param [SocialProfile] social_profile
-  # @return [Shopper]
-  def self.find_or_create_for_social_profile(social_profile)
-    find_or_initialize_by(email: social_profile.email).tap do |shopper|
-      shopper.create_for_social_profile
-    end
-  end
-
-  def create_for_social_profile
-    self.password = SecureRandom.hex if new_record?
-    skip_confirmation! unless confirmed?
-    save!
-  end
-
-  def password_required?
-    return false if new_creating_guest?
-    super || guest?
-  end
-
-  def email_required?
-    !new_creating_guest?
-  end
-
-  def valid_password?(*)
-    guest? || super
-  end
+  validates :email, uniqueness: { allow_blank: true }
 
   def to_s
-    "<Shopper id:#{id} email:#{email} confirmed:#{confirmed?}/>"
-  end
-
-  private
-
-  def new_creating_guest?
-    new_record? && guest?
+    "<Shopper id:#{id} email:#{email} />"
   end
 end

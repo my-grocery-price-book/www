@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ShoppingListsController < ApplicationController
-  before_action :authenticate_shopper!
+  before_action :authenticate_shopper
 
   # GET /shopping_lists
   def index

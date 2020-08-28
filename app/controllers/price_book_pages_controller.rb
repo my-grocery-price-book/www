@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PriceBookPagesController < ApplicationController
-  before_action :authenticate_shopper!
+  before_action :authenticate_shopper
   before_action :load_price_book
   before_action :set_price_book_page, only: %i[show edit update destroy delete]
 

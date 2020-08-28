@@ -18,12 +18,12 @@
           <% if current_shopper.guest? %>
             <a href="<%= guest_register_path %>">Register</a>
           <% else %>
-            <%= form_tag(destroy_shopper_session_path, method: :delete, class: 'form-inline form-inline-block') do |f| %>
+            <%= form_tag(shopper_logout_path, method: :delete, class: 'form-inline form-inline-block') do |f| %>
               <button class='btn btn-link btn-logout'>Logout</button>
             <% end %>
           <% end %>
         <% else %>
-          <a href="<%= new_shopper_session_path %>">Login</a>
+          <a href="<%= shopper_login_path %>">Login</a>
         <% end %>
         </li>
       </ul>

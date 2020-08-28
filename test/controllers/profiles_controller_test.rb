@@ -12,7 +12,7 @@ class ProfilesControllerTest < ActionController::TestCase
 
     should 'redirect new_shopper_session when signed out' do
       get :show
-      assert_redirected_to(new_shopper_session_path)
+      assert_redirected_to(shopper_login_path)
     end
   end
 
@@ -25,7 +25,7 @@ class ProfilesControllerTest < ActionController::TestCase
 
     should 'redirect new_shopper_session when signed out' do
       get :edit
-      assert_redirected_to(new_shopper_session_path)
+      assert_redirected_to(shopper_login_path)
     end
   end
 
@@ -38,7 +38,7 @@ class ProfilesControllerTest < ActionController::TestCase
 
     should 'redirect new_shopper_session when signed out' do
       patch :update
-      assert_redirected_to(new_shopper_session_path)
+      assert_redirected_to(shopper_login_path)
     end
   end
 end

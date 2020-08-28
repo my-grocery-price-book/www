@@ -48,9 +48,16 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :shoppers
+  get 'auth/:provider/callback', to: 'shopper_session#create'
+  post 'auth/:provider/callback', to: 'shopper_session#create'
+  get 'auth/failure' => 'shopper_session#failure'
+  post 'auth/force_login', to: 'shopper_session#force_login' unless Rails.env.production?
+
   resource :profile, except: %i[new create destroy]
 
+  get 'login' => 'shopper_session#login', as: 'shopper_login'
+  get 'logout' => 'shopper_session#logout', as: 'shopper_logout'
+  delete 'logout' => 'shopper_session#logout'
   post 'guest_login' => 'guest#login', as: 'guest_login'
   get 'guest_register' => 'guest#register', as: 'guest_register'
   patch 'guest_register' => 'guest#do_register'

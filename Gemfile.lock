@@ -44,10 +44,10 @@ GEM
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 14.0)
     arel (8.0.0)
-    bcrypt (3.1.13)
     bootsnap (1.4.6)
       msgpack (~> 1.0)
     builder (3.2.4)
+    byebug (11.1.3)
     capybara (3.32.2)
       addressable
       mini_mime (>= 0.1.3)
@@ -76,12 +76,6 @@ GEM
     cypress-on-rails (1.7.0)
       rack
     database_cleaner (1.8.5)
-    devise (4.7.2)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 4.1.0)
-      responders
-      warden (~> 1.2.3)
     devise-bootstrapped (0.1.1)
     docile (1.3.2)
     dotenv (2.7.5)
@@ -101,6 +95,7 @@ GEM
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashdiff (1.0.1)
+    hashie (4.1.0)
     i18n (1.8.3)
       concurrent-ruby (~> 1.0)
     i18n_data (0.10.0)
@@ -108,6 +103,7 @@ GEM
       activesupport (> 3.0)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
+    jwt (2.2.1)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -124,13 +120,27 @@ GEM
       i18n (>= 0.6.4, <= 2)
     msgpack (1.3.3)
     multi_json (1.14.1)
+    multi_xml (0.6.0)
     multipart-post (2.1.1)
     newrelic_rpm (6.11.0.365)
     nio4r (2.5.2)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
+    oauth2 (1.4.4)
+      faraday (>= 0.8, < 2.0)
+      jwt (>= 1.0, < 3.0)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (>= 1.2, < 3)
     oj (3.10.6)
-    orm_adapter (0.5.0)
+    omniauth (1.9.1)
+      hashie (>= 3.4.6)
+      rack (>= 1.6.2, < 3)
+    omniauth-auth0 (2.3.1)
+      omniauth-oauth2 (~> 1.5)
+    omniauth-oauth2 (1.6.0)
+      oauth2 (~> 1.1)
+      omniauth (~> 1.9)
     pg (1.2.3)
     phantomjs (2.1.1.0)
     poltergeist (1.18.1)
@@ -173,9 +183,6 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (1.7.1)
-    responders (3.0.1)
-      actionpack (>= 5.0)
-      railties (>= 5.0)
     rollbar (2.26.0)
     safe_yaml (1.0.5)
     sass (3.7.4)
@@ -206,8 +213,6 @@ GEM
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
     unicode_utils (1.4.0)
-    warden (1.2.8)
-      rack (>= 2.0.6)
     webmock (3.8.3)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -230,6 +235,7 @@ PLATFORMS
 DEPENDENCIES
   annotate
   bootsnap
+  byebug
   capybara
   capybara-email
   carmen
@@ -237,7 +243,6 @@ DEPENDENCIES
   countries
   cypress-on-rails (~> 1.0)
   database_cleaner
-  devise
   devise-bootstrapped
   dotenv-rails
   factory_girl_rails
@@ -249,6 +254,8 @@ DEPENDENCIES
   multi_json
   newrelic_rpm
   oj
+  omniauth
+  omniauth-auth0
   pg
   phantomjs
   poltergeist

@@ -15,7 +15,7 @@
 #
 
 class InvitesController < ApplicationController
-  before_action :authenticate_shopper!
+  before_action :authenticate_shopper
 
   def new
     @invite = Invite.new

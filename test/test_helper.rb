@@ -4,7 +4,12 @@ ENV['RAILS_ENV'] ||= 'test'
 require 'rubygems'
 if ENV['COVERAGE']
   require 'simplecov'
-  SimpleCov.start 'rails'
+  SimpleCov.command_name "process_#{ENV['TEST_ENV_NUMBER']}##{Process.pid}"
+  SimpleCov.start 'rails' do
+    add_filter 'lib/mailer_previews'
+  end
+  SimpleCov.minimum_coverage_by_file 66
+  SimpleCov.minimum_coverage 88
 end
 require 'bundler/setup'
 require 'minitest/spec'
@@ -25,7 +30,9 @@ class ActiveSupport::TestCase
 end
 
 class ActionController::TestCase
-  include Devise::Test::ControllerHelpers
+  def sign_in(shopper, _other = {})
+    request.session[:shopper_id] = shopper.id
+  end
 end
 
 class ActionDispatch::IntegrationTest
@@ -35,17 +42,7 @@ class ActionDispatch::IntegrationTest
 end
 
 class IntegrationTest < ActionDispatch::IntegrationTest
-  include Warden::Test::Helpers
-
-  teardown do
-    Warden.test_reset!
-  end
-
-  setup do
-    Warden.test_mode!
-  end
-
   def login_shopper(shopper)
-    login_as(shopper, scope: :shopper)
+    post '/auth/force_login', params: { id: shopper.id }
   end
 end

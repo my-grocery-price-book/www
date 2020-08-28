@@ -17,7 +17,7 @@
 #
 
 class EntriesController < ApplicationController
-  before_action :authenticate_shopper!
+  before_action :authenticate_shopper
   before_action :check_if_region_set, only: [:new]
   before_action :load_page
 

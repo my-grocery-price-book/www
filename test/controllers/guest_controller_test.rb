@@ -12,10 +12,10 @@ class GuestControllerTest < ActionController::TestCase
       assert Shopper.last.guest?
     end
 
-    should 'redirect to root_path' do
+    should 'redirect to shopper_login_path' do
       post :login
 
-      assert_redirected_to root_path
+      assert_redirected_to price_book_pages_path
     end
   end
 end

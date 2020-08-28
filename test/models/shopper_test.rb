@@ -33,23 +33,4 @@ describe Shopper do
       Shopper.new.to_s
     end
   end
-
-  describe 'find_or_create_for_social_profile' do
-    it 'creates a new shopper' do
-      social_profile = OpenStruct.new(email: 'test@mail.com')
-      shopper = Shopper.find_or_create_for_social_profile(social_profile)
-      _(shopper).must_be :persisted?
-      _(shopper.email).must_equal 'test@mail.com'
-      _(shopper).must_be :confirmed?
-    end
-
-    it 'returns existing shopper' do
-      existing_shopper = FactoryGirl.create(:shopper, email: 'test1@mail.com')
-      social_profile = OpenStruct.new(email: 'test1@mail.com')
-      shopper = Shopper.find_or_create_for_social_profile(social_profile)
-      _(shopper).must_equal(existing_shopper)
-      _(shopper.email).must_equal 'test1@mail.com'
-      _(shopper).must_be :confirmed?
-    end
-  end
 end

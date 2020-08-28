@@ -101,7 +101,7 @@ describe EntryOwner do
         total_price: '199.99' }
     end
 
-    let(:shopper) { Shopper.create(email: 'test@mail.com', password: 'password') }
+    let(:shopper) { Shopper.create(email: 'test@mail.com') }
 
     describe 'context: no entries in last hour' do
       before :each do

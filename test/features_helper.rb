@@ -97,11 +97,10 @@ class ShopperPersonaSession < PersonaSession
   end
 
   def sign_up
-    visit '/shoppers/sign_up' unless current_path.try(:include?, '/shoppers/sign_up')
+    visit '/auth/developer' unless current_path.try(:include?, '/auth/developer')
     fill_in 'Email', with: @email
-    fill_in 'Password', with: @password
-    fill_in 'Password confirmation', with: @password
-    click_button 'Sign up'
+    fill_in 'Name', with: 'Person'
+    click_button 'Sign In'
   end
 
   def add_entry_to_book(name, **entry_details)
