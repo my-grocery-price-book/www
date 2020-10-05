@@ -18,7 +18,7 @@
     "webpacker-react": "^0.3.2"
   },
   "devDependencies": {
-    "babel-jest": "^26.0.1",
+    "babel-jest": "^26.5.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "cypress": "^4.5.0",
     "enzyme": "^3.2.0",
