@@ -23,7 +23,7 @@
     "cypress": "^4.5.0",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
-    "jest": "^26.0.1",
+    "jest": "^26.5.0",
     "raf": "^3.4.0",
     "react-addons-test-utils": "^15.6.2",
     "react-codemod": "^5.2.1",
