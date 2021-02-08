@@ -73,7 +73,7 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
-    cypress-on-rails (1.7.0)
+    cypress-on-rails (1.8.1)
       rack
     database_cleaner (1.8.5)
     devise-bootstrapped (0.1.1)
@@ -241,7 +241,7 @@ DEPENDENCIES
   carmen
   component_library
   countries
-  cypress-on-rails (~> 1.0)
+  cypress-on-rails (~> 1.8)
   database_cleaner
   devise-bootstrapped
   dotenv-rails
