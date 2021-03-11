@@ -48,7 +48,7 @@ group :development, :test do
   gem 'listen'
   gem 'spring', require: false # Spring speeds up development by keeping your application running in the background
   gem 'spring-commands-testunit', require: false
-  gem 'cypress-on-rails', '~> 1.0'
+  gem 'cypress-on-rails', '~> 1.9'
   gem 'devise-bootstrapped'
 end
 
